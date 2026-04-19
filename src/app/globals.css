@@ -1,26 +1,455 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0C0C0C;
+  --surface: #141414;
+  --raised: #1C1C1C;
+  --border: #2A2A2A;
+  --grid: #2A2A2A;
+  --t1: #FAFAFA;
+  --t2: #C4C4C4;
+  --t3: #888888;
+  --accent: #D97706;
+  --noise-opacity: 0.04;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root.light {
+  --noise-blend: multiply;
+  --bg: #F8F8F8;      /* Off-white */
+  --surface: #F0F0F0; /* Light gray */
+  --raised: #FFFFFF;
+  --border: #C8C8CC;  /* More visible border in light */
+  --grid: #BEBEC4;    /* Darker dot grid for light mode visibility */
+  --t1: #18181B;      /* Zinc 900 */
+  --t2: #52525B;      /* Zinc 600 */
+  --t3: #A1A1AA;      /* Zinc 400 */
+  --accent: #D97706;  /* Keep the vibrant Amber for consistency */
+  --noise-opacity: 0.02;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@theme {
+  --color-background: var(--bg);
+  --color-surface: var(--surface);
+  --color-raised: var(--raised);
+  --color-border-dim: var(--border);
+  --color-t1: var(--t1);
+  --color-t2: var(--t2);
+  --color-t3: var(--t3);
+  --color-accent: var(--accent);
+  
+  --font-sans: 'Geist', var(--font-family-sans);
+  --font-mono: 'Geist Mono', var(--font-family-mono);
+}
+
+/* ─── Smooth scroll ─── */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg);
+  color: var(--t1);
+  @apply antialiased;
+  transition: background-color 300ms, color 300ms;
+  background-image: radial-gradient(circle, var(--grid) 1.2px, transparent 1.2px);
+  background-size: 36px 36px;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: var(--noise-opacity);
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  mix-blend-mode: var(--noise-blend, normal);
+}
+
+/* ───────────────────── Typography Scale ───────────────────── */
+.text-hero {
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 640px) {
+  .text-hero {
+    font-size: 32px;
+  }
+}
+
+.text-section {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.text-body {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.75;
+}
+
+.text-label {
+  font-size: 12px;  
+  font-weight: 400;
+}
+
+.text-tag {
+  font-size: 11px;  
+}
+
+.text-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--t3);
+}
+
+/* ───────────────────── Hero Gradient Text ───────────────────── */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--t1) 0%, var(--accent) 50%, var(--t1) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 6s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+
+/* ───────────────────── Typing Cursor ───────────────────── */
+.typing-cursor {
+  display: inline-block;
+  color: var(--accent);
+  animation: blink 0.8s ease-in-out infinite;
+  font-weight: 300;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ───────────────────── Profile Image Glow ───────────────────── */
+.profile-image-wrapper {
+  position: relative;
+}
+
+.profile-image-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent, var(--accent), transparent, var(--accent), transparent);
+  opacity: 0;
+  transition: opacity 0.7s ease;
+  z-index: -1;
+  animation: spin-slow 4s linear infinite;
+  filter: blur(8px);
+}
+
+.profile-image-wrapper:hover::after {
+  opacity: 0.5;
+}
+
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+/* ───────────────────── Stats Row ───────────────────── */
+.stats-row {
+  position: relative;
+  overflow: hidden;
+}
+
+.stats-row::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.4;
+}
+
+/* ───────────────────── Marquee / Ticker ───────────────────── */
+.marquee-track {
+  display: flex;
+  width: max-content;
+}
+
+.marquee-content {
+  display: flex;
+  align-items: center;
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+/* ───────────────────── Spacing Helpers ───────────────────── */
+.section-gap {
+  margin-bottom: 80px;
+}
+
+.subsection-gap {
+  margin-bottom: 48px;
+}
+
+/* ───────────────────── Components ───────────────────── */
+.experience-rule {
+  border-left: 2px solid var(--accent);
+}
+
+.ghost-button {
+  border: 0.5px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-size: 11px;
+  color: var(--t2);
+  transition: all 0.2s ease;
+}
+
+.ghost-button:hover {
+  border-color: var(--accent);
+  color: var(--t1);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+
+.project-card {
+  background: transparent;
+  border-bottom: 0.5px solid var(--border);
+  padding: 24px 0;
+  transition: all 0.2s ease;
+}
+
+.project-card:last-child {
+  border-bottom: none;
+}
+
+.tag {
+  display: inline-block;
+  border: 0.5px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 6px;
+  font-size: 10px;
+  color: var(--t2);
+  margin-right: 4px;
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  transition: all 0.2s ease;
+  background-color: transparent;
+}
+
+.tag:hover {
+  border-color: var(--t1);
+  color: var(--t1);
+  background-color: var(--raised);
+  transform: translateY(-1px);
+}
+
+/* ───────────────────── Nav link underline animation ───────────────────── */
+.nav-link {
+  position: relative;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ───────────────────── Scroll-triggered reveal ───────────────────── */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ───────────────────── Motion — initial load ───────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: reveal 0.4s ease-out forwards;
+  }
+}
+
+@keyframes reveal {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.stagger-1 { animation-delay: 80ms; }
+.stagger-2 { animation-delay: 160ms; }
+.stagger-3 { animation-delay: 240ms; }
+.stagger-4 { animation-delay: 320ms; }
+.stagger-5 { animation-delay: 400ms; }
+.stagger-6 { animation-delay: 480ms; }
+
+/* ───────────────────── Hover arrow ───────────────────── */
+.hover-arrow:hover .arrow {
+  transform: translateX(4px);
+}
+
+.arrow {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+hr {
+  border: none;
+  border-top: 0.5px solid var(--border);
+  margin: 20px 0;
+}
+
+/* ───────────────────── Section divider ───────────────────── */
+.section-divider {
+  border-top: 1px solid color-mix(in srgb, var(--border) 40%, transparent);
+}
+
+:root.light .section-divider {
+  border-top: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+}
+
+/* ───────────────────── Skills pill ───────────────────── */
+.skill-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 0.5px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: var(--t2);
+  font-family: var(--font-mono);
+  transition: all 0.2s ease;
+  background-color: transparent;
+}
+
+.skill-pill:hover {
+  border-color: var(--accent);
+  color: var(--t1);
+  background-color: color-mix(in srgb, var(--accent) 6%, transparent);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--accent) 12%, transparent);
+}
+
+/* ───────────────────── Skill category ───────────────────── */
+.skill-category {
+  padding: 16px;
+  border-radius: 8px;
+  border: 0.5px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.skill-category:hover {
+  border-color: var(--border);
+  background-color: var(--surface);
+}
+
+/* ───────────────────── Research card accent hover ───────────────────── */
+.research-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.research-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: width 0.4s ease;
+}
+
+.research-card:hover::before {
+  width: 100%;
+}
+
+/* ───────────────────── Footer gradient line ───────────────────── */
+.footer-gradient-line {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.3;
+}
+
+/* ───────────────────── Theme toggle ───────────────────── */
+.theme-toggle {
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.theme-toggle:hover::before {
+  opacity: 1;
+}
+
+/* ───────────────────── Selection color ───────────────────── */
+::selection {
+  background-color: color-mix(in srgb, var(--accent) 30%, transparent);
+  color: var(--t1);
+}
+
+/* ───────────────────── Focus styles for accessibility ───────────────────── */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ───────────────────── Scrollbar styling ───────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--t3);
 }
