@@ -244,7 +244,7 @@ export default function Home() {
           </div>
 
           <div className='mt-10 text-label text-t3 font-mono tracking-wide'>
-            Two-time Smart India Hackathon National Finalist.
+            Committed to building AI solutions that solve real-world challenges.
           </div>
         </section>
 
@@ -436,6 +436,7 @@ export default function Home() {
             <div>
               <div className='text-label font-medium text-t3 uppercase tracking-wider mb-4'>Awards & Recognition</div>
               <div className='flex flex-col gap-2'>
+                <div className='text-body text-t2'>• Global Finalist (Top 6 Internationally) — <span className='text-t1 font-medium'>UWA Hack For Impact 2026</span></div>
                 <div className='text-body text-t2'>• National Finalist — <span className='text-t1 font-medium'>Smart India Hackathon (SIH) 2024 & 2025</span></div>
                 <div className='text-body text-t2'>• Regional Qualifier — <span className='text-t1 font-medium'>Nxt Wave x OpenAI Buildathon</span></div>
               </div>
