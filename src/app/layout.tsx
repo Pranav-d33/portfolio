@@ -13,13 +13,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pranav Dhiran — AI Engineer & Researcher",
-  description: "I build AI systems that actually work — from training transformers from scratch to shipping multi-agent systems. Explore my projects, research, and skills.",
+  title: "Pranav Dhiran | AI Engineer building LLM Agents & Automation Systems",
+  description: "AI Engineer focused on LLM agents, browser automation, and AI systems for real-world workflows.",
   keywords: ["AI Engineer", "Machine Learning", "LLM", "Transformer", "Multi-Agent Systems", "Portfolio"],
   authors: [{ name: "Pranav Dhiran" }],
   openGraph: {
-    title: "Pranav Dhiran — AI Engineer & Researcher",
-    description: "Training transformers from scratch. Shipping multi-agent AI systems. Building MCP servers.",
+    title: "Pranav Dhiran Portfolio",
+    description: "LLM Agents, Automation, AI Systems",
+    url: "https://www.pranavdhiran.me",
     type: "website",
   },
 };

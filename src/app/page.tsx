@@ -253,9 +253,10 @@ function processTerminalCommand(input: string): TerminalLine[] {
         { type: 'output', text: '' },
         { type: 'output', text: 'Pranav Dhiran' },
         { type: 'output', text: '─────────────' },
-        { type: 'output', text: 'Electronics engineer turned AI builder.' },
-        { type: 'output', text: 'Training transformers from scratch to shipping' },
-        { type: 'output', text: 'multi-agent systems.' },
+        { type: 'output', text: 'I started in RF and signals.' },
+        { type: 'output', text: 'Turns out the most interesting signal to decode is language.' },
+        { type: 'output', text: 'Now I build the systems that do both — from transformers' },
+        { type: 'output', text: 'to multi-agent pipelines to LLM-controlled hardware.' },
         { type: 'output', text: '' },
         { type: 'output', text: 'B.Tech — Electronics & Telecom Engineering' },
         { type: 'output', text: 'SGGSIE&T, Nanded | 2023–Present' },
@@ -745,16 +746,17 @@ export default function Home() {
     { id: 'thinking', label: '01' },
     { id: 'education', label: '02' },
     { id: 'projects', label: '03' },
-    { id: 'research', label: '04' },
-    { id: 'contact', label: '05' },
+    { id: 'reading', label: '04' },
+    { id: 'research', label: '05' },
+    { id: 'contact', label: '06' },
   ];
 
   const thinkingSteps = [
-    { num: '01', title: 'Problem Framing', desc: 'Define the actual constraint, not the symptom.' },
-    { num: '02', title: 'First Principles', desc: 'Decompose to fundamentals, rebuild from there.' },
-    { num: '03', title: 'Prototype', desc: 'Ship a rough version in days, not weeks.' },
-    { num: '04', title: 'Feedback Loop', desc: 'Instrument, observe, correct.' },
-    { num: '05', title: 'Ship & Iterate', desc: 'Working software over perfect plans.' },
+    { num: '01', title: 'Problem Framing', desc: "I ask what the actual constraint is. Usually it's not the one in the brief." },
+    { num: '02', title: 'First Principles', desc: "If I don't understand what's inside the abstraction, I build it myself. That's why the SLM exists." },
+    { num: '03', title: 'Prototype', desc: "A working version that's wrong teaches more than a perfect plan that hasn't run yet." },
+    { num: '04', title: 'Feedback Loop', desc: "Loss curves, Langfuse traces, RF spectrum plots — I instrument everything. You can't fix what you can't see." },
+    { num: '05', title: 'Ship & Iterate', desc: 'Medaura is live. RF Watch is open-sourced. Shipping is the only honest benchmark.' },
   ];
 
   const currentDeepDive = deepDiveProject ? deepDives[deepDiveProject] : null;
@@ -817,6 +819,14 @@ export default function Home() {
               }`}
             >
               Projects
+            </a>
+            <a
+              href="#reading"
+              className={`nav-link transition-colors ${
+                activeSection === 'reading' ? 'text-accent' : 'hover:text-t1'
+              }`}
+            >
+              Reading
             </a>
             <a
               href="#research"
@@ -906,7 +916,7 @@ export default function Home() {
                 )}
               </div>
               <div className="text-body font-medium text-t2 mb-8 max-w-lg">
-                Electronics engineer turned AI builder. I work across the stack — from transformer pre-training and RL fine-tuning to shipping multi-agent systems.
+                I started in RF and signals. Turns out the most interesting signal to decode is language. Now I build the systems that do both — from transformer pre-training to multi-agent pipelines to LLM-controlled hardware.
               </div>
               <div className="flex gap-4 items-center">
                 <a href="/resume_v4.pdf" className="ghost-button group">
@@ -951,9 +961,6 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-10 text-label text-t3 font-mono tracking-wide">
-            Committed to building AI solutions that solve real-world challenges.
-          </div>
         </section>
 
         {/* ═══════════ HOW I THINK ═══════════ */}
@@ -1160,25 +1167,143 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ═══════════ RESEARCH & ACHIEVEMENTS ═══════════ */}
-        <section id="research" className="scroll-reveal section-gap section-divider pt-16">
+        {/* ═══════════ READING ROOM ═══════════ */}
+        <section id="reading" className="scroll-reveal section-gap section-divider pt-16">
           <div className="text-eyebrow mb-1">03</div>
-          <div className="border-b border-border-dim pb-2 mb-8 w-full flex justify-between items-end">
-            <h2 className="text-section">Research &amp; Achievements</h2>
+          <div className="border-b border-border-dim pb-2 mb-6 w-full">
+            <h2 className="text-section">Reading Room</h2>
+            <p className="text-body text-t2 mt-2 italic">Ideas and research that shape how I build AI systems.</p>
           </div>
 
-          <div className="mb-10">
-            <div className="text-label text-t3 uppercase tracking-wider mb-5">Research Interests</div>
-            <div className="research-grid">
+          {/* Research Interests — Inline Chips */}
+          <div className="mb-8">
+            <div className="text-label text-t3 uppercase tracking-wider mb-4">Research Interests</div>
+            <div className="reading-chips">
               {[
-                'Small Language Models (SLMs)', 'On-Device LLMs', 'RLHF & RLAIF', 'GRPO', 'Scaling Laws', 'MoE', 'Efficient Inference', 'Multi-Agent Reasoning', 'Tokenization'
+                'LLM & SLM Systems',
+                'Agent-Native Infrastructure',
+                'RL for LLMs',
+                'AI Automation Systems',
+                'Modular Architectures',
               ].map((topic) => (
-                <div key={topic} className="research-pill">
-                  <span className="research-pill-icon">❋</span>
-                  <span>{topic}</span>
-                </div>
+                <span key={topic} className="reading-chip">{topic}</span>
               ))}
             </div>
+          </div>
+
+          {/* Selected Papers */}
+          <div>
+            <div className="text-label text-t3 uppercase tracking-wider mb-1">Selected Papers</div>
+            <p className="text-body text-t2 text-[12px] italic mb-4">Research that influences my work</p>
+            <div className="paper-grid">
+              {/* ReAct */}
+              <div className="paper-card">
+                <div className="paper-title">ReAct: Synergizing Reasoning and Acting</div>
+                <div className="paper-desc">Reasoning ↔ action loop for agent systems</div>
+                <div className="paper-impact">Enables structured multi-step workflows</div>
+                <a
+                  href="https://arxiv.org/abs/2210.03629"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="paper-link"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15,3 21,3 21,9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                  Paper
+                </a>
+              </div>
+
+              {/* Toolformer */}
+              <div className="paper-card">
+                <div className="paper-title">Toolformer: Models Teach Themselves to Use Tools</div>
+                <div className="paper-desc">Models learn when to use tools</div>
+                <div className="paper-impact">Enables adaptive tool invocation</div>
+                <a
+                  href="https://arxiv.org/abs/2302.04761"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="paper-link"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15,3 21,3 21,9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                  Paper
+                </a>
+              </div>
+
+              {/* MoE */}
+              <div className="paper-card">
+                <div className="paper-title">Switch Transformers: Mixture of Experts</div>
+                <div className="paper-desc">Route tasks to specialized experts</div>
+                <div className="paper-impact">Efficient, modular AI systems</div>
+                <a
+                  href="https://arxiv.org/abs/2101.03961"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="paper-link"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15,3 21,3 21,9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                  Paper
+                </a>
+              </div>
+
+              {/* GRPO */}
+              <div className="paper-card">
+                <div className="paper-title">Group Relative Policy Optimization</div>
+                <div className="paper-desc">Optimize outputs via relative comparison</div>
+                <div className="paper-impact">More stable alignment</div>
+                <a
+                  href="https://arxiv.org/abs/2402.03300"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="paper-link"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15,3 21,3 21,9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                  Paper
+                </a>
+              </div>
+
+              {/* DPO */}
+              <div className="paper-card">
+                <div className="paper-title">Direct Preference Optimization</div>
+                <div className="paper-desc">Align models using preference data</div>
+                <div className="paper-impact">Simpler post-training</div>
+                <a
+                  href="https://arxiv.org/abs/2305.18290"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="paper-link"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15,3 21,3 21,9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                  Paper
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ═══════════ RESEARCH & ACHIEVEMENTS ═══════════ */}
+        <section id="research" className="scroll-reveal section-gap section-divider pt-16">
+          <div className="text-eyebrow mb-1">04</div>
+          <div className="border-b border-border-dim pb-2 mb-8 w-full flex justify-between items-end">
+            <h2 className="text-section">Research &amp; Achievements</h2>
           </div>
 
           <div className="mb-10">
@@ -1224,7 +1349,7 @@ export default function Home() {
 
         {/* ═══════════ CONTACT ═══════════ */}
         <section id="contact" className="scroll-reveal section-gap section-divider pt-16">
-          <div className="text-eyebrow mb-1">04</div>
+          <div className="text-eyebrow mb-1">05</div>
           <h2 className="text-section border-b border-border-dim py-2 mb-10">Contact</h2>
 
           {/* What I look for */}
