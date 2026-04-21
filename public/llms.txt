@@ -1,0 +1,19 @@
+# Pranav Dhiran
+
+> AI Engineer & Researcher. I build systems that train, fine-tune, and deploy language models ??? from weights to production.
+
+## About
+- ECE undergraduate, self-taught AI/ML
+- Two-time Smart India Hackathon National Finalist
+- Focus: LLM engineering, agentic systems, MCP server engineering, RF+AI
+
+## Projects
+- Medaura: Multi-agent pharmacy system ??? https://aipharmacyproject-blond.vercel.app
+- SLM from Scratch: GPT-style transformer trained on TinyStories ??? https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories
+- GNU Radio MCP Server: LLM-to-SDR bridge ??? https://github.com/Pranav-d33/gnuradio-mcp-server
+- RF Watch: Open-source RF spectrum monitor ??? https://github.com/Pranav-d33/RFwatch
+
+## Contact
+- Email: dhiranpranav72@gmail.com
+- GitHub: https://github.com/Pranav-d33
+- LinkedIn: https://linkedin.com/in/prannav-dhiran

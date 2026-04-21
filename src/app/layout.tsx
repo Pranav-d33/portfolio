@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -13,16 +13,73 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pranav Dhiran | AI Engineer building LLM Agents & Automation Systems",
-  description: "AI Engineer focused on LLM agents, browser automation, and AI systems for real-world workflows.",
-  keywords: ["AI Engineer", "Machine Learning", "LLM", "Transformer", "Multi-Agent Systems", "Portfolio"],
-  authors: [{ name: "Pranav Dhiran" }],
-  openGraph: {
-    title: "Pranav Dhiran Portfolio",
-    description: "LLM Agents, Automation, AI Systems",
-    url: "https://www.pranavdhiran.me",
-    type: "website",
+  metadataBase: new URL("https://pranavdhiran.me"),
+  title: {
+    default: "Pranav Dhiran — AI Engineer & Researcher",
+    template: "%s | Pranav Dhiran",
   },
+  description:
+    "I build AI systems that work — from transformer pre-training and RL fine-tuning to shipping multi-agent pipelines and LLM-controlled hardware.",
+  keywords: [
+    "AI Engineer",
+    "Machine Learning",
+    "LLM",
+    "Transformer",
+    "Multi-Agent Systems",
+    "Reinforcement Learning",
+    "MCP Server",
+    "Software Defined Radio",
+    "RAG",
+    "Portfolio",
+    "Pranav Dhiran",
+  ],
+  authors: [{ name: "Pranav Dhiran" }],
+  creator: "Pranav Dhiran",
+  generator: "Next.js",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    title: "Pranav Dhiran — AI Engineer & Researcher",
+    description:
+      "I build AI systems that work — from transformer pre-training and RL fine-tuning to shipping multi-agent pipelines and LLM-controlled hardware.",
+    url: "/",
+    siteName: "Pranav Dhiran",
+    type: "website",
+    locale: "en_US",
+    images: [
+      {
+        url: "/portfolio_image.jpeg",
+        width: 1200,
+        height: 630,
+        alt: "Pranav Dhiran — AI Engineer & Researcher",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pranav Dhiran — AI Engineer & Researcher",
+    description:
+      "I build AI systems that work — from transformer pre-training and RL fine-tuning to shipping multi-agent pipelines and LLM-controlled hardware.",
+    images: ["/portfolio_image.jpeg"],
+    creator: "@Pranav_ai",
+  },
+  verification: {
+    google: "QSa6WMghgjY4JfhcOMcr61kYyNr0OjIklRckSjuTY40",
+  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

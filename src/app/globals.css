@@ -1192,46 +1192,26 @@ button:focus-visible {
 
 /* ───────────────────── Contact Section ───────────────────── */
 .contact-values-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
 }
 
-.contact-values-grid::before {
-  content: "";
-  position: absolute;
-  left: 24px;
-  top: 24px;
-  bottom: 24px;
-  width: 1px;
-  background: linear-gradient(
-    180deg,
-    transparent 0%,
-    color-mix(in srgb, var(--accent) 30%, transparent) 10%,
-    color-mix(in srgb, var(--accent) 30%, transparent) 90%,
-    transparent 100%
-  );
+@media (max-width: 768px) {
+  .contact-values-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .contact-value-card {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  padding: 20px 24px;
+  padding: 24px;
   border: 0.5px solid color-mix(in srgb, var(--border) 40%, transparent);
-  border-left: 2px solid var(--accent);
   box-shadow: var(--shadow-sm);
-  border-radius: 0 4px 4px 0;
+  border-radius: 4px;
   background: color-mix(in srgb, var(--surface) 20%, transparent);
   transition: all 0.35s ease;
   position: relative;
   overflow: hidden;
-  margin-bottom: 12px;
-}
-
-.contact-value-card:last-child {
-  margin-bottom: 0;
 }
 
 .contact-value-card::before {
@@ -1255,16 +1235,17 @@ button:focus-visible {
   width: 100%;
 }
 
-.contact-value-icon {
+.contact-value-title {
   font-size: 16px;
-  color: var(--accent);
-  margin-top: 2px;
-  transition: transform 0.3s ease;
-  flex-shrink: 0;
+  font-weight: 500;
+  color: var(--t1);
+  margin-bottom: 8px;
 }
 
-.contact-value-card:hover .contact-value-icon {
-  transform: scale(1.2);
+.contact-value-desc {
+  font-size: 14px;
+  color: var(--t3);
+  line-height: 1.5;
 }
 
 /* ─── CTA button ─── */

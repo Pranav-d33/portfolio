@@ -1,4 +1,27 @@
 import React from 'react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'System Prompt',
+  description: "Pranav Dhiran's system directive — core directives, operating parameters, and constraints for AI-native engineering.",
+  alternates: {
+    canonical: '/system-prompt',
+  },
+  openGraph: {
+    title: 'System Prompt | Pranav Dhiran',
+    description: "Pranav Dhiran's system directive — core directives, operating parameters, and constraints.",
+    url: '/system-prompt',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'System Prompt | Pranav Dhiran',
+    description: "Pranav Dhiran's system directive — core directives, operating parameters, and constraints.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 export default function SystemPromptPage() {
   return (
