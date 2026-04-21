@@ -681,6 +681,15 @@ hr {
   color: var(--t1);
 }
 
+/* ─── Hide scrollbar (horizontal scroll nav on mobile) ─── */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* ───────────────────── Focus styles for accessibility ───────────────────── */
 a:focus-visible,
 button:focus-visible {

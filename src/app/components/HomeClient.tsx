@@ -811,7 +811,7 @@ export default function HomeClient() {
               D
             </span>
           </div>
-          <div className="flex gap-4 sm:gap-6 items-center text-eyebrow">
+          <div className="flex gap-3 sm:gap-6 items-center text-eyebrow overflow-x-auto no-scrollbar">
             <a
               href="#projects"
               className={`nav-link transition-colors ${
