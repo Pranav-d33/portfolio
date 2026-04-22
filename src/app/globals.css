@@ -317,6 +317,54 @@ body::before {
   box-shadow: var(--shadow-hover);
 }
 
+.system-prompt-callout {
+  margin-top: 36px;
+  display: flex;
+  justify-content: center;
+}
+
+.system-prompt-callout-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+}
+
+.system-prompt-callout-label {
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--t3);
+}
+
+.system-prompt-callout-link {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--t1);
+  transition: color 200ms ease, opacity 200ms ease;
+}
+
+.system-prompt-callout-link:hover {
+  color: var(--accent);
+}
+
+.footer-epitaph {
+  margin-top: 32px;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.2vw, 26px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--t1) 70%, transparent);
+}
+
 .project-card {
   background: transparent;
   border-bottom: 0.5px solid var(--border);

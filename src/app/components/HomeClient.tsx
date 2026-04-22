@@ -1426,6 +1426,15 @@ export default function HomeClient() {
           </div>
         </section>
 
+        <div className="system-prompt-callout">
+          <div className="system-prompt-callout-inner">
+            <div className="system-prompt-callout-label">System prompt</div>
+            <a href="/system-prompt" className="system-prompt-callout-link">
+              View my system prompt
+            </a>
+          </div>
+        </div>
+
         {/* ═══════════ FOOTER ═══════════ */}
         <footer className="py-12 border-t border-border-dim/10 mt-10">
           <div className="footer-gradient-line mb-8"></div>
@@ -1433,10 +1442,9 @@ export default function HomeClient() {
             <div className="type-t6 text-t3">© {new Date().getFullYear()} Pranav Dhiran</div>
             <div className="flex items-center gap-3 type-t6 text-t3/60">
               <span className="opacity-80">Token count of this page — ~1,847 tokens</span>
-              <span className="opacity-40">•</span>
-              <a href="/system-prompt" className="hover:text-accent transition-colors opacity-80 hover:opacity-100">View my system prompt</a>
             </div>
           </div>
+          <div className="footer-epitaph">VENI VIDI VICI</div>
         </footer>
       </main>
 
