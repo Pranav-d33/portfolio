@@ -114,7 +114,7 @@ const creativeWorks = [
     "@context": "https://schema.org",
     "@type": "CreativeWork",
     name: "SLM from Scratch — TinyStories",
-    url: "https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories",
+    url: "https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories-",
     author: { "@type": "Person", name: "Pranav Dhiran" },
     description:
       "GPT-style transformer trained from scratch on TinyStories with custom BPE tokenizer, mmap pipelines, AMP mixed precision, and cosine annealing.",

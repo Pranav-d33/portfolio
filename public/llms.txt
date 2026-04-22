@@ -9,7 +9,7 @@
 
 ## Projects
 - Medaura: Multi-agent pharmacy system ??? https://aipharmacyproject-blond.vercel.app
-- SLM from Scratch: GPT-style transformer trained on TinyStories ??? https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories
+- SLM from Scratch: GPT-style transformer trained on TinyStories ??? https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories-
 - GNU Radio MCP Server: LLM-to-SDR bridge ??? https://github.com/Pranav-d33/gnuradio-mcp-server
 - RF Watch: Open-source RF spectrum monitor ??? https://github.com/Pranav-d33/RFwatch
 

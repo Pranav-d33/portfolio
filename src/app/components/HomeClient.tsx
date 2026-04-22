@@ -34,7 +34,7 @@ const deepDives: Record<string, ProjectDeepDive> = {
   tinystories: {
     title: 'Small Language Model From Scratch — TinyStories',
     overview:
-      'Pre-trained a GPT-style autoregressive transformer on the TinyStories dataset entirely from scratch — no pre-trained weights, no borrowed tokenizers, no shortcuts. The goal was to deeply understand every component of the LLM pipeline by building each piece myself.',
+      'Pre-trained a GPT-style <span className="display-inline">autoregressive transformer</span> on the TinyStories dataset entirely from scratch — no pre-trained weights, no <span className="display-inline">borrowed tokenizers</span>, no shortcuts. The goal was to deeply understand every component of the LLM pipeline by building each piece myself.',
     architecture: [
       [{ label: 'Input Tokens' }],
       [{ label: 'Token Embedding + Positional Encoding' }],
@@ -74,14 +74,14 @@ const deepDives: Record<string, ProjectDeepDive> = {
     links: [
       {
         label: 'GitHub',
-        href: 'https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories',
+        href: 'https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories-',
       },
     ],
   },
   medaura: {
     title: 'Medaura — Agentic Pharmacy System',
     overview:
-      'A full-stack multi-agent AI system for autonomous medication ordering. Five specialized agents collaborate through a custom orchestration pipeline, handling everything from order processing and safety checks to demand forecasting and procurement — across four languages.',
+      'A <span className="display-inline">full-stack multi-agent</span> AI system for autonomous medication ordering. Five specialized agents collaborate through a custom <span className="display-inline">orchestration pipeline</span>, handling everything from order processing and safety checks to demand forecasting and procurement — across four languages.',
     architecture: [
       [{ label: 'User Interface', sub: 'React · EN / HI / MR / ES' }],
       [{ label: 'Orchestrator / Router Agent', sub: 'Intent classification → Agent dispatch' }],
@@ -129,7 +129,7 @@ const deepDives: Record<string, ProjectDeepDive> = {
   'gnuradio-mcp': {
     title: 'GNU Radio MCP Server — LLM-to-SDR Bridge',
     overview:
-      'An MCP (Model Context Protocol) server that bridges large language models to live GNU Radio software-defined radio flowgraphs. Enables LLMs to control SDR hardware, capture IQ data, analyze spectrum, and tune parameters — all through natural language.',
+      'An <span className="display-inline">MCP (Model Context Protocol)</span> server that bridges large language models to live GNU Radio <span className="display-inline">software-defined radio</span> flowgraphs. Enables LLMs to control SDR hardware, capture IQ data, analyze spectrum, and tune parameters — all through natural language.',
     architecture: [
       [{ label: 'LLM Client', sub: 'Claude, GPT · stdio / HTTP' }],
       [{ label: 'MCP Server', sub: 'FastMCP · 13 tools · Pydantic v2' }],
@@ -167,7 +167,7 @@ const deepDives: Record<string, ProjectDeepDive> = {
       },
     ],
     lessons: [
-      'Hardware integration demands defensive programming — every SDR command can fail for physical reasons (antenna disconnected, USB bandwidth saturated, thermal throttling).',
+      '<span className="display-inline">Hardware integration</span> demands defensive programming — every SDR command can fail for physical reasons (antenna disconnected, USB bandwidth saturated, thermal throttling).',
       'Real-time constraints fundamentally change architecture. Buffered processing that works fine for text fails for continuous RF streams.',
       'MCP is a powerful abstraction for hardware control. The protocol naturally separates "what the LLM wants to do" from "how the hardware does it."',
       'Welch PSD with proper windowing produces dramatically better spectral estimates than naive FFT — a lesson from signal processing fundamentals.',
@@ -180,7 +180,7 @@ const deepDives: Record<string, ProjectDeepDive> = {
   rfwatch: {
     title: 'RF Watch — Open-Source Real-Time RF Spectrum Monitor',
     overview:
-      'A real-time RF spectrum analyzer using HackRF One and GNU Radio. Extracts spectral features via FFT and feeds them into a lightweight ML classifier for passive detection of unknown transmitters. Originally built as an anti-drone detection system for ITBP during SIH 2025.',
+      'A real-time RF spectrum analyzer using HackRF One and GNU Radio. Extracts spectral features via FFT and feeds them into a <span className="display-inline">lightweight ML classifier</span> for <span className="display-inline">passive detection</span> of unknown transmitters. Originally built as an <span className="display-inline">anti-drone detection</span> system for ITBP during SIH 2025.',
     architecture: [
       [{ label: 'HackRF One SDR', sub: 'Raw IQ samples · 8 MHz bandwidth' }],
       [{ label: 'GNU Radio DSP', sub: 'Welch PSD · Peak Detect · Band Energy' }],
@@ -213,7 +213,7 @@ const deepDives: Record<string, ProjectDeepDive> = {
     lessons: [
       "The RF environment is incredibly noisy. Urban areas have dense, overlapping signals that make anomaly detection genuinely hard — this isn't a toy problem.",
       'Feature engineering matters more than model complexity for edge deployment. A well-designed feature vector with a lightweight classifier outperformed a larger model on raw data.',
-      'Signal processing fundamentals (windowing, spectral estimation, filter design) are not optional — they\'re the foundation everything else depends on.',
+      '<span className="display-inline">Signal processing fundamentals</span> (windowing, spectral estimation, filter design) are not optional — they\'re the foundation everything else depends on.',
       'Building for a real defense use case (ITBP anti-drone) imposed constraints that made the system better: minimal latency, low power, high reliability.',
     ],
     tags: ['Python', 'GNU Radio', 'HackRF One', 'Signal Processing'],
@@ -282,14 +282,14 @@ function processTerminalCommand(input: string): TerminalLine[] {
           '',
           '═══ Small Language Model From Scratch — TinyStories ═══',
           '',
-          'Pre-trained a GPT-style autoregressive transformer',
+          'Pre-trained a GPT-style <span className="display-inline">autoregressive transformer</span>',
           '(6L, 6H, 384-dim) on TinyStories from scratch.',
           'Custom BPE tokenization, mmap pipelines, AMP mixed',
           'precision, gradient accumulation, warmup + cosine',
           'LR scheduling, temperature/top-k sampling.',
           '',
           'Stack: PyTorch · Hugging Face · AMP · NLP',
-          'Link:  github.com/Pranav-d33/small_language_model_from_scratch-TinyStories',
+          'Link:  github.com/Pranav-d33/small_language_model_from_scratch-TinyStories-',
           '',
         ],
         medaura: [
@@ -297,7 +297,7 @@ function processTerminalCommand(input: string): TerminalLine[] {
           '═══ Medaura — Agentic Pharmacy System ═══',
           '',
           'Full-stack multi-agent AI system — five specialized',
-          'agents with a custom orchestration pipeline for',
+          'agents with a custom <span className="display-inline">orchestration pipeline</span> for',
           'autonomous medication ordering across four languages.',
           '',
           'Agents: Ordering · Safety · Forecast · Procurement · UI',
@@ -331,10 +331,10 @@ function processTerminalCommand(input: string): TerminalLine[] {
           '',
           'Real-time RF spectrum analyzer using HackRF One +',
           'GNU Radio. FFT-based spectral feature extraction',
-          'with a lightweight ML classifier for passive',
+          'with a <span className="display-inline">lightweight ML classifier</span> for passive',
           'detection of unknown transmitters.',
           '',
-          'Built for ITBP anti-drone detection (SIH 2025).',
+          'Built for ITBP <span className="display-inline">anti-drone detection</span> (SIH 2025).',
           '',
           'Stack: Python · GNU Radio · HackRF One · Signal Processing',
           'Link:  github.com/Pranav-d33/RFwatch',
@@ -561,7 +561,7 @@ export default function HomeClient() {
   const { text: typedText, isComplete: isTypingComplete } = useTypingEffect(
     [
       'training transformers from scratch',
-      'building agentic AI systems',
+      'building <span className="display-inline">agentic AI systems</span>',
       'engineering MCP servers',
       'exploring RF + ML at the edge',
     ],
@@ -783,7 +783,7 @@ export default function HomeClient() {
             <span
               className={`text-[10px] font-mono transition-all duration-300 ${
                 activeSection === item.id
-                  ? 'text-accent opacity-100 translate-x-0'
+                  ? 'text-violet opacity-100 translate-x-0'
                   : 'text-t3 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0'
               }`}
             >
@@ -792,7 +792,7 @@ export default function HomeClient() {
             <div
               className={`w-1.5 transition-all duration-300 rounded-full ${
                 activeSection === item.id
-                  ? 'h-6 bg-accent'
+                  ? 'h-6 bg-violet'
                   : 'h-1.5 bg-border-dim group-hover:bg-t3'
               }`}
             />
@@ -802,8 +802,8 @@ export default function HomeClient() {
 
       {/* NAVIGATION */}
       <nav className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm py-4 border-b border-border-dim/10">
-        <div className="flex justify-center sm:justify-between items-center max-w-[720px] mx-auto px-6">
-          <div className="hidden sm:block text-section font-medium group cursor-default">
+        <div className="flex justify-start sm:justify-between items-center max-w-[720px] mx-auto px-6">
+          <div className="hidden sm:block type-t2 font-medium group cursor-default text-violet">
             <span className="inline-block transition-transform duration-300 group-hover:scale-110">
               P
             </span>
@@ -811,7 +811,7 @@ export default function HomeClient() {
               D
             </span>
           </div>
-          <div className="flex gap-3 sm:gap-6 items-center text-eyebrow overflow-x-auto no-scrollbar">
+          <div className="flex gap-3 sm:gap-6 items-center type-t6 overflow-x-auto no-scrollbar">
             <a
               href="#projects"
               className={`nav-link transition-colors ${
@@ -916,11 +916,11 @@ export default function HomeClient() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
                 </div>
-                <span className="text-tag text-accent">Open to residencies &amp; fellowships</span>
+                <span className="pulse-pill">Open to residencies &amp; fellowships</span>
               </div>
-              <h1 className="text-hero mb-4 text-t1 hero-gradient">Pranav Dhiran</h1>
-              <div className="text-body text-t3 mb-6 font-mono h-6 flex items-center">
-                <span className="text-accent mr-1">›</span>
+              <h1 className="type-t1 mb-4 text-t1 hero-gradient">Pranav Dhiran</h1>
+              <div className="type-t4 text-t3 mb-6 font-mono h-6 flex items-center">
+                <span className="text-violet mr-1">›</span>
                 <span>{typedText}</span>
                 {isTypingComplete ? (
                   <span className="token-flash">&lt;|end|&gt;</span>
@@ -928,7 +928,7 @@ export default function HomeClient() {
                   <span className="llm-cursor"></span>
                 )}
               </div>
-              <div className="text-body font-medium text-t2 mb-8 max-w-lg">
+              <div className="type-t4 font-medium text-t2 mb-8 max-w-lg">
                 I started in RF and signals. Turns out the most interesting signal to decode is language. Now I build the systems that do both — from transformer pre-training to multi-agent pipelines to LLM-controlled hardware.
               </div>
               <div className="flex gap-4 items-center">
@@ -940,7 +940,7 @@ export default function HomeClient() {
                     ↓
                   </span>
                 </a>
-                <div className="flex gap-3 text-tag text-t3">
+                <div className="flex gap-3 type-t6 text-t3">
                   <a
                     href="mailto:dhiranpranav72@gmail.com"
                     className="hover:text-t2 transition-colors"
@@ -980,7 +980,7 @@ export default function HomeClient() {
 
         {/* ═══════════ HOW I THINK ═══════════ */}
         <section id="thinking" className="scroll-reveal section-gap pt-10">
-          <div className="text-label font-medium text-t3 uppercase tracking-wider mb-8">
+          <div className="type-t5 font-medium text-t3 uppercase tracking-wider mb-8">
             How I Think
           </div>
           <div className="thinking-timeline">
@@ -991,10 +991,10 @@ export default function HomeClient() {
                 style={{ transitionDelay: `${i * 120}ms` }}
               >
                 <div className="thinking-step-dot" />
-                <div className="thinking-step-content">
-                  <div className="text-tag font-mono text-accent mb-1">{step.num}</div>
-                  <div className="text-body font-medium text-t1 mb-1">{step.title}</div>
-                  <div className="text-label text-t3 leading-relaxed">
+                <div className="thinking-step-content overflow-hidden relative">
+                  <div className="ghost-number">{step.num}</div>
+                  <div className="type-t4 font-medium text-t1 mb-1">{step.title}</div>
+                  <div className="type-t5 text-t3 leading-relaxed">
                     {step.desc}
                   </div>
                 </div>
@@ -1005,30 +1005,30 @@ export default function HomeClient() {
 
         {/* ═══════════ EDUCATION ═══════════ */}
         <section id="education" className="scroll-reveal section-gap section-divider pt-16">
-          <div className="text-eyebrow mb-1">01</div>
-          <h2 className="text-section border-b border-border-dim py-2 mb-6">Education</h2>
+          <div className="mb-2"><span className="section-label">01</span></div>
+          <h2 className="type-t2 border-b border-border-dim py-2 mb-6">Education</h2>
           <div className="flex flex-col gap-12">
             <div className="experience-rule pl-4">
               <div className="flex justify-between items-start mb-2">
                 <div>
-                  <div className="text-tag font-mono text-t3 mb-1">2023 — Present</div>
-                  <div className="text-body font-medium">
+                  <div className="type-t6 font-mono text-t3 mb-1">2023 — Present</div>
+                  <div className="type-t4 font-medium">
                     Shri Guru Gobind Singhji Institute of Engineering &amp; Technology, Nanded
                   </div>
                 </div>
               </div>
-              <div className="text-body text-t2">
+              <div className="type-t4 text-t2">
                 B.Tech — Electronics &amp; Telecommunication Engineering
               </div>
-              <div className="text-label text-t3 mt-1">Minor in Information Technology</div>
+              <div className="type-t5 text-t3 mt-1">Minor in Information Technology</div>
             </div>
           </div>
         </section>
 
         {/* ═══════════ PROJECTS ═══════════ */}
         <section id="projects" className="scroll-reveal section-gap section-divider pt-16">
-          <div className="text-eyebrow mb-1">02</div>
-          <h2 className="text-section border-b border-border-dim py-2 mb-6">Selected Work</h2>
+          <div className="mb-2"><span className="section-label">02</span></div>
+          <h2 className="type-t2 border-b border-border-dim py-2 mb-6">Selected Work</h2>
           <div className="flex flex-col">
             {/* Project 1: TinyStories */}
             <div
@@ -1037,13 +1037,12 @@ export default function HomeClient() {
             >
               <div className="flex justify-between items-center">
                 <div className="flex-1">
-                  <div className="text-body font-medium mb-1">
+                  <div className="type-t3 mb-1">
                     Small Language Model From Scratch — TinyStories
                   </div>
-                  <div className="text-body text-t2 mb-4 italic">
-                    Every LLM course teaches you to call an API. I wanted to know what happens before the API.
+                  <div className="project-hook">Every LLM course teaches you to call an API. I wanted to know what happens before the API.
                   </div>
-                  <div className="text-body text-t2 mb-4">
+                  <div className="type-t4 text-t2 mb-4">
                     Pre-trained a GPT-style transformer (6L, 6H, 384-dim) from scratch — custom BPE tokenizer, mmap pipelines, AMP mixed precision, warmup + cosine LR. Ran depth and embedding ablations to analyze scaling behavior. No pretrained weights. No shortcuts.
                   </div>
                   <div className="mb-4">
@@ -1052,9 +1051,9 @@ export default function HomeClient() {
                     <span className="tag">AMP</span>
                     <span className="tag">NLP</span>
                   </div>
-                  <div className="flex gap-4 items-center text-tag">
+                  <div className="flex gap-4 items-center type-t6">
                     <a
-                      href="https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories"
+                      href="https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories-"
                       className="text-accent underline"
                       onClick={(e) => e.stopPropagation()}
                     >
@@ -1074,13 +1073,12 @@ export default function HomeClient() {
             >
               <div className="flex justify-between items-center">
                 <div className="flex-1">
-                  <div className="text-body font-medium mb-1">
+                  <div className="type-t3 mb-1">
                     Medaura — Agentic Pharmacy System
                   </div>
-                  <div className="text-body text-t2 mb-4 italic">
-                    Medication errors are an information problem. The information exists — it's just not connected at the moment it matters.
+                  <div className="project-hook">Medication errors are an information problem. The information exists — it's just not connected at the moment it matters.
                   </div>
-                  <div className="text-body text-t2 mb-4">
+                  <div className="type-t4 text-t2 mb-4">
                     Five specialized agents (Ordering, Safety, Forecast, Procurement, UI) orchestrated via LangGraph for stateful, auditable pipelines. ChromaDB RAG for drug interaction retrieval. Langfuse tracing every LLM call and safety check. Live, multilingual, zero human intervention.
                   </div>
                   <div className="mb-4">
@@ -1090,7 +1088,7 @@ export default function HomeClient() {
                     <span className="tag">Langfuse</span>
                     <span className="tag">React</span>
                   </div>
-                  <div className="flex gap-4 items-center text-tag">
+                  <div className="flex gap-4 items-center type-t6">
                     <a
                       href="https://aipharmacyproject-blond.vercel.app"
                       className="text-accent underline"
@@ -1112,13 +1110,12 @@ export default function HomeClient() {
             >
               <div className="flex justify-between items-center">
                 <div className="flex-1">
-                  <div className="text-body font-medium mb-1">
+                  <div className="type-t3 mb-1">
                     GNU Radio MCP Server — LLM-to-SDR Bridge
                   </div>
-                  <div className="text-body text-t2 mb-4 italic">
-                    LLMs can reason about RF signals. They just couldn't touch a radio. This closes that gap.
+                  <div className="project-hook">LLMs can reason about RF signals. They just couldn't touch a radio. This closes that gap.
                   </div>
-                  <div className="text-body text-t2 mb-4">
+                  <div className="type-t4 text-t2 mb-4">
                     MCP server bridging language models to live GNU Radio SDR flowgraphs — 13 tools, Pydantic v2 validation, ZMQ + XML-RPC split-protocol architecture, async IQ capture with Welch PSD and peak detection. Ask Claude to sweep frequencies. It does.
                   </div>
                   <div className="mb-4">
@@ -1128,7 +1125,7 @@ export default function HomeClient() {
                     <span className="tag">XML-RPC</span>
                     <span className="tag">GNU Radio</span>
                   </div>
-                  <div className="flex gap-4 items-center text-tag">
+                  <div className="flex gap-4 items-center type-t6">
                     <a
                       href="https://github.com/Pranav-d33/gnuradio-mcp-server"
                       className="text-accent underline"
@@ -1150,14 +1147,13 @@ export default function HomeClient() {
             >
               <div className="flex justify-between items-center">
                 <div className="flex-1">
-                  <div className="text-body font-medium mb-1">
+                  <div className="type-t3 mb-1">
                     RF Watch — Open-Source Real-Time RF Spectrum Monitor
                   </div>
-                  <div className="text-body text-t2 mb-4 italic">
-                    The constraint was the brief: detect unauthorized drones passively. No active emitter. No GPS. Just the signal they're already broadcasting.
+                  <div className="project-hook">The constraint was the brief: detect unauthorized drones passively. No active emitter. No GPS. Just the signal they're already broadcasting.
                   </div>
-                  <div className="text-body text-t2 mb-4">
-                    Built for SIH 2025 as an anti-drone system for ITBP. HackRF One + GNU Radio — FFT spectral feature extraction, background RF modeling, lightweight ML classifier for unknown transmitter detection. Open-sourced after the hackathon.
+                  <div className="type-t4 text-t2 mb-4">
+                    Built for SIH 2025 as an anti-drone system for ITBP. HackRF One + GNU Radio — FFT spectral feature extraction, background RF modeling, <span className="display-inline">lightweight ML classifier</span> for unknown transmitter detection. Open-sourced after the hackathon.
                   </div>
                   <div className="mb-4">
                     <span className="tag">Python</span>
@@ -1165,7 +1161,7 @@ export default function HomeClient() {
                     <span className="tag">HackRF One</span>
                     <span className="tag">Signal Processing</span>
                   </div>
-                  <div className="flex gap-4 items-center text-tag">
+                  <div className="flex gap-4 items-center type-t6">
                     <a
                       href="https://github.com/Pranav-d33/RFwatch"
                       className="text-accent underline"
@@ -1184,15 +1180,15 @@ export default function HomeClient() {
 
         {/* ═══════════ READING ROOM ═══════════ */}
         <section id="reading" className="scroll-reveal section-gap section-divider pt-16">
-          <div className="text-eyebrow mb-1">03</div>
+          <div className="mb-2"><span className="section-label">03</span></div>
           <div className="border-b border-border-dim pb-2 mb-6 w-full">
-            <h2 className="text-section">Reading Room</h2>
-            <p className="text-body text-t2 mt-2 italic">Research that shapes how I build.</p>
+            <h2 className="type-t2">Reading Room</h2>
+            <p className="type-t4 text-t2 mt-2 italic">Research that shapes how I build.</p>
           </div>
 
           {/* Research Interests — Inline Chips */}
           <div className="mb-8">
-            <div className="text-label text-t3 uppercase tracking-wider mb-4">Research Interests</div>
+            <div className="type-t5 text-t3 uppercase tracking-wider mb-4">Research Interests</div>
             <div className="reading-chips">
               {[
                 'LLM & SLM Systems',
@@ -1208,8 +1204,8 @@ export default function HomeClient() {
 
           {/* Selected Papers */}
           <div>
-            <div className="text-label text-t3 uppercase tracking-wider mb-1">Selected Papers</div>
-            <p className="text-body text-t2 text-[12px] italic mb-4">Research that influences my work</p>
+            <div className="type-t5 text-t3 uppercase tracking-wider mb-1">Selected Papers</div>
+            <p className="type-t4 text-t2 text-[12px] italic mb-4">Research that influences my work</p>
             <div className="paper-grid">
               {/* ReAct */}
               <div className="paper-card">
@@ -1311,27 +1307,27 @@ export default function HomeClient() {
 
         {/* ═══════════ RESEARCH & ACHIEVEMENTS ═══════════ */}
         <section id="research" className="scroll-reveal section-gap section-divider pt-16">
-          <div className="text-eyebrow mb-1">04</div>
+          <div className="mb-2"><span className="section-label">04</span></div>
           <div className="border-b border-border-dim pb-2 mb-8 w-full flex justify-between items-end">
-            <h2 className="text-section">Research &amp; Achievements</h2>
+            <h2 className="type-t2">Research &amp; Achievements</h2>
           </div>
 
           <div className="mb-10">
-            <div className="text-label text-t3 uppercase tracking-wider mb-5">Certifications</div>
+            <div className="type-t5 text-t3 uppercase tracking-wider mb-5">Certifications</div>
             <div className="flex flex-col gap-3">
-              <div className="text-body text-t2">
+              <div className="type-t4 text-t2">
                 <span className="text-t3 mr-2">•</span>
                 Fine-tuning &amp; RL for LLMs: Intro to Post-training — <span className="text-t1 font-medium">DeepLearning.AI</span>
               </div>
-              <div className="text-body text-t2">
+              <div className="type-t4 text-t2">
                 <span className="text-t3 mr-2">•</span>
                 AI Agents in LangGraph — <span className="text-t1 font-medium">DeepLearning.AI</span>
               </div>
-              <div className="text-body text-t2">
+              <div className="type-t4 text-t2">
                 <span className="text-t3 mr-2">•</span>
                 Quantization Fundamentals — <span className="text-t1 font-medium">Hugging Face</span>
               </div>
-              <div className="text-body text-t2">
+              <div className="type-t4 text-t2">
                 <span className="text-t3 mr-2">•</span>
                 MCP: Build Rich Context AI Apps — <span className="text-t1 font-medium">Anthropic</span>
               </div>
@@ -1339,17 +1335,17 @@ export default function HomeClient() {
           </div>
 
           <div className="mb-10">
-            <div className="text-label text-t3 uppercase tracking-wider mb-5">Awards &amp; Recognition</div>
+            <div className="type-t5 text-t3 uppercase tracking-wider mb-5">Awards &amp; Recognition</div>
             <div className="flex flex-col gap-3">
-              <div className="text-body text-t2">
+              <div className="type-t4 text-t2">
                 <span className="text-t3 mr-2">•</span>
                 Global Finalist (Top 6 Internationally) — <span className="text-t1 font-medium">UWA Hack For Impact 2026</span>
               </div>
-              <div className="text-body text-t2">
+              <div className="type-t4 text-t2">
                 <span className="text-t3 mr-2">•</span>
                 National Finalist — <span className="text-t1 font-medium">Smart India Hackathon (SIH) 2024 &amp; 2025</span>
               </div>
-              <div className="text-body text-t2">
+              <div className="type-t4 text-t2">
                 <span className="text-t3 mr-2">•</span>
                 Regional Qualifier — <span className="text-t1 font-medium">Nxt Wave x OpenAI Buildathon</span>
               </div>
@@ -1359,12 +1355,12 @@ export default function HomeClient() {
 
         {/* ═══════════ CONTACT ═══════════ */}
         <section id="contact" className="scroll-reveal section-gap section-divider pt-16">
-          <div className="text-eyebrow mb-1">05</div>
-          <h2 className="text-section border-b border-border-dim py-2 mb-10">Contact</h2>
+          <div className="mb-2"><span className="section-label">05</span></div>
+          <h2 className="type-t2 border-b border-border-dim py-2 mb-10">Contact</h2>
 
           {/* What I look for */}
           <div className="mb-10">
-            <div className="text-label text-t3 uppercase tracking-wider mb-5">What I look for</div>
+            <div className="type-t5 text-t3 uppercase tracking-wider mb-5">What I look for</div>
             <div className="contact-values-grid">
               {[
                 { label: 'Impactful work', desc: 'Building things that matter beyond the codebase.' },
@@ -1388,7 +1384,7 @@ export default function HomeClient() {
               <span className="contact-cta-text">Let&apos;s chat</span>
               <span className="contact-cta-arrow">→</span>
             </a>
-            <div className="text-label text-t3 mt-3">dhiranpranav72@gmail.com</div>
+            <div className="type-t5 text-t3 mt-3">dhiranpranav72@gmail.com</div>
           </div>
 
           {/* Resume Download */}
@@ -1434,8 +1430,8 @@ export default function HomeClient() {
         <footer className="py-12 border-t border-border-dim/10 mt-10">
           <div className="footer-gradient-line mb-8"></div>
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-tag text-t3">© {new Date().getFullYear()} Pranav Dhiran</div>
-            <div className="flex items-center gap-3 text-tag text-t3/60">
+            <div className="type-t6 text-t3">© {new Date().getFullYear()} Pranav Dhiran</div>
+            <div className="flex items-center gap-3 type-t6 text-t3/60">
               <span className="opacity-80">Token count of this page — ~1,847 tokens</span>
               <span className="opacity-40">•</span>
               <a href="/system-prompt" className="hover:text-accent transition-colors opacity-80 hover:opacity-100">View my system prompt</a>
@@ -1458,14 +1454,14 @@ export default function HomeClient() {
             {/* Back link */}
             <button
               onClick={() => setDeepDiveProject(null)}
-              className="text-tag font-mono text-t3 hover:text-accent transition-colors mb-8 flex items-center gap-2"
+              className="type-t6 font-mono text-t3 hover:text-accent transition-colors mb-8 flex items-center gap-2"
             >
               <span>←</span>
               <span>Back to portfolio</span>
             </button>
 
             {/* Title */}
-            <h2 className="text-hero mb-6 text-t1">{currentDeepDive.title}</h2>
+            <h2 className="type-t1 mb-6 text-t1">{currentDeepDive.title}</h2>
 
             {/* Tags */}
             <div className="mb-10">
@@ -1478,10 +1474,10 @@ export default function HomeClient() {
 
             {/* Overview */}
             <div className="mb-12">
-              <div className="text-label font-medium text-t3 uppercase tracking-wider mb-3">
+              <div className="type-t5 font-medium text-t3 uppercase tracking-wider mb-3">
                 Overview
               </div>
-              <div className="text-body text-t2 leading-relaxed">
+              <div className="type-t4 text-t2 leading-relaxed">
                 <StreamingText 
                   text={currentDeepDive.overview} 
                   isVisible={!!currentDeepDive} 
@@ -1493,7 +1489,7 @@ export default function HomeClient() {
 
             {/* Architecture */}
             <div className="mb-12">
-              <div className="text-label font-medium text-t3 uppercase tracking-wider mb-6">
+              <div className="type-t5 font-medium text-t3 uppercase tracking-wider mb-6">
                 Architecture
               </div>
               <div className="arch-diagram">
@@ -1523,31 +1519,31 @@ export default function HomeClient() {
 
             {/* Key Decisions */}
             <div className="mb-12">
-              <div className="text-label font-medium text-t3 uppercase tracking-wider mb-6">
+              <div className="type-t5 font-medium text-t3 uppercase tracking-wider mb-6">
                 Key Decisions
               </div>
               {currentDeepDive.decisions.map((d, i) => (
                 <div key={i} className="deep-dive-decision">
-                  <div className="text-body font-medium text-t1 mb-1">{d.title}</div>
-                  <div className="text-body text-t2 leading-relaxed">{d.detail}</div>
+                  <div className="type-t4 font-medium text-t1 mb-1">{d.title}</div>
+                  <div className="type-t4 text-t2 leading-relaxed">{d.detail}</div>
                 </div>
               ))}
             </div>
 
             {/* Lessons Learned */}
             <div className="mb-12">
-              <div className="text-label font-medium text-t3 uppercase tracking-wider mb-4">
+              <div className="type-t5 font-medium text-t3 uppercase tracking-wider mb-4">
                 Lessons Learned
               </div>
               {currentDeepDive.lessons.map((l, i) => (
-                <div key={i} className="deep-dive-lesson text-body text-t2 leading-relaxed">
+                <div key={i} className="deep-dive-lesson type-t4 text-t2 leading-relaxed">
                   {l}
                 </div>
               ))}
             </div>
 
             {/* Links */}
-            <div className="flex gap-4 text-tag pt-4 border-t border-border-dim">
+            <div className="flex gap-4 type-t6 pt-4 border-t border-border-dim">
               {currentDeepDive.links.map((l) => (
                 <a
                   key={l.href}

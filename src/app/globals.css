@@ -1,15 +1,31 @@
+
+@font-face {
+  font-family: 'DESIGNER';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/fonts/designer.woff') format('woff');
+  font-display: swap;
+}
 @import 'tailwindcss';
 
 :root {
-  --bg: #0C0C0C;
-  --surface: #141414;
-  --raised: #1C1C1C;
+    --bg: #0a0a0f;
+  --surface: #111118;
+  --surface-2: #1a1a24;
+  --raised: #1a1a24;
   --border: #2A2A2A;
   --grid: #2A2A2A;
-  --t1: #FAFAFA;
-  --t2: #C4C4C4;
-  --t3: #888888;
-  --accent: #D97706;
+  --text-1: #f1f5f9;
+  --text-2: #94a3b8;
+  --text-3: #475569;
+  --t1: var(--text-1);
+  --t2: var(--text-2);
+  --t3: var(--text-3);
+  --amber: #D97706;
+  --amber-bg: rgba(217,119,6,0.08);
+  --violet: #8b5cf6;
+  --accent: var(--amber);
+  --font-body: var(--font-sans-body), sans-serif;
   --noise-opacity: 0.04;
   
   /* Soft shadows for dark mode */
@@ -20,15 +36,22 @@
 
 :root.light {
   --noise-blend: multiply;
-  --bg: #F8F8F8;      /* Off-white */
-  --surface: #F0F0F0; /* Light gray */
-  --raised: #FFFFFF;
-  --border: #C8C8CC;  /* More visible border in light */
-  --grid: #BEBEC4;    /* Darker dot grid for light mode visibility */
-  --t1: #18181B;      /* Zinc 900 */
-  --t2: #52525B;      /* Zinc 600 */
-  --t3: #A1A1AA;      /* Zinc 400 */
-  --accent: #D97706;  /* Keep the vibrant Amber for consistency */
+    --bg: #fafafa;
+  --surface: #f1f5f9;
+  --surface-2: #e2e8f0;
+  --raised: #ffffff;
+  --border: #cbd5e1;
+  --grid: #cbd5e1;
+  --text-1: #0f172a;
+  --text-2: #334155;
+  --text-3: #64748b;
+  --t1: var(--text-1);
+  --t2: var(--text-2);
+  --t3: var(--text-3);
+  --amber: #D97706;
+  --amber-bg: rgba(217,119,6,0.08);
+  --violet: #8b5cf6;
+  --accent: var(--amber);  /* Keep the vibrant Amber for consistency */
   --noise-opacity: 0.02;
 
   /* Layered soft shadows for light mode */
@@ -46,9 +69,7 @@
   --color-t2: var(--t2);
   --color-t3: var(--t3);
   --color-accent: var(--accent);
-  
-  --font-sans: 'Geist', var(--font-family-sans);
-  --font-mono: 'Geist Mono', var(--font-family-mono);
+  --font-display: 'DESIGNER', sans-serif;
 }
 
 /* ─── Smooth scroll ─── */
@@ -77,45 +98,86 @@ body::before {
 }
 
 /* ───────────────────── Typography Scale ───────────────────── */
-.text-hero {
-  font-size: 38px;
-  font-weight: 600;
+.type-t1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(40px, 6vw, 64px);
+  letter-spacing: 0.05em;
+  line-height: 1.0;
+  text-transform: uppercase;
+}
+
+.type-t2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(24px, 4vw, 36px);
+  letter-spacing: 0.05em;
   line-height: 1.1;
-  letter-spacing: -0.02em;
+  text-transform: uppercase;
 }
 
-@media (max-width: 640px) {
-  .text-hero {
-    font-size: 32px;
-  }
+.type-t3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(18px, 2vw, 24px);
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  text-transform: uppercase;
 }
 
-.text-section {
+.type-t4 {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: clamp(14px, 1.5vw, 16px);
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+}
+
+.type-t5 {
+  font-family: var(--font-body);
+  font-weight: 400;
   font-size: 13px;
-  font-weight: 500;
+  line-height: 1.6;
+  color: var(--text-2);
 }
 
-.text-body {
-  font-size: 14px;
+.type-t6 {
+  font-family: var(--font-body);
   font-weight: 400;
-  line-height: 1.75;
-}
-
-.text-label {
-  font-size: 12px;  
-  font-weight: 400;
-}
-
-.text-tag {
-  font-size: 11px;  
-}
-
-.text-eyebrow {
   font-size: 11px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--t3);
 }
+
+.display-inline {
+  font-family: 'DESIGNER', sans-serif;
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+
+.ghost-number {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(32px, 5vw, 56px);
+  color: rgba(255, 255, 255, 0.03);
+  z-index: 0;
+  pointer-events: none;
+}
+
+:root.light .ghost-number {
+  color: rgba(0, 0, 0, 0.04);
+}
+
 
 /* ───────────────────── Hero Gradient Text ───────────────────── */
 .hero-gradient {
@@ -245,7 +307,7 @@ body::before {
   box-shadow: var(--shadow-sm);
   border-radius: 4px;
   padding: 4px 11px; /* adjust padding since border is gone */
-  font-size: 11px;
+  font-size: 13px;
   color: var(--t2);
   transition: all 0.3s ease;
 }
@@ -268,24 +330,25 @@ body::before {
 
 .tag {
   display: inline-block;
-  border: none;
-  box-shadow: var(--shadow-sm);
+  background-color: var(--amber-bg);
+  border: 1px solid rgba(217,119,6,0.2);
   border-radius: 3px;
-  padding: 1.5px 6.5px; /* adjust padding */
-  font-size: 10px;
-  color: var(--t2);
-  margin-right: 4px;
-  margin-bottom: 4px;
-  font-family: var(--font-mono);
+  padding: 2px 7px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--amber);
+  margin-right: 6px;
+  margin-bottom: 6px;
   transition: all 0.3s ease;
-  background-color: transparent;
 }
 
 .tag:hover {
-  color: var(--t1);
-  background-color: var(--surface);
-  box-shadow: var(--shadow-hover);
+  background-color: color-mix(in srgb, var(--amber-bg) 70%, var(--surface));
   transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.15);
 }
 
 /* ───────────────────── Nav link underline animation ───────────────────── */
@@ -300,7 +363,7 @@ body::before {
   left: 0;
   width: 0;
   height: 1px;
-  background: var(--accent);
+  background: var(--violet);
   transition: width 0.3s ease;
 }
 
@@ -1245,13 +1308,17 @@ button:focus-visible {
 }
 
 .contact-value-title {
-  font-size: 16px;
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
   font-weight: 500;
   color: var(--t1);
   margin-bottom: 8px;
 }
 
 .contact-value-desc {
+  font-family: var(--font-body);
   font-size: 14px;
   color: var(--t3);
   line-height: 1.5;
@@ -1270,8 +1337,8 @@ button:focus-visible {
   border: 0.5px solid color-mix(in srgb, var(--border) 40%, transparent);
   box-shadow: var(--shadow-sm);
   border-radius: 4px;
-  padding: 17px 41px;
-  font-size: 20px;
+  padding: 12px 32px;
+  font-size: 16px;
   font-weight: 500;
   color: var(--t1);
   text-decoration: none;
@@ -1540,3 +1607,50 @@ button:focus-visible {
   height: 12px;
 }
 
+
+.pulse-pill {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 9px;
+  text-transform: uppercase;
+  color: var(--t1);
+  padding: 4px 10px;
+  background-color: var(--surface);
+  border-radius: 4px;
+  border-left: 2px solid var(--amber);
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.pulse-pill::before {
+  content: '';
+  position: absolute;
+  left: -2px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--amber);
+  animation: border-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  border-radius: 2px 0 0 2px;
+}
+
+@keyframes border-pulse {
+  0% { opacity: 1; box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.4); }
+  70% { opacity: 0.5; box-shadow: -4px 0 10px 2px rgba(217, 119, 6, 0); }
+  100% { opacity: 1; box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); }
+}
+
+.project-hook {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--text-2);
+  margin-top: 10px;
+  margin-bottom: 16px;
+}
+
+.text-violet { color: var(--violet); }
+
+.bg-violet { background-color: var(--violet); }

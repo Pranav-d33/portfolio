@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const manrope = Manrope({
+  variable: "--font-sans-body",
   subsets: ["latin"],
 });
 
@@ -88,8 +88,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-      <body className="min-h-screen bg-background text-t1 relative">
+    <html lang="en" className={`${manrope.variable} ${geistMono.variable} antialiased`}>
+
+      <body className={`${manrope.className} min-h-screen bg-background text-t1 relative`}>
         <div className="fixed inset-0 pointer-events-none flex justify-center z-0">
           <div className="w-full max-w-[720px] h-full border-x border-border-dim bg-background/95 backdrop-blur-md" />
         </div>
