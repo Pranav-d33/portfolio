@@ -911,13 +911,7 @@ export default function HomeClient() {
         <section className="animate-reveal stagger-1 section-gap">
           <div className="flex justify-between items-start">
             <div className="flex-1">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
-                </div>
-                <span className="pulse-pill">Open to residencies &amp; fellowships</span>
-              </div>
+              {/* Removed 'Open to residencies & fellowships' pill */}
               <h1 className="type-t1 mb-4 text-t1 hero-gradient">Pranav Dhiran</h1>
               <div className="type-t4 text-t3 mb-6 font-mono h-6 flex items-center">
                 <span className="text-violet mr-1">›</span>
