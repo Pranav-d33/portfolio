@@ -99,7 +99,7 @@ const deepDives: Record<string, ProjectDeepDive> = {
   tinystories: {
     title: 'Small Language Model From Scratch — TinyStories',
     overview:
-      'Pre-trained a GPT-style <span className="display-inline">autoregressive transformer</span> on the TinyStories dataset entirely from scratch — no pre-trained weights, no <span className="display-inline">borrowed tokenizers</span>, no shortcuts. The goal was to deeply understand every component of the LLM pipeline by building each piece myself.',
+      'Pre-trained a GPT-style autoregressive transformer on the TinyStories dataset entirely from scratch — no pre-trained weights, no borrowed tokenizers, no shortcuts. The goal was to deeply understand every component of the LLM pipeline by building each piece myself.',
     architecture: [
       [{ label: 'Input Tokens' }],
       [{ label: 'Token Embedding + Positional Encoding' }],
@@ -146,7 +146,7 @@ const deepDives: Record<string, ProjectDeepDive> = {
   medaura: {
     title: 'Medaura — Agentic Pharmacy System',
     overview:
-      'A <span className="display-inline">full-stack multi-agent</span> AI system for autonomous medication ordering. Five specialized agents collaborate through a custom <span className="display-inline">orchestration pipeline</span>, handling everything from order processing and safety checks to demand forecasting and procurement — across four languages.',
+      'A full-stack multi-agent AI system for autonomous medication ordering. Five specialized agents collaborate through a custom orchestration pipeline, handling everything from order processing and safety checks to demand forecasting and procurement — across four languages.',
     architecture: [
       [{ label: 'User Interface', sub: 'React · EN / HI / MR / ES' }],
       [{ label: 'Orchestrator / Router Agent', sub: 'Intent classification → Agent dispatch' }],
@@ -194,7 +194,7 @@ const deepDives: Record<string, ProjectDeepDive> = {
   'gnuradio-mcp': {
     title: 'GNU Radio MCP Server — LLM-to-SDR Bridge',
     overview:
-      'An <span className="display-inline">MCP (Model Context Protocol)</span> server that bridges large language models to live GNU Radio <span className="display-inline">software-defined radio</span> flowgraphs. Enables LLMs to control SDR hardware, capture IQ data, analyze spectrum, and tune parameters — all through natural language.',
+      'An MCP (Model Context Protocol) server that bridges large language models to live GNU Radio software-defined radio flowgraphs. Enables LLMs to control SDR hardware, capture IQ data, analyze spectrum, and tune parameters — all through natural language.',
     architecture: [
       [{ label: 'LLM Client', sub: 'Claude, GPT · stdio / HTTP' }],
       [{ label: 'MCP Server', sub: 'FastMCP · 13 tools · Pydantic v2' }],
@@ -245,7 +245,7 @@ const deepDives: Record<string, ProjectDeepDive> = {
   rfwatch: {
     title: 'RF Watch — Open-Source Real-Time RF Spectrum Monitor',
     overview:
-      'A real-time RF spectrum analyzer using HackRF One and GNU Radio. Extracts spectral features via FFT and feeds them into a <span className="display-inline">lightweight ML classifier</span> for <span className="display-inline">passive detection</span> of unknown transmitters. Originally built as an <span className="display-inline">anti-drone detection</span> system for ITBP during SIH 2025.',
+      'A real-time RF spectrum analyzer using HackRF One and GNU Radio. Extracts spectral features via FFT and feeds them into a lightweight ML classifier for passive detection of unknown transmitters. Originally built as an anti-drone detection system for ITBP during SIH 2025.',
     architecture: [
       [{ label: 'HackRF One SDR', sub: 'Raw IQ samples · 8 MHz bandwidth' }],
       [{ label: 'GNU Radio DSP', sub: 'Welch PSD · Peak Detect · Band Energy' }],
@@ -347,7 +347,7 @@ function processTerminalCommand(input: string): TerminalLine[] {
           '',
           '═══ Small Language Model From Scratch — TinyStories ═══',
           '',
-          'Pre-trained a GPT-style <span className="display-inline">autoregressive transformer</span>',
+          'Pre-trained a GPT-style autoregressive transformer',
           '(6L, 6H, 384-dim) on TinyStories from scratch.',
           'Custom BPE tokenization, mmap pipelines, AMP mixed',
           'precision, gradient accumulation, warmup + cosine',
@@ -362,7 +362,7 @@ function processTerminalCommand(input: string): TerminalLine[] {
           '═══ Medaura — Agentic Pharmacy System ═══',
           '',
           'Full-stack multi-agent AI system — five specialized',
-          'agents with a custom <span className="display-inline">orchestration pipeline</span> for',
+          'agents with a custom orchestration pipeline for',
           'autonomous medication ordering across four languages.',
           '',
           'Agents: Ordering · Safety · Forecast · Procurement · UI',
@@ -399,7 +399,7 @@ function processTerminalCommand(input: string): TerminalLine[] {
           'with a <span className="display-inline">lightweight ML classifier</span> for passive',
           'detection of unknown transmitters.',
           '',
-          'Built for ITBP <span className="display-inline">anti-drone detection</span> (SIH 2025).',
+          'Built for ITBP anti-drone detection (SIH 2025).',
           '',
           'Stack: Python · GNU Radio · HackRF One · Signal Processing',
           'Link:  github.com/Pranav-d33/RFwatch',
@@ -628,7 +628,6 @@ export default function HomeClient() {
       'training transformers from scratch',
       'building multi-agent pipelines',
       'engineering MCP servers',
-      'shipping research to production',
     ],
     45,
     25,
@@ -880,15 +879,15 @@ export default function HomeClient() {
             <a
               href="#projects"
               className={`nav-link transition-colors ${
-                activeSection === 'projects' ? 'text-accent' : 'hover:text-t1'
+                activeSection === 'projects' ? 'text-accent active' : 'hover:text-t1'
               }`}
             >
               Projects
             </a>
             <a
               href="#thinking"
-              className={`nav-link transition-colors ${
-                activeSection === 'thinking' ? 'text-accent' : 'hover:text-t1'
+              className={`nav-link whitespace-nowrap transition-colors ${
+                activeSection === 'thinking' ? 'text-accent active' : 'hover:text-t1'
               }`}
             >
               How I Work
@@ -896,7 +895,7 @@ export default function HomeClient() {
             <a
               href="#reading"
               className={`nav-link transition-colors ${
-                activeSection === 'reading' ? 'text-accent' : 'hover:text-t1'
+                activeSection === 'reading' ? 'text-accent active' : 'hover:text-t1'
               }`}
             >
               Reading
@@ -904,7 +903,7 @@ export default function HomeClient() {
             <a
               href="#contact"
               className={`nav-link transition-colors ${
-                activeSection === 'contact' ? 'text-accent' : 'hover:text-t1'
+                activeSection === 'contact' ? 'text-accent active' : 'hover:text-t1'
               }`}
             >
               Contact
@@ -973,17 +972,12 @@ export default function HomeClient() {
 
       <main className="flex flex-col max-w-[720px] mx-auto px-6 pt-16">
         {/* ═══════════ HERO SECTION ═══════════ */}
-        <motion.section
-          className="section-gap"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: customEase }}
-        >
+        <section className="section-gap">
           <div className="flex justify-between items-start">
             <div className="flex-1">
-              <h1 className="type-t1 mb-1 text-t1 hero-gradient">Pranav Dhiran</h1>
-              <div className="type-t4 text-t2 font-medium mb-4">LLM &amp; Agentic Systems Engineer</div>
-              <div className="type-t4 text-t3 mb-5 font-mono h-6 flex items-center">
+              <h1 className="type-t1 mb-1 text-t1 hero-gradient animate-reveal">Pranav Dhiran</h1>
+              <div className="type-t4 text-t2 font-medium mb-4 animate-reveal stagger-1">LLM &amp; Agentic Systems Engineer</div>
+              <div className="type-t4 text-t3 mb-5 font-mono h-6 flex items-center animate-reveal stagger-2">
                 <span className="text-primary-green mr-1">›</span>
                 <span>{typedText}</span>
                 {isTypingComplete ? (
@@ -992,18 +986,18 @@ export default function HomeClient() {
                   <span className="llm-cursor"></span>
                 )}
               </div>
-              <div className="type-t4 font-medium text-t2 mb-5 max-w-lg">
-                I build AI systems that go from research paper to <span className="hl">working prototype</span> fast — language models, multi-agent pipelines, and the infra that holds them together.
+              <div className="type-t4 font-medium text-t2 mb-5 max-w-lg animate-reveal stagger-3">
+                I build AI systems that go from research paper to working prototype fast — language models, multi-agent pipelines, and the infra that holds them together.
               </div>
-              <div className="flex gap-2 mb-7 flex-wrap">
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface border border-border-dim type-t6 text-t3">
-                  <span className="text-primary-green text-[10px]">◆</span> SIH National Finalist ×2
+              <div className="flex gap-2 mb-7 flex-wrap animate-reveal stagger-4">
+                <span className="inline-flex items-center px-3 py-1 rounded-full border border-primary-green/50 bg-transparent type-t6 text-primary-green">
+                  SIH National Finalist ×2
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface border border-border-dim type-t6 text-t3">
+                <span className="inline-flex items-center px-3 py-1 rounded-full border border-primary-green/50 bg-transparent type-t6 text-primary-green">
                   Open to internships &amp; research collaborations
                 </span>
               </div>
-              <div className="flex gap-4 items-center">
+              <div className="flex gap-4 items-center animate-reveal stagger-5">
                 <a href="/resume_v4.pdf" className="ghost-button group">
                   <span className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5">Resume</span>
                   <span className="inline-block ml-1 transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
@@ -1020,67 +1014,37 @@ export default function HomeClient() {
               </div>
             </div>
             {/* Profile Image */}
-            <div className="profile-image-wrapper w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] rounded-full border border-border-dim ml-6 lg:ml-8 flex-shrink-0 overflow-hidden grayscale hover:grayscale-0 transition-all duration-700 shadow-sm">
-              <img
-                src="/portfolio_image.jpeg"
-                alt="Pranav Dhiran"
-                width={160}
-                height={160}
-                className="w-full h-full object-cover scale-[2.0] origin-bottom"
-              />
+            <div className="group relative ml-6 lg:ml-12 flex-shrink-0 mt-4 sm:mt-0">
+              <div className="absolute inset-0 border border-primary-green translate-x-2 translate-y-2 rounded-lg opacity-80 transition-transform duration-500 group-hover:translate-x-3 group-hover:translate-y-3"></div>
+              <div className="relative w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] rounded-lg border border-border-dim overflow-hidden grayscale hover:grayscale-0 -rotate-2 hover:-rotate-1 transition-all duration-500 shadow-sm z-10 bg-background">
+                <img
+                  src="/portfolio_image.jpeg"
+                  alt="Pranav Dhiran"
+                  width={160}
+                  height={160}
+                  className="w-full h-full object-cover scale-[1.3] origin-bottom"
+                />
+              </div>
             </div>
           </div>
+          
+          <div className="mt-20 flex justify-center opacity-40 animate-bounce">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary-green">
+              <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+          </div>
 
-        </motion.section>
+        </section>
 
         {/* ═══════════ PROJECTS ═══════════ */}
         <MotionSection id="projects" className="section-gap section-divider pt-16">
-          <div className="mb-2"><span className="section-label">01</span></div>
-          <h2 className="type-t2 border-b border-border-dim py-2 mb-6">Selected Work</h2>
+                    <h2 className="type-t2 border-b border-border-dim py-2 mb-6">Selected Work</h2>
           <motion.div className="flex flex-col" variants={itemVariants}>
-            {/* Project 1: TinyStories */}
-            <motion.div
-              variants={cardVariants}
-              whileHover={{ x: 4, transition: { duration: 0.2 } }}
-              className="project-card hover-arrow group border-b border-border-dim pb-6 mb-6 cursor-pointer"
-              onClick={() => setDeepDiveProject('tinystories')}
-            >
-              <div className="flex justify-between items-center">
-                <div className="flex-1">
-                  <div className="type-t3 mb-1">
-                    Small Language Model From Scratch — TinyStories
-                  </div>
-                  <div className="project-hook">Every LLM course teaches you to call an API. I wanted to know what happens before the API.
-                  </div>
-                  <div className="type-t4 text-t2 mb-4">
-                    Pre-trained a GPT-style transformer (6L, 6H, 384-dim) <span className="hl">from scratch</span> — custom BPE tokenizer, mmap pipelines, AMP mixed precision, warmup + cosine LR. Ran depth and embedding ablations to analyze scaling behavior. No pretrained weights. No shortcuts.
-                  </div>
-                  <div className="mb-4">
-                    <span className="tag">PyTorch</span>
-                    <span className="tag">Hugging Face</span>
-                    <span className="tag">AMP</span>
-                    <span className="tag">NLP</span>
-                  </div>
-                  <div className="flex gap-4 items-center type-t6">
-                    <a
-                      href="https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories-"
-                      className="text-accent underline"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      GitHub
-                    </a>
-                    <span className="case-study-hint">view case study →</span>
-                  </div>
-                </div>
-                <div className="arrow text-t3 ml-4 text-2xl">→</div>
-              </div>
-            </motion.div>
-
             {/* Project 2: Medaura */}
             <motion.div
               variants={cardVariants}
               whileHover={{ x: 4, transition: { duration: 0.2 } }}
-              className="project-card hover-arrow group border-b border-border-dim pb-6 mb-6 cursor-pointer"
+              className="project-card cursor-pointer group"
               onClick={() => setDeepDiveProject('medaura')}
             >
               <div className="flex justify-between items-center">
@@ -1091,7 +1055,7 @@ export default function HomeClient() {
                   <div className="project-hook">Medication errors are an information problem. The information exists — it's just not connected at the moment it matters.
                   </div>
                   <div className="type-t4 text-t2 mb-4">
-                    Five specialized agents (Ordering, Safety, Forecast, Procurement, UI) orchestrated via LangGraph for <span className="hl">stateful, auditable</span> pipelines. ChromaDB RAG for drug interaction retrieval. Langfuse tracing every LLM call and safety check. Live, multilingual, zero human intervention.
+                    Five specialized agents (Ordering, Safety, Forecast, Procurement, UI) orchestrated via LangGraph for stateful, auditable pipelines. ChromaDB RAG for drug interaction retrieval. Langfuse tracing every LLM call and safety check. Live, multilingual, zero human intervention.
                   </div>
                   <div className="mb-4">
                     <span className="tag">FastAPI</span>
@@ -1108,10 +1072,48 @@ export default function HomeClient() {
                     >
                       medaura.vercel.app →
                     </a>
-                    <span className="case-study-hint">view case study →</span>
+                    <span className="case-study-hint group-hover:text-accent transition-colors">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
                   </div>
                 </div>
-                <div className="arrow text-t3 ml-4 text-2xl">→</div>
+                <div className="text-t3 ml-4 text-2xl transition-transform duration-200 group-hover:translate-x-1">→</div>
+              </div>
+            </motion.div>
+
+            {/* Project 1: TinyStories */}
+            <motion.div
+              variants={cardVariants}
+              whileHover={{ x: 4, transition: { duration: 0.2 } }}
+              className="project-card cursor-pointer group"
+              onClick={() => setDeepDiveProject('tinystories')}
+            >
+              <div className="flex justify-between items-center">
+                <div className="flex-1">
+                  <div className="type-t3 mb-1">
+                    Small Language Model From Scratch — TinyStories
+                  </div>
+                  <div className="project-hook">Every LLM course teaches you to call an API. I wanted to know what happens before the API.
+                  </div>
+                  <div className="type-t4 text-t2 mb-4">
+                    Pre-trained a GPT-style transformer entirely from scratch — no pretrained weights, no borrowed tokenizers. Built to understand every layer of the pipeline before trusting any abstraction above it.
+                  </div>
+                  <div className="mb-4">
+                    <span className="tag">PyTorch</span>
+                    <span className="tag">Hugging Face</span>
+                    <span className="tag">AMP</span>
+                    <span className="tag">NLP</span>
+                  </div>
+                  <div className="flex gap-4 items-center type-t6">
+                    <a
+                      href="https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories-"
+                      className="text-accent underline"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      GitHub
+                    </a>
+                    <span className="case-study-hint group-hover:text-accent transition-colors">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
+                  </div>
+                </div>
+                <div className="text-t3 ml-4 text-2xl transition-transform duration-200 group-hover:translate-x-1">→</div>
               </div>
             </motion.div>
 
@@ -1119,7 +1121,7 @@ export default function HomeClient() {
             <motion.div
               variants={cardVariants}
               whileHover={{ x: 4, transition: { duration: 0.2 } }}
-              className="project-card hover-arrow group border-b border-border-dim pb-6 mb-6 cursor-pointer"
+              className="project-card cursor-pointer group"
               onClick={() => setDeepDiveProject('gnuradio-mcp')}
             >
               <div className="flex justify-between items-center">
@@ -1147,69 +1149,45 @@ export default function HomeClient() {
                     >
                       GitHub
                     </a>
-                    <span className="case-study-hint">view case study →</span>
+                    <span className="case-study-hint group-hover:text-accent transition-colors">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
                   </div>
                 </div>
-                <div className="arrow text-t3 ml-4 text-2xl">→</div>
+                <div className="text-t3 ml-4 text-2xl transition-transform duration-200 group-hover:translate-x-1">→</div>
               </div>
             </motion.div>
 
             {/* Project 4: RF Watch */}
             <motion.div
               variants={cardVariants}
-              whileHover={{ x: 4, transition: { duration: 0.2 } }}
-              className="project-card hover-arrow group cursor-pointer"
-              onClick={() => setDeepDiveProject('rfwatch')}
+              className="project-card flex flex-col sm:flex-row justify-between items-start sm:items-center py-4"
             >
-              <div className="flex justify-between items-center">
-                <div className="flex-1">
-                  <div className="type-t3 mb-1">
-                    RF Watch — Open-Source Real-Time RF Spectrum Monitor
-                  </div>
-                  <div className="project-hook">The constraint was the brief: detect unauthorized drones <span className="hl">passively</span>. No active emitter. No GPS. Just the signal they&apos;re already broadcasting.
-                  </div>
-                  <div className="type-t4 text-t2 mb-4">
-                    Built for SIH 2025 as an anti-drone system for ITBP. HackRF One + GNU Radio — FFT spectral feature extraction, background RF modeling, <span className="display-inline">lightweight ML classifier</span> for unknown transmitter detection. Open-sourced after the hackathon.
-                  </div>
-                  <div className="mb-4">
-                    <span className="tag">Python</span>
-                    <span className="tag">GNU Radio</span>
-                    <span className="tag">HackRF One</span>
-                    <span className="tag">Signal Processing</span>
-                  </div>
-                  <div className="flex gap-4 items-center type-t6">
-                    <a
-                      href="https://github.com/Pranav-d33/RFwatch"
-                      className="text-accent underline"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      GitHub
-                    </a>
-                    <span className="case-study-hint">view case study →</span>
-                  </div>
-                </div>
-                <div className="arrow text-t3 ml-4 text-2xl">→</div>
-              </div>
+              <div className="type-t4 text-t1 font-medium">RF Watch — Open-source RF spectrum monitor · HackRF One + GNU Radio</div>
+              <a
+                href="https://github.com/Pranav-d33/RFwatch"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent hover:underline mt-2 sm:mt-0 type-t6"
+              >
+                [GitHub]
+              </a>
             </motion.div>
-          </motion.div>
+</motion.div>
         </MotionSection>
 
         {/* ═══════════ HOW I WORK ═══════════ */}
         <MotionSection id="thinking" className="section-gap section-divider pt-16">
-          <div className="mb-2"><span className="section-label">02</span></div>
-          <h2 className="type-t2 border-b border-border-dim py-2 mb-8">How I Work</h2>
+                    <h2 className="type-t2 border-b border-border-dim py-2 mb-8">How I Work</h2>
           <motion.div className="flex flex-col gap-5 type-t4 text-t2 leading-relaxed" variants={itemVariants}>
             <motion.p variants={itemVariants}>I don&apos;t start with frameworks. I start with the paper, or the problem, and build until I understand it — then I reach for abstractions.</motion.p>
-            <motion.p variants={itemVariants}>When I built the SLM from scratch, it wasn&apos;t because HuggingFace doesn&apos;t exist. It was because I needed to know what was actually happening inside the <span className="hl">attention block</span> before I could trust anything built on top of it.</motion.p>
+            <motion.p variants={itemVariants}>When I built the SLM from scratch, it wasn&apos;t because HuggingFace doesn&apos;t exist. It was because I needed to know what was actually happening inside the attention block before I could trust anything built on top of it.</motion.p>
             <motion.p variants={itemVariants}>With Medaura, I didn&apos;t architect upfront — I got one agent working, traced it with Langfuse, saw where it broke, and iterated. Every agent call is logged. If something fails in production, I know exactly where and why.</motion.p>
-            <motion.p variants={itemVariants} className="text-t1 font-medium">That&apos;s the pattern: build fast, <span className="hl">instrument everything</span>, understand before abstracting.</motion.p>
+            <motion.p variants={itemVariants} className="text-t1 font-medium">That&apos;s the pattern: build fast, instrument everything, understand before abstracting.</motion.p>
           </motion.div>
         </MotionSection>
 
         {/* ═══════════ READING ROOM ═══════════ */}
         <MotionSection id="reading" className="section-gap section-divider pt-16">
-          <div className="mb-2"><span className="section-label">03</span></div>
-          <div className="border-b border-border-dim pb-2 mb-6 w-full">
+                    <div className="border-b border-border-dim pb-2 mb-6 w-full">
             <h2 className="type-t2">Reading Room</h2>
             <p className="type-t4 text-t2 mt-2 italic">Research that shapes how I build.</p>
           </div>
@@ -1335,8 +1313,7 @@ export default function HomeClient() {
 
         {/* ═══════════ EDUCATION ═══════════ */}
         <MotionSection id="education" className="section-gap section-divider pt-16">
-          <div className="mb-2"><span className="section-label">04</span></div>
-          <h2 className="type-t2 border-b border-border-dim py-2 mb-6">Education</h2>
+                    <h2 className="type-t2 border-b border-border-dim py-2 mb-6">Education</h2>
           <div className="flex flex-col gap-12">
             <div className="experience-rule pl-4">
               <div className="flex justify-between items-start mb-2">
@@ -1362,47 +1339,46 @@ export default function HomeClient() {
 
         {/* ═══════════ RESEARCH & ACHIEVEMENTS ═══════════ */}
         <MotionSection id="research" className="section-gap section-divider pt-16">
-          <div className="mb-2"><span className="section-label">05</span></div>
-          <div className="border-b border-border-dim pb-2 mb-8 w-full flex justify-between items-end">
+                    <div className="border-b border-border-dim pb-2 mb-8 w-full flex justify-between items-end">
             <h2 className="type-t2">Research &amp; Achievements</h2>
           </div>
 
           <div className="mb-10">
             <div className="type-t5 text-t3 uppercase tracking-wider mb-5">Certifications</div>
-            <div className="flex flex-col gap-3">
-              <div className="type-t4 text-t2">
-                <span className="text-t3 mr-2">•</span>
-                Fine-tuning &amp; RL for LLMs: Intro to Post-training — <span className="text-t1 font-medium">DeepLearning.AI</span>
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col">
+                <div className="type-t4 text-t1 font-medium">Fine-tuning &amp; RL for LLMs: Intro to Post-training</div>
+                <div className="type-t5 text-t3">DeepLearning.AI</div>
               </div>
-              <div className="type-t4 text-t2">
-                <span className="text-t3 mr-2">•</span>
-                AI Agents in LangGraph — <span className="text-t1 font-medium">DeepLearning.AI</span>
+              <div className="flex flex-col">
+                <div className="type-t4 text-t1 font-medium">AI Agents in LangGraph</div>
+                <div className="type-t5 text-t3">DeepLearning.AI</div>
               </div>
-              <div className="type-t4 text-t2">
-                <span className="text-t3 mr-2">•</span>
-                Quantization Fundamentals — <span className="text-t1 font-medium">Hugging Face</span>
+              <div className="flex flex-col">
+                <div className="type-t4 text-t1 font-medium">Quantization Fundamentals</div>
+                <div className="type-t5 text-t3">Hugging Face</div>
               </div>
-              <div className="type-t4 text-t2">
-                <span className="text-t3 mr-2">•</span>
-                MCP: Build Rich Context AI Apps — <span className="text-t1 font-medium">Anthropic</span>
+              <div className="flex flex-col">
+                <div className="type-t4 text-t1 font-medium">MCP: Build Rich Context AI Apps</div>
+                <div className="type-t5 text-t3">Anthropic</div>
               </div>
             </div>
           </div>
 
           <div className="mb-10">
             <div className="type-t5 text-t3 uppercase tracking-wider mb-5">Awards &amp; Recognition</div>
-            <div className="flex flex-col gap-3">
-              <div className="type-t4 text-t2">
-                <span className="text-t3 mr-2">•</span>
-                Global Finalist (Top 6 Internationally) — <span className="text-t1 font-medium">UWA Hack For Impact 2026</span>
+            <div className="flex flex-col gap-6">
+              <div className="flex flex-col pl-4 border-l-[3px] border-primary-green">
+                <div className="type-t4 text-t1 font-medium">Global Finalist (Top 6 Internationally)</div>
+                <div className="type-t5 text-t3">UWA Hack For Impact 2026</div>
               </div>
-              <div className="type-t4 text-t2">
-                <span className="text-t3 mr-2">•</span>
-                National Finalist — <span className="text-t1 font-medium">Smart India Hackathon (SIH) 2024 &amp; 2025</span>
+              <div className="flex flex-col pl-4 border-l-[3px] border-primary-green">
+                <div className="type-t4 text-t1 font-medium">National Finalist</div>
+                <div className="type-t5 text-t3">Smart India Hackathon (SIH) 2024 &amp; 2025</div>
               </div>
-              <div className="type-t4 text-t2">
-                <span className="text-t3 mr-2">•</span>
-                Regional Qualifier — <span className="text-t1 font-medium">Nxt Wave x OpenAI Buildathon</span>
+              <div className="flex flex-col pl-4 border-l-[3px] border-transparent">
+                <div className="type-t4 text-t1 font-medium">Regional Qualifier</div>
+                <div className="type-t5 text-t3">Nxt Wave x OpenAI Buildathon</div>
               </div>
             </div>
           </div>
@@ -1410,23 +1386,21 @@ export default function HomeClient() {
 
         {/* ═══════════ CONTACT ═══════════ */}
         <MotionSection id="contact" className="section-gap section-divider pt-16">
-          <div className="mb-2"><span className="section-label">06</span></div>
-          <h2 className="type-t2 border-b border-border-dim py-2 mb-8">Contact</h2>
+                    <h2 className="type-t2 border-b border-border-dim py-2 mb-8">Contact</h2>
 
-          <div className="mb-8">
-            <p className="type-t4 text-t2 leading-relaxed mb-1">
+          <div className="mb-10">
+            <p className="type-t4 text-t1 text-[1.2rem] leading-[2] mb-1">
               Open to AI/ML internships and research collaborations —
             </p>
-            <p className="type-t4 text-t3">
+            <p className="type-t4 text-t1 text-[1.2rem] leading-[2]">
               particularly in LLM post-training, agentic systems, and inference.
             </p>
           </div>
 
           {/* Let's Chat CTA */}
-          <div className="contact-cta-wrapper mb-8">
-            <a href="mailto:dhiranpranav72@gmail.com" className="contact-cta group">
-              <span className="contact-cta-text">dhiranpranav72@gmail.com</span>
-              <span className="contact-cta-arrow">→</span>
+          <div className="contact-cta-wrapper mb-12">
+            <a href="mailto:dhiranpranav72@gmail.com" className="text-[2rem] sm:text-[2.5rem] font-display text-primary-green hover:underline decoration-primary-green underline-offset-8 transition-all">
+              dhiranpranav72@gmail.com
             </a>
           </div>
 
