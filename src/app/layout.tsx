@@ -89,6 +89,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${manrope.variable} ${geistMono.variable} antialiased`}>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "wint66rw2x");`
+          }}
+        />
+      </head>
 
       <body className={`${manrope.className} min-h-screen bg-background text-t1 relative`}>
         <div className="fixed inset-0 pointer-events-none flex justify-center z-0">
