@@ -23,7 +23,7 @@
   --t3: var(--text-3);
   --amber: #D97706;
   --amber-bg: rgba(217,119,6,0.08);
-  --violet: #8b5cf6;
+  --primary-green: #00FF9D; /* Glossy neon green */
   --accent: var(--amber);
   --font-body: var(--font-sans-body), sans-serif;
   --noise-opacity: 0.04;
@@ -50,7 +50,7 @@
   --t3: var(--text-3);
   --amber: #D97706;
   --amber-bg: rgba(217,119,6,0.08);
-  --violet: #8b5cf6;
+  --primary-green: #00E676;
   --accent: var(--amber);  /* Keep the vibrant Amber for consistency */
   --noise-opacity: 0.02;
 
@@ -151,6 +151,21 @@ body::before {
 
 .display-inline {
   font-family: 'DESIGNER', sans-serif;
+}
+
+/* ───────────────────── Hybrid Typography — em highlight ───────────────────── */
+/* Lora italic + Emerald Green. Same size, same hierarchy — just a different voice. */
+.hl {
+  font-family: var(--font-serif) !important;
+  font-style: italic !important;
+  font-weight: 400;
+  color: var(--primary-green) !important;
+  text-shadow: 0 0 12px color-mix(in srgb, var(--primary-green) 40%, transparent);
+  letter-spacing: 0.01em;
+}
+
+:root.light .hl {
+  color: #059669 !important;
 }
 
 .section-label {
@@ -431,7 +446,7 @@ body::before {
   left: 0;
   width: 0;
   height: 1px;
-  background: var(--violet);
+  background: var(--primary-green);
   transition: width 0.3s ease;
 }
 
@@ -1719,6 +1734,6 @@ button:focus-visible {
   margin-bottom: 16px;
 }
 
-.text-violet { color: var(--violet); }
+.text-primary-green { color: var(--primary-green); }
 
-.bg-violet { background-color: var(--violet); }
+.bg-primary-green { background-color: var(--primary-green); }

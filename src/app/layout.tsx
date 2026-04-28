@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Manrope } from "next/font/google";
+import { Geist_Mono, Manrope, Lora } from "next/font/google";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -10,6 +10,12 @@ const manrope = Manrope({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const lora = Lora({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -88,7 +94,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${geistMono.variable} antialiased`}>
+    <html lang="en" className={`${manrope.variable} ${geistMono.variable} ${lora.variable} antialiased`}>
       <head>
         <script
           dangerouslySetInnerHTML={{

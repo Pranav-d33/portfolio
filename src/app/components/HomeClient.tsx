@@ -1,6 +1,71 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { motion } from 'framer-motion';
+
+/* ═══════════════════════════════════════════════════════════════
+   Framer Motion — Scroll Animation Variants & Components
+   ═══════════════════════════════════════════════════════════════ */
+
+const customEase: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
+
+const sectionVariants = {
+  hidden: { opacity: 0, y: 40, filter: 'blur(6px)' },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: { duration: 0.7, ease: customEase, staggerChildren: 0.12 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: customEase },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, x: -20, y: 16 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    transition: { duration: 0.55, ease: customEase },
+  },
+};
+
+const scaleInVariants = {
+  hidden: { opacity: 0, scale: 0.92 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: { duration: 0.5, ease: customEase },
+  },
+};
+
+function MotionSection({ children, className = '', id, variants = sectionVariants }: {
+  children: React.ReactNode;
+  className?: string;
+  id?: string;
+  variants?: typeof sectionVariants;
+}) {
+  return (
+    <motion.section
+      id={id}
+      className={className}
+      variants={variants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.08 }}
+    >
+      {children}
+    </motion.section>
+  );
+}
 
 /* ═══════════════════════════════════════════════════════════════
    Types
@@ -561,9 +626,9 @@ export default function HomeClient() {
   const { text: typedText, isComplete: isTypingComplete } = useTypingEffect(
     [
       'training transformers from scratch',
-      'building <span className="display-inline">agentic AI systems</span>',
+      'building multi-agent pipelines',
       'engineering MCP servers',
-      'exploring RF + ML at the edge',
+      'shipping research to production',
     ],
     45,
     25,
@@ -743,10 +808,10 @@ export default function HomeClient() {
 
   /* ─── Data ─── */
   const navItems = [
-    { id: 'thinking', label: '01' },
-    { id: 'education', label: '02' },
-    { id: 'projects', label: '03' },
-    { id: 'reading', label: '04' },
+    { id: 'projects', label: '01' },
+    { id: 'thinking', label: '02' },
+    { id: 'reading', label: '03' },
+    { id: 'education', label: '04' },
     { id: 'research', label: '05' },
     { id: 'contact', label: '06' },
   ];
@@ -783,7 +848,7 @@ export default function HomeClient() {
             <span
               className={`text-[10px] font-mono transition-all duration-300 ${
                 activeSection === item.id
-                  ? 'text-violet opacity-100 translate-x-0'
+                  ? 'text-primary-green opacity-100 translate-x-0'
                   : 'text-t3 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0'
               }`}
             >
@@ -792,7 +857,7 @@ export default function HomeClient() {
             <div
               className={`w-1.5 transition-all duration-300 rounded-full ${
                 activeSection === item.id
-                  ? 'h-6 bg-violet'
+                  ? 'h-6 bg-primary-green'
                   : 'h-1.5 bg-border-dim group-hover:bg-t3'
               }`}
             />
@@ -803,7 +868,7 @@ export default function HomeClient() {
       {/* NAVIGATION */}
       <nav className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm py-4 border-b border-border-dim/10">
         <div className="flex justify-start sm:justify-between items-center max-w-[720px] mx-auto px-6">
-          <div className="hidden sm:block type-t2 font-medium group cursor-default text-violet">
+          <div className="hidden sm:block type-t2 font-medium group cursor-default text-primary-green">
             <span className="inline-block transition-transform duration-300 group-hover:scale-110">
               P
             </span>
@@ -821,20 +886,20 @@ export default function HomeClient() {
               Projects
             </a>
             <a
+              href="#thinking"
+              className={`nav-link transition-colors ${
+                activeSection === 'thinking' ? 'text-accent' : 'hover:text-t1'
+              }`}
+            >
+              How I Work
+            </a>
+            <a
               href="#reading"
               className={`nav-link transition-colors ${
                 activeSection === 'reading' ? 'text-accent' : 'hover:text-t1'
               }`}
             >
               Reading
-            </a>
-            <a
-              href="#research"
-              className={`nav-link transition-colors ${
-                activeSection === 'research' ? 'text-accent' : 'hover:text-t1'
-              }`}
-            >
-              Research
             </a>
             <a
               href="#contact"
@@ -908,13 +973,18 @@ export default function HomeClient() {
 
       <main className="flex flex-col max-w-[720px] mx-auto px-6 pt-16">
         {/* ═══════════ HERO SECTION ═══════════ */}
-        <section className="animate-reveal stagger-1 section-gap">
+        <motion.section
+          className="section-gap"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: customEase }}
+        >
           <div className="flex justify-between items-start">
             <div className="flex-1">
-              {/* Removed 'Open to residencies & fellowships' pill */}
-              <h1 className="type-t1 mb-4 text-t1 hero-gradient">Pranav Dhiran</h1>
-              <div className="type-t4 text-t3 mb-6 font-mono h-6 flex items-center">
-                <span className="text-violet mr-1">›</span>
+              <h1 className="type-t1 mb-1 text-t1 hero-gradient">Pranav Dhiran</h1>
+              <div className="type-t4 text-t2 font-medium mb-4">LLM &amp; Agentic Systems Engineer</div>
+              <div className="type-t4 text-t3 mb-5 font-mono h-6 flex items-center">
+                <span className="text-primary-green mr-1">›</span>
                 <span>{typedText}</span>
                 {isTypingComplete ? (
                   <span className="token-flash">&lt;|end|&gt;</span>
@@ -922,39 +992,30 @@ export default function HomeClient() {
                   <span className="llm-cursor"></span>
                 )}
               </div>
-              <div className="type-t4 font-medium text-t2 mb-8 max-w-lg">
-                I started in RF and signals. Turns out the most interesting signal to decode is language. Now I build the systems that do both — from transformer pre-training to multi-agent pipelines to LLM-controlled hardware.
+              <div className="type-t4 font-medium text-t2 mb-5 max-w-lg">
+                I build AI systems that go from research paper to <span className="hl">working prototype</span> fast — language models, multi-agent pipelines, and the infra that holds them together.
+              </div>
+              <div className="flex gap-2 mb-7 flex-wrap">
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface border border-border-dim type-t6 text-t3">
+                  <span className="text-primary-green text-[10px]">◆</span> SIH National Finalist ×2
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface border border-border-dim type-t6 text-t3">
+                  Open to internships &amp; research collaborations
+                </span>
               </div>
               <div className="flex gap-4 items-center">
                 <a href="/resume_v4.pdf" className="ghost-button group">
-                  <span className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5">
-                    Resume
-                  </span>
-                  <span className="inline-block ml-1 transition-transform duration-200 group-hover:translate-y-0.5">
-                    ↓
-                  </span>
+                  <span className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5">Resume</span>
+                  <span className="inline-block ml-1 transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
                 </a>
                 <div className="flex gap-3 type-t6 text-t3">
-                  <a
-                    href="mailto:dhiranpranav72@gmail.com"
-                    className="hover:text-t2 transition-colors"
-                  >
-                    Email
-                  </a>
+                  <a href="mailto:dhiranpranav72@gmail.com" className="hover:text-t2 transition-colors">Email</a>
                   <span>·</span>
-                  <a
-                    href="https://github.com/Pranav-d33"
-                    className="hover:text-t2 transition-colors"
-                  >
-                    GitHub
-                  </a>
+                  <a href="https://github.com/Pranav-d33" className="hover:text-t2 transition-colors">GitHub</a>
                   <span>·</span>
-                  <a
-                    href="https://linkedin.com/in/pranav-dhiran"
-                    className="hover:text-t2 transition-colors"
-                  >
-                    LinkedIn
-                  </a>
+                  <a href="https://linkedin.com/in/pranav-dhiran" className="hover:text-t2 transition-colors">LinkedIn</a>
+                  <span>·</span>
+                  <a href="https://x.com/Pranav_ai" className="hover:text-t2 transition-colors">X</a>
                 </div>
               </div>
             </div>
@@ -970,62 +1031,17 @@ export default function HomeClient() {
             </div>
           </div>
 
-        </section>
-
-        {/* ═══════════ HOW I THINK ═══════════ */}
-        <section id="thinking" className="scroll-reveal section-gap pt-10">
-          <div className="type-t5 font-medium text-t3 uppercase tracking-wider mb-8">
-            How I Think
-          </div>
-          <div className="thinking-timeline">
-            {thinkingSteps.map((step, i) => (
-              <div
-                key={i}
-                className="thinking-step"
-                style={{ transitionDelay: `${i * 120}ms` }}
-              >
-                <div className="thinking-step-dot" />
-                <div className="thinking-step-content overflow-hidden relative">
-                  <div className="ghost-number">{step.num}</div>
-                  <div className="type-t4 font-medium text-t1 mb-1">{step.title}</div>
-                  <div className="type-t5 text-t3 leading-relaxed">
-                    {step.desc}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ═══════════ EDUCATION ═══════════ */}
-        <section id="education" className="scroll-reveal section-gap section-divider pt-16">
-          <div className="mb-2"><span className="section-label">01</span></div>
-          <h2 className="type-t2 border-b border-border-dim py-2 mb-6">Education</h2>
-          <div className="flex flex-col gap-12">
-            <div className="experience-rule pl-4">
-              <div className="flex justify-between items-start mb-2">
-                <div>
-                  <div className="type-t6 font-mono text-t3 mb-1">2023 — Present</div>
-                  <div className="type-t4 font-medium">
-                    Shri Guru Gobind Singhji Institute of Engineering &amp; Technology, Nanded
-                  </div>
-                </div>
-              </div>
-              <div className="type-t4 text-t2">
-                B.Tech — Electronics &amp; Telecommunication Engineering
-              </div>
-              <div className="type-t5 text-t3 mt-1">Minor in Information Technology</div>
-            </div>
-          </div>
-        </section>
+        </motion.section>
 
         {/* ═══════════ PROJECTS ═══════════ */}
-        <section id="projects" className="scroll-reveal section-gap section-divider pt-16">
-          <div className="mb-2"><span className="section-label">02</span></div>
+        <MotionSection id="projects" className="section-gap section-divider pt-16">
+          <div className="mb-2"><span className="section-label">01</span></div>
           <h2 className="type-t2 border-b border-border-dim py-2 mb-6">Selected Work</h2>
-          <div className="flex flex-col">
+          <motion.div className="flex flex-col" variants={itemVariants}>
             {/* Project 1: TinyStories */}
-            <div
+            <motion.div
+              variants={cardVariants}
+              whileHover={{ x: 4, transition: { duration: 0.2 } }}
               className="project-card hover-arrow group border-b border-border-dim pb-6 mb-6 cursor-pointer"
               onClick={() => setDeepDiveProject('tinystories')}
             >
@@ -1037,7 +1053,7 @@ export default function HomeClient() {
                   <div className="project-hook">Every LLM course teaches you to call an API. I wanted to know what happens before the API.
                   </div>
                   <div className="type-t4 text-t2 mb-4">
-                    Pre-trained a GPT-style transformer (6L, 6H, 384-dim) from scratch — custom BPE tokenizer, mmap pipelines, AMP mixed precision, warmup + cosine LR. Ran depth and embedding ablations to analyze scaling behavior. No pretrained weights. No shortcuts.
+                    Pre-trained a GPT-style transformer (6L, 6H, 384-dim) <span className="hl">from scratch</span> — custom BPE tokenizer, mmap pipelines, AMP mixed precision, warmup + cosine LR. Ran depth and embedding ablations to analyze scaling behavior. No pretrained weights. No shortcuts.
                   </div>
                   <div className="mb-4">
                     <span className="tag">PyTorch</span>
@@ -1058,10 +1074,12 @@ export default function HomeClient() {
                 </div>
                 <div className="arrow text-t3 ml-4 text-2xl">→</div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Project 2: Medaura */}
-            <div
+            <motion.div
+              variants={cardVariants}
+              whileHover={{ x: 4, transition: { duration: 0.2 } }}
               className="project-card hover-arrow group border-b border-border-dim pb-6 mb-6 cursor-pointer"
               onClick={() => setDeepDiveProject('medaura')}
             >
@@ -1073,7 +1091,7 @@ export default function HomeClient() {
                   <div className="project-hook">Medication errors are an information problem. The information exists — it's just not connected at the moment it matters.
                   </div>
                   <div className="type-t4 text-t2 mb-4">
-                    Five specialized agents (Ordering, Safety, Forecast, Procurement, UI) orchestrated via LangGraph for stateful, auditable pipelines. ChromaDB RAG for drug interaction retrieval. Langfuse tracing every LLM call and safety check. Live, multilingual, zero human intervention.
+                    Five specialized agents (Ordering, Safety, Forecast, Procurement, UI) orchestrated via LangGraph for <span className="hl">stateful, auditable</span> pipelines. ChromaDB RAG for drug interaction retrieval. Langfuse tracing every LLM call and safety check. Live, multilingual, zero human intervention.
                   </div>
                   <div className="mb-4">
                     <span className="tag">FastAPI</span>
@@ -1095,10 +1113,12 @@ export default function HomeClient() {
                 </div>
                 <div className="arrow text-t3 ml-4 text-2xl">→</div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Project 3: GNU Radio MCP */}
-            <div
+            <motion.div
+              variants={cardVariants}
+              whileHover={{ x: 4, transition: { duration: 0.2 } }}
               className="project-card hover-arrow group border-b border-border-dim pb-6 mb-6 cursor-pointer"
               onClick={() => setDeepDiveProject('gnuradio-mcp')}
             >
@@ -1132,10 +1152,12 @@ export default function HomeClient() {
                 </div>
                 <div className="arrow text-t3 ml-4 text-2xl">→</div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Project 4: RF Watch */}
-            <div
+            <motion.div
+              variants={cardVariants}
+              whileHover={{ x: 4, transition: { duration: 0.2 } }}
               className="project-card hover-arrow group cursor-pointer"
               onClick={() => setDeepDiveProject('rfwatch')}
             >
@@ -1144,7 +1166,7 @@ export default function HomeClient() {
                   <div className="type-t3 mb-1">
                     RF Watch — Open-Source Real-Time RF Spectrum Monitor
                   </div>
-                  <div className="project-hook">The constraint was the brief: detect unauthorized drones passively. No active emitter. No GPS. Just the signal they're already broadcasting.
+                  <div className="project-hook">The constraint was the brief: detect unauthorized drones <span className="hl">passively</span>. No active emitter. No GPS. Just the signal they&apos;re already broadcasting.
                   </div>
                   <div className="type-t4 text-t2 mb-4">
                     Built for SIH 2025 as an anti-drone system for ITBP. HackRF One + GNU Radio — FFT spectral feature extraction, background RF modeling, <span className="display-inline">lightweight ML classifier</span> for unknown transmitter detection. Open-sourced after the hackathon.
@@ -1168,12 +1190,24 @@ export default function HomeClient() {
                 </div>
                 <div className="arrow text-t3 ml-4 text-2xl">→</div>
               </div>
-            </div>
-          </div>
-        </section>
+            </motion.div>
+          </motion.div>
+        </MotionSection>
+
+        {/* ═══════════ HOW I WORK ═══════════ */}
+        <MotionSection id="thinking" className="section-gap section-divider pt-16">
+          <div className="mb-2"><span className="section-label">02</span></div>
+          <h2 className="type-t2 border-b border-border-dim py-2 mb-8">How I Work</h2>
+          <motion.div className="flex flex-col gap-5 type-t4 text-t2 leading-relaxed" variants={itemVariants}>
+            <motion.p variants={itemVariants}>I don&apos;t start with frameworks. I start with the paper, or the problem, and build until I understand it — then I reach for abstractions.</motion.p>
+            <motion.p variants={itemVariants}>When I built the SLM from scratch, it wasn&apos;t because HuggingFace doesn&apos;t exist. It was because I needed to know what was actually happening inside the <span className="hl">attention block</span> before I could trust anything built on top of it.</motion.p>
+            <motion.p variants={itemVariants}>With Medaura, I didn&apos;t architect upfront — I got one agent working, traced it with Langfuse, saw where it broke, and iterated. Every agent call is logged. If something fails in production, I know exactly where and why.</motion.p>
+            <motion.p variants={itemVariants} className="text-t1 font-medium">That&apos;s the pattern: build fast, <span className="hl">instrument everything</span>, understand before abstracting.</motion.p>
+          </motion.div>
+        </MotionSection>
 
         {/* ═══════════ READING ROOM ═══════════ */}
-        <section id="reading" className="scroll-reveal section-gap section-divider pt-16">
+        <MotionSection id="reading" className="section-gap section-divider pt-16">
           <div className="mb-2"><span className="section-label">03</span></div>
           <div className="border-b border-border-dim pb-2 mb-6 w-full">
             <h2 className="type-t2">Reading Room</h2>
@@ -1200,11 +1234,11 @@ export default function HomeClient() {
           <div>
             <div className="type-t5 text-t3 uppercase tracking-wider mb-1">Selected Papers</div>
             <p className="type-t4 text-t2 text-[12px] italic mb-4">Research that influences my work</p>
-            <div className="paper-grid">
+            <motion.div className="paper-grid" variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}>
               {/* ReAct */}
-              <div className="paper-card">
+              <motion.div className="paper-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <div className="paper-title">ReAct: Synergizing Reasoning and Acting</div>
-                <div className="paper-desc">The paper that made me rethink how Medaura's agents should reason before acting.</div>
+                <div className="paper-desc">Directly shaped Medaura&apos;s reasoning loop — agents observe before they act.</div>
                 <a
                   href="https://arxiv.org/abs/2210.03629"
                   target="_blank"
@@ -1218,12 +1252,12 @@ export default function HomeClient() {
                   </svg>
                   Paper
                 </a>
-              </div>
+              </motion.div>
 
               {/* Toolformer */}
-              <div className="paper-card">
+              <motion.div className="paper-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <div className="paper-title">Toolformer: Models Teach Themselves to Use Tools</div>
-                <div className="paper-desc">Self-supervised tool use. The conceptual ancestor of every MCP server I've built.</div>
+                <div className="paper-desc">Built the GNU Radio MCP server with this mental model.</div>
                 <a
                   href="https://arxiv.org/abs/2302.04761"
                   target="_blank"
@@ -1237,10 +1271,10 @@ export default function HomeClient() {
                   </svg>
                   Paper
                 </a>
-              </div>
+              </motion.div>
 
               {/* MoE */}
-              <div className="paper-card">
+              <motion.div className="paper-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <div className="paper-title">Switch Transformers: Mixture of Experts</div>
                 <div className="paper-desc">Why MoE changes the scaling math — and why modular beats monolithic at scale.</div>
                 <a
@@ -1256,10 +1290,10 @@ export default function HomeClient() {
                   </svg>
                   Paper
                 </a>
-              </div>
+              </motion.div>
 
               {/* GRPO */}
-              <div className="paper-card">
+              <motion.div className="paper-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <div className="paper-title">Group Relative Policy Optimization</div>
                 <div className="paper-desc">The technique behind R1. If you're serious about post-training, this is where to start.</div>
                 <a
@@ -1275,10 +1309,10 @@ export default function HomeClient() {
                   </svg>
                   Paper
                 </a>
-              </div>
+              </motion.div>
 
               {/* DPO */}
-              <div className="paper-card">
+              <motion.div className="paper-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <div className="paper-title">Direct Preference Optimization</div>
                 <div className="paper-desc">RLHF without the RL. Understand the math and post-training stops feeling like magic.</div>
                 <a
@@ -1294,14 +1328,41 @@ export default function HomeClient() {
                   </svg>
                   Paper
                 </a>
+              </motion.div>
+            </motion.div>
+          </div>
+        </MotionSection>
+
+        {/* ═══════════ EDUCATION ═══════════ */}
+        <MotionSection id="education" className="section-gap section-divider pt-16">
+          <div className="mb-2"><span className="section-label">04</span></div>
+          <h2 className="type-t2 border-b border-border-dim py-2 mb-6">Education</h2>
+          <div className="flex flex-col gap-12">
+            <div className="experience-rule pl-4">
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <div className="type-t6 font-mono text-t3 mb-1">2023 — 2027</div>
+                  <div className="type-t4 font-medium">
+                    SGGS Institute of Engineering &amp; Technology, Nanded
+                  </div>
+                </div>
+              </div>
+              <div className="type-t4 text-t2">B.Tech — Electronics &amp; Telecommunication Engineering</div>
+              <div className="type-t5 text-t3 mt-1">Minor in Information Technology</div>
+              <div className="mt-5">
+                <div className="type-t6 text-t3 uppercase tracking-wider mb-2">Relevant Coursework</div>
+                <div className="type-t5 text-t2 leading-relaxed">
+                  Digital Signal Processing · MATLAB · Microprocessors &amp; Embedded Systems ·
+                  Data Structures &amp; Algorithms · Probability &amp; Random Processes · Linear Algebra
+                </div>
               </div>
             </div>
           </div>
-        </section>
+        </MotionSection>
 
         {/* ═══════════ RESEARCH & ACHIEVEMENTS ═══════════ */}
-        <section id="research" className="scroll-reveal section-gap section-divider pt-16">
-          <div className="mb-2"><span className="section-label">04</span></div>
+        <MotionSection id="research" className="section-gap section-divider pt-16">
+          <div className="mb-2"><span className="section-label">05</span></div>
           <div className="border-b border-border-dim pb-2 mb-8 w-full flex justify-between items-end">
             <h2 className="type-t2">Research &amp; Achievements</h2>
           </div>
@@ -1345,40 +1406,28 @@ export default function HomeClient() {
               </div>
             </div>
           </div>
-        </section>
+        </MotionSection>
 
         {/* ═══════════ CONTACT ═══════════ */}
-        <section id="contact" className="scroll-reveal section-gap section-divider pt-16">
-          <div className="mb-2"><span className="section-label">05</span></div>
-          <h2 className="type-t2 border-b border-border-dim py-2 mb-10">Contact</h2>
+        <MotionSection id="contact" className="section-gap section-divider pt-16">
+          <div className="mb-2"><span className="section-label">06</span></div>
+          <h2 className="type-t2 border-b border-border-dim py-2 mb-8">Contact</h2>
 
-          {/* What I look for */}
-          <div className="mb-10">
-            <div className="type-t5 text-t3 uppercase tracking-wider mb-5">What I look for</div>
-            <div className="contact-values-grid">
-              {[
-                { label: 'Impactful work', desc: 'Building things that matter beyond the codebase.' },
-                { label: 'Meaningful work', desc: 'Hard, unsolved challenges worth dedicating time to.' },
-                { label: 'People who think differently', desc: 'Different perspectives build better systems.' },
-              ].map((item) => (
-                <div key={item.label} className="contact-value-card">
-                  <div className="contact-value-title">{item.label}</div>
-                  <div className="contact-value-desc">{item.desc}</div>
-                </div>
-              ))}
-            </div>
+          <div className="mb-8">
+            <p className="type-t4 text-t2 leading-relaxed mb-1">
+              Open to AI/ML internships and research collaborations —
+            </p>
+            <p className="type-t4 text-t3">
+              particularly in LLM post-training, agentic systems, and inference.
+            </p>
           </div>
 
           {/* Let's Chat CTA */}
           <div className="contact-cta-wrapper mb-8">
-            <a
-              href="mailto:dhiranpranav72@gmail.com"
-              className="contact-cta group"
-            >
-              <span className="contact-cta-text">Let&apos;s chat</span>
+            <a href="mailto:dhiranpranav72@gmail.com" className="contact-cta group">
+              <span className="contact-cta-text">dhiranpranav72@gmail.com</span>
               <span className="contact-cta-arrow">→</span>
             </a>
-            <div className="type-t5 text-t3 mt-3">dhiranpranav72@gmail.com</div>
           </div>
 
           {/* Resume Download */}
@@ -1417,8 +1466,17 @@ export default function HomeClient() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
               <span>LinkedIn</span>
             </a>
+            <a
+              href="https://x.com/Pranav_ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="contact-social-link"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              <span>X</span>
+            </a>
           </div>
-        </section>
+        </MotionSection>
 
         <div className="system-prompt-callout">
           <div className="system-prompt-callout-inner">
