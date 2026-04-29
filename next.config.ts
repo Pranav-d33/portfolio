@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
         headers: [
           {
             key: "Content-Security-Policy",
-            value: "default-src 'self' 'unsafe-inline' 'unsafe-eval' data:; connect-src 'self' http://localhost:* ws://localhost:* wss://localhost:*; img-src 'self' data: https:|",
+            value: "default-src 'self' 'unsafe-inline' 'unsafe-eval' data:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.clarity.ms; connect-src 'self' http://localhost:* ws://localhost:* wss://localhost:* https://www.clarity.ms; img-src 'self' data: https:",
           },
         ],
       },

@@ -84,15 +84,27 @@ export async function POST(req: Request) {
       },
     });
   } catch (error: unknown) {
-    console.error("Groq API error:", error);
+    console.error("Chat API error:", error);
+    
+    // Rate limit error from Groq
     if (
       typeof error === "object" &&
       error !== null &&
       "status" in error &&
       error.status === 429
     ) {
-       return new Response("Moving a bit fast. Give it a second and try again.", { status: 429 });
+      return new Response("Moving a bit fast. Give it a second and try again.", { status: 429 });
     }
+    
+    // Invalid request body
+    if (error instanceof SyntaxError) {
+      return new Response("Invalid request format", { status: 400 });
+    }
+    
+    // Detailed error logging for debugging
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    console.error("Detailed error:", errorMessage);
+    
     return new Response("Internal Server Error", { status: 500 });
   }
 }
