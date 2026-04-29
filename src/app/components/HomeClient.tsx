@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 /* ═══════════════════════════════════════════════════════════════
    Framer Motion — Scroll Animation Variants & Components
@@ -601,6 +601,87 @@ function BentoCard({ children, className = '', onClick }: { children: React.Reac
   );
 }
 
+/* ─── Contact Email Long Press Component ─── */
+function ContactEmail() {
+  const [copied, setCopied] = useState(false);
+  const pressTimer = useRef<NodeJS.Timeout | null>(null);
+
+  const handlePressStart = () => {
+    pressTimer.current = setTimeout(() => {
+      navigator.clipboard.writeText("dhiranpranav72@gmail.com");
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+      if (typeof window !== 'undefined' && navigator.vibrate) navigator.vibrate(50);
+    }, 500); // 500ms long press
+  };
+
+  const handlePressEnd = () => {
+    if (pressTimer.current) {
+      clearTimeout(pressTimer.current);
+      pressTimer.current = null;
+    }
+  };
+
+  return (
+    <span 
+      className="relative cursor-pointer hover:text-t2 transition-colors touch-none select-none"
+      onTouchStart={handlePressStart}
+      onTouchEnd={handlePressEnd}
+      onMouseDown={handlePressStart}
+      onMouseUp={handlePressEnd}
+      onMouseLeave={handlePressEnd}
+      onClick={() => {
+        // Fallback for desktop quick click if they don't hold
+        window.location.href = "mailto:dhiranpranav72@gmail.com";
+      }}
+    >
+      Email
+      {copied && (
+        <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-2 border border-border-dim px-2 py-1 rounded text-[10px] text-t1 whitespace-nowrap shadow-sm z-50">
+          Copied
+        </span>
+      )}
+    </span>
+  );
+}
+
+/* ─── Swipeable Project Card (Mobile Drawer) ─── */
+function SwipeableProject({ children, proofTitle, proofDesc, onClick }: { children: React.ReactNode, proofTitle: string, proofDesc: string, onClick?: () => void }) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(window.innerWidth <= 640);
+    const handleResize = () => setIsMobile(window.innerWidth <= 640);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return (
+    <div className="relative mb-6 rounded-xl">
+      {/* Proof Layer (Behind) */}
+      <div className="absolute inset-0 bg-surface-2 border border-border-dim rounded-xl flex items-center justify-end px-6 z-0 pointer-events-none">
+        <div className="text-right max-w-[120px]">
+          <div className="type-t6 text-accent mb-1">{proofTitle}</div>
+          <div className="type-t6 font-mono text-t3 leading-snug">{proofDesc}</div>
+        </div>
+      </div>
+      
+      {/* Draggable Card */}
+      <motion.div
+        variants={cardVariants}
+        whileHover={{ x: isMobile ? 0 : 4, transition: { duration: 0.2 } }}
+        drag={isMobile ? "x" : false}
+        dragConstraints={{ left: -140, right: 0 }}
+        dragElastic={0.1}
+        className="project-card cursor-pointer group m-0 relative z-10 touch-pan-y"
+        onClick={onClick}
+        style={{ touchAction: 'pan-y' }}
+      >
+        {children}
+      </motion.div>
+    </div>
+  );
+}
+
 /* ═══════════════════════════════════════════════════════════════
    Component
    ═══════════════════════════════════════════════════════════════ */
@@ -616,6 +697,7 @@ export default function HomeClient() {
   const [terminalOpen, setTerminalOpen] = useState(false);
   const [terminalHistory, setTerminalHistory] = useState<TerminalLine[]>([]);
   const [terminalInput, setTerminalInput] = useState('');
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
   /* ─── Refs ─── */
   const terminalOutputRef = useRef<HTMLDivElement>(null);
@@ -643,6 +725,9 @@ export default function HomeClient() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setActiveSection(entry.target.id);
+            if (typeof window !== 'undefined' && window.innerWidth <= 640 && navigator.vibrate) {
+              navigator.vibrate(10);
+            }
           }
         });
       },
@@ -653,6 +738,26 @@ export default function HomeClient() {
     sections.forEach((section) => observer.observe(section));
 
     return () => sections.forEach((section) => observer.unobserve(section));
+  }, []);
+
+  /* ─── Device orientation for Hero Tilt ─── */
+  useEffect(() => {
+    const handleOrientation = (event: DeviceOrientationEvent) => {
+      const beta = event.beta || 0;
+      const gamma = event.gamma || 0;
+      // limit the values and scale down
+      const x = Math.max(-15, Math.min(15, gamma)) * 0.3;
+      const y = Math.max(-15, Math.min(15, beta - 45)) * 0.3;
+      setTilt({ x, y });
+    };
+    if (typeof window !== 'undefined' && window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', handleOrientation);
+    }
+    return () => {
+      if (typeof window !== 'undefined' && window.DeviceOrientationEvent) {
+        window.removeEventListener('deviceorientation', handleOrientation);
+      }
+    };
   }, []);
 
   /* ─── Custom cursor follower ─── */
@@ -972,12 +1077,57 @@ export default function HomeClient() {
 
       <main className="flex flex-col max-w-[720px] mx-auto px-6 pt-16">
         {/* ═══════════ HERO SECTION ═══════════ */}
-        <section className="section-gap">
-          <div className="flex justify-between items-start">
-            <div className="flex-1">
-              <h1 className="type-t1 mb-1 text-t1 hero-gradient animate-reveal">Pranav Dhiran</h1>
-              <div className="type-t4 text-t2 font-medium mb-4 animate-reveal stagger-1">LLM &amp; Agentic Systems Engineer</div>
-              <div className="type-t4 text-t3 mb-5 font-mono h-6 flex items-center animate-reveal stagger-2">
+        <motion.section 
+          className="section-gap snap-section"
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.1 } }
+          }}
+        >
+          <div className="flex flex-col-reverse sm:flex-row justify-between items-center sm:items-start gap-8 sm:gap-0">
+            <div className="flex-1 w-full">
+              <h1 className="type-t1 mb-1 text-t1 hero-gradient flex flex-col">
+                <div className="flex">
+                  {"Pranav".split('').map((char, i) => (
+                    <motion.span 
+                      key={`first-${i}`}
+                      variants={{
+                        hidden: { opacity: 0, y: 12 },
+                        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: customEase } }
+                      }}
+                      style={{ 
+                        display: 'inline-block',
+                        x: tilt.x * (i % 2 === 0 ? 1 : -1.2), 
+                        y: tilt.y * (i % 2 === 0 ? -1 : 1.2)
+                      }}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </div>
+                <div className="flex">
+                  {"Dhiran".split('').map((char, i) => (
+                    <motion.span 
+                      key={`last-${i}`}
+                      variants={{
+                        hidden: { opacity: 0, y: 12 },
+                        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: customEase } }
+                      }}
+                      style={{ 
+                        display: 'inline-block',
+                        x: tilt.x * (i % 2 === 0 ? 1 : -1.2), 
+                        y: tilt.y * (i % 2 === 0 ? -1 : 1.2)
+                      }}
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </div>
+              </h1>
+              <motion.div variants={itemVariants} className="type-t4 text-t2 font-medium mb-4">LLM &amp; Agentic Systems Engineer</motion.div>
+              <motion.div variants={itemVariants} className="type-t4 text-t3 mb-5 font-mono h-6 flex items-center">
                 <span className="text-primary-green mr-1">›</span>
                 <span>{typedText}</span>
                 {isTypingComplete ? (
@@ -985,25 +1135,25 @@ export default function HomeClient() {
                 ) : (
                   <span className="llm-cursor"></span>
                 )}
-              </div>
-              <div className="type-t4 font-medium text-t2 mb-5 max-w-lg animate-reveal stagger-3">
+              </motion.div>
+              <motion.div variants={itemVariants} className="type-t4 font-medium text-t2 mb-5 max-w-lg">
                 I build AI systems that go from research paper to working prototype fast — language models, multi-agent pipelines, and the infra that holds them together.
-              </div>
-              <div className="flex gap-2 mb-7 flex-wrap animate-reveal stagger-4">
+              </motion.div>
+              <motion.div variants={itemVariants} className="flex gap-2 mb-7 flex-wrap">
                 <span className="inline-flex items-center px-3 py-1 rounded-full border border-primary-green/50 bg-transparent type-t6 text-primary-green">
                   SIH National Finalist ×2
                 </span>
                 <span className="inline-flex items-center px-3 py-1 rounded-full border border-primary-green/50 bg-transparent type-t6 text-primary-green">
                   Open to internships &amp; research collaborations
                 </span>
-              </div>
-              <div className="flex gap-4 items-center animate-reveal stagger-5">
+              </motion.div>
+              <motion.div variants={itemVariants} className="flex gap-4 items-center">
                 <a href="/resume_v4.pdf" className="ghost-button group">
                   <span className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5">Resume</span>
                   <span className="inline-block ml-1 transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
                 </a>
                 <div className="flex gap-3 type-t6 text-t3">
-                  <a href="mailto:dhiranpranav72@gmail.com" className="hover:text-t2 transition-colors">Email</a>
+                  <ContactEmail />
                   <span>·</span>
                   <a href="https://github.com/Pranav-d33" className="hover:text-t2 transition-colors">GitHub</a>
                   <span>·</span>
@@ -1011,10 +1161,10 @@ export default function HomeClient() {
                   <span>·</span>
                   <a href="https://x.com/Pranav_ai" className="hover:text-t2 transition-colors">X</a>
                 </div>
-              </div>
+              </motion.div>
             </div>
             {/* Profile Image */}
-            <div className="group relative ml-6 lg:ml-12 flex-shrink-0 mt-4 sm:mt-0">
+            <motion.div variants={itemVariants} className="group relative sm:ml-6 lg:ml-12 flex-shrink-0">
               <div className="absolute inset-0 border border-primary-green translate-x-2 translate-y-2 rounded-lg opacity-80 transition-transform duration-500 group-hover:translate-x-3 group-hover:translate-y-3"></div>
               <div className="relative w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] rounded-lg border border-border-dim overflow-hidden grayscale hover:grayscale-0 -rotate-2 hover:-rotate-1 transition-all duration-500 shadow-sm z-10 bg-background">
                 <img
@@ -1025,29 +1175,27 @@ export default function HomeClient() {
                   className="w-full h-full object-cover scale-[1.3] origin-bottom"
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
           
-          <div className="mt-20 flex justify-center opacity-40 animate-bounce">
+          <motion.div variants={itemVariants} className="mt-20 flex justify-center opacity-40 animate-bounce">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary-green">
               <path d="M12 5v14M19 12l-7 7-7-7"/>
             </svg>
-          </div>
-
-        </section>
+          </motion.div>
+        </motion.section>
 
         {/* ═══════════ PROJECTS ═══════════ */}
-        <MotionSection id="projects" className="section-gap section-divider pt-16">
-                    <h2 className="type-t2 border-b border-border-dim py-2 mb-6">Selected Work</h2>
+        <MotionSection id="projects" className="section-gap section-divider pt-16 snap-section">
+          <h2 className="type-t2 border-b border-border-dim py-2 mb-6">Selected Work</h2>
           <motion.div className="flex flex-col" variants={itemVariants}>
             {/* Project 2: Medaura */}
-            <motion.div
-              variants={cardVariants}
-              whileHover={{ x: 4, transition: { duration: 0.2 } }}
-              className="project-card cursor-pointer group"
+            <SwipeableProject
+              proofTitle="Langfuse Trace"
+              proofDesc="Orchestrator → UI routing latency < 120ms"
               onClick={() => setDeepDiveProject('medaura')}
             >
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center w-full">
                 <div className="flex-1">
                   <div className="type-t3 mb-1">
                     Medaura — Agentic Pharmacy System
@@ -1075,18 +1223,17 @@ export default function HomeClient() {
                     <span className="case-study-hint group-hover:text-accent transition-colors">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
                   </div>
                 </div>
-                <div className="text-t3 ml-4 text-2xl transition-transform duration-200 group-hover:translate-x-1">→</div>
+                <div className="text-t3 ml-4 text-2xl transition-transform duration-200 group-hover:translate-x-1 hidden sm:block">→</div>
               </div>
-            </motion.div>
+            </SwipeableProject>
 
             {/* Project 1: TinyStories */}
-            <motion.div
-              variants={cardVariants}
-              whileHover={{ x: 4, transition: { duration: 0.2 } }}
-              className="project-card cursor-pointer group"
+            <SwipeableProject
+              proofTitle="Loss Curve"
+              proofDesc="Converged at 2.1 val loss · 2k warmup"
               onClick={() => setDeepDiveProject('tinystories')}
             >
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center w-full">
                 <div className="flex-1">
                   <div className="type-t3 mb-1">
                     Small Language Model From Scratch — TinyStories
@@ -1113,18 +1260,17 @@ export default function HomeClient() {
                     <span className="case-study-hint group-hover:text-accent transition-colors">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
                   </div>
                 </div>
-                <div className="text-t3 ml-4 text-2xl transition-transform duration-200 group-hover:translate-x-1">→</div>
+                <div className="text-t3 ml-4 text-2xl transition-transform duration-200 group-hover:translate-x-1 hidden sm:block">→</div>
               </div>
-            </motion.div>
+            </SwipeableProject>
 
             {/* Project 3: GNU Radio MCP */}
-            <motion.div
-              variants={cardVariants}
-              whileHover={{ x: 4, transition: { duration: 0.2 } }}
-              className="project-card cursor-pointer group"
+            <SwipeableProject
+              proofTitle="Arch Diagram"
+              proofDesc="ZMQ + XML-RPC split transport"
               onClick={() => setDeepDiveProject('gnuradio-mcp')}
             >
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center w-full">
                 <div className="flex-1">
                   <div className="type-t3 mb-1">
                     GNU Radio MCP Server — LLM-to-SDR Bridge
@@ -1152,9 +1298,9 @@ export default function HomeClient() {
                     <span className="case-study-hint group-hover:text-accent transition-colors">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
                   </div>
                 </div>
-                <div className="text-t3 ml-4 text-2xl transition-transform duration-200 group-hover:translate-x-1">→</div>
+                <div className="text-t3 ml-4 text-2xl transition-transform duration-200 group-hover:translate-x-1 hidden sm:block">→</div>
               </div>
-            </motion.div>
+            </SwipeableProject>
 
             {/* Project 4: RF Watch */}
             <motion.div
@@ -1212,9 +1358,9 @@ export default function HomeClient() {
           <div>
             <div className="type-t5 text-t3 uppercase tracking-wider mb-1">Selected Papers</div>
             <p className="type-t4 text-t2 text-[12px] italic mb-4">Research that influences my work</p>
-            <motion.div className="paper-grid" variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}>
+            <motion.div className="paper-grid sm:grid-cols-2 horizontal-scroll-strip" variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}>
               {/* ReAct */}
-              <motion.div className="paper-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+              <motion.div className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <div className="paper-title">ReAct: Synergizing Reasoning and Acting</div>
                 <div className="paper-desc">Directly shaped Medaura&apos;s reasoning loop — agents observe before they act.</div>
                 <a
@@ -1233,7 +1379,7 @@ export default function HomeClient() {
               </motion.div>
 
               {/* Toolformer */}
-              <motion.div className="paper-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+              <motion.div className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <div className="paper-title">Toolformer: Models Teach Themselves to Use Tools</div>
                 <div className="paper-desc">Built the GNU Radio MCP server with this mental model.</div>
                 <a
@@ -1252,7 +1398,7 @@ export default function HomeClient() {
               </motion.div>
 
               {/* MoE */}
-              <motion.div className="paper-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+              <motion.div className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <div className="paper-title">Switch Transformers: Mixture of Experts</div>
                 <div className="paper-desc">Why MoE changes the scaling math — and why modular beats monolithic at scale.</div>
                 <a
@@ -1271,7 +1417,7 @@ export default function HomeClient() {
               </motion.div>
 
               {/* GRPO */}
-              <motion.div className="paper-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+              <motion.div className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <div className="paper-title">Group Relative Policy Optimization</div>
                 <div className="paper-desc">The technique behind R1. If you're serious about post-training, this is where to start.</div>
                 <a
@@ -1290,7 +1436,7 @@ export default function HomeClient() {
               </motion.div>
 
               {/* DPO */}
-              <motion.div className="paper-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+              <motion.div className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <div className="paper-title">Direct Preference Optimization</div>
                 <div className="paper-desc">RLHF without the RL. Understand the math and post-training stops feeling like magic.</div>
                 <a
@@ -1475,51 +1621,58 @@ export default function HomeClient() {
       </main>
 
       {/* ═══════════ DEEP DIVE OVERLAY ═══════════ */}
-      <div className={`deep-dive-overlay ${deepDiveProject ? 'active' : ''}`}>
-        <button
-          className="deep-dive-close relative z-10"
-          onClick={() => setDeepDiveProject(null)}
-          aria-label="Close deep dive"
-        >
-          ×
-        </button>
-        {currentDeepDive && (
-          <div className="max-w-[720px] mx-auto px-6 py-16 relative z-10">
-            {/* Back link */}
+      <AnimatePresence>
+        {deepDiveProject && currentDeepDive && (
+          <motion.div 
+            className="deep-dive-overlay"
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '-100%' }}
+            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+          >
             <button
+              className="deep-dive-close relative z-10"
               onClick={() => setDeepDiveProject(null)}
-              className="type-t6 font-mono text-t3 hover:text-accent transition-colors mb-8 flex items-center gap-2"
+              aria-label="Close deep dive"
             >
-              <span>←</span>
-              <span>Back to portfolio</span>
+              ×
             </button>
+            <div className="max-w-[720px] mx-auto px-6 py-16 relative z-10">
+              {/* Back link */}
+              <button
+                onClick={() => setDeepDiveProject(null)}
+                className="type-t6 font-mono text-t3 hover:text-accent transition-colors mb-8 flex items-center gap-2"
+              >
+                <span>←</span>
+                <span>Back to portfolio</span>
+              </button>
 
-            {/* Title */}
-            <h2 className="type-t1 mb-6 text-t1">{currentDeepDive.title}</h2>
+              {/* Title */}
+              <h2 className="type-t1 mb-6 text-t1">{currentDeepDive.title}</h2>
 
-            {/* Tags */}
-            <div className="mb-10">
-              {currentDeepDive.tags.map((t) => (
-                <span key={t} className="tag">
-                  {t}
-                </span>
-              ))}
-            </div>
-
-            {/* Overview */}
-            <div className="mb-12">
-              <div className="type-t5 font-medium text-t3 uppercase tracking-wider mb-3">
-                Overview
+              {/* Tags */}
+              <div className="mb-10">
+                {currentDeepDive.tags.map((t) => (
+                  <span key={t} className="tag">
+                    {t}
+                  </span>
+                ))}
               </div>
-              <div className="type-t4 text-t2 leading-relaxed">
-                <StreamingText 
-                  text={currentDeepDive.overview} 
-                  isVisible={!!currentDeepDive} 
-                  speed={8} 
-                  showFlash={true} 
-                />
+
+              {/* Overview */}
+              <div className="mb-12">
+                <div className="type-t5 font-medium text-t3 uppercase tracking-wider mb-3">
+                  Overview
+                </div>
+                <div className="type-t4 text-t2 leading-relaxed">
+                  <StreamingText 
+                    text={currentDeepDive.overview} 
+                    isVisible={!!currentDeepDive} 
+                    speed={8} 
+                    showFlash={true} 
+                  />
+                </div>
               </div>
-            </div>
 
             {/* Architecture */}
             <div className="mb-12">
@@ -1591,8 +1744,9 @@ export default function HomeClient() {
               ))}
             </div>
           </div>
+          </motion.div>
         )}
-      </div>
+      </AnimatePresence>
 
       {/* ═══════════ TERMINAL MODE (Easter Egg) ═══════════ */}
       <div className={`terminal-overlay ${terminalOpen ? 'active' : ''}`}>

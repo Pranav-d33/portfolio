@@ -82,14 +82,12 @@ body {
   color: var(--t1);
   @apply antialiased;
   transition: background-color 300ms, color 300ms;
-  background-image: radial-gradient(circle, var(--grid) 1.2px, transparent 1.2px);
-  background-size: 36px 36px;
 }
 
 body::before {
   content: "";
   position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
+  top: 0; left: 0; width: 100%; height: 100%;
   pointer-events: none;
   z-index: 9999;
   opacity: var(--noise-opacity);
@@ -801,6 +799,44 @@ hr {
   opacity: 0.3;
 }
 
+/* ───────────────────── Mobile Scroll Snapping ───────────────────── */
+@media (max-width: 640px) {
+  html, body {
+    /* Optional: can help with snapping on some mobile browsers if applied to html */
+    scroll-snap-type: y proximity;
+  }
+  
+  .snap-y-container {
+    scroll-snap-type: y mandatory;
+    overflow-y: auto;
+    height: 100vh;
+  }
+  
+  .snap-section {
+    scroll-snap-align: start;
+    scroll-margin-top: 20px;
+  }
+
+  .horizontal-scroll-strip {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding-bottom: 16px;
+    /* Hide scrollbar for a cleaner look */
+    scrollbar-width: none; 
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .horizontal-scroll-card {
+    flex: 0 0 80vw;
+    scroll-snap-align: center;
+  }
+}
+
 /* ───────────────────── Reading Room ───────────────────── */
 .paper-grid {
   display: grid;
@@ -1118,10 +1154,7 @@ button:focus-visible {
   z-index: 100;
   background-color: var(--bg);
   overflow-y: auto;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.35s ease, transform 0.35s ease;
-  pointer-events: none;
+  pointer-events: all;
 }
 
 .deep-dive-overlay::before {
@@ -1136,11 +1169,6 @@ button:focus-visible {
   -webkit-mask-image: linear-gradient(to right, black 0%, black calc(50% - 360px), transparent calc(50% - 360px), transparent calc(50% + 360px), black calc(50% + 360px), black 100%);
 }
 
-.deep-dive-overlay.active {
-  opacity: 1;
-  transform: none;
-  pointer-events: all;
-}
 
 .deep-dive-close {
   position: fixed;
