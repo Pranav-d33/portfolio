@@ -1161,7 +1161,7 @@ export default function HomeClient() {
                   <span>·</span>
                   <a href="https://linkedin.com/in/pranav-dhiran" className="hover:text-t2 transition-colors">LinkedIn</a>
                   <span>·</span>
-                  <a href="https://x.com/Pranav_ai" className="hover:text-t2 transition-colors">X</a>
+                  <a href="https://x.com/Prannav_ai" className="hover:text-t2 transition-colors">X</a>
                 </div>
               </motion.div>
             </div>
@@ -1593,7 +1593,7 @@ export default function HomeClient() {
               <span>LinkedIn</span>
             </a>
             <a
-              href="https://x.com/Pranav_ai"
+              href="https://x.com/Prannav_ai"
               target="_blank"
               rel="noopener noreferrer"
               className="contact-social-link"

@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     description:
       "I build AI systems that work — from transformer pre-training and RL fine-tuning to shipping multi-agent pipelines and LLM-controlled hardware.",
     images: ["/portfolio_image.jpeg"],
-    creator: "@Pranav_ai",
+    creator: "@Prannav_ai",
   },
   robots: {
     index: true,
@@ -75,7 +75,7 @@ const personSchema = {
   sameAs: [
     "https://github.com/Pranav-d33",
     "https://linkedin.com/in/prannav-dhiran",
-    "https://x.com/Pranav_ai",
+    "https://x.com/Prannav_ai",
   ],
   knowsAbout: [
     "Large Language Models",

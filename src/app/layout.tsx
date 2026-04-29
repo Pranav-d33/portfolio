@@ -78,7 +78,7 @@ export const metadata: Metadata = {
     description:
       "I build AI systems that work — from transformer pre-training and RL fine-tuning to shipping multi-agent pipelines and LLM-controlled hardware.",
     images: ["/portfolio_image.jpeg"],
-    creator: "@Pranav_ai",
+    creator: "@Prannav_ai",
   },
   verification: {
     google: "QSa6WMghgjY4JfhcOMcr61kYyNr0OjIklRckSjuTY40",

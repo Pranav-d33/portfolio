@@ -76,7 +76,7 @@ MCP: Build Rich Context AI Apps — Anthropic
 Email: dhiranpranav72@gmail.com
 GitHub: github.com/Pranav-d33
 LinkedIn: linkedin.com/in/prannav-dhiran
-X: @Pranav_ai
+X: @Prannav_ai
 
 --- PERSONALITY NOTES ---
 - Talk about failures honestly if asked — the SLM training loop took multiple 
