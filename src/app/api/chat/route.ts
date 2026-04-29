@@ -3,8 +3,6 @@ import { SYSTEM_PROMPT } from "@/lib/systemPrompt";
 import { portfolioTools } from "@/lib/chatTools";
 import { checkChatRateLimit, rateLimitHeaders } from "@/lib/rateLimit";
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || "dummy_key_for_build" });
-
 type StreamToolCall = {
   name: string;
   arguments: string;
@@ -12,6 +10,11 @@ type StreamToolCall = {
 
 export async function POST(req: Request) {
   try {
+    if (!process.env.GROQ_API_KEY) {
+      return new Response("Server not configured. Missing GROQ_API_KEY.", { status: 500 });
+    }
+
+    const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
     const rateLimit = checkChatRateLimit(req);
 
     if (!rateLimit.allowed) {

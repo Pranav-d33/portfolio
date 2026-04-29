@@ -698,6 +698,7 @@ export default function HomeClient() {
   const [terminalHistory, setTerminalHistory] = useState<TerminalLine[]>([]);
   const [terminalInput, setTerminalInput] = useState('');
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(false);
 
   /* ─── Refs ─── */
   const terminalOutputRef = useRef<HTMLDivElement>(null);
@@ -740,8 +741,27 @@ export default function HomeClient() {
     return () => sections.forEach((section) => observer.unobserve(section));
   }, []);
 
+  /* ─── Mobile Detection ─── */
+  useEffect(() => {
+    const checkMobile = () => {
+      const mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      ) || window.matchMedia('(max-width: 768px)').matches;
+      setIsMobile(mobile);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   /* ─── Device orientation for Hero Tilt ─── */
   useEffect(() => {
+    // Only apply tilt effect on non-mobile devices
+    if (isMobile) {
+      setTilt({ x: 0, y: 0 });
+      return;
+    }
+
     const handleOrientation = (event: DeviceOrientationEvent) => {
       const beta = event.beta || 0;
       const gamma = event.gamma || 0;
@@ -758,7 +778,7 @@ export default function HomeClient() {
         window.removeEventListener('deviceorientation', handleOrientation);
       }
     };
-  }, []);
+  }, [isMobile]);
 
   /* ─── Custom cursor follower ─── */
   useEffect(() => {
