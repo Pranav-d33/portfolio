@@ -54,10 +54,16 @@ export function useChat() {
       });
 
       if (res.status === 429) {
+        const retryAfter = Number(res.headers.get("Retry-After"));
+        const retryHint =
+          Number.isFinite(retryAfter) && retryAfter > 0
+            ? ` Try again in ${retryAfter}s.`
+            : "";
+
         setMessages(prev => {
           const updated = [...prev];
           updated[updated.length - 1].content = 
-            "Moving a bit fast — give it a second and try again.";
+            `Moving a bit fast. Give it a second and try again.${retryHint}`;
           return updated;
         });
         setIsStreaming(false);

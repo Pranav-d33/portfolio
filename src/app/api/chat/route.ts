@@ -1,6 +1,7 @@
 import Groq from "groq-sdk";
 import { SYSTEM_PROMPT } from "@/lib/systemPrompt";
 import { portfolioTools } from "@/lib/chatTools";
+import { checkChatRateLimit, rateLimitHeaders } from "@/lib/rateLimit";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY || "dummy_key_for_build" });
 
@@ -11,6 +12,15 @@ type StreamToolCall = {
 
 export async function POST(req: Request) {
   try {
+    const rateLimit = checkChatRateLimit(req);
+
+    if (!rateLimit.allowed) {
+      return new Response("Moving a bit fast. Try again in a moment.", {
+        status: 429,
+        headers: rateLimitHeaders(rateLimit),
+      });
+    }
+
     const { messages } = await req.json();
 
     const stream = await groq.chat.completions.create({
@@ -65,7 +75,10 @@ export async function POST(req: Request) {
     });
 
     return new Response(readable, {
-      headers: { "Content-Type": "text/plain; charset=utf-8" },
+      headers: {
+        "Content-Type": "text/plain; charset=utf-8",
+        ...rateLimitHeaders(rateLimit),
+      },
     });
   } catch (error: unknown) {
     console.error("Groq API error:", error);
@@ -75,7 +88,7 @@ export async function POST(req: Request) {
       "status" in error &&
       error.status === 429
     ) {
-       return new Response("Moving a bit fast — give it a second and try again.", { status: 429 });
+       return new Response("Moving a bit fast. Give it a second and try again.", { status: 429 });
     }
     return new Response("Internal Server Error", { status: 500 });
   }
