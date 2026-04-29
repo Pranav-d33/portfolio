@@ -970,7 +970,7 @@ export default function HomeClient() {
       </div>
 
       {/* NAVIGATION */}
-      <nav className="sticky top-0 z-50 w-full pointer-events-none">
+      <nav className="portfolio-nav sticky top-0 z-50 w-full pointer-events-none">
         <div className="pointer-events-auto flex justify-start sm:justify-between items-center max-w-[720px] mx-auto px-6 py-4 bg-background/85 backdrop-blur-sm border-x border-b border-border-dim/10">
           <div className="hidden sm:block type-t2 font-medium group cursor-default text-primary-green">
             <span className="inline-block transition-transform duration-300 group-hover:scale-110">
@@ -1075,10 +1075,10 @@ export default function HomeClient() {
         </div>
       </nav>
 
-      <main className="flex flex-col max-w-[720px] mx-auto px-6 pt-16">
+      <main className="portfolio-main flex flex-col max-w-[720px] mx-auto px-6 pt-16">
         {/* ═══════════ HERO SECTION ═══════════ */}
         <motion.section 
-          className="section-gap snap-section"
+          className="hero-section section-gap snap-section"
           initial="hidden"
           animate="visible"
           variants={{
@@ -1086,13 +1086,14 @@ export default function HomeClient() {
             visible: { transition: { staggerChildren: 0.1 } }
           }}
         >
-          <div className="flex flex-col-reverse sm:flex-row justify-between items-center sm:items-start gap-8 sm:gap-0">
+          <div className="hero-layout flex flex-col-reverse sm:flex-row justify-between items-center sm:items-start gap-8 sm:gap-0">
             <div className="flex-1 w-full">
-              <h1 className="type-t1 mb-1 text-t1 hero-gradient flex flex-col">
+              <h1 className="hero-name type-t1 mb-1 text-t1 hero-gradient flex flex-col">
                 <div className="flex">
                   {"Pranav".split('').map((char, i) => (
                     <motion.span 
                       key={`first-${i}`}
+                      className="hero-name-letter"
                       variants={{
                         hidden: { opacity: 0, y: 12 },
                         visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: customEase } }
@@ -1111,6 +1112,7 @@ export default function HomeClient() {
                   {"Dhiran".split('').map((char, i) => (
                     <motion.span 
                       key={`last-${i}`}
+                      className="hero-name-letter"
                       variants={{
                         hidden: { opacity: 0, y: 12 },
                         visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: customEase } }
@@ -1164,15 +1166,15 @@ export default function HomeClient() {
               </motion.div>
             </div>
             {/* Profile Image */}
-            <motion.div variants={itemVariants} className="group relative sm:ml-6 lg:ml-12 flex-shrink-0">
+            <motion.div variants={itemVariants} className="hero-profile group relative sm:ml-6 lg:ml-12 flex-shrink-0">
               <div className="absolute inset-0 border border-primary-green translate-x-2 translate-y-2 rounded-lg opacity-80 transition-transform duration-500 group-hover:translate-x-3 group-hover:translate-y-3"></div>
-              <div className="relative w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] rounded-lg border border-border-dim overflow-hidden grayscale hover:grayscale-0 -rotate-2 hover:-rotate-1 transition-all duration-500 shadow-sm z-10 bg-background">
+              <div className="hero-profile-frame relative w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] rounded-lg border border-border-dim overflow-hidden grayscale hover:grayscale-0 -rotate-2 hover:-rotate-1 transition-all duration-500 shadow-sm z-10 bg-background">
                 <img
                   src="/portfolio_image.jpeg"
                   alt="Pranav Dhiran"
                   width={160}
                   height={160}
-                  className="w-full h-full object-cover scale-[1.3] origin-bottom"
+                  className="hero-profile-image w-full h-full object-cover scale-[1.3] origin-bottom"
                 />
               </div>
             </motion.div>
