@@ -1834,3 +1834,26 @@ button:focus-visible {
 .text-primary-green { color: var(--primary-green); }
 
 .bg-primary-green { background-color: var(--primary-green); }
+
+/* --- Chatbot Highlight Animations --- */
+.section-highlight h2,
+.section-highlight h3 {
+  animation: sectionPulse 600ms ease forwards;
+}
+
+@keyframes sectionPulse {
+  0%   { color: inherit; }
+  40%  { color: var(--accent); }
+  100% { color: inherit; }
+}
+
+.card-highlight {
+  animation: cardGlow 2000ms ease forwards;
+}
+
+@keyframes cardGlow {
+  0%   { box-shadow: none; }
+  20%  { box-shadow: 0 0 0 2px rgba(13,148,136,0.6), 0 0 24px rgba(13,148,136,0.15); }
+  80%  { box-shadow: 0 0 0 2px rgba(13,148,136,0.6), 0 0 24px rgba(13,148,136,0.15); }
+  100% { box-shadow: none; }
+}

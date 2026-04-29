@@ -90,6 +90,8 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+import { ChatWidget } from "./components/chatbot/ChatWidget";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -117,6 +119,7 @@ export default function RootLayout({
         <div className="relative z-10">
           {children}
         </div>
+        <ChatWidget />
       </body>
     </html>
   );

@@ -646,7 +646,7 @@ function ContactEmail() {
 }
 
 /* ─── Swipeable Project Card (Mobile Drawer) ─── */
-function SwipeableProject({ children, proofTitle, proofDesc, onClick }: { children: React.ReactNode, proofTitle: string, proofDesc: string, onClick?: () => void }) {
+function SwipeableProject({ children, proofTitle, proofDesc, onClick, id }: { children: React.ReactNode, proofTitle: string, proofDesc: string, onClick?: () => void, id?: string }) {
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     setIsMobile(window.innerWidth <= 640);
@@ -656,7 +656,7 @@ function SwipeableProject({ children, proofTitle, proofDesc, onClick }: { childr
   }, []);
 
   return (
-    <div className="relative mb-6 rounded-xl">
+    <div id={id} className="relative mb-6 rounded-xl">
       {/* Proof Layer (Behind) */}
       <div className="absolute inset-0 bg-surface-2 border border-border-dim rounded-xl flex items-center justify-end px-6 z-0 pointer-events-none">
         <div className="text-right max-w-[120px]">
@@ -970,8 +970,8 @@ export default function HomeClient() {
       </div>
 
       {/* NAVIGATION */}
-      <nav className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-sm py-4 border-b border-border-dim/10">
-        <div className="flex justify-start sm:justify-between items-center max-w-[720px] mx-auto px-6">
+      <nav className="sticky top-0 z-50 w-full pointer-events-none">
+        <div className="pointer-events-auto flex justify-start sm:justify-between items-center max-w-[720px] mx-auto px-6 py-4 bg-background/85 backdrop-blur-sm border-x border-b border-border-dim/10">
           <div className="hidden sm:block type-t2 font-medium group cursor-default text-primary-green">
             <span className="inline-block transition-transform duration-300 group-hover:scale-110">
               P
@@ -1191,6 +1191,7 @@ export default function HomeClient() {
           <motion.div className="flex flex-col" variants={itemVariants}>
             {/* Project 2: Medaura */}
             <SwipeableProject
+              id="project-medaura"
               proofTitle="Langfuse Trace"
               proofDesc="Orchestrator → UI routing latency < 120ms"
               onClick={() => setDeepDiveProject('medaura')}
@@ -1229,6 +1230,7 @@ export default function HomeClient() {
 
             {/* Project 1: TinyStories */}
             <SwipeableProject
+              id="project-slm"
               proofTitle="Loss Curve"
               proofDesc="Converged at 2.1 val loss · 2k warmup"
               onClick={() => setDeepDiveProject('tinystories')}
@@ -1266,6 +1268,7 @@ export default function HomeClient() {
 
             {/* Project 3: GNU Radio MCP */}
             <SwipeableProject
+              id="project-gnuradio"
               proofTitle="Arch Diagram"
               proofDesc="ZMQ + XML-RPC split transport"
               onClick={() => setDeepDiveProject('gnuradio-mcp')}
@@ -1304,6 +1307,7 @@ export default function HomeClient() {
 
             {/* Project 4: RF Watch */}
             <motion.div
+              id="project-rfwatch"
               variants={cardVariants}
               className="project-card flex flex-col sm:flex-row justify-between items-start sm:items-center py-4"
             >
@@ -1360,7 +1364,7 @@ export default function HomeClient() {
             <p className="type-t4 text-t2 text-[12px] italic mb-4">Research that influences my work</p>
             <motion.div className="paper-grid sm:grid-cols-2 horizontal-scroll-strip" variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}>
               {/* ReAct */}
-              <motion.div className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+              <motion.div id="paper-react" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <div className="paper-title">ReAct: Synergizing Reasoning and Acting</div>
                 <div className="paper-desc">Directly shaped Medaura&apos;s reasoning loop — agents observe before they act.</div>
                 <a
@@ -1379,7 +1383,7 @@ export default function HomeClient() {
               </motion.div>
 
               {/* Toolformer */}
-              <motion.div className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+              <motion.div id="paper-toolformer" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <div className="paper-title">Toolformer: Models Teach Themselves to Use Tools</div>
                 <div className="paper-desc">Built the GNU Radio MCP server with this mental model.</div>
                 <a
@@ -1398,7 +1402,7 @@ export default function HomeClient() {
               </motion.div>
 
               {/* MoE */}
-              <motion.div className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+              <motion.div id="paper-switch-transformers" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <div className="paper-title">Switch Transformers: Mixture of Experts</div>
                 <div className="paper-desc">Why MoE changes the scaling math — and why modular beats monolithic at scale.</div>
                 <a
@@ -1417,7 +1421,7 @@ export default function HomeClient() {
               </motion.div>
 
               {/* GRPO */}
-              <motion.div className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+              <motion.div id="paper-grpo" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <div className="paper-title">Group Relative Policy Optimization</div>
                 <div className="paper-desc">The technique behind R1. If you're serious about post-training, this is where to start.</div>
                 <a
@@ -1436,7 +1440,7 @@ export default function HomeClient() {
               </motion.div>
 
               {/* DPO */}
-              <motion.div className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+              <motion.div id="paper-dpo" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
                 <div className="paper-title">Direct Preference Optimization</div>
                 <div className="paper-desc">RLHF without the RL. Understand the math and post-training stops feeling like magic.</div>
                 <a
@@ -1783,7 +1787,7 @@ export default function HomeClient() {
       {/* BACK TO TOP */}
       <button
         onClick={scrollToTop}
-        className={`fixed bottom-8 right-8 z-50 w-10 h-10 rounded-full border border-border-dim bg-surface/80 backdrop-blur-sm flex items-center justify-center text-t3 hover:text-accent hover:border-accent transition-all duration-300 ${
+        className={`fixed bottom-24 right-6 z-50 w-10 h-10 rounded-full border border-border-dim bg-surface/80 backdrop-blur-sm flex items-center justify-center text-t3 hover:text-accent hover:border-accent transition-all duration-300 ${
           showTopBtn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
         aria-label="Scroll to top"
