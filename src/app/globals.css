@@ -151,6 +151,13 @@ body {
   padding: var(--space-8) 0;
 }
 
+@media (max-width: 640px) {
+  .section,
+  .section-gap {
+    padding: var(--space-5) 0;
+  }
+}
+
 .section-gap {
   margin-bottom: 0;
 }
@@ -433,6 +440,17 @@ p + p {
 .hero-section {
   padding-top: 128px;
   padding-bottom: 128px;
+}
+
+@media (max-width: 640px) {
+  .hero-section {
+    padding-top: 24px;
+    padding-bottom: 48px;
+  }
+  .portfolio-nav .container {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
 }
 
 .hero-section h1 {

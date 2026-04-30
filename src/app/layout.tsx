@@ -98,7 +98,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${manrope.variable} ${geistMono.variable} ${lora.variable} antialiased`}>
+    <html lang="en" suppressHydrationWarning className={`${manrope.variable} ${geistMono.variable} ${lora.variable} antialiased`}>
       <head>
         <script
           dangerouslySetInnerHTML={{

@@ -657,7 +657,7 @@ function SwipeableProject({ children, proofTitle, proofDesc, onClick, id }: { ch
   return (
     <div id={id} className="relative rounded-xl">
       {/* Proof Layer (Behind) */}
-      <div className="absolute inset-0 bg-surface-2 border border-border-dim rounded-xl flex items-center justify-end px-6 z-0 pointer-events-none">
+      <div className="absolute inset-0 bg-surface-2 border border-border-dim rounded-xl flex items-center justify-end px-6 z-0 pointer-events-none sm:hidden">
         <div className="text-right max-w-[120px]">
           <div className="type-t6 text-accent mb-2">{proofTitle}</div>
           <div className="type-t6 font-mono text-t3 leading-snug">{proofDesc}</div>
@@ -1104,7 +1104,7 @@ export default function HomeClient() {
             visible: { transition: { staggerChildren: 0.1 } }
           }}
         >
-          <div className="hero-layout flex flex-col-reverse sm:flex-row justify-between items-center sm:items-start gap-8 sm:gap-0">
+          <div className="hero-layout flex flex-col-reverse sm:flex-row justify-between items-center sm:items-start gap-4 sm:gap-0">
             <div className="flex-1 w-full">
               <h1 className="hero-name type-t1 text-t1 hero-gradient flex flex-col">
                 <div className="flex">
@@ -1198,7 +1198,7 @@ export default function HomeClient() {
             </motion.div>
           </div>
           
-          <motion.div variants={itemVariants} className="mt-20 flex justify-center opacity-40 animate-bounce">
+          <motion.div variants={itemVariants} className="mt-12 sm:mt-20 flex justify-center opacity-40 animate-bounce">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary-green">
               <path d="M12 5v14M19 12l-7 7-7-7"/>
             </svg>
