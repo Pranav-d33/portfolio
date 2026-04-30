@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import { useChat } from "@/lib/useChat";
@@ -17,8 +17,34 @@ type ChatContext = {
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [chatContext, setChatContext] = useState<ChatContext | null>(null);
+  const [isPromptVisible, setIsPromptVisible] = useState(false);
   const chatState = useChat();
   const selection = useTextSelection(!isOpen);
+
+  useEffect(() => {
+    if (isOpen) {
+      setIsPromptVisible(false);
+      return;
+    }
+
+    let hideTimer: ReturnType<typeof setTimeout> | undefined;
+    let loopTimer: ReturnType<typeof setTimeout> | undefined;
+
+    const startCycle = () => {
+      setIsPromptVisible(true);
+      hideTimer = setTimeout(() => {
+        setIsPromptVisible(false);
+        loopTimer = setTimeout(startCycle, 4200);
+      }, 2200);
+    };
+
+    loopTimer = setTimeout(startCycle, 2800);
+
+    return () => {
+      if (hideTimer) clearTimeout(hideTimer);
+      if (loopTimer) clearTimeout(loopTimer);
+    };
+  }, [isOpen]);
 
   const openBlankChat = () => {
     setChatContext(null);
@@ -61,7 +87,7 @@ export function ChatWidget() {
       <AnimatePresence>
         {!isOpen && (
           <motion.div
-            className="group fixed bottom-6 right-6 z-[55] flex items-center gap-3"
+            className="group fixed bottom-6 right-6 z-[55] flex items-center gap-4"
             initial={{ opacity: 0, scale: 0.92, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 10 }}
@@ -70,14 +96,15 @@ export function ChatWidget() {
           >
             <motion.div
               initial={false}
-              animate={{ x: 0 }}
-              className="pointer-events-none relative hidden origin-right translate-x-3 overflow-hidden rounded-lg border border-white/[0.08] bg-[#0a0a0a]/85 px-3.5 py-2 text-right opacity-0 shadow-[0_14px_40px_rgba(0,0,0,0.28)] backdrop-blur-xl transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 sm:block"
+              animate={{ x: isPromptVisible ? 0 : 12, opacity: isPromptVisible ? 1 : 0 }}
+              transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+              className="pointer-events-none relative hidden origin-right overflow-hidden rounded-lg border border-border-dim bg-background/85 px-4 py-2 text-right shadow-[0_14px_40px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:block"
             >
-              <span className="absolute inset-y-2 right-0 w-px bg-gradient-to-b from-transparent via-teal-300/70 to-transparent" />
-              <div className="text-[12px] font-medium tracking-[0.14em] text-white/80">
+              <span className="absolute inset-y-2 right-0 w-px bg-gradient-to-b from-transparent via-accent/70 to-transparent" />
+              <div className="text-xs font-medium tracking-[0.14em] text-t2">
                 wonder anything?
               </div>
-              <div className="mt-0.5 text-[10px] tracking-[0.08em] text-white/35">
+              <div className="mt-1 text-xs tracking-[0.08em] text-t3">
                 ask in context
               </div>
             </motion.div>
@@ -95,7 +122,7 @@ export function ChatWidget() {
                   hover: { opacity: 0.55, scale: 1.18 },
                 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
-                className="absolute inset-[-8px] rounded-full bg-teal-400/10 blur-md"
+                className="absolute inset-[-8px] rounded-full bg-accent/10 blur-md"
               />
               <motion.span
                 aria-hidden="true"
@@ -104,20 +131,20 @@ export function ChatWidget() {
                   hover: { opacity: 0.75, scale: 1.1 },
                 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
-                className="absolute inset-0 rounded-full border border-teal-300/25"
+                className="absolute inset-0 rounded-full border border-accent/25"
               />
               <motion.span
                 aria-hidden="true"
                 animate={{ scale: [1, 1.45, 1.45], opacity: [0.28, 0, 0] }}
                 transition={{ duration: 2.8, repeat: Infinity, ease: "easeOut" }}
-                className="absolute inset-0 rounded-full border border-teal-300/35"
+                className="absolute inset-0 rounded-full border border-accent/35"
               />
               <motion.button
                 layoutId="contextual-chat-surface"
                 type="button"
                 onClick={openBlankChat}
                 whileTap={{ scale: 0.96 }}
-                className="relative flex h-14 w-14 items-center justify-center rounded-full border border-white/[0.1] bg-[#0a0a0a]/90 text-teal-300 shadow-[0_18px_50px_rgba(0,0,0,0.32)] backdrop-blur transition-colors duration-200 hover:border-teal-400/60 hover:text-teal-100 focus:outline-none focus:ring-2 focus:ring-teal-500/60"
+                className="relative flex h-14 w-14 items-center justify-center rounded-full border border-border-dim bg-background/90 text-accent shadow-[0_18px_50px_rgba(0,0,0,0.32)] backdrop-blur transition-colors duration-200 hover:border-accent hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent/60"
                 aria-label="Open chat"
               >
                 <span className="absolute inset-[5px] rounded-full border border-white/[0.05]" />

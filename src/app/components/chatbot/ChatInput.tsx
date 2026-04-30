@@ -22,6 +22,7 @@ export function ChatInput({
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          if (!input.trim() || disabled) return;
           onSend(input);
         }}
         className="relative flex items-center"
@@ -33,12 +34,12 @@ export function ChatInput({
           disabled={disabled}
           placeholder={placeholder}
           autoFocus={autoFocus}
-          className="w-full rounded-full border border-border-dim bg-white/5 py-3 pl-4 pr-12 text-sm text-t1 placeholder-t3 focus:border-teal-500 focus:outline-none focus:ring-1 focus:ring-teal-500 disabled:opacity-50"
+          className="w-full rounded-full border border-border-dim bg-foreground/5 py-4 pl-4 pr-12 text-sm text-t1 placeholder-t3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent disabled:opacity-50"
         />
         <button
           type="submit"
           disabled={!input.trim() || disabled}
-          className="absolute right-1 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-teal-400 text-background transition-transform hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
+          className="absolute right-2 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full bg-accent text-background transition-transform hover:scale-105 disabled:opacity-50 disabled:hover:scale-100"
           aria-label="Send message"
         >
           <Send size={16} />

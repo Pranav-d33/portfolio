@@ -44,18 +44,18 @@ export function SelectionPopup({ selection, onAsk }: SelectionPopupProps) {
           transition={{ duration: 0.15, ease: "easeOut" }}
           style={{ top, left }}
           onClick={() => onAsk(selection)}
-          className="fixed z-[70] flex h-8 w-40 items-center justify-center gap-1.5 rounded-lg border border-teal-500/50 bg-[#0a0a0a] text-[11px] tracking-[0.04em] text-white/80 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-colors hover:border-teal-400/80 hover:text-white"
+          className="fixed z-[70] flex h-8 w-40 items-center justify-center gap-2 rounded-lg border border-border-dim bg-background text-xs tracking-[0.04em] text-t2 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-colors hover:border-accent hover:text-t1"
           aria-label="Ask about selected text"
         >
           <span
             className={`absolute left-1/2 h-0 w-0 -translate-x-1/2 border-l-[6px] border-r-[6px] border-l-transparent border-r-transparent ${
               shouldFlipBelow
-                ? "-top-[6px] border-b-[6px] border-b-[#0a0a0a]"
-                : "-bottom-[6px] border-t-[6px] border-t-[#0a0a0a]"
+                ? "-top-[6px] border-b-[6px] border-b-background"
+                : "-bottom-[6px] border-t-[6px] border-t-background"
             }`}
             aria-hidden="true"
           />
-          <Sparkles className="h-3 w-3 text-teal-400" />
+          <Sparkles className="h-3 w-3 text-accent" />
           <span>Ask about this</span>
         </motion.button>
       )}

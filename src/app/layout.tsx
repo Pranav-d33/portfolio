@@ -114,7 +114,7 @@ export default function RootLayout({
       <body className={`${manrope.className} min-h-screen bg-background text-t1 relative`}>
         <AuroraBackground />
         <div className="fixed inset-0 pointer-events-none flex justify-center z-0">
-          <div className="w-full max-w-[720px] h-full border-x border-border-dim bg-background/95 backdrop-blur-md" />
+          <div className="w-full max-w-[1120px] h-full border-x border-border-dim bg-background/95 backdrop-blur-md" />
         </div>
         <div className="relative z-10">
           {children}

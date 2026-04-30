@@ -611,7 +611,6 @@ function ContactEmail() {
       navigator.clipboard.writeText("dhiranpranav72@gmail.com");
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-      if (typeof window !== 'undefined' && navigator.vibrate) navigator.vibrate(50);
     }, 500); // 500ms long press
   };
 
@@ -656,11 +655,11 @@ function SwipeableProject({ children, proofTitle, proofDesc, onClick, id }: { ch
   }, []);
 
   return (
-    <div id={id} className="relative mb-6 rounded-xl">
+    <div id={id} className="relative rounded-xl">
       {/* Proof Layer (Behind) */}
       <div className="absolute inset-0 bg-surface-2 border border-border-dim rounded-xl flex items-center justify-end px-6 z-0 pointer-events-none">
         <div className="text-right max-w-[120px]">
-          <div className="type-t6 text-accent mb-1">{proofTitle}</div>
+          <div className="type-t6 text-accent mb-2">{proofTitle}</div>
           <div className="type-t6 font-mono text-t3 leading-snug">{proofDesc}</div>
         </div>
       </div>
@@ -726,9 +725,6 @@ export default function HomeClient() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setActiveSection(entry.target.id);
-            if (typeof window !== 'undefined' && window.innerWidth <= 640 && navigator.vibrate) {
-              navigator.vibrate(10);
-            }
           }
         });
       },
@@ -961,12 +957,12 @@ export default function HomeClient() {
       </div>
 
       {/* REAL-TIME SCROLL SPY */}
-      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50 hidden xl:flex flex-col items-end gap-5">
+      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50 hidden xl:flex flex-col items-end gap-6">
         {navItems.map((item) => (
           <a
             key={item.id}
             href={`#${item.id}`}
-            className="group flex items-center gap-3"
+            className="group flex items-center gap-4"
             aria-label={`Scroll to ${item.id}`}
           >
             <span
@@ -979,10 +975,10 @@ export default function HomeClient() {
               {item.label}
             </span>
             <div
-              className={`w-1.5 transition-all duration-300 rounded-full ${
+              className={`w-2 transition-all duration-300 rounded-full ${
                 activeSection === item.id
                   ? 'h-6 bg-primary-green'
-                  : 'h-1.5 bg-border-dim group-hover:bg-t3'
+                  : 'h-2 bg-border-dim group-hover:bg-t3'
               }`}
             />
           </a>
@@ -991,7 +987,7 @@ export default function HomeClient() {
 
       {/* NAVIGATION */}
       <nav className="portfolio-nav sticky top-0 z-50 w-full pointer-events-none">
-        <div className="pointer-events-auto flex justify-start sm:justify-between items-center max-w-[720px] mx-auto px-6 py-4 bg-background/85 backdrop-blur-sm border-x border-b border-border-dim/10">
+        <div className="pointer-events-auto flex justify-start sm:justify-between items-center container py-4 bg-background/85 backdrop-blur-sm border-x border-b border-border-dim/10">
           <div className="hidden sm:block type-t2 font-medium group cursor-default text-primary-green">
             <span className="inline-block transition-transform duration-300 group-hover:scale-110">
               P
@@ -1000,35 +996,35 @@ export default function HomeClient() {
               D
             </span>
           </div>
-          <div className="flex gap-3 sm:gap-6 items-center type-t6 overflow-x-auto no-scrollbar">
+          <div className="flex gap-4 sm:gap-6 items-center type-t6 overflow-x-auto no-scrollbar">
             <a
               href="#projects"
-              className={`nav-link transition-colors ${
-                activeSection === 'projects' ? 'text-accent active' : 'hover:text-t1'
+              className={`nav-link link transition-colors ${
+                activeSection === 'projects' ? 'text-accent active' : 'text-t2 hover:text-t1'
               }`}
             >
               Projects
             </a>
             <a
               href="#thinking"
-              className={`nav-link whitespace-nowrap transition-colors ${
-                activeSection === 'thinking' ? 'text-accent active' : 'hover:text-t1'
+              className={`nav-link link whitespace-nowrap transition-colors ${
+                activeSection === 'thinking' ? 'text-accent active' : 'text-t2 hover:text-t1'
               }`}
             >
               How I Work
             </a>
             <a
               href="#reading"
-              className={`nav-link transition-colors ${
-                activeSection === 'reading' ? 'text-accent active' : 'hover:text-t1'
+              className={`nav-link link transition-colors ${
+                activeSection === 'reading' ? 'text-accent active' : 'text-t2 hover:text-t1'
               }`}
             >
               Reading
             </a>
             <a
               href="#contact"
-              className={`nav-link transition-colors ${
-                activeSection === 'contact' ? 'text-accent active' : 'hover:text-t1'
+              className={`nav-link link transition-colors ${
+                activeSection === 'contact' ? 'text-accent active' : 'text-t2 hover:text-t1'
               }`}
             >
               Contact
@@ -1036,7 +1032,7 @@ export default function HomeClient() {
             <a
               href="/resume_v4.pdf"
               download
-              className="nav-link transition-colors hover:text-accent flex items-center gap-1.5"
+              className="nav-link link transition-colors text-t2 hover:text-accent flex items-center gap-2"
               aria-label="Download Resume"
             >
               <span>Resume</span>
@@ -1049,7 +1045,9 @@ export default function HomeClient() {
 
             {/* Sun / Moon theme toggle */}
             <button
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              onClick={() => {
+                setTheme(theme === 'dark' ? 'light' : 'dark');
+              }}
               className="theme-toggle ml-2 w-7 h-7 flex items-center justify-center rounded-full border border-border-dim hover:border-t2 transition-all duration-300 hover:rotate-180"
               aria-label="Toggle theme"
             >
@@ -1095,10 +1093,10 @@ export default function HomeClient() {
         </div>
       </nav>
 
-      <main className="portfolio-main flex flex-col max-w-[720px] mx-auto px-6 pt-16">
+      <main className="portfolio-main container flex flex-col">
         {/* ═══════════ HERO SECTION ═══════════ */}
         <motion.section 
-          className="hero-section section-gap snap-section"
+          className="hero-section section snap-section"
           initial="hidden"
           animate="visible"
           variants={{
@@ -1108,7 +1106,7 @@ export default function HomeClient() {
         >
           <div className="hero-layout flex flex-col-reverse sm:flex-row justify-between items-center sm:items-start gap-8 sm:gap-0">
             <div className="flex-1 w-full">
-              <h1 className="hero-name type-t1 mb-1 text-t1 hero-gradient flex flex-col">
+              <h1 className="hero-name type-t1 text-t1 hero-gradient flex flex-col">
                 <div className="flex">
                   {"Pranav".split('').map((char, i) => (
                     <motion.span 
@@ -1149,7 +1147,7 @@ export default function HomeClient() {
                 </div>
               </h1>
               <motion.div variants={itemVariants} className="type-t4 text-t2 font-medium mb-4">LLM &amp; Agentic Systems Engineer</motion.div>
-              <motion.div variants={itemVariants} className="type-t4 text-t3 mb-5 font-mono h-6 flex items-center">
+              <motion.div variants={itemVariants} className="type-t4 text-t3 mb-6 font-mono h-6 flex items-center">
                 <span className="text-primary-green mr-1">›</span>
                 <span>{typedText}</span>
                 {isTypingComplete ? (
@@ -1158,14 +1156,14 @@ export default function HomeClient() {
                   <span className="llm-cursor"></span>
                 )}
               </motion.div>
-              <motion.div variants={itemVariants} className="type-t4 font-medium text-t2 mb-5 max-w-lg">
+              <motion.div variants={itemVariants} className="type-t4 font-medium text-t2 mb-6 max-w-[680px]">
                 I build AI systems that go from research paper to working prototype fast — language models, multi-agent pipelines, and the infra that holds them together.
               </motion.div>
-              <motion.div variants={itemVariants} className="flex gap-2 mb-7 flex-wrap">
-                <span className="inline-flex items-center px-3 py-1 rounded-full border border-primary-green/50 bg-transparent type-t6 text-primary-green">
+              <motion.div variants={itemVariants} className="flex gap-2 mb-8 flex-wrap">
+                <span className="inline-flex items-center px-4 py-2 rounded-full border border-primary-green/50 bg-transparent type-t6 text-primary-green">
                   SIH National Finalist ×2
                 </span>
-                <span className="inline-flex items-center px-3 py-1 rounded-full border border-primary-green/50 bg-transparent type-t6 text-primary-green">
+                <span className="inline-flex items-center px-4 py-2 rounded-full border border-primary-green/50 bg-transparent type-t6 text-primary-green">
                   Open to internships &amp; research collaborations
                 </span>
               </motion.div>
@@ -1174,14 +1172,14 @@ export default function HomeClient() {
                   <span className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5">Resume</span>
                   <span className="inline-block ml-1 transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
                 </a>
-                <div className="flex gap-3 type-t6 text-t3">
+                <div className="flex gap-4 type-t6 text-t3">
                   <ContactEmail />
                   <span>·</span>
-                  <a href="https://github.com/Pranav-d33" className="hover:text-t2 transition-colors">GitHub</a>
+                  <a href="https://github.com/Pranav-d33" className="link link-muted">GitHub</a>
                   <span>·</span>
-                  <a href="https://linkedin.com/in/pranav-dhiran" className="hover:text-t2 transition-colors">LinkedIn</a>
+                  <a href="https://linkedin.com/in/pranav-dhiran" className="link link-muted">LinkedIn</a>
                   <span>·</span>
-                  <a href="https://x.com/Prannav_ai" className="hover:text-t2 transition-colors">X</a>
+                  <a href="https://x.com/Prannav_ai" className="link link-muted">X</a>
                 </div>
               </motion.div>
             </div>
@@ -1208,19 +1206,21 @@ export default function HomeClient() {
         </motion.section>
 
         {/* ═══════════ PROJECTS ═══════════ */}
-        <MotionSection id="projects" className="section-gap section-divider pt-16 snap-section">
-          <h2 className="type-t2 border-b border-border-dim py-2 mb-6">Selected Work</h2>
-          <motion.div className="flex flex-col" variants={itemVariants}>
+        <MotionSection id="projects" className="section section-divider projects-section snap-section">
+          <h2 className="type-t2 section-header border-b border-border-dim py-2">Selected Work</h2>
+          <motion.div className="projects-grid" variants={itemVariants}>
             {/* Project 2: Medaura */}
             <SwipeableProject
               id="project-medaura"
               proofTitle="Langfuse Trace"
               proofDesc="Orchestrator → UI routing latency < 120ms"
-              onClick={() => setDeepDiveProject('medaura')}
+              onClick={() => {
+                setDeepDiveProject('medaura');
+              }}
             >
               <div className="flex justify-between items-center w-full">
                 <div className="flex-1">
-                  <div className="type-t3 mb-1">
+                  <div className="type-t3 mb-2">
                     Medaura — Agentic Pharmacy System
                   </div>
                   <div className="project-hook">Medication errors are an information problem. The information exists — it's just not connected at the moment it matters.
@@ -1228,7 +1228,7 @@ export default function HomeClient() {
                   <div className="type-t4 text-t2 mb-4">
                     Five specialized agents (Ordering, Safety, Forecast, Procurement, UI) orchestrated via LangGraph for stateful, auditable pipelines. ChromaDB RAG for drug interaction retrieval. Langfuse tracing every LLM call and safety check. Live, multilingual, zero human intervention.
                   </div>
-                  <div className="mb-4">
+                  <div className="tags mb-4">
                     <span className="tag">FastAPI</span>
                     <span className="tag">LangChain</span>
                     <span className="tag">ChromaDB</span>
@@ -1238,7 +1238,7 @@ export default function HomeClient() {
                   <div className="flex gap-4 items-center type-t6">
                     <a
                       href="https://aipharmacyproject-blond.vercel.app"
-                      className="text-accent underline"
+                      className="link link-accent"
                       onClick={(e) => e.stopPropagation()}
                     >
                       medaura.vercel.app →
@@ -1255,11 +1255,13 @@ export default function HomeClient() {
               id="project-slm"
               proofTitle="Loss Curve"
               proofDesc="Converged at 2.1 val loss · 2k warmup"
-              onClick={() => setDeepDiveProject('tinystories')}
+              onClick={() => {
+                setDeepDiveProject('tinystories');
+              }}
             >
               <div className="flex justify-between items-center w-full">
                 <div className="flex-1">
-                  <div className="type-t3 mb-1">
+                  <div className="type-t3 mb-2">
                     Small Language Model From Scratch — TinyStories
                   </div>
                   <div className="project-hook">Every LLM course teaches you to call an API. I wanted to know what happens before the API.
@@ -1267,7 +1269,7 @@ export default function HomeClient() {
                   <div className="type-t4 text-t2 mb-4">
                     Pre-trained a GPT-style transformer entirely from scratch — no pretrained weights, no borrowed tokenizers. Built to understand every layer of the pipeline before trusting any abstraction above it.
                   </div>
-                  <div className="mb-4">
+                  <div className="tags mb-4">
                     <span className="tag">PyTorch</span>
                     <span className="tag">Hugging Face</span>
                     <span className="tag">AMP</span>
@@ -1276,7 +1278,7 @@ export default function HomeClient() {
                   <div className="flex gap-4 items-center type-t6">
                     <a
                       href="https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories-"
-                      className="text-accent underline"
+                      className="link link-accent"
                       onClick={(e) => e.stopPropagation()}
                     >
                       GitHub
@@ -1293,11 +1295,13 @@ export default function HomeClient() {
               id="project-gnuradio"
               proofTitle="Arch Diagram"
               proofDesc="ZMQ + XML-RPC split transport"
-              onClick={() => setDeepDiveProject('gnuradio-mcp')}
+              onClick={() => {
+                setDeepDiveProject('gnuradio-mcp');
+              }}
             >
               <div className="flex justify-between items-center w-full">
                 <div className="flex-1">
-                  <div className="type-t3 mb-1">
+                  <div className="type-t3 mb-2">
                     GNU Radio MCP Server — LLM-to-SDR Bridge
                   </div>
                   <div className="project-hook">LLMs can reason about RF signals. They just couldn't touch a radio. This closes that gap.
@@ -1305,7 +1309,7 @@ export default function HomeClient() {
                   <div className="type-t4 text-t2 mb-4">
                     MCP server bridging language models to live GNU Radio SDR flowgraphs — 13 tools, Pydantic v2 validation, ZMQ + XML-RPC split-protocol architecture, async IQ capture with Welch PSD and peak detection. Ask Claude to sweep frequencies. It does.
                   </div>
-                  <div className="mb-4">
+                  <div className="tags mb-4">
                     <span className="tag">Python</span>
                     <span className="tag">FastMCP</span>
                     <span className="tag">ZMQ</span>
@@ -1315,7 +1319,7 @@ export default function HomeClient() {
                   <div className="flex gap-4 items-center type-t6">
                     <a
                       href="https://github.com/Pranav-d33/gnuradio-mcp-server"
-                      className="text-accent underline"
+                      className="link link-accent"
                       onClick={(e) => e.stopPropagation()}
                     >
                       GitHub
@@ -1331,14 +1335,14 @@ export default function HomeClient() {
             <motion.div
               id="project-rfwatch"
               variants={cardVariants}
-              className="project-card flex flex-col sm:flex-row justify-between items-start sm:items-center py-4"
+              className="project-card flex flex-col sm:flex-row justify-between items-start sm:items-center"
             >
               <div className="type-t4 text-t1 font-medium">RF Watch — Open-source RF spectrum monitor · HackRF One + GNU Radio</div>
               <a
                 href="https://github.com/Pranav-d33/RFwatch"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-accent hover:underline mt-2 sm:mt-0 type-t6"
+                className="link link-accent mt-2 sm:mt-0 type-t6"
               >
                 [GitHub]
               </a>
@@ -1347,9 +1351,9 @@ export default function HomeClient() {
         </MotionSection>
 
         {/* ═══════════ HOW I WORK ═══════════ */}
-        <MotionSection id="thinking" className="section-gap section-divider pt-16">
-                    <h2 className="type-t2 border-b border-border-dim py-2 mb-8">How I Work</h2>
-          <motion.div className="flex flex-col gap-5 type-t4 text-t2 leading-relaxed" variants={itemVariants}>
+        <MotionSection id="thinking" className="section section-divider">
+          <h2 className="type-t2 section-header border-b border-border-dim py-2">How I Work</h2>
+          <motion.div className="flex flex-col gap-6 type-t4 text-t2 leading-relaxed" variants={itemVariants}>
             <motion.p variants={itemVariants}>I don&apos;t start with frameworks. I start with the paper, or the problem, and build until I understand it — then I reach for abstractions.</motion.p>
             <motion.p variants={itemVariants}>When I built the SLM from scratch, it wasn&apos;t because HuggingFace doesn&apos;t exist. It was because I needed to know what was actually happening inside the attention block before I could trust anything built on top of it.</motion.p>
             <motion.p variants={itemVariants}>With Medaura, I didn&apos;t architect upfront — I got one agent working, traced it with Langfuse, saw where it broke, and iterated. Every agent call is logged. If something fails in production, I know exactly where and why.</motion.p>
@@ -1358,8 +1362,8 @@ export default function HomeClient() {
         </MotionSection>
 
         {/* ═══════════ READING ROOM ═══════════ */}
-        <MotionSection id="reading" className="section-gap section-divider pt-16">
-                    <div className="border-b border-border-dim pb-2 mb-6 w-full">
+        <MotionSection id="reading" className="section section-divider">
+          <div className="section-header border-b border-border-dim pb-2 w-full">
             <h2 className="type-t2">Reading Room</h2>
             <p className="type-t4 text-t2 mt-2 italic">Research that shapes how I build.</p>
           </div>
@@ -1382,7 +1386,7 @@ export default function HomeClient() {
 
           {/* Selected Papers */}
           <div>
-            <div className="type-t5 text-t3 uppercase tracking-wider mb-1">Selected Papers</div>
+            <div className="type-t5 text-t3 uppercase tracking-wider mb-2">Selected Papers</div>
             <p className="type-t4 text-t2 text-[12px] italic mb-4">Research that influences my work</p>
             <motion.div className="paper-grid sm:grid-cols-2 horizontal-scroll-strip" variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}>
               {/* ReAct */}
@@ -1484,21 +1488,21 @@ export default function HomeClient() {
         </MotionSection>
 
         {/* ═══════════ EDUCATION ═══════════ */}
-        <MotionSection id="education" className="section-gap section-divider pt-16">
-                    <h2 className="type-t2 border-b border-border-dim py-2 mb-6">Education</h2>
+        <MotionSection id="education" className="section section-divider">
+          <h2 className="type-t2 section-header border-b border-border-dim py-2">Education</h2>
           <div className="flex flex-col gap-12">
             <div className="experience-rule pl-4">
               <div className="flex justify-between items-start mb-2">
                 <div>
-                  <div className="type-t6 font-mono text-t3 mb-1">2023 — 2027</div>
+                  <div className="type-t6 font-mono text-t3 mb-2">2023 — 2027</div>
                   <div className="type-t4 font-medium">
                     SGGS Institute of Engineering &amp; Technology, Nanded
                   </div>
                 </div>
               </div>
               <div className="type-t4 text-t2">B.Tech — Electronics &amp; Telecommunication Engineering</div>
-              <div className="type-t5 text-t3 mt-1">Minor in Information Technology</div>
-              <div className="mt-5">
+              <div className="type-t5 text-t3 mt-2">Minor in Information Technology</div>
+              <div className="mt-6">
                 <div className="type-t6 text-t3 uppercase tracking-wider mb-2">Relevant Coursework</div>
                 <div className="type-t5 text-t2 leading-relaxed">
                   Digital Signal Processing · MATLAB · Microprocessors &amp; Embedded Systems ·
@@ -1510,13 +1514,13 @@ export default function HomeClient() {
         </MotionSection>
 
         {/* ═══════════ RESEARCH & ACHIEVEMENTS ═══════════ */}
-        <MotionSection id="research" className="section-gap section-divider pt-16">
-                    <div className="border-b border-border-dim pb-2 mb-8 w-full flex justify-between items-end">
+        <MotionSection id="research" className="section section-divider">
+          <div className="section-header border-b border-border-dim pb-2 w-full flex justify-between items-end">
             <h2 className="type-t2">Research &amp; Achievements</h2>
           </div>
 
           <div className="mb-10">
-            <div className="type-t5 text-t3 uppercase tracking-wider mb-5">Certifications</div>
+            <div className="type-t5 text-t3 uppercase tracking-wider mb-6">Certifications</div>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col">
                 <div className="type-t4 text-t1 font-medium">Fine-tuning &amp; RL for LLMs: Intro to Post-training</div>
@@ -1538,7 +1542,7 @@ export default function HomeClient() {
           </div>
 
           <div className="mb-10">
-            <div className="type-t5 text-t3 uppercase tracking-wider mb-5">Awards &amp; Recognition</div>
+            <div className="type-t5 text-t3 uppercase tracking-wider mb-6">Awards &amp; Recognition</div>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col pl-4 border-l-[3px] border-primary-green">
                 <div className="type-t4 text-t1 font-medium">Global Finalist (Top 6 Internationally)</div>
@@ -1557,21 +1561,21 @@ export default function HomeClient() {
         </MotionSection>
 
         {/* ═══════════ CONTACT ═══════════ */}
-        <MotionSection id="contact" className="section-gap section-divider pt-16">
-                    <h2 className="type-t2 border-b border-border-dim py-2 mb-8">Contact</h2>
+        <MotionSection id="contact" className="section section-divider contact-section">
+          <h2 className="type-t2 section-header border-b border-border-dim py-2">Contact</h2>
 
           <div className="mb-10">
-            <p className="type-t4 text-t1 text-[1.2rem] leading-[2] mb-1">
+            <p className="type-t4 text-t1 mb-2">
               Open to AI/ML internships and research collaborations —
             </p>
-            <p className="type-t4 text-t1 text-[1.2rem] leading-[2]">
+            <p className="type-t4 text-t1">
               particularly in LLM post-training, agentic systems, and inference.
             </p>
           </div>
 
           {/* Let's Chat CTA */}
           <div className="contact-cta-wrapper mb-12">
-            <a href="mailto:dhiranpranav72@gmail.com" className="text-[2rem] sm:text-[2.5rem] font-display text-primary-green hover:underline decoration-primary-green underline-offset-8 transition-all">
+            <a href="mailto:dhiranpranav72@gmail.com" className="link link-accent font-display text-[clamp(36px,5vw,56px)] leading-tight">
               dhiranpranav72@gmail.com
             </a>
           </div>
@@ -1581,7 +1585,7 @@ export default function HomeClient() {
             <a
               href="/resume_v4.pdf"
               download
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg border border-border-dim bg-surface/50 hover:border-accent hover:text-accent transition-all duration-300 text-sm"
+              className="button inline-flex items-center gap-2 text-sm"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -1636,13 +1640,14 @@ export default function HomeClient() {
         {/* ═══════════ FOOTER ═══════════ */}
         <footer className="py-12 border-t border-border-dim/10 mt-10">
           <div className="footer-gradient-line mb-8"></div>
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex flex-col md:flex-row justify-between items-start gap-4">
             <div className="type-t6 text-t3">© {new Date().getFullYear()} Pranav Dhiran</div>
-            <div className="flex items-center gap-3 type-t6 text-t3/60">
+            <div className="flex items-center gap-4 type-t6 text-t3/60">
               <span className="opacity-80">Token count of this page — ~1,847 tokens</span>
             </div>
           </div>
           <div className="footer-epitaph">VENI VIDI VICI</div>
+          <div className="footer-note">Built with intent. Iterated with taste.</div>
         </footer>
       </main>
 
@@ -1658,15 +1663,19 @@ export default function HomeClient() {
           >
             <button
               className="deep-dive-close relative z-10"
-              onClick={() => setDeepDiveProject(null)}
+              onClick={() => {
+                setDeepDiveProject(null);
+              }}
               aria-label="Close deep dive"
             >
               ×
             </button>
-            <div className="max-w-[720px] mx-auto px-6 py-16 relative z-10">
+            <div className="container py-16 relative z-10">
               {/* Back link */}
               <button
-                onClick={() => setDeepDiveProject(null)}
+                onClick={() => {
+                  setDeepDiveProject(null);
+                }}
                 className="type-t6 font-mono text-t3 hover:text-accent transition-colors mb-8 flex items-center gap-2"
               >
                 <span>←</span>
@@ -1677,7 +1686,7 @@ export default function HomeClient() {
               <h2 className="type-t1 mb-6 text-t1">{currentDeepDive.title}</h2>
 
               {/* Tags */}
-              <div className="mb-10">
+              <div className="tags mb-10">
                 {currentDeepDive.tags.map((t) => (
                   <span key={t} className="tag">
                     {t}
@@ -1687,7 +1696,7 @@ export default function HomeClient() {
 
               {/* Overview */}
               <div className="mb-12">
-                <div className="type-t5 font-medium text-t3 uppercase tracking-wider mb-3">
+                <div className="type-t5 font-medium text-t3 uppercase tracking-wider mb-4">
                   Overview
                 </div>
                 <div className="type-t4 text-t2 leading-relaxed">
@@ -1737,7 +1746,7 @@ export default function HomeClient() {
               </div>
               {currentDeepDive.decisions.map((d, i) => (
                 <div key={i} className="deep-dive-decision">
-                  <div className="type-t4 font-medium text-t1 mb-1">{d.title}</div>
+                  <div className="type-t4 font-medium text-t1 mb-2">{d.title}</div>
                   <div className="type-t4 text-t2 leading-relaxed">{d.detail}</div>
                 </div>
               ))}
@@ -1761,7 +1770,7 @@ export default function HomeClient() {
                 <a
                   key={l.href}
                   href={l.href}
-                  className="text-accent underline"
+                  className="link link-accent"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -1778,7 +1787,9 @@ export default function HomeClient() {
       <div className={`terminal-overlay ${terminalOpen ? 'active' : ''}`}>
         <button
           className="terminal-close"
-          onClick={() => setTerminalOpen(false)}
+          onClick={() => {
+            setTerminalOpen(false);
+          }}
         >
           ESC to exit
         </button>

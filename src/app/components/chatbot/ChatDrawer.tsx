@@ -53,17 +53,17 @@ export function ChatDrawer({
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.95 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
-          className="fixed bottom-0 left-0 right-0 z-[60] flex h-[68vh] w-full flex-col overflow-hidden rounded-t-[20px] border border-white/10 bg-[#0a0a0a]/95 shadow-2xl shadow-black/40 backdrop-blur-xl sm:bottom-6 sm:left-auto sm:right-6 sm:h-[520px] sm:w-[390px] sm:rounded-b-2xl sm:rounded-t-2xl"
+          className="fixed bottom-0 left-0 right-0 z-[60] flex h-[68vh] w-full flex-col overflow-hidden rounded-t-[20px] border border-border-dim bg-background/95 shadow-2xl shadow-black/40 backdrop-blur-xl sm:bottom-6 sm:left-auto sm:right-6 sm:h-[520px] sm:w-[390px] sm:rounded-b-2xl sm:rounded-t-2xl"
         >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+          <div className="flex items-center justify-between border-b border-border-dim px-4 py-4">
             <div className="flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-teal-400" />
-              <span className="text-[14px] font-medium text-t1">Pranav</span>
+              <Sparkles className="h-4 w-4 text-accent" />
+              <span className="text-sm font-medium text-t1">Pranav</span>
             </div>
             <button
               onClick={onClose}
-              className="rounded-full p-1 text-t3 hover:bg-foreground/5 hover:text-t1 transition-colors"
+              className="rounded-full p-2 text-t3 hover:bg-foreground/5 hover:text-t1 transition-colors"
             >
               <Minus size={18} />
             </button>
@@ -75,22 +75,24 @@ export function ChatDrawer({
               <motion.div
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="rounded-r-lg border-l-2 border-teal-400 bg-white/[0.04] px-3 py-3"
+                className="rounded-r-lg border-l-2 border-accent bg-foreground/5 px-4 py-4"
               >
-                <div className="mb-1 flex items-center justify-between gap-3">
-                  <p className="text-[10px] uppercase tracking-[0.16em] text-white/35">
+                <div className="mb-2 flex items-center justify-between gap-4">
+                  <p className="text-xs uppercase tracking-[0.16em] text-t3">
                     Selected text
                   </p>
                   <button
                     type="button"
-                    onClick={onClearContext}
-                    className="rounded-full p-1 text-white/35 transition-colors hover:bg-white/5 hover:text-white/70"
+                    onClick={() => {
+                      onClearContext();
+                    }}
+                    className="rounded-full p-2 text-t3 transition-colors hover:bg-foreground/5 hover:text-t1"
                     aria-label="Clear selected text context"
                   >
                     <X size={13} />
                   </button>
                 </div>
-                <p className="line-clamp-4 text-sm italic leading-relaxed text-white/70">
+                <p className="line-clamp-4 text-sm italic leading-relaxed text-t2">
                   &ldquo;{context}&rdquo;
                 </p>
               </motion.div>
@@ -113,8 +115,10 @@ export function ChatDrawer({
                         hidden: { opacity: 0, y: 4 },
                         visible: { opacity: 1, y: 0 }
                       }}
-                      onClick={() => sendMessage(prompt)}
-                      className="rounded-full border border-teal-500/30 px-3 py-1.5 text-[13px] text-teal-300 transition-colors hover:bg-teal-400/10"
+                      onClick={() => {
+                        sendMessage(prompt);
+                      }}
+                      className="rounded-full border border-border-dim px-4 py-2 text-sm text-t2 transition-colors hover:bg-foreground/5 hover:text-t1"
                     >
                       {prompt}
                     </motion.button>
