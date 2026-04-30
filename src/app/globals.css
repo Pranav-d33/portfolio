@@ -70,16 +70,16 @@
 
 :root.light {
   --noise-blend: multiply;
-  --bg: #fafafa;
-  --surface: #f1f5f9;
-  --text-primary: #0f172a;
-  --text-secondary: #334155;
-  --text-tertiary: #64748b;
-  --border-default: #cbd5e1;
-  --border-hover: #94a3b8;
-  --accent: #4f46e5;
-  --hover-bg: rgba(0, 0, 0, 0.04);
-  --surface-2: #e2e8f0;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --text-primary: #111827;
+  --text-secondary: #475569;
+  --text-tertiary: #7c8798;
+  --border-default: #dbe3ee;
+  --border-hover: #aebbd0;
+  --accent: #4338ca;
+  --hover-bg: rgba(67, 56, 202, 0.055);
+  --surface-2: #eef2f7;
   --raised: #ffffff;
   --border: var(--border-default);
   --grid: var(--border-default);
@@ -90,14 +90,14 @@
   --t2: var(--text-secondary);
   --t3: var(--text-tertiary);
   --amber: var(--accent);
-  --amber-bg: color-mix(in srgb, var(--accent) 12%, transparent);
+  --amber-bg: color-mix(in srgb, var(--accent) 10%, white);
   --primary-green: var(--accent);
-  --noise-opacity: 0.02;
+  --noise-opacity: 0.012;
 
   /* Layered soft shadows for light mode */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.03);
-  --shadow-hover: 0 10px 20px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.045), 0 1px 0 rgba(255, 255, 255, 0.8) inset;
+  --shadow-md: 0 10px 28px rgba(15, 23, 42, 0.07), 0 1px 0 rgba(255, 255, 255, 0.9) inset;
+  --shadow-hover: 0 18px 42px rgba(15, 23, 42, 0.11), 0 0 0 1px rgba(67, 56, 202, 0.08);
 }
 
 @theme {
@@ -577,7 +577,8 @@ p + p {
 
 :root.light .project-card {
   background: var(--surface);
-  border: 1px solid var(--border-default);
+  border: 1px solid color-mix(in srgb, var(--border-default) 86%, white);
+  box-shadow: var(--shadow-sm);
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -726,6 +727,18 @@ p + p {
   color: var(--text-primary);
 }
 
+:root.light .tag {
+  background: color-mix(in srgb, var(--accent) 4%, white);
+  border-color: color-mix(in srgb, var(--accent) 12%, var(--border-default));
+  color: color-mix(in srgb, var(--text-secondary) 88%, var(--accent));
+}
+
+:root.light .tag:hover {
+  background: color-mix(in srgb, var(--accent) 9%, white);
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--border-hover));
+  color: var(--accent);
+}
+
 /* ───────────────────── Nav link underline animation ───────────────────── */
 .link {
   position: relative;
@@ -774,6 +787,16 @@ p + p {
 .nav-link:hover::after,
 .nav-link.active::after {
   width: 100%;
+}
+
+:root.light .portfolio-nav .container {
+  background: rgba(255, 255, 255, 0.82);
+  border-color: rgba(148, 163, 184, 0.18);
+  box-shadow: 0 8px 28px rgba(15, 23, 42, 0.045);
+}
+
+:root.light .nav-link.active {
+  color: var(--accent);
 }
 
 /* ───────────────────── Scroll-triggered reveal ───────────────────── */
@@ -833,7 +856,7 @@ hr {
 }
 
 :root.light .section-divider {
-  border-top: 1px solid color-mix(in srgb, var(--border) 80%, transparent);
+  border-top: 1px solid color-mix(in srgb, var(--border) 54%, transparent);
 }
 
 /* ───────────────────── Skills pill ───────────────────── */
@@ -2299,4 +2322,101 @@ button:focus-visible {
   20%  { box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 60%, transparent), 0 0 24px color-mix(in srgb, var(--accent) 15%, transparent); }
   80%  { box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 60%, transparent), 0 0 24px color-mix(in srgb, var(--accent) 15%, transparent); }
   100% { box-shadow: none; }
+}
+
+/* Light mode only: preserve the dark theme while giving daylight the same premium restraint. */
+:root.light body {
+  background:
+    linear-gradient(180deg, #fbfcff 0%, var(--bg) 42%, #f4f7fb 100%);
+}
+
+:root.light .hero-name-letter {
+  text-shadow: 0 10px 28px rgba(67, 56, 202, 0.08);
+}
+
+:root.light .button,
+:root.light .ghost-button {
+  background: var(--text-primary);
+  color: #ffffff;
+  border-color: color-mix(in srgb, var(--text-primary) 82%, var(--accent));
+  box-shadow: 0 10px 22px rgba(17, 24, 39, 0.12);
+}
+
+:root.light .button:hover,
+:root.light .ghost-button:hover {
+  opacity: 1;
+  background: color-mix(in srgb, var(--text-primary) 90%, var(--accent));
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--text-primary));
+  box-shadow: 0 14px 30px rgba(17, 24, 39, 0.16);
+}
+
+:root.light .project-card {
+  background: linear-gradient(180deg, #ffffff 0%, #fbfcff 100%);
+  border-color: color-mix(in srgb, var(--border-default) 76%, white);
+  box-shadow: var(--shadow-sm);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  :root.light .project-card:hover {
+    background: #ffffff;
+    border-color: color-mix(in srgb, var(--accent) 34%, var(--border-hover));
+    box-shadow: var(--shadow-hover);
+  }
+}
+
+:root.light .skill-pill,
+:root.light .visual-card,
+:root.light .contact-social-link {
+  background: color-mix(in srgb, white 76%, transparent);
+  border: 1px solid color-mix(in srgb, var(--border-default) 62%, transparent);
+  box-shadow: var(--shadow-sm);
+}
+
+:root.light .skill-pill:hover,
+:root.light .visual-card:hover,
+:root.light .contact-social-link:hover {
+  background: #ffffff;
+  border-color: color-mix(in srgb, var(--accent) 24%, var(--border-hover));
+  box-shadow: var(--shadow-md);
+}
+
+:root.light .paper-card,
+:root.light .contact-value-card,
+:root.light .research-pill,
+:root.light .reading-chip,
+:root.light .arch-node,
+:root.light .system-prompt-callout-inner {
+  background: color-mix(in srgb, #ffffff 88%, var(--accent));
+  border-color: color-mix(in srgb, var(--border-default) 72%, white);
+  box-shadow: var(--shadow-sm);
+}
+
+:root.light .paper-card:hover,
+:root.light .contact-value-card:hover,
+:root.light .research-pill:hover,
+:root.light .reading-chip:hover,
+:root.light .arch-node:hover {
+  background: #ffffff;
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--border-hover));
+  box-shadow: var(--shadow-md);
+}
+
+:root.light .theme-toggle {
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: var(--shadow-sm);
+}
+
+:root.light .hero-profile-frame {
+  background: #ffffff;
+  border-color: color-mix(in srgb, var(--accent) 18%, var(--border-default));
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.12);
+}
+
+:root.light .deep-dive-overlay {
+  background-color: color-mix(in srgb, var(--bg) 88%, white);
+}
+
+:root.light .footer-gradient-line,
+:root.light .stats-row::before {
+  opacity: 0.22;
 }
