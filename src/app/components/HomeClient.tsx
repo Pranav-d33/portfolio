@@ -1186,7 +1186,7 @@ export default function HomeClient() {
             {/* Profile Image */}
             <motion.div variants={itemVariants} className="hero-profile group relative sm:ml-6 lg:ml-12 flex-shrink-0">
               <div className="absolute inset-0 border border-primary-green translate-x-2 translate-y-2 rounded-lg opacity-80 transition-transform duration-500 group-hover:translate-x-3 group-hover:translate-y-3"></div>
-              <div className="hero-profile-frame relative w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] rounded-lg border border-border-dim overflow-hidden grayscale hover:grayscale-0 -rotate-2 hover:-rotate-1 transition-all duration-500 shadow-sm z-10 bg-background">
+              <div className="hero-profile-frame relative w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] rounded-lg border border-border-dim overflow-hidden -rotate-2 hover:-rotate-1 transition-all duration-500 shadow-sm z-10 bg-background">
                 <img
                   src="/portfolio_image.jpeg"
                   alt="Pranav Dhiran"

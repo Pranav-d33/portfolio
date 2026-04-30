@@ -51,7 +51,6 @@ export async function POST(req: Request) {
     }
 
     try {
-      try {
       const stream = await groq.chat.completions.create({
         model: "llama-3.3-70b-versatile",
         messages: [
