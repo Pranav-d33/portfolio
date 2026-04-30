@@ -4,7 +4,7 @@ import React from "react";
 
 export function AuroraBackground() {
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden" aria-hidden="true">
+    <div className="fixed inset-0 w-full max-w-full pointer-events-none z-0 overflow-hidden" aria-hidden="true">
       {/* 
         Aurora Gradients:
         Deep teal and cyan, moving smoothly to create a thermal drift effect.

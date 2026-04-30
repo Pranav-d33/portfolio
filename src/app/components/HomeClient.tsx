@@ -1680,6 +1680,9 @@ export default function HomeClient() {
               View my system prompt
             </a>
           </div>
+          <div className="system-prompt-token-count type-t6 text-t3/60">
+            Token count of this page — ~1,847 tokens
+          </div>
         </div>
 
         {/* ═══════════ FOOTER ═══════════ */}
@@ -1687,7 +1690,7 @@ export default function HomeClient() {
           <div className="footer-gradient-line mb-8"></div>
           <div className="flex flex-col md:flex-row justify-between items-start gap-4">
             <div className="type-t6 text-t3">© {new Date().getFullYear()} Pranav Dhiran</div>
-            <div className="flex items-center gap-4 type-t6 text-t3/60">
+            <div className="footer-token-count flex items-center gap-4 type-t6 text-t3/60">
               <span className="opacity-80">Token count of this page — ~1,847 tokens</span>
             </div>
           </div>
