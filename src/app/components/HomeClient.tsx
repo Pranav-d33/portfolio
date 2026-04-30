@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, animate, useMotionValue, useTransform } from 'framer-motion';
 
 /* ═══════════════════════════════════════════════════════════════
    Framer Motion — Scroll Animation Variants & Components
@@ -647,33 +647,78 @@ function ContactEmail() {
 /* ─── Swipeable Project Card (Mobile Drawer) ─── */
 function SwipeableProject({ children, proofTitle, proofDesc, onClick, id }: { children: React.ReactNode, proofTitle: string, proofDesc: string, onClick?: () => void, id?: string }) {
   const [isMobile, setIsMobile] = useState(false);
+  const x = useMotionValue(0);
+  const proofOpacity = useTransform(x, [-168, -36, 0], [1, 0.35, 0]);
+  const didDragRef = useRef(false);
+  const dragResetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   useEffect(() => {
-    setIsMobile(window.innerWidth <= 640);
     const handleResize = () => setIsMobile(window.innerWidth <= 640);
+    const initialFrame = window.requestAnimationFrame(handleResize);
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.cancelAnimationFrame(initialFrame);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) x.set(0);
+  }, [isMobile, x]);
+
+  useEffect(() => {
+    return () => {
+      if (dragResetTimerRef.current) clearTimeout(dragResetTimerRef.current);
+    };
   }, []);
 
   return (
-    <div id={id} className="relative rounded-xl">
+    <div id={id} className="swipeable-project relative rounded-xl overflow-hidden">
       {/* Proof Layer (Behind) */}
-      <div className="absolute inset-0 bg-surface-2 border border-border-dim rounded-xl flex items-center justify-end px-6 z-0 pointer-events-none sm:hidden">
-        <div className="text-right max-w-[120px]">
+      <motion.div
+        className="swipeable-project-proof absolute inset-0 bg-surface-2 border border-border-dim rounded-xl z-0 pointer-events-none sm:hidden"
+        style={{ opacity: proofOpacity }}
+      >
+        <div className="swipeable-project-proof-copy">
           <div className="type-t6 text-accent mb-2">{proofTitle}</div>
           <div className="type-t6 font-mono text-t3 leading-snug">{proofDesc}</div>
         </div>
-      </div>
+      </motion.div>
       
       {/* Draggable Card */}
       <motion.div
         variants={cardVariants}
         whileHover={{ x: isMobile ? 0 : 4, transition: { duration: 0.2 } }}
         drag={isMobile ? "x" : false}
-        dragConstraints={{ left: -140, right: 0 }}
-        dragElastic={0.1}
+        dragConstraints={{ left: -176, right: 0 }}
+        dragElastic={0.04}
+        dragMomentum={false}
         className="project-card cursor-pointer group m-0 relative z-10 touch-pan-y"
-        onClick={onClick}
-        style={{ touchAction: 'pan-y' }}
+        onDragStart={() => {
+          didDragRef.current = true;
+          if (dragResetTimerRef.current) clearTimeout(dragResetTimerRef.current);
+        }}
+        onDragEnd={(_, info) => {
+          const snapOpen = info.offset.x < -72 || info.velocity.x < -450;
+          animate(x, snapOpen ? -168 : 0, {
+            type: 'spring',
+            stiffness: 520,
+            damping: 42,
+            mass: 0.8,
+          });
+          dragResetTimerRef.current = setTimeout(() => {
+            didDragRef.current = false;
+          }, 160);
+        }}
+        onClick={(event) => {
+          if (didDragRef.current) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+          }
+          onClick?.();
+        }}
+        style={{ x, touchAction: 'pan-y' }}
       >
         {children}
       </motion.div>

@@ -113,8 +113,19 @@
 }
 
 /* ─── Smooth scroll ─── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -122,10 +133,14 @@ body {
   color: var(--t1);
   @apply antialiased;
   transition: background-color 300ms, color 300ms;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 /* ───────────────────── Design System Primitives ───────────────────── */
 .container {
+  width: 100%;
   max-width: 1120px;
   margin: 0 auto;
   padding: 0 var(--space-3);
@@ -450,6 +465,7 @@ p + p {
   .portfolio-nav .container {
     padding-top: 8px;
     padding-bottom: 8px;
+    overflow-x: hidden;
   }
 }
 
@@ -564,10 +580,12 @@ p + p {
   border: 1px solid var(--border-default);
 }
 
-.project-card:hover {
-  transform: translateY(-2px);
-  border-color: var(--border-hover);
-  background: var(--hover-bg);
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-hover);
+    background: var(--hover-bg);
+  }
 }
 
 .project-card .type-t3 {
@@ -578,17 +596,52 @@ p + p {
   margin-bottom: var(--space-2);
 }
 
+.swipeable-project {
+  isolation: isolate;
+  width: 100%;
+  max-width: 100%;
+}
+
+.swipeable-project .project-card {
+  will-change: transform;
+}
+
+.swipeable-project-proof {
+  overflow: hidden;
+}
+
+.swipeable-project-proof-copy {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  width: min(42%, 168px);
+  transform: translateY(-50%);
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
 @media (max-width: 640px) {
   .project-card {
-    padding: var(--space-2);
-    gap: var(--space-2);
+    padding: 12px;
+    gap: 12px;
     border-radius: var(--radius-sm);
     margin-bottom: 0;
+  }
+  .swipeable-project .project-card {
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+  }
+  .swipeable-project-proof {
+    transform: translateZ(0);
+  }
+  .swipeable-project-proof-copy .type-t6 {
+    font-size: 10px;
+    line-height: 1.28;
+    letter-spacing: 0.08em;
   }
   .project-card .flex {
     flex-direction: column;
     align-items: stretch;
-    gap: 14px;
+    gap: 10px;
     width: 100%;
   }
   .project-card .flex-1 {
@@ -600,15 +653,15 @@ p + p {
     margin-bottom: 0;
   }
   .project-card .project-hook {
-    margin-top: 8px;
-    margin-bottom: 12px;
+    margin-top: 6px;
+    margin-bottom: 10px;
     font-size: 15px;
     line-height: 1.5;
   }
   .project-card .type-t4 {
     font-size: 15px;
     line-height: 1.5;
-    margin-bottom: 14px;
+    margin-bottom: 10px;
     color: var(--text-2);
   }
   .project-card .type-t6 {
@@ -616,20 +669,20 @@ p + p {
     line-height: 1.4;
   }
   .project-card .flex.gap-4 {
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
     align-items: center;
-    margin-top: 4px;
+    margin-top: 2px;
   }
   .project-card .mb-4 {
-    margin-bottom: 12px;
+    margin-bottom: 10px;
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 5px;
   }
   .project-card .tag {
     font-size: var(--text-xs);
-    padding: 4px 8px;
+    padding: 3px 7px;
   }
   .arrow {
     margin-left: 0 !important;
@@ -1671,8 +1724,10 @@ button:focus-visible {
   font-family: var(--font-mono);
 }
 
-.project-card:hover .case-study-hint {
-  opacity: 1;
+@media (hover: hover) and (pointer: fine) {
+  .project-card:hover .case-study-hint {
+    opacity: 1;
+  }
 }
 
 /* ───────────────────── Terminal Mode ───────────────────── */
@@ -2140,6 +2195,83 @@ button:focus-visible {
   color: var(--text-2);
   margin-top: var(--space-1);
   margin-bottom: var(--space-2);
+}
+
+@media (max-width: 640px) {
+  :root {
+    --space-1: 7px;
+    --space-2: 14px;
+    --space-3: 20px;
+    --space-4: 27px;
+    --space-5: 40px;
+    --space-6: 52px;
+    --space-7: 66px;
+    --space-8: 78px;
+    --text-xs: 12px;
+    --text-sm: 14px;
+    --text-md: 16px;
+    --text-lg: 21px;
+  }
+
+  .container {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .portfolio-main {
+    padding-top: calc(var(--sticky-nav-height, 64px) + 16px);
+  }
+
+  .hero-section {
+    padding-top: 16px;
+    padding-bottom: 40px;
+  }
+
+  .type-t1 {
+    font-size: 42px;
+  }
+
+  .hero-layout {
+    gap: 1rem;
+  }
+
+  .hero-profile-frame {
+    width: 104px;
+    height: 104px;
+  }
+
+  .project-card .type-t3 {
+    font-size: 16px;
+    line-height: 1.28;
+  }
+
+  .project-card .project-hook {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .project-card .type-t4 {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .contact-cta-wrapper .link {
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 380px) {
+  .container {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .type-t1 {
+    font-size: 38px;
+  }
 }
 
 .text-primary-green { color: var(--primary-green); }
