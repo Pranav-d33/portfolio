@@ -1,19 +1,26 @@
 # Pranav Dhiran
 
-> AI Engineer & Researcher. I build systems that train, fine-tune, and deploy language models ??? from weights to production.
+AI Engineer and Researcher focused on LLM systems, agentic infrastructure, MCP servers, and RF plus AI systems.
 
 ## About
-- ECE undergraduate, self-taught AI/ML
-- Two-time Smart India Hackathon National Finalist
-- Focus: LLM engineering, agentic systems, MCP server engineering, RF+AI
+- ECE undergraduate and self-taught AI/ML engineer.
+- Two-time Smart India Hackathon National Finalist.
+- Focus: transformer training, multi-agent systems, MCP server engineering, software-defined radio, and LLM post-training.
 
-## Projects
-- Medaura: Multi-agent pharmacy system ??? https://aipharmacyproject-blond.vercel.app
-- SLM from Scratch: GPT-style transformer trained on TinyStories ??? https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories-
-- GNU Radio MCP Server: LLM-to-SDR bridge ??? https://github.com/Pranav-d33/gnuradio-mcp-server
-- RF Watch: Open-source RF spectrum monitor ??? https://github.com/Pranav-d33/RFwatch
+## Case Studies
+- Medaura: multi-agent pharmacy system with LangGraph orchestration, ChromaDB RAG, Langfuse traces, and multilingual workflow support. Case study: https://pranavdhiran.me/case-studies/medaura
+- Small Language Model From Scratch - TinyStories: GPT-style transformer trained from scratch with a custom BPE tokenizer, AMP training, and validation loss around 2.1. Case study: https://pranavdhiran.me/case-studies/tinystories
+- GNU Radio MCP Server: LLM-to-SDR bridge with 13 validated tools over ZMQ and XML-RPC for GNU Radio control. Case study: https://pranavdhiran.me/case-studies/gnuradio-mcp
+- RF Watch: passive real-time RF spectrum monitor using HackRF One, GNU Radio, Welch PSD features, and traceable physical-layer evidence. Case study: https://pranavdhiran.me/case-studies/rf-watch
+
+## External Proof
+- GitHub: https://github.com/Pranav-d33
+- Medaura live system: https://aipharmacyproject-blond.vercel.app
+- TinyStories source: https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories-
+- GNU Radio MCP source: https://github.com/Pranav-d33/gnuradio-mcp-server
+- RF Watch source: https://github.com/Pranav-d33/RFwatch
 
 ## Contact
 - Email: dhiranpranav72@gmail.com
-- GitHub: https://github.com/Pranav-d33
 - LinkedIn: https://linkedin.com/in/prannav-dhiran
+- X: https://x.com/Prannav_ai

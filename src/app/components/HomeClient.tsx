@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence, animate, useMotionValue, useTransform } from 'framer-motion';
+import { caseStudyPath } from '@/lib/portfolioData';
 
 /* ═══════════════════════════════════════════════════════════════
    Framer Motion — Scroll Animation Variants & Components
@@ -1067,6 +1068,22 @@ export default function HomeClient() {
               Reading
             </a>
             <a
+              href="#education"
+              className={`nav-link link transition-colors ${
+                activeSection === 'education' ? 'text-accent active' : 'text-t2 hover:text-t1'
+              }`}
+            >
+              Education
+            </a>
+            <a
+              href="#research"
+              className={`nav-link link transition-colors ${
+                activeSection === 'research' ? 'text-accent active' : 'text-t2 hover:text-t1'
+              }`}
+            >
+              Research
+            </a>
+            <a
               href="#contact"
               className={`nav-link link transition-colors ${
                 activeSection === 'contact' ? 'text-accent active' : 'text-t2 hover:text-t1'
@@ -1077,7 +1094,7 @@ export default function HomeClient() {
             <a
               href="/resume_v4.pdf"
               download
-              className="nav-link link transition-colors text-t2 hover:text-accent flex items-center gap-2"
+              className="nav-resume-button"
               aria-label="Download Resume"
             >
               <span>Resume</span>
@@ -1212,13 +1229,13 @@ export default function HomeClient() {
                   Open to internships &amp; research collaborations
                 </span>
               </motion.div>
-              <motion.div variants={itemVariants} className="flex gap-4 items-center">
-                <a href="/resume_v4.pdf" className="ghost-button group">
-                  <span className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5">Resume</span>
+              <motion.div variants={itemVariants} className="hero-cta-group">
+                <a href="/resume_v4.pdf" download className="button button-primary text-sm group">
+                  <span className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5">Download Resume</span>
                   <span className="inline-block ml-1 transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
                 </a>
-                <div className="flex gap-4 type-t6 text-t3">
-                  <ContactEmail />
+                <div className="hero-social-links type-t6">
+                  <a href="mailto:dhiranpranav72@gmail.com" className="button button-secondary">Email</a>
                   <span>·</span>
                   <a href="https://github.com/Pranav-d33" className="link link-muted">GitHub</a>
                   <span>·</span>
@@ -1260,7 +1277,7 @@ export default function HomeClient() {
               proofTitle="Langfuse Trace"
               proofDesc="Orchestrator → UI routing latency < 120ms"
               onClick={() => {
-                setDeepDiveProject('medaura');
+                window.location.href = caseStudyPath('medaura');
               }}
             >
               <div className="flex justify-between items-center w-full">
@@ -1301,7 +1318,7 @@ export default function HomeClient() {
               proofTitle="Loss Curve"
               proofDesc="Converged at 2.1 val loss · 2k warmup"
               onClick={() => {
-                setDeepDiveProject('tinystories');
+                window.location.href = caseStudyPath('tinystories');
               }}
             >
               <div className="flex justify-between items-center w-full">
@@ -1341,7 +1358,7 @@ export default function HomeClient() {
               proofTitle="Arch Diagram"
               proofDesc="ZMQ + XML-RPC split transport"
               onClick={() => {
-                setDeepDiveProject('gnuradio-mcp');
+                window.location.href = caseStudyPath('gnuradio-mcp');
               }}
             >
               <div className="flex justify-between items-center w-full">

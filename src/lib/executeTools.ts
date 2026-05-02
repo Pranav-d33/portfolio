@@ -12,6 +12,13 @@ const sectionIdMap: Record<string, string> = {
   contact: "contact",
 };
 
+const caseStudySlugMap: Record<string, string> = {
+  medaura: "medaura",
+  slm: "tinystories",
+  gnuradio: "gnuradio-mcp",
+  rfwatch: "rf-watch",
+};
+
 export function executeTool(
   tool: ToolCall,
   onToast: (msg: string) => void
@@ -36,9 +43,8 @@ export function executeTool(
   if (name === "open_case_study") {
     onToast(`↗ Opening ${args.project} case study...`);
     navigate(() => {
-      window.dispatchEvent(
-        new CustomEvent("open-case-study", { detail: { project: args.project } })
-      );
+      const slug = caseStudySlugMap[args.project];
+      if (slug) window.location.href = `/case-studies/${slug}`;
     });
   }
 

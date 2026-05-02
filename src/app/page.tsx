@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import HomeClient from "./components/HomeClient";
+import { baseUrl, caseStudyPath, projectCaseStudies } from "@/lib/portfolioData";
 
-const BASE_URL = "https://pranavdhiran.me";
+const BASE_URL = baseUrl;
 
 export const metadata: Metadata = {
   title: "Pranav Dhiran — AI Engineer & Researcher",
@@ -99,48 +100,16 @@ const personSchema = {
   ],
 };
 
-const creativeWorks = [
-  {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: "Medaura — Agentic Pharmacy System",
-    url: "https://aipharmacyproject-blond.vercel.app",
-    author: { "@type": "Person", name: "Pranav Dhiran" },
-    description:
-      "Full-stack multi-agent AI system — five specialized agents with LangGraph orchestration for autonomous medication ordering across four languages.",
-    keywords: "LangGraph, Multi-Agent, FastAPI, ChromaDB, RAG",
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: "SLM from Scratch — TinyStories",
-    url: "https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories-",
-    author: { "@type": "Person", name: "Pranav Dhiran" },
-    description:
-      "GPT-style transformer trained from scratch on TinyStories with custom BPE tokenizer, mmap pipelines, AMP mixed precision, and cosine annealing.",
-    keywords: "PyTorch, Transformer, BPE Tokenizer, AMP, NLP",
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: "GNU Radio MCP Server — LLM-to-SDR Bridge",
-    url: "https://github.com/Pranav-d33/gnuradio-mcp-server",
-    author: { "@type": "Person", name: "Pranav Dhiran" },
-    description:
-      "MCP server bridging LLMs to live GNU Radio SDR flowgraphs — 13 tools with Pydantic v2 validation, lifespan-managed ZMQ context, and dual transport.",
-    keywords: "Python, FastMCP, ZMQ, XML-RPC, GNU Radio",
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: "RF Watch — Open-Source RF Spectrum Monitor",
-    url: "https://github.com/Pranav-d33/RFwatch",
-    author: { "@type": "Person", name: "Pranav Dhiran" },
-    description:
-      "Real-time RF spectrum analyzer using HackRF One and GNU Radio with Welch PSD feature extraction and lightweight ML classifier for passive transmitter detection.",
-    keywords: "Python, GNU Radio, HackRF One, Signal Processing",
-  },
-];
+const creativeWorks = projectCaseStudies.map((project) => ({
+  "@context": "https://schema.org",
+  "@type": "CreativeWork",
+  name: project.title,
+  url: `${BASE_URL}${caseStudyPath(project.slug)}`,
+  author: { "@type": "Person", name: "Pranav Dhiran" },
+  description: project.thesis,
+  keywords: project.stack.join(", "),
+  sameAs: project.links.filter((link) => link.external).map((link) => link.href),
+}));
 
 const structuredData = [personSchema, ...creativeWorks];
 
