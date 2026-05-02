@@ -46,6 +46,27 @@ export function ChatWidget() {
     };
   }, [isOpen]);
 
+  // Keyboard shortcuts: '/' to open, 'Esc' to close
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Don't trigger if user is typing in an input or textarea
+      const target = e.target as HTMLElement;
+      const isInput = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable;
+      
+      if (e.key === '/' && !isInput && !isOpen) {
+        e.preventDefault();
+        openBlankChat();
+      }
+      
+      if (e.key === 'Escape' && isOpen) {
+        closeChat();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen]);
+
   const openBlankChat = () => {
     setChatContext(null);
     setIsOpen(true);
@@ -101,8 +122,10 @@ export function ChatWidget() {
               className="pointer-events-none relative hidden origin-right overflow-hidden rounded-lg border border-border-dim bg-background/85 px-4 py-2 text-right shadow-[0_14px_40px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:block"
             >
               <span className="absolute inset-y-2 right-0 w-px bg-gradient-to-b from-transparent via-accent/70 to-transparent" />
-              <div className="text-xs font-medium tracking-[0.14em] text-t2">
-                wonder anything?
+              <div className="text-xs font-medium tracking-[0.14em] text-t2 flex items-center justify-end gap-1">
+                <span>wonder anything</span>
+                <span className="w-[3px] h-[1em] bg-accent animate-pulse ml-0.5" />
+                <span>?</span>
               </div>
               <div className="mt-1 text-xs tracking-[0.08em] text-t3">
                 ask in context

@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence, animate, useMotionValue, useTransform } from 'framer-motion';
 import { caseStudyPath } from '@/lib/portfolioData';
+import { SystemPromptModal } from './SystemPromptModal';
 
 /* ═══════════════════════════════════════════════════════════════
    Framer Motion — Scroll Animation Variants & Components
@@ -744,6 +745,7 @@ export default function HomeClient() {
   const [terminalInput, setTerminalInput] = useState('');
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(false);
+  const [isSystemPromptOpen, setIsSystemPromptOpen] = useState(false);
 
   /* ─── Refs ─── */
   const terminalOutputRef = useRef<HTMLDivElement>(null);
@@ -1693,9 +1695,12 @@ export default function HomeClient() {
         <div className="system-prompt-callout">
           <div className="system-prompt-callout-inner">
             <div className="system-prompt-callout-label">System prompt</div>
-            <a href="/system-prompt" className="system-prompt-callout-link">
+            <button 
+              onClick={() => setIsSystemPromptOpen(true)}
+              className="system-prompt-callout-link cursor-pointer bg-transparent border-none"
+            >
               View my system prompt
-            </a>
+            </button>
           </div>
           <div className="system-prompt-token-count type-t6 text-t3/60">
             Token count of this page — ~1,847 tokens
@@ -1706,7 +1711,7 @@ export default function HomeClient() {
         <footer className="py-12 border-t border-border-dim/10 mt-10">
           <div className="footer-gradient-line mb-8"></div>
           <div className="flex flex-col md:flex-row justify-between items-start gap-4">
-            <div className="type-t6 text-t3">© {new Date().getFullYear()} Pranav Dhiran</div>
+            <div className="type-t6 text-t3"> 2023 Pranav Dhiran</div>
             <div className="footer-token-count flex items-center gap-4 type-t6 text-t3/60">
               <span className="opacity-80">Token count of this page — ~1,847 tokens</span>
             </div>
@@ -1715,6 +1720,12 @@ export default function HomeClient() {
           <div className="footer-note">Built with intent. Iterated with taste.</div>
         </footer>
       </main>
+
+      {/* ═══════════ SYSTEM PROMPT MODAL ═══════════ */}
+      <SystemPromptModal 
+        isOpen={isSystemPromptOpen} 
+        onClose={() => setIsSystemPromptOpen(false)} 
+      />
 
       {/* ═══════════ DEEP DIVE OVERLAY ═══════════ */}
       <AnimatePresence>

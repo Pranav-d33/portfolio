@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from "react";
 import { Send } from "lucide-react";
 
 type ChatInputProps = {
@@ -17,6 +18,15 @@ export function ChatInput({
   placeholder = "Ask anything...",
   autoFocus = false,
 }: ChatInputProps) {
+  const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (autoFocus && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [autoFocus]);
+
   return (
     <div className="relative border-t border-border-dim bg-background p-4">
       <form
@@ -27,15 +37,23 @@ export function ChatInput({
         }}
         className="relative flex items-center"
       >
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          disabled={disabled}
-          placeholder={placeholder}
-          autoFocus={autoFocus}
-          className="w-full rounded-full border border-border-dim bg-foreground/5 py-4 pl-4 pr-12 text-sm text-t1 placeholder-t3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent disabled:opacity-50"
-        />
+        <div className="relative w-full">
+          <input
+            ref={inputRef}
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            disabled={disabled}
+            placeholder={placeholder}
+            onFocus={() => setIsFocused(true)}
+            onBlur={() => setIsFocused(false)}
+            className="w-full rounded-full border border-border-dim bg-foreground/5 py-4 pl-4 pr-12 text-sm text-t1 placeholder-t3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent disabled:opacity-50 font-mono"
+          />
+          {/* Terminal-style cursor indicator */}
+          {isFocused && !disabled && (
+            <span className="absolute right-14 top-1/2 -translate-y-1/2 w-[2px] h-4 bg-accent animate-pulse pointer-events-none" />
+          )}
+        </div>
         <button
           type="submit"
           disabled={!input.trim() || disabled}

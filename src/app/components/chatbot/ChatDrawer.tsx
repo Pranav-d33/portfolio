@@ -126,7 +126,13 @@ export function ChatDrawer({
                 </motion.div>
               </div>
             ) : (
-              messages.map((msg, i) => <ChatMessage key={i} message={msg} />)
+              messages.map((msg, i) => (
+                <ChatMessage 
+                  key={i} 
+                  message={msg} 
+                  isStreaming={isStreaming && i === messages.length - 1 && msg.role === "assistant"}
+                />
+              ))
             )}
             <div ref={messagesEndRef} />
           </div>
