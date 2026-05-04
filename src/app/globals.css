@@ -45,6 +45,12 @@
   --transition-fast: 0.18s ease;
   --transition-base: 0.2s ease;
 
+  /* Spec-aligned micro-interaction timing */
+  --transition-micro: 150ms ease-out;
+  --transition-component: 200ms ease-out;
+  --transition-layout: 260ms ease-out;
+  --transition-tap: 80ms ease-out;
+
   /* Legacy aliases for existing components */
   --surface-2: color-mix(in srgb, var(--surface) 85%, var(--bg));
   --raised: var(--surface);
@@ -500,13 +506,19 @@ p + p {
   background: var(--text-primary);
   color: var(--bg);
   border: 1px solid var(--border-default);
-  transition: var(--transition-base);
+  transition: transform var(--transition-micro), box-shadow var(--transition-component), border-color var(--transition-component), background-color var(--transition-component), opacity var(--transition-component);
 }
 
 .button:hover,
 .ghost-button:hover {
   opacity: 0.9;
   border-color: var(--border-hover);
+}
+
+.button:active,
+.ghost-button:active {
+  transform: scale(0.96);
+  transition: transform var(--transition-tap);
 }
 
 .system-prompt-callout {
@@ -592,7 +604,7 @@ p + p {
   border-radius: var(--radius-md);
   padding: var(--space-3);
   margin-bottom: 0;
-  transition: transform var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast);
+  transition: transform var(--transition-component), border-color var(--transition-component), background-color var(--transition-component), box-shadow var(--transition-component);
   display: flex;
   flex-direction: column;
 }
@@ -605,10 +617,16 @@ p + p {
 
 @media (hover: hover) and (pointer: fine) {
   .project-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--border-hover);
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--accent) 35%, var(--border-hover));
     background: var(--hover-bg);
+    box-shadow: var(--shadow-hover);
   }
+}
+
+.project-card:active {
+  transform: scale(0.98);
+  transition: transform var(--transition-tap);
 }
 
 .project-card .type-t3 {
@@ -819,6 +837,100 @@ p + p {
 
 :root.light .nav-link.active {
   color: var(--accent);
+}
+
+/* ───────────────────── Scroll Progress Bar ───────────────────── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent);
+  transform-origin: left;
+  z-index: 10000;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms ease;
+}
+
+.scroll-progress.visible {
+  opacity: 1;
+}
+
+/* ───────────────────── Nav Scroll Compression ───────────────────── */
+.portfolio-nav .container {
+  transition: padding var(--transition-layout), backdrop-filter var(--transition-layout);
+}
+
+.portfolio-nav.nav-scrolled .container {
+  padding-top: 6px;
+  padding-bottom: 6px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* ───────────────────── Contact CTA Tap Feedback ───────────────────── */
+.contact-cta:active {
+  transform: scale(0.97);
+  transition: transform var(--transition-tap);
+}
+
+.contact-social-link:active {
+  transform: scale(0.95);
+  transition: transform var(--transition-tap);
+}
+
+/* ───────────────────── External Link Icon Shift ───────────────────── */
+.contact-social-link svg,
+.paper-link svg {
+  transition: transform var(--transition-micro);
+}
+
+.contact-social-link:hover svg,
+.paper-link:hover svg {
+  transform: translateX(3px);
+}
+
+/* ───────────────────── Tag Active State ───────────────────── */
+.tag:active {
+  transform: scale(0.95);
+  transition: transform var(--transition-tap);
+}
+
+/* ───────────────────── Mobile Nav Tap Highlight ───────────────────── */
+@media (hover: none) and (pointer: coarse) {
+  .nav-link:active {
+    background: color-mix(in srgb, var(--accent) 12%, transparent);
+    border-radius: 4px;
+  }
+}
+
+/* ───────────────────── Copy Tooltip Fade ───────────────────── */
+.copy-tooltip {
+  animation: tooltip-fade 2s ease forwards;
+}
+
+@keyframes tooltip-fade {
+  0% { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  80% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-4px); }
+}
+
+/* ───────────────────── Terminal Cursor Blink Control ───────────────────── */
+.llm-cursor {
+  animation: cursor-blink 500ms step-end infinite;
+}
+
+.llm-cursor.typing {
+  animation: none;
+  opacity: 0.9;
+}
+
+@keyframes cursor-blink {
+  0%, 100% { opacity: 0.9; }
+  50% { opacity: 0; }
 }
 
 /* ───────────────────── Scroll-triggered reveal ───────────────────── */
@@ -1382,9 +1494,10 @@ hr {
 /* ───────────────────── Focus styles for accessibility ───────────────────── */
 a:focus-visible,
 button:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-  border-radius: 2px;
+  outline: none;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 40%, transparent),
+              0 0 12px color-mix(in srgb, var(--accent) 12%, transparent);
+  border-radius: 4px;
 }
 
 /* ───────────────────── Scrollbar styling ───────────────────── */

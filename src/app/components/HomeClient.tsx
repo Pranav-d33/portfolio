@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence, animate, useMotionValue, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, animate, useMotionValue, useTransform, useScroll } from 'framer-motion';
 import { caseStudyPath } from '@/lib/portfolioData';
 import { SystemPromptModal } from './SystemPromptModal';
 
@@ -12,40 +12,38 @@ import { SystemPromptModal } from './SystemPromptModal';
 const customEase: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
 
 const sectionVariants = {
-  hidden: { opacity: 0, y: 40, filter: 'blur(6px)' },
+  hidden: { opacity: 0, y: 14 },
   visible: {
     opacity: 1,
     y: 0,
-    filter: 'blur(0px)',
-    transition: { duration: 0.7, ease: customEase, staggerChildren: 0.12 },
+    transition: { duration: 0.22, ease: 'easeOut' as const, staggerChildren: 0.05 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 8 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: customEase },
+    transition: { duration: 0.2, ease: 'easeOut' as const },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, x: -20, y: 16 },
+  hidden: { opacity: 0, y: 10 },
   visible: {
     opacity: 1,
-    x: 0,
     y: 0,
-    transition: { duration: 0.55, ease: customEase },
+    transition: { duration: 0.22, ease: 'easeOut' as const },
   },
 };
 
 const scaleInVariants = {
-  hidden: { opacity: 0, scale: 0.92 },
+  hidden: { opacity: 0, scale: 0.97 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.5, ease: customEase },
+    transition: { duration: 0.2, ease: 'easeOut' as const },
   },
 };
 
@@ -544,10 +542,12 @@ function StreamingText({ text, isVisible, speed = 15, showCursor = true, showFla
     return () => clearTimeout(timeout);
   }, [text, localVisible, displayedText, speed]);
 
+  const isTyping = localVisible && !isComplete && displayedText.length > 0;
+
   return (
     <span ref={ref}>
       {displayedText}
-      {showCursor && !isComplete && <span className="llm-cursor"></span>}
+      {showCursor && !isComplete && <span className={`llm-cursor ${isTyping ? 'typing' : ''}`}></span>}
       {showCursor && isComplete && showFlash && <span className="token-flash">&lt;|end|&gt;</span>}
     </span>
   );
@@ -624,7 +624,7 @@ function ContactEmail() {
   };
 
   return (
-    <span 
+    <span
       className="relative cursor-pointer hover:text-t2 transition-colors touch-none select-none"
       onTouchStart={handlePressStart}
       onTouchEnd={handlePressEnd}
@@ -637,11 +637,19 @@ function ContactEmail() {
       }}
     >
       Email
-      {copied && (
-        <span className="absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-2 border border-border-dim px-2 py-1 rounded text-[10px] text-t1 whitespace-nowrap shadow-sm z-50">
-          Copied
-        </span>
-      )}
+      <AnimatePresence>
+        {copied && (
+          <motion.span
+            className="copy-tooltip absolute -top-8 left-1/2 -translate-x-1/2 bg-surface-2 border border-border-dim px-2 py-1 rounded text-[10px] text-t1 whitespace-nowrap shadow-sm z-50"
+            initial={{ opacity: 0, y: 4, x: '-50%' }}
+            animate={{ opacity: 1, y: 0, x: '-50%' }}
+            exit={{ opacity: 0, y: -4, x: '-50%' }}
+            transition={{ duration: 0.15, ease: 'easeOut' }}
+          >
+            Copied
+          </motion.span>
+        )}
+      </AnimatePresence>
     </span>
   );
 }
@@ -691,6 +699,7 @@ function SwipeableProject({ children, proofTitle, proofDesc, onClick, id }: { ch
       <motion.div
         variants={cardVariants}
         whileHover={{ x: isMobile ? 0 : 4, transition: { duration: 0.2 } }}
+        whileTap={{ scale: 0.98, transition: { duration: 0.08 } }}
         drag={isMobile ? "x" : false}
         dragConstraints={{ left: -176, right: 0 }}
         dragElastic={0.04}
@@ -746,6 +755,8 @@ export default function HomeClient() {
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [isMobile, setIsMobile] = useState(false);
   const [isSystemPromptOpen, setIsSystemPromptOpen] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [navScrolled, setNavScrolled] = useState(false);
 
   /* ─── Refs ─── */
   const terminalOutputRef = useRef<HTMLDivElement>(null);
@@ -765,6 +776,11 @@ export default function HomeClient() {
   );
 
   useScrollReveal();
+
+  /* ─── Scroll progress bar ─── */
+  const { scrollYProgress } = useScroll();
+  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const progressVisible = useTransform(scrollYProgress, (v) => v > 0.02);
 
   /* ─── Intersection-based scroll-spy ─── */
   useEffect(() => {
@@ -806,10 +822,21 @@ export default function HomeClient() {
       return;
     }
 
+    // Desktop: use cursor position for parallax (spec §4.2)
+    const handleMouseMove = (e: MouseEvent) => {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const x = ((e.clientX - centerX) / centerX) * 6; // max ±6px
+      const y = ((e.clientY - centerY) / centerY) * 6;
+      setTilt({ x, y });
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+
+    // Fallback: device orientation for tablets
     const handleOrientation = (event: DeviceOrientationEvent) => {
       const beta = event.beta || 0;
       const gamma = event.gamma || 0;
-      // limit the values and scale down
       const x = Math.max(-15, Math.min(15, gamma)) * 0.3;
       const y = Math.max(-15, Math.min(15, beta - 45)) * 0.3;
       setTilt({ x, y });
@@ -818,6 +845,7 @@ export default function HomeClient() {
       window.addEventListener('deviceorientation', handleOrientation);
     }
     return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
       if (typeof window !== 'undefined' && window.DeviceOrientationEvent) {
         window.removeEventListener('deviceorientation', handleOrientation);
       }
@@ -866,7 +894,10 @@ export default function HomeClient() {
 
   /* ─── Back-to-top visibility ─── */
   useEffect(() => {
-    const onScroll = () => setShowTopBtn(window.scrollY > 600);
+    const onScroll = () => {
+      setShowTopBtn(window.scrollY > 600);
+      setNavScrolled(window.scrollY > 40);
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
@@ -996,6 +1027,12 @@ export default function HomeClient() {
 
   return (
     <>
+      {/* SCROLL PROGRESS BAR */}
+      <motion.div
+        className={`scroll-progress ${progressVisible ? 'visible' : ''}`}
+        style={{ scaleX }}
+      />
+
       {/* CUSTOM CURSOR FOLLOWER */}
       <div
         id="custom-cursor"
@@ -1034,7 +1071,7 @@ export default function HomeClient() {
       </div>
 
       {/* NAVIGATION */}
-      <nav className="portfolio-nav sticky top-0 z-50 w-full pointer-events-none">
+      <nav className={`portfolio-nav sticky top-0 z-50 w-full pointer-events-none ${navScrolled ? 'nav-scrolled' : ''}`}>
         <div className="pointer-events-auto flex justify-start sm:justify-between items-center container py-4 bg-background/85 backdrop-blur-sm border-x border-b border-border-dim/10">
           <div className="hidden sm:block type-t2 font-medium group cursor-default text-primary-green">
             <span className="inline-block transition-transform duration-300 group-hover:scale-110">
@@ -1165,7 +1202,7 @@ export default function HomeClient() {
           animate="visible"
           variants={{
             hidden: {},
-            visible: { transition: { staggerChildren: 0.1 } }
+            visible: { transition: { staggerChildren: 0.05 } }
           }}
         >
           <div className="hero-layout flex flex-col-reverse sm:flex-row justify-between items-center sm:items-start gap-4 sm:gap-0">
@@ -1192,12 +1229,12 @@ export default function HomeClient() {
                 </div>
                 <div className="flex">
                   {"Dhiran".split('').map((char, i) => (
-                    <motion.span 
+                    <motion.span
                       key={`last-${i}`}
                       className="hero-name-letter"
                       variants={{
-                        hidden: { opacity: 0, y: 12 },
-                        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: customEase } }
+                        hidden: { opacity: 0, y: 8 },
+                        visible: { opacity: 1, y: 0, transition: { duration: 0.2, ease: 'easeOut' } }
                       }}
                       style={{ 
                         display: 'inline-block',
@@ -1233,8 +1270,15 @@ export default function HomeClient() {
               </motion.div>
               <motion.div variants={itemVariants} className="hero-cta-group">
                 <a href="/resume_v4.pdf" download className="button button-primary text-sm group">
-                  <span className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5">Download Resume</span>
-                  <span className="inline-block ml-1 transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
+                  <motion.span
+                    className="inline-flex items-center gap-1"
+                    whileHover={{ scale: 1.03 }}
+                    whileTap={{ scale: 0.96 }}
+                    transition={{ duration: 0.15, ease: 'easeOut' }}
+                  >
+                    <span className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5">Download Resume</span>
+                    <span className="inline-block ml-1 transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
+                  </motion.span>
                 </a>
                 <div className="hero-social-links type-t6">
                   <a href="mailto:dhiranpranav72@gmail.com" className="button button-secondary">Email</a>
@@ -1454,7 +1498,7 @@ export default function HomeClient() {
             <p className="type-t4 text-t2 text-[12px] italic mb-4">Research that influences my work</p>
             <motion.div className="paper-grid sm:grid-cols-2 horizontal-scroll-strip" variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}>
               {/* ReAct */}
-              <motion.div id="paper-react" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+              <motion.div id="paper-react" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }} whileTap={{ scale: 0.97, transition: { duration: 0.08 } }}>
                 <div className="paper-title">ReAct: Synergizing Reasoning and Acting</div>
                 <div className="paper-desc">Directly shaped Medaura&apos;s reasoning loop — agents observe before they act.</div>
                 <a
@@ -1473,7 +1517,7 @@ export default function HomeClient() {
               </motion.div>
 
               {/* Toolformer */}
-              <motion.div id="paper-toolformer" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+              <motion.div id="paper-toolformer" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }} whileTap={{ scale: 0.97, transition: { duration: 0.08 } }}>
                 <div className="paper-title">Toolformer: Models Teach Themselves to Use Tools</div>
                 <div className="paper-desc">Built the GNU Radio MCP server with this mental model.</div>
                 <a
@@ -1492,7 +1536,7 @@ export default function HomeClient() {
               </motion.div>
 
               {/* MoE */}
-              <motion.div id="paper-switch-transformers" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+              <motion.div id="paper-switch-transformers" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }} whileTap={{ scale: 0.97, transition: { duration: 0.08 } }}>
                 <div className="paper-title">Switch Transformers: Mixture of Experts</div>
                 <div className="paper-desc">Why MoE changes the scaling math — and why modular beats monolithic at scale.</div>
                 <a
@@ -1511,7 +1555,7 @@ export default function HomeClient() {
               </motion.div>
 
               {/* GRPO */}
-              <motion.div id="paper-grpo" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+              <motion.div id="paper-grpo" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }} whileTap={{ scale: 0.97, transition: { duration: 0.08 } }}>
                 <div className="paper-title">Group Relative Policy Optimization</div>
                 <div className="paper-desc">The technique behind R1. If you're serious about post-training, this is where to start.</div>
                 <a
@@ -1530,7 +1574,7 @@ export default function HomeClient() {
               </motion.div>
 
               {/* DPO */}
-              <motion.div id="paper-dpo" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }}>
+              <motion.div id="paper-dpo" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }} whileTap={{ scale: 0.97, transition: { duration: 0.08 } }}>
                 <div className="paper-title">Direct Preference Optimization</div>
                 <div className="paper-desc">RLHF without the RL. Understand the math and post-training stops feeling like magic.</div>
                 <a
@@ -1732,10 +1776,10 @@ export default function HomeClient() {
         {deepDiveProject && currentDeepDive && (
           <motion.div 
             className="deep-dive-overlay"
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '-100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.25, ease: 'easeOut' }}
           >
             <button
               className="deep-dive-close relative z-10"
@@ -1894,8 +1938,9 @@ export default function HomeClient() {
       </div>
 
       {/* BACK TO TOP */}
-      <button
+      <motion.button
         onClick={scrollToTop}
+        whileTap={{ scale: 0.9 }}
         className={`fixed bottom-24 right-6 z-50 w-10 h-10 rounded-full border border-border-dim bg-surface/80 backdrop-blur-sm flex items-center justify-center text-t3 hover:text-accent hover:border-accent transition-all duration-300 ${
           showTopBtn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
@@ -1913,7 +1958,7 @@ export default function HomeClient() {
         >
           <polyline points="18 15 12 9 6 15" />
         </svg>
-      </button>
+      </motion.button>
     </>
   );
 }
