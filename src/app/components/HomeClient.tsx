@@ -12,11 +12,11 @@ import { SystemPromptModal } from './SystemPromptModal';
 const customEase: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
 
 const sectionVariants = {
-  hidden: { opacity: 0, y: 14 },
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.22, ease: 'easeOut' as const, staggerChildren: 0.05 },
+    transition: { duration: 0.22, ease: 'easeOut' as const, staggerChildren: 0.04 },
   },
 };
 
@@ -534,10 +534,11 @@ function StreamingText({ text, isVisible, speed = 15, showCursor = true, showFla
       return;
     }
 
+    const jitter = Math.floor(Math.random() * 12);
     const timeout = setTimeout(() => {
       const step = Math.floor(Math.random() * 4) + 2;
       setDisplayedText(text.slice(0, Math.min(text.length, displayedText.length + step)));
-    }, speed);
+    }, speed + jitter);
 
     return () => clearTimeout(timeout);
   }, [text, localVisible, displayedText, speed]);
@@ -1314,7 +1315,7 @@ export default function HomeClient() {
         </motion.section>
 
         {/* ═══════════ PROJECTS ═══════════ */}
-        <MotionSection id="projects" className="section section-divider projects-section snap-section">
+        <MotionSection id="projects" className="section section-divider section-major projects-section snap-section">
           <h2 className="type-t2 section-header border-b border-border-dim py-2">Selected Work</h2>
           <motion.div className="projects-grid" variants={itemVariants}>
             {/* Project 2: Medaura */}
@@ -1459,7 +1460,7 @@ export default function HomeClient() {
         </MotionSection>
 
         {/* ═══════════ HOW I WORK ═══════════ */}
-        <MotionSection id="thinking" className="section section-divider">
+        <MotionSection id="thinking" className="section section-divider section-alt">
           <h2 className="type-t2 section-header border-b border-border-dim py-2">How I Work</h2>
           <motion.div className="flex flex-col gap-6 type-t4 text-t2 leading-relaxed" variants={itemVariants}>
             <motion.p variants={itemVariants}>I don&apos;t start with frameworks. I start with the paper, or the problem, and build until I understand it — then I reach for abstractions.</motion.p>
@@ -1596,7 +1597,7 @@ export default function HomeClient() {
         </MotionSection>
 
         {/* ═══════════ EDUCATION ═══════════ */}
-        <MotionSection id="education" className="section section-divider">
+        <MotionSection id="education" className="section section-divider section-alt">
           <h2 className="type-t2 section-header border-b border-border-dim py-2">Education</h2>
           <div className="flex flex-col gap-12">
             <div className="experience-rule pl-4">
@@ -1669,7 +1670,7 @@ export default function HomeClient() {
         </MotionSection>
 
         {/* ═══════════ CONTACT ═══════════ */}
-        <MotionSection id="contact" className="section section-divider contact-section">
+        <MotionSection id="contact" className="section section-divider section-major contact-section">
           <h2 className="type-t2 section-header border-b border-border-dim py-2">Contact</h2>
 
           <div className="mb-10">

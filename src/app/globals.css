@@ -170,18 +170,44 @@ body {
 /* ───────────────────── Layout System ───────────────────── */
 .section,
 .section-gap {
-  padding: var(--space-8) 0;
+  padding: 120px 0 80px;
+  transition: opacity 300ms ease;
+}
+
+.section-major {
+  padding-top: 160px;
 }
 
 @media (max-width: 640px) {
   .section,
   .section-gap {
-    padding: var(--space-5) 0;
+    padding: 72px 0 48px;
+  }
+
+  .section-major {
+    padding-top: 88px;
   }
 }
 
 .section-gap {
   margin-bottom: 0;
+}
+
+/* Section-as-scene: alternating subtle background */
+.section-alt {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(124, 58, 237, 0.03)
+  );
+}
+
+:root.light .section-alt {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(67, 56, 202, 0.025)
+  );
 }
 
 .section-header {
@@ -326,15 +352,10 @@ p + p {
 }
 
 
-/* ───────────────────── Hero Gradient Text ───────────────────── */
+/* ───────────────────── Hero Glossy Name Treatment ───────────────────── */
 .hero-gradient {
   color: var(--t1);
-  background: linear-gradient(135deg, var(--t1) 0%, var(--accent) 50%, var(--t1) 100%);
-  background-size: 200% auto;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: gradient-shift 6s ease-in-out infinite;
+  -webkit-text-fill-color: currentColor;
 }
 
 .hero-name {
@@ -354,18 +375,63 @@ p + p {
 
 @supports ((-webkit-background-clip: text) or (background-clip: text)) {
   .hero-name-letter {
-    background: linear-gradient(135deg, var(--t1) 0%, var(--accent) 50%, var(--t1) 100%);
-    background-size: 200% auto;
+    background:
+      linear-gradient(
+        110deg,
+        #4c1d95 0%,
+        #7b5cff 25%,
+        #c4b5ff 45%,
+        #8a6cff 65%,
+        #3b0ca3 100%
+      ),
+      linear-gradient(
+        120deg,
+        rgba(255,255,255,0) 40%,
+        rgba(255,255,255,0.18) 50%,
+        rgba(255,255,255,0) 60%
+      );
+    background-size: 200% 200%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: gradient-shift 6s ease-in-out infinite;
+    filter: saturate(1.1) contrast(1.1);
+    text-shadow:
+      0 1px 0 rgba(255,255,255,0.08),
+      0 4px 12px rgba(124,58,237,0.25);
+    animation: hero-shine 4s linear infinite;
   }
 }
 
-@keyframes gradient-shift {
-  0%, 100% { background-position: 0% center; }
-  50% { background-position: 100% center; }
+@keyframes hero-shine {
+  0% { background-position: 200% 50%; }
+  100% { background-position: -200% 50%; }
+}
+
+:root.light .hero-name-letter {
+  background:
+    linear-gradient(
+      110deg,
+      #312e81 0%,
+      #4338ca 25%,
+      #818cf8 45%,
+      #4f46e5 65%,
+      #1e1b4b 100%
+    ),
+    linear-gradient(
+      120deg,
+      rgba(255,255,255,0) 40%,
+      rgba(255,255,255,0.22) 50%,
+      rgba(255,255,255,0) 60%
+    );
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: saturate(1.15) contrast(1.1);
+  text-shadow:
+    0 1px 0 rgba(255,255,255,0.12),
+    0 4px 12px rgba(67,56,202,0.2);
+  animation: hero-shine 4s linear infinite;
 }
 
 /* ───────────────────── LLM Streaming Cursor ───────────────────── */
@@ -811,6 +877,12 @@ p + p {
 
 .nav-link {
   position: relative;
+  transition: color 150ms ease, transform 150ms ease, font-weight 0ms;
+}
+
+.nav-link.active {
+  transform: scale(1.04);
+  font-weight: 500;
 }
 
 .nav-link::after {
@@ -821,7 +893,7 @@ p + p {
   width: 0;
   height: 1px;
   background: currentColor;
-  transition: width var(--transition-base);
+  transition: width 150ms ease;
 }
 
 .nav-link:hover::after,
@@ -1005,7 +1077,7 @@ hr {
   font-size: 11px;
   color: var(--t2);
   font-family: var(--font-mono);
-  transition: all 0.3s ease;
+  transition: all var(--transition-component);
   background-color: transparent;
   cursor: default;
 }
@@ -1024,7 +1096,7 @@ hr {
   justify-content: center;
   flex-shrink: 0;
   color: var(--t3);
-  transition: color 0.25s ease, transform 0.25s ease;
+  transition: color var(--transition-component), transform var(--transition-component);
 }
 
 .skill-pill:hover .skill-icon {
@@ -1042,7 +1114,7 @@ hr {
   box-shadow: var(--shadow-sm);
   border-radius: 8px;
   background: transparent;
-  transition: border-color 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
+  transition: border-color var(--transition-component), transform var(--transition-component), box-shadow var(--transition-component);
   position: relative;
   overflow: hidden;
 }
@@ -1054,7 +1126,7 @@ hr {
   /* Spotlight effect logic (mouse tracking requires JS, fallback is general glow) */
   background: radial-gradient(120px circle at 50% 100%, color-mix(in srgb, var(--accent) 8%, transparent), transparent 70%);
   opacity: 0;
-  transition: opacity 0.4s ease;
+  transition: opacity var(--transition-component);
   z-index: 0;
 }
 
@@ -1066,7 +1138,7 @@ hr {
   width: 0;
   height: 1.5px;
   background: var(--accent);
-  transition: width 0.4s ease;
+  transition: width var(--transition-component);
 }
 
 .visual-card:hover {
@@ -1085,7 +1157,7 @@ hr {
 
 .visual-icon {
   color: var(--t3);
-  transition: all 0.3s ease;
+  transition: color var(--transition-component), transform var(--transition-component);
   flex-shrink: 0;
   display: flex;
   align-items: center;
@@ -1118,7 +1190,7 @@ hr {
   gap: 24px;
   padding: 24px 20px;
   border-bottom: 0.5px solid color-mix(in srgb, var(--border) 40%, transparent);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--transition-layout);
   position: relative;
   cursor: default;
 }
@@ -1129,7 +1201,7 @@ hr {
 
 .editorial-icon {
   color: var(--t3);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--transition-component);
   flex-shrink: 0;
 }
 
@@ -1137,7 +1209,7 @@ hr {
   font-size: 18px;
   font-weight: 400;
   color: var(--t2);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--transition-component);
   display: flex;
   align-items: center;
 }
@@ -1149,7 +1221,7 @@ hr {
   font-size: 14px;
   margin-left: 12px;
   transform: translateX(-10px);
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--transition-component);
 }
 
 .editorial-row:hover {
@@ -1876,14 +1948,26 @@ button:focus-visible {
 .case-study-hint {
   opacity: 0;
   transition: opacity 0.25s ease;
+  transition-delay: 80ms;
   font-size: 10px;
   color: var(--accent);
   font-family: var(--font-mono);
 }
 
+/* Layered hover timing — creates perceived intelligence */
 @media (hover: hover) and (pointer: fine) {
+  .project-card .tags {
+    transition: opacity 160ms ease;
+    transition-delay: 0ms;
+  }
+
+  .project-card:hover .tags {
+    transition-delay: 40ms;
+  }
+
   .project-card:hover .case-study-hint {
     opacity: 1;
+    transition-delay: 80ms;
   }
 }
 
@@ -2458,7 +2542,11 @@ button:focus-visible {
 
   .section,
   .section-gap {
-    padding: 34px 0;
+    padding: 52px 0 36px;
+  }
+
+  .section-major {
+    padding-top: 68px;
   }
 
   .hero-section {
@@ -2571,9 +2659,6 @@ button:focus-visible {
     linear-gradient(180deg, #fbfcff 0%, var(--bg) 42%, #f4f7fb 100%);
 }
 
-:root.light .hero-name-letter {
-  text-shadow: 0 10px 28px rgba(67, 56, 202, 0.08);
-}
 
 :root.light .button,
 :root.light .ghost-button {
