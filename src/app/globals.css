@@ -630,7 +630,9 @@ p + p {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-primary);
-  padding: 12px 0;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
   transition: color 200ms ease, opacity 200ms ease;
 }
 
