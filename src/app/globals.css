@@ -629,7 +629,8 @@ p + p {
   font-size: 12px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--t1);
+  color: var(--text-primary);
+  padding: 12px 0;
   transition: color 200ms ease, opacity 200ms ease;
 }
 
@@ -1083,6 +1084,23 @@ p + p {
   background: rgba(12, 12, 12, 0.88);
   border-color: rgba(255, 255, 255, 0.1);
   box-shadow: 0 18px 46px rgba(15, 23, 42, 0.09);
+}
+
+html {
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Visited links get a muted distinction */
+a:visited {
+  opacity: 0.75;
 }
 
 /* ───────────────────── Scroll Progress Bar ───────────────────── */
@@ -3232,6 +3250,13 @@ button:focus-visible {
   margin-top: 48px;
   padding-top: 32px;
   border-top: 1px solid color-mix(in srgb, var(--text-primary) 24%, var(--border-default));
+}
+
+/* Touch target safety — ensures ≥44px hit area for interactive elements */
+.min-touch {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
 }
 
 .contact-social-tile {

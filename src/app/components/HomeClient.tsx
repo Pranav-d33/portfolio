@@ -1376,12 +1376,12 @@ export default function HomeClient() {
                   <div className="flex gap-6 items-center text-[11px] uppercase tracking-[0.2em] font-mono">
                     <a
                       href="https://aipharmacyproject-blond.vercel.app"
-                      className="text-t2 hover:text-accent transition-colors underline decoration-transparent hover:decoration-accent decoration-1 underline-offset-4 underline decoration-transparent hover:decoration-accent decoration-1 underline-offset-4"
+                      className="text-t2 hover:text-accent transition-colors underline decoration-transparent hover:decoration-accent decoration-1 underline-offset-4 min-touch"
                       onClick={(e) => e.stopPropagation()}
                     >
                       medaura.vercel.app →
                     </a>
-                    <span className="text-t2 group-hover:text-accent transition-colors underline decoration-transparent group-hover:decoration-accent decoration-1 underline-offset-4">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
+                    <span className="text-t2 group-hover:text-accent transition-colors underline decoration-transparent group-hover:decoration-accent decoration-1 underline-offset-4 min-touch">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
                   </div>
                 </div>
                 <div className="text-t3 ml-4 text-3xl font-light transition-transform duration-300 group-hover:translate-x-2 hidden md:block">→</div>
@@ -1416,12 +1416,12 @@ export default function HomeClient() {
                   <div className="flex gap-6 items-center text-[11px] uppercase tracking-[0.2em] font-mono">
                     <a
                       href="https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories-"
-                      className="text-t2 hover:text-accent transition-colors underline decoration-transparent hover:decoration-accent decoration-1 underline-offset-4"
+                      className="text-t2 hover:text-accent transition-colors underline decoration-transparent hover:decoration-accent decoration-1 underline-offset-4 min-touch"
                       onClick={(e) => e.stopPropagation()}
                     >
                       GitHub →
                     </a>
-                    <span className="text-t2 group-hover:text-accent transition-colors underline decoration-transparent group-hover:decoration-accent decoration-1 underline-offset-4">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
+                    <span className="text-t2 group-hover:text-accent transition-colors underline decoration-transparent group-hover:decoration-accent decoration-1 underline-offset-4 min-touch">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
                   </div>
                 </div>
                 <div className="text-t3 ml-4 text-3xl font-light transition-transform duration-300 group-hover:translate-x-2 hidden md:block">→</div>
@@ -1456,12 +1456,12 @@ export default function HomeClient() {
                   <div className="flex gap-6 items-center text-[11px] uppercase tracking-[0.2em] font-mono">
                     <a
                       href="https://github.com/Pranav-d33/gnuradio-mcp-server"
-                      className="text-t2 hover:text-accent transition-colors underline decoration-transparent hover:decoration-accent decoration-1 underline-offset-4"
+                      className="text-t2 hover:text-accent transition-colors underline decoration-transparent hover:decoration-accent decoration-1 underline-offset-4 min-touch"
                       onClick={(e) => e.stopPropagation()}
                     >
                       GitHub →
                     </a>
-                    <span className="text-t2 group-hover:text-accent transition-colors underline decoration-transparent group-hover:decoration-accent decoration-1 underline-offset-4">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
+                    <span className="text-t2 group-hover:text-accent transition-colors underline decoration-transparent group-hover:decoration-accent decoration-1 underline-offset-4 min-touch">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
                   </div>
                 </div>
                 <div className="text-t3 ml-4 text-3xl font-light transition-transform duration-300 group-hover:translate-x-2 hidden md:block">→</div>
@@ -1478,7 +1478,7 @@ export default function HomeClient() {
                 href="https://github.com/Pranav-d33/RFwatch"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[11px] uppercase tracking-[0.2em] font-mono text-t2 hover:text-accent transition-colors underline decoration-transparent hover:decoration-accent decoration-1 underline-offset-4 mt-4 sm:mt-0"
+                className="text-[11px] uppercase tracking-[0.2em] font-mono text-t2 hover:text-accent transition-colors underline decoration-transparent hover:decoration-accent decoration-1 underline-offset-4 mt-4 sm:mt-0 min-touch"
               >
                 GitHub →
               </a>
@@ -1564,9 +1564,6 @@ export default function HomeClient() {
             >
               View my system prompt
             </button>
-          </div>
-          <div className="system-prompt-token-count type-t6 text-t3/60">
-            Token count of this page — ~1,847 tokens
           </div>
         </div>
 
@@ -1761,7 +1758,7 @@ export default function HomeClient() {
         onClick={scrollToTop}
         whileHover={{ scale: 1.1, transition: { type: 'spring', stiffness: 400, damping: 10 } }}
         whileTap={{ scale: 0.9 }}
-        className={`fixed bottom-24 right-6 z-50 w-10 h-10 rounded-full border border-border-dim bg-surface/80 backdrop-blur-sm flex items-center justify-center text-t3 hover:text-accent hover:border-accent transition-colors duration-200 ${
+        className={`fixed bottom-24 right-6 z-50 w-11 h-11 rounded-full border border-border-dim bg-surface/80 backdrop-blur-sm flex items-center justify-center text-t3 hover:text-accent hover:border-accent transition-colors duration-200 ${
           showTopBtn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
         aria-label="Scroll to top"
