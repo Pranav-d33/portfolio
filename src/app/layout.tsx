@@ -1,23 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Manrope, Lora } from "next/font/google";
+import { Inter, Lora, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-
-
-const manrope = Manrope({
-  variable: "--font-sans-body",
+const inter = Inter({
+  variable: "--font-degular",
   subsets: ["latin"],
+});
+
+const lora = Lora({
+  variable: "--font-blanco",
+  subsets: ["latin"],
+  style: ["normal", "italic"],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-});
-
-const lora = Lora({
-  variable: "--font-serif",
-  subsets: ["latin"],
-  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +25,7 @@ export const metadata: Metadata = {
     template: "%s | Pranav Dhiran",
   },
   description:
-    "I build AI systems that work — from transformer pre-training and RL fine-tuning to shipping multi-agent pipelines and LLM-controlled hardware.",
+    "I build AI systems that work — from transformer pre-training and RL fine-tuning to shipping multi-agent pipelines and LLM-controlled hardware. ECE + AI.",
   keywords: [
     "AI Engineer",
     "Machine Learning",
@@ -97,7 +95,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${manrope.variable} ${geistMono.variable} ${lora.variable} antialiased`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${lora.variable} ${geistMono.variable}`}
+    >
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -109,14 +110,8 @@ export default function RootLayout({
           }}
         />
       </head>
-
-      <body className={`${manrope.className} min-h-screen bg-background text-t1 relative overflow-x-hidden`}>
-        <div className="fixed inset-0 pointer-events-none flex justify-center z-0">
-          <div className="w-full max-w-[1120px] h-full border-x border-border-dim bg-background/95 backdrop-blur-md" />
-        </div>
-        <div className="relative z-10">
-          {children}
-        </div>
+      <body className="antialiased">
+        {children}
       </body>
     </html>
   );

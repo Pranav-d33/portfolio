@@ -5,35 +5,22 @@ import React from "react";
 export function AuroraBackground({ className = "fixed inset-0" }: { className?: string }) {
   return (
     <div className={`${className} w-full max-w-full pointer-events-none overflow-hidden`} aria-hidden="true">
-      {/* 
-        Aurora Gradients:
-        Deep teal and cyan, moving smoothly to create a thermal drift effect.
-      */}
       <div 
-        className="absolute w-[80vw] h-[80vh] rounded-full mix-blend-screen opacity-[0.15] blur-[100px]"
+        className="absolute w-[80vw] h-[80vh] rounded-full mix-blend-screen opacity-[0.12] blur-[100px]"
         style={{
           top: '-20%',
           left: '-10%',
-          background: 'color-mix(in srgb, var(--accent) 70%, var(--text-primary))',
+          background: 'color-mix(in srgb, var(--accent) 60%, transparent)',
           animation: 'aurora-drift-1 12s ease-in-out infinite alternate',
         }}
       />
       <div 
-        className="absolute w-[70vw] h-[70vh] rounded-full mix-blend-screen opacity-[0.12] blur-[120px]"
+        className="absolute w-[70vw] h-[70vh] rounded-full mix-blend-screen opacity-[0.1] blur-[120px]"
         style={{
           bottom: '-20%',
           right: '-10%',
-          background: 'color-mix(in srgb, var(--accent) 55%, var(--text-secondary))',
+          background: 'color-mix(in srgb, var(--accent) 45%, transparent)',
           animation: 'aurora-drift-2 15s ease-in-out infinite alternate-reverse',
-        }}
-      />
-      <div 
-        className="absolute w-[60vw] h-[60vh] rounded-full mix-blend-screen opacity-[0.18] blur-[90px]"
-        style={{
-          top: '20%',
-          left: '30%',
-          background: 'color-mix(in srgb, var(--accent) 40%, var(--text-tertiary))',
-          animation: 'aurora-drift-3 18s ease-in-out infinite alternate',
         }}
       />
       
@@ -47,11 +34,6 @@ export function AuroraBackground({ className = "fixed inset-0" }: { className?: 
           0% { transform: translate(0, 0) scale(1); }
           50% { transform: translate(-25vw, -20vh) scale(1.2); }
           100% { transform: translate(15vw, -30vh) scale(0.95); }
-        }
-        @keyframes aurora-drift-3 {
-          0% { transform: translate(0, 0) scale(1); }
-          50% { transform: translate(-15vw, 25vh) scale(1.25); }
-          100% { transform: translate(25vw, -15vh) scale(0.85); }
         }
       `}} />
     </div>
