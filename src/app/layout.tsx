@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist_Mono, Manrope, Lora } from "next/font/google";
 import "./globals.css";
-import { AuroraBackground } from "./components/AuroraBackground";
+
 
 
 const manrope = Manrope({
@@ -91,8 +91,6 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
-import { ChatWidget } from "./components/chatbot/ChatWidget";
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -113,14 +111,12 @@ export default function RootLayout({
       </head>
 
       <body className={`${manrope.className} min-h-screen bg-background text-t1 relative overflow-x-hidden`}>
-        <AuroraBackground />
         <div className="fixed inset-0 pointer-events-none flex justify-center z-0">
           <div className="w-full max-w-[1120px] h-full border-x border-border-dim bg-background/95 backdrop-blur-md" />
         </div>
         <div className="relative z-10">
           {children}
         </div>
-        <ChatWidget />
       </body>
     </html>
   );

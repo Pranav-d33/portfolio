@@ -1,40 +1,46 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { motion, AnimatePresence, animate, useMotionValue, useTransform, useScroll } from 'framer-motion';
+import { motion, AnimatePresence, animate, useMotionValue, useTransform, useScroll, useSpring } from 'framer-motion';
 import { caseStudyPath } from '@/lib/portfolioData';
 import { SystemPromptModal } from './SystemPromptModal';
+import { ChatWidget } from './chatbot/ChatWidget';
+import { AuroraBackground } from './AuroraBackground';
 
 /* ═══════════════════════════════════════════════════════════════
    Framer Motion — Scroll Animation Variants & Components
    ═══════════════════════════════════════════════════════════════ */
 
-const customEase: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
+const customEase: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const sectionVariants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.22, ease: 'easeOut' as const, staggerChildren: 0.04 },
+    transition: {
+      duration: 0.45,
+      ease: customEase,
+      staggerChildren: 0.06,
+    },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 8 },
+  hidden: { opacity: 0, y: 12 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.2, ease: 'easeOut' as const },
+    transition: { duration: 0.4, ease: customEase },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 10 },
+  hidden: { opacity: 0, y: 14 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.22, ease: 'easeOut' as const },
+    transition: { duration: 0.4, ease: customEase },
   },
 };
 
@@ -43,7 +49,7 @@ const scaleInVariants = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.2, ease: 'easeOut' as const },
+    transition: { duration: 0.35, ease: customEase },
   },
 };
 
@@ -699,8 +705,8 @@ function SwipeableProject({ children, proofTitle, proofDesc, onClick, id }: { ch
       {/* Draggable Card */}
       <motion.div
         variants={cardVariants}
-        whileHover={{ x: isMobile ? 0 : 4, transition: { duration: 0.2 } }}
-        whileTap={{ scale: 0.98, transition: { duration: 0.08 } }}
+        whileHover={{ x: isMobile ? 0 : 4, transition: { type: 'spring', stiffness: 300, damping: 20 } }}
+        whileTap={{ scale: 0.98, transition: { duration: 0.08, ease: 'easeOut' } }}
         drag={isMobile ? "x" : false}
         dragConstraints={{ left: -176, right: 0 }}
         dragElastic={0.04}
@@ -745,7 +751,7 @@ function SwipeableProject({ children, proofTitle, proofDesc, onClick, id }: { ch
 export default function HomeClient() {
   /* ─── Existing state ─── */
   const [theme, setTheme] = useState('dark');
-  const [activeSection, setActiveSection] = useState('');
+  const [activeSection, setActiveSection] = useState('intro');
   const [showTopBtn, setShowTopBtn] = useState(false);
 
   /* ─── New state ─── */
@@ -778,28 +784,56 @@ export default function HomeClient() {
 
   useScrollReveal();
 
-  /* ─── Scroll progress bar ─── */
+  /* ─── Scroll progress bar with spring physics ─── */
   const { scrollYProgress } = useScroll();
-  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const springProgress = useSpring(scrollYProgress, { stiffness: 80, damping: 20, restDelta: 0.001 });
+  const scaleX = useTransform(springProgress, [0, 1], [0, 1]);
   const progressVisible = useTransform(scrollYProgress, (v) => v > 0.02);
+  const auroraOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0]);
 
   /* ─── Intersection-based scroll-spy ─── */
   useEffect(() => {
+    const getActiveSection = () => {
+      const sections = Array.from(document.querySelectorAll<HTMLElement>('section[id]'));
+      const viewportAnchor = window.innerHeight * 0.32;
+      let current = 'intro';
+      let closest = Number.POSITIVE_INFINITY;
+
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        const distance = Math.abs(rect.top - viewportAnchor);
+        if (rect.top <= viewportAnchor && rect.bottom >= 96 && distance < closest) {
+          closest = distance;
+          current = section.id;
+        }
+      });
+
+      setActiveSection(current);
+    };
+
+    getActiveSection();
+    window.addEventListener('scroll', getActiveSection, { passive: true });
+    window.addEventListener('resize', getActiveSection);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+            getActiveSection();
           }
         });
       },
-      { rootMargin: '-20% 0px -60% 0px' }
+      { rootMargin: '-12% 0px -70% 0px' }
     );
 
     const sections = document.querySelectorAll('section[id]');
     sections.forEach((section) => observer.observe(section));
 
-    return () => sections.forEach((section) => observer.unobserve(section));
+    return () => {
+      window.removeEventListener('scroll', getActiveSection);
+      window.removeEventListener('resize', getActiveSection);
+      sections.forEach((section) => observer.unobserve(section));
+    };
   }, []);
 
   /* ─── Mobile Detection ─── */
@@ -1007,21 +1041,13 @@ export default function HomeClient() {
   );
 
   /* ─── Data ─── */
-  const navItems = [
-    { id: 'projects', label: '01' },
-    { id: 'thinking', label: '02' },
-    { id: 'reading', label: '03' },
-    { id: 'education', label: '04' },
-    { id: 'research', label: '05' },
-    { id: 'contact', label: '06' },
-  ];
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const thinkingSteps = [
-    { num: '01', title: 'Problem Framing', desc: "I ask what the actual constraint is. Usually it's not the one in the brief." },
-    { num: '02', title: 'First Principles', desc: "If I don't understand what's inside the abstraction, I build it myself. That's why the SLM exists." },
-    { num: '03', title: 'Prototype', desc: "A working version that's wrong teaches more than a perfect plan that hasn't run yet." },
-    { num: '04', title: 'Feedback Loop', desc: "Loss curves, Langfuse traces, RF spectrum plots — I instrument everything. You can't fix what you can't see." },
-    { num: '05', title: 'Ship & Iterate', desc: 'Medaura is live. RF Watch is open-sourced. Shipping is the only honest benchmark.' },
+  const navLinks = [
+    { id: 'about', label: 'about' },
+    { id: 'experience', label: 'experience' },
+    { id: 'projects', label: 'projects' },
+    { id: 'contact', label: 'contact' },
   ];
 
   const currentDeepDive = deepDiveProject ? deepDives[deepDiveProject] : null;
@@ -1042,282 +1068,285 @@ export default function HomeClient() {
         +
       </div>
 
-      {/* REAL-TIME SCROLL SPY */}
-      <div className="fixed right-6 top-1/2 -translate-y-1/2 z-50 hidden xl:flex flex-col items-end gap-6">
-        {navItems.map((item) => (
-          <a
-            key={item.id}
-            href={`#${item.id}`}
-            className="group flex items-center gap-4"
-            aria-label={`Scroll to ${item.id}`}
+      {/* ═══════════ FLOATING DOCK NAV ═══════════ */}
+      <motion.nav
+        className={`atul-nav fixed top-4 sm:top-6 left-1/2 -translate-x-1/2 z-[100] flex flex-col items-center transition-all duration-500 ease-[cubic-bezier(0.25,1,0.5,1)] ${
+          navScrolled || mobileMenuOpen
+            ? "is-scrolled"
+            : "is-top"
+        } ${mobileMenuOpen ? 'overflow-visible' : 'overflow-hidden'}`}
+        initial={{ y: -40, opacity: 0 }}
+        animate={{ 
+          y: 0, 
+          opacity: 1,
+          borderRadius: mobileMenuOpen ? "34px" : "9999px",
+          width: mobileMenuOpen ? "300px" : "min(70vw, 840px)",
+        }}
+        transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+      >
+        {/* Desktop Nav - Hidden on mobile */}
+        <div className="hidden sm:grid grid-cols-[1fr_1fr_92px_1fr_1fr] items-center h-20 w-full px-9 gap-2">
+          {navLinks.slice(0, 2).map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className={`portfolio-nav-link ${activeSection === item.id ? 'is-active' : ''}`}
+            >
+              <span className="nav-label">{item.label}</span>
+            </a>
+          ))}
+          <motion.button
+            onClick={() => document.getElementById('intro')?.scrollIntoView({ behavior: 'smooth' })}
+            className={`nav-home-button ${activeSection === 'intro' ? 'is-active' : ''}`}
+            aria-label="Go to intro"
+            whileHover={{ scale: 1.08, transition: { type: 'spring', stiffness: 400, damping: 10 } }}
+            whileTap={{ scale: 0.92 }}
           >
-            <span
-              className={`text-[10px] font-mono transition-all duration-300 ${
-                activeSection === item.id
-                  ? 'text-primary-green opacity-100 translate-x-0'
-                  : 'text-t3 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0'
-              }`}
-            >
-              {item.label}
+            <span className="nav-cut-logo" aria-hidden="true">
+              <span />
+              <span />
             </span>
-            <div
-              className={`w-2 transition-all duration-300 rounded-full ${
-                activeSection === item.id
-                  ? 'h-6 bg-primary-green'
-                  : 'h-2 bg-border-dim group-hover:bg-t3'
-              }`}
-            />
-          </a>
-        ))}
-      </div>
+          </motion.button>
+          {navLinks.slice(2).map((item) => (
+            <a
+              key={item.id}
+              href={`#${item.id}`}
+              className={`portfolio-nav-link ${activeSection === item.id ? 'is-active' : ''}`}
+            >
+              <span className="nav-label">{item.label}</span>
+            </a>
+          ))}
+        </div>
 
-      {/* NAVIGATION */}
-      <nav className={`portfolio-nav sticky top-0 z-50 w-full pointer-events-none ${navScrolled ? 'nav-scrolled' : ''}`}>
-        <div className="pointer-events-auto flex justify-start sm:justify-between items-center container py-4 bg-background/85 backdrop-blur-sm border-x border-b border-border-dim/10">
-          <div className="hidden sm:block type-t2 font-medium group cursor-default text-primary-green">
-            <span className="inline-block transition-transform duration-300 group-hover:scale-110">
-              P
+        {/* Mobile Nav Top Bar (Always visible on mobile) */}
+        <div className="flex sm:hidden items-center justify-between h-14 px-3 w-full min-w-[200px]">
+          <button
+            onClick={() => {
+              document.getElementById('intro')?.scrollIntoView({ behavior: 'smooth' });
+              setMobileMenuOpen(false);
+            }}
+            className={`nav-home-button ml-1 ${activeSection === 'intro' ? 'is-active' : ''}`}
+            aria-label="Go to intro"
+          >
+            <span className="nav-cut-logo" aria-hidden="true">
+              <span />
+              <span />
             </span>
-            <span className="inline-block transition-transform duration-300 group-hover:scale-110 delay-75">
-              D
-            </span>
-          </div>
-          <div className="flex gap-4 sm:gap-6 items-center type-t6 overflow-x-auto no-scrollbar">
-            <a
-              href="#projects"
-              className={`nav-link link transition-colors ${
-                activeSection === 'projects' ? 'text-accent active' : 'text-t2 hover:text-t1'
-              }`}
-            >
-              Projects
-            </a>
-            <a
-              href="#thinking"
-              className={`nav-link link whitespace-nowrap transition-colors ${
-                activeSection === 'thinking' ? 'text-accent active' : 'text-t2 hover:text-t1'
-              }`}
-            >
-              How I Work
-            </a>
-            <a
-              href="#reading"
-              className={`nav-link link transition-colors ${
-                activeSection === 'reading' ? 'text-accent active' : 'text-t2 hover:text-t1'
-              }`}
-            >
-              Reading
-            </a>
-            <a
-              href="#education"
-              className={`nav-link link transition-colors ${
-                activeSection === 'education' ? 'text-accent active' : 'text-t2 hover:text-t1'
-              }`}
-            >
-              Education
-            </a>
-            <a
-              href="#research"
-              className={`nav-link link transition-colors ${
-                activeSection === 'research' ? 'text-accent active' : 'text-t2 hover:text-t1'
-              }`}
-            >
-              Research
-            </a>
-            <a
-              href="#contact"
-              className={`nav-link link transition-colors ${
-                activeSection === 'contact' ? 'text-accent active' : 'text-t2 hover:text-t1'
-              }`}
-            >
-              Contact
-            </a>
-            <a
-              href="/resume_v4.pdf"
-              download
-              className="nav-resume-button"
-              aria-label="Download Resume"
-            >
-              <span>Resume</span>
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="7,10 12,15 17,10"/>
-                <line x1="12" y1="15" x2="12" y2="3"/>
-              </svg>
-            </a>
-
-            {/* Sun / Moon theme toggle */}
-            <button
-              onClick={() => {
-                setTheme(theme === 'dark' ? 'light' : 'dark');
-              }}
-              className="theme-toggle ml-2 w-7 h-7 flex items-center justify-center rounded-full border border-border-dim hover:border-t2 transition-all duration-300 hover:rotate-180"
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? (
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-t3"
-                >
-                  <circle cx="12" cy="12" r="5" />
-                  <line x1="12" y1="1" x2="12" y2="3" />
-                  <line x1="12" y1="21" x2="12" y2="23" />
-                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
-                  <line x1="1" y1="12" x2="3" y2="12" />
-                  <line x1="21" y1="12" x2="23" y2="12" />
-                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+          </button>
+          
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="p-2 rounded-full text-t1 hover:bg-white/10 transition-colors mr-1"
+            aria-label="Toggle menu"
+          >
+            <motion.div animate={{ rotate: mobileMenuOpen ? 90 : 0 }}>
+              {mobileMenuOpen ? (
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
                 </svg>
               ) : (
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-t3"
-                >
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  <line x1="4" y1="8" x2="20" y2="8"/><line x1="4" y1="16" x2="20" y2="16"/>
                 </svg>
               )}
-            </button>
-          </div>
+            </motion.div>
+          </button>
         </div>
-      </nav>
+
+        {/* Mobile Dropdown */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              className="flex sm:hidden flex-col w-full px-4 pb-4"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3, ease: [0.25, 1, 0.5, 1] }}
+            >
+              <div className="flex flex-col gap-1 mt-2">
+                {navLinks.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => {
+                      document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth' });
+                      setMobileMenuOpen(false);
+                    }}
+                    className={`portfolio-nav-link mobile ${activeSection === item.id ? 'is-active' : ''}`}
+                  >
+                    <span className="nav-label">{item.label}</span>
+                  </button>
+                ))}
+                <div className="h-[1px] w-full bg-border-dim my-2 opacity-50" />
+                <a 
+                  href="/resume_v4.pdf" 
+                  download 
+                  className="px-4 py-3 rounded-xl text-center font-medium text-accent hover:bg-accent/10 transition-all flex items-center justify-center gap-2" 
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Resume 
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                </a>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.nav>
 
       <main className="portfolio-main container flex flex-col">
-        {/* ═══════════ HERO SECTION ═══════════ */}
+        {/* ═══════════ INTRO SECTION ═══════════ */}
         <motion.section 
-          className="hero-section section snap-section"
+          id="intro"
+          className="relative w-full min-h-screen flex flex-col justify-center snap-section pt-20"
           initial="hidden"
           animate="visible"
           variants={{
             hidden: {},
-            visible: { transition: { staggerChildren: 0.05 } }
+            visible: { transition: { staggerChildren: 0.1 } }
           }}
         >
-          <div className="hero-layout flex flex-col-reverse sm:flex-row justify-between items-center sm:items-start gap-4 sm:gap-0">
-            <div className="flex-1 w-full">
-              <h1 className="hero-name type-t1 text-t1 hero-gradient flex flex-col">
-                <div className="flex">
-                  {"Pranav".split('').map((char, i) => (
-                    <motion.span 
-                      key={`first-${i}`}
-                      className="hero-name-letter"
-                      variants={{
-                        hidden: { opacity: 0, y: 12 },
-                        visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: customEase } }
-                      }}
-                      style={{ 
-                        display: 'inline-block',
-                        x: tilt.x * (i % 2 === 0 ? 1 : -1.2), 
-                        y: tilt.y * (i % 2 === 0 ? -1 : 1.2)
-                      }}
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </div>
-                <div className="flex">
-                  {"Dhiran".split('').map((char, i) => (
-                    <motion.span
-                      key={`last-${i}`}
-                      className="hero-name-letter"
-                      variants={{
-                        hidden: { opacity: 0, y: 8 },
-                        visible: { opacity: 1, y: 0, transition: { duration: 0.2, ease: 'easeOut' } }
-                      }}
-                      style={{ 
-                        display: 'inline-block',
-                        x: tilt.x * (i % 2 === 0 ? 1 : -1.2), 
-                        y: tilt.y * (i % 2 === 0 ? -1 : 1.2)
-                      }}
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </div>
-              </h1>
-              <motion.div variants={itemVariants} className="type-t4 text-t2 font-medium mb-4">LLM &amp; Agentic Systems Engineer</motion.div>
-              <motion.div variants={itemVariants} className="type-t4 text-t3 mb-6 font-mono h-6 flex items-center">
-                <span className="text-primary-green mr-1">›</span>
-                <span>{typedText}</span>
-                {isTypingComplete ? (
-                  <span className="token-flash">&lt;|end|&gt;</span>
-                ) : (
-                  <span className="llm-cursor"></span>
-                )}
-              </motion.div>
-              <motion.div variants={itemVariants} className="type-t4 font-medium text-t2 mb-6 max-w-[680px]">
-                I build AI systems that go from research paper to working prototype fast — language models, multi-agent pipelines, and the infra that holds them together.
-              </motion.div>
-              <motion.div variants={itemVariants} className="flex gap-2 mb-8 flex-wrap">
-                <span className="inline-flex items-center px-4 py-2 rounded-full border border-primary-green/50 bg-transparent type-t6 text-primary-green">
-                  SIH National Finalist ×2
-                </span>
-                <span className="inline-flex items-center px-4 py-2 rounded-full border border-primary-green/50 bg-transparent type-t6 text-primary-green">
-                  Open to internships &amp; research collaborations
-                </span>
-              </motion.div>
-              <motion.div variants={itemVariants} className="hero-cta-group">
-                <a href="/resume_v4.pdf" download className="button button-primary text-sm group">
-                  <motion.span
-                    className="inline-flex items-center gap-1"
-                    whileHover={{ scale: 1.03 }}
-                    whileTap={{ scale: 0.96 }}
-                    transition={{ duration: 0.15, ease: 'easeOut' }}
-                  >
-                    <span className="inline-block transition-transform duration-200 group-hover:-translate-y-0.5">Download Resume</span>
-                    <span className="inline-block ml-1 transition-transform duration-200 group-hover:translate-y-0.5">↓</span>
-                  </motion.span>
-                </a>
-                <div className="hero-social-links type-t6">
-                  <a href="mailto:dhiranpranav72@gmail.com" className="button button-secondary">Email</a>
-                  <span>·</span>
-                  <a href="https://github.com/Pranav-d33" className="link link-muted">GitHub</a>
-                  <span>·</span>
-                  <a href="https://linkedin.com/in/pranav-dhiran" className="link link-muted">LinkedIn</a>
-                  <span>·</span>
-                  <a href="https://x.com/Prannav_ai" className="link link-muted">X</a>
-                </div>
-              </motion.div>
-            </div>
-            {/* Profile Image */}
-            <motion.div variants={itemVariants} className="hero-profile group relative sm:ml-6 lg:ml-12 flex-shrink-0">
-              <div className="absolute inset-0 border border-primary-green translate-x-2 translate-y-2 rounded-lg opacity-80 transition-transform duration-500 group-hover:translate-x-3 group-hover:translate-y-3"></div>
-              <div className="hero-profile-frame relative w-[120px] h-[120px] sm:w-[160px] sm:h-[160px] rounded-lg border border-border-dim overflow-hidden -rotate-2 hover:-rotate-1 transition-all duration-500 shadow-sm z-10 bg-background">
-                <img
-                  src="/portfolio_image.jpeg"
-                  alt="Pranav Dhiran"
-                  width={160}
-                  height={160}
-                  className="hero-profile-image w-full h-full object-cover scale-[1.3] origin-bottom"
-                />
-              </div>
-            </motion.div>
+          {/* Aurora background — fades out as you scroll, blending into textured black */}
+          <motion.div
+            className="absolute z-0 pointer-events-none overflow-hidden"
+            style={{
+              opacity: auroraOpacity,
+              left: '-24px',
+              right: '-24px',
+              top: 0,
+              bottom: 0,
+            }}
+          >
+            <AuroraBackground className="absolute inset-0" />
+            <img src="/textures/dust-texture.webp" className="absolute inset-0 w-full h-full object-cover mix-blend-screen opacity-20" alt="" />
+          </motion.div>
+
+          {/* Gradient blend at bottom of intro — smooth edge into textured black */}
+          <div className="absolute bottom-0 z-[1] pointer-events-none"
+            style={{ left: '-24px', right: '-24px', height: '48px' }}
+          >
+            <div className="w-full h-full bg-gradient-to-b from-transparent to-background" />
           </div>
-          
-          <motion.div variants={itemVariants} className="mt-12 sm:mt-20 flex justify-center opacity-40 animate-bounce">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary-green">
+
+          <div className="relative z-10 max-w-[1200px] w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 hidden md:block">
+            <span className="font-bold text-lg tracking-tight text-t1">Pranav Dhiran</span>
+          </div>
+          <motion.div variants={itemVariants} className="relative z-10 max-w-[1200px] w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 className="hero-statement text-t1">
+              I keep digging into rabbit holes. <br/>
+              <span className="text-t3">Some become systems.</span>
+            </h1>
+          </motion.div>
+          <motion.div variants={itemVariants} className="absolute bottom-12 left-1/2 -translate-x-1/2 opacity-40 animate-bounce hidden md:block z-10">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-t3">
               <path d="M12 5v14M19 12l-7 7-7-7"/>
             </svg>
           </motion.div>
         </motion.section>
 
+        {/* ═══════════ ABOUT SECTION ═══════════ */}
+        <MotionSection id="about" className="section section-divider section-major snap-section">
+          <h2 className="type-t2 section-header border-b border-border-dim py-2">About</h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 items-start mt-12">
+            {/* Larger Photo */}
+            <motion.div variants={itemVariants} className="lg:col-span-5 relative w-full max-w-[440px] mx-auto lg:mx-0">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-surface/50 aspect-square group">
+                <img
+                  src="/portfolio_image.jpeg"
+                  alt="Pranav Dhiran"
+                  width={600}
+                  height={600}
+                  className="w-full h-full object-cover scale-[1.05] transition-transform duration-700 group-hover:scale-[1.08] filter grayscale hover:grayscale-0"
+                />
+              </div>
+            </motion.div>
+
+            {/* About Content */}
+            <motion.div variants={itemVariants} className="lg:col-span-7 flex flex-col justify-center max-w-2xl pt-4 lg:pt-12">
+              <p className="text-xl sm:text-2xl lg:text-3xl font-light text-t1 leading-snug tracking-tight mb-16">
+                I build AI systems that go from research paper to working prototype fast — language models, multi-agent pipelines, and the infrastructure that holds them together. I started in RF and signals. Turns out the most interesting signal to decode is language.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
+                <div>
+                  <div className="text-[11px] text-t3 uppercase tracking-[0.2em] font-mono mb-4">Education</div>
+                  <div className="text-base text-t1 font-medium tracking-tight mb-1">Electronics &amp; Telecommunication</div>
+                  <div className="text-sm text-t3 opacity-90">SGGSIE&amp;T, Nanded · 2023–2027</div>
+                </div>
+
+                <div>
+                  <div className="text-[11px] text-t3 uppercase tracking-[0.2em] font-mono mb-4">Current Focus</div>
+                  <div className="text-sm text-t2 leading-relaxed opacity-90">
+                    LLM post-training · Multi-agent orchestration · MCP tooling · Open-source cloud-native infrastructure
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-4 flex-wrap mt-14">
+                <span className="inline-flex items-center px-5 py-2 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">
+                  SIH National Finalist ×2
+                </span>
+                <span className="inline-flex items-center px-5 py-2 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">
+                  UWA Global Top 6
+                </span>
+              </div>
+            </motion.div>
+          </div>
+        </MotionSection>
+
+        {/* ═══════════ EXPERIENCE SECTION ═══════════ */}
+        <MotionSection id="experience" className="section section-divider section-alt snap-section">
+          <h2 className="type-t2 section-header border-b border-border-dim py-2">Experience</h2>
+          <div className="flex flex-col gap-16 mt-12">
+            
+            {/* AISSC */}
+            <motion.div variants={itemVariants} className="flex flex-col lg:flex-row gap-4 lg:gap-12">
+              <div className="lg:w-1/4 pt-1">
+                <div className="timeline-date">May 2025 – Present</div>
+              </div>
+              <div className="lg:w-3/4 max-w-2xl">
+                <h3 className="text-xl md:text-2xl font-light tracking-tight text-t1 mb-1">AI Research Intern</h3>
+                <div className="text-sm font-medium text-t2 mb-5">AIISC, University of South Carolina</div>
+                <p className="text-base text-t2 leading-relaxed font-light mb-6">
+                  Researching neurosymbolic SLM architecture and pre-training pipelines. Integrating symbolic reasoning constraints into small language model training. Working on RL-based fine-tuning (GRPO/RLHF) for SLM alignment, reward modeling, and evaluation on neurosymbolic reasoning benchmarks.
+                </p>
+                <div className="flex gap-3 flex-wrap">
+                  <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">Research</span>
+                  <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">Neurosymbolic AI</span>
+                  <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">RLHF</span>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Open Source */}
+            <motion.div variants={itemVariants} className="flex flex-col lg:flex-row gap-4 lg:gap-12">
+              <div className="lg:w-1/4 pt-1">
+                <div className="timeline-date">2024 – Present</div>
+              </div>
+              <div className="lg:w-3/4 max-w-2xl">
+                <h3 className="text-xl md:text-2xl font-light tracking-tight text-t1 mb-1">Open Source</h3>
+                <div className="text-sm font-medium text-t2 mb-5">Meshery (CNCF) · Hyperledger Cello</div>
+                <p className="text-base text-t2 leading-relaxed font-light mb-6">
+                  Active contributor to cloud-native infrastructure, building MCP tooling and automation systems. Shipped retry/backoff abstractions, strict OIDC validation, and AI adapter integrations for enterprise-grade open source projects.
+                </p>
+                <div className="flex gap-3 flex-wrap">
+                  <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">Meshery</span>
+                  <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">Hyperledger</span>
+                  <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">Go</span>
+                  <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">Cloud-Native</span>
+                </div>
+              </div>
+            </motion.div>
+
+          </div>
+        </MotionSection>
+
         {/* ═══════════ PROJECTS ═══════════ */}
         <MotionSection id="projects" className="section section-divider section-major projects-section snap-section">
           <h2 className="type-t2 section-header border-b border-border-dim py-2">Selected Work</h2>
-          <motion.div className="projects-grid" variants={itemVariants}>
+          <motion.div className="flex flex-col gap-12 mt-12" variants={itemVariants}>
             {/* Project 2: Medaura */}
             <SwipeableProject
               id="project-medaura"
@@ -1328,34 +1357,34 @@ export default function HomeClient() {
               }}
             >
               <div className="flex justify-between items-center w-full">
-                <div className="flex-1">
-                  <div className="type-t3 mb-2">
+                <div className="flex-1 max-w-3xl">
+                  <div className="text-xl md:text-2xl font-light tracking-tight text-t1 mb-3">
                     Medaura — Agentic Pharmacy System
                   </div>
-                  <div className="project-hook">Medication errors are an information problem. The information exists — it's just not connected at the moment it matters.
+                  <div className="text-lg text-t1 font-light leading-snug italic mb-5">
+                    "Medication errors are an information problem. The information exists — it's just not connected at the moment it matters."
                   </div>
-                  <div className="type-t4 text-t2 mb-4">
+                  <div className="text-base text-t2 leading-relaxed font-light mb-8 opacity-90">
                     Five specialized agents (Ordering, Safety, Forecast, Procurement, UI) orchestrated via LangGraph for stateful, auditable pipelines. ChromaDB RAG for drug interaction retrieval. Langfuse tracing every LLM call and safety check. Live, multilingual, zero human intervention.
                   </div>
-                  <div className="tags mb-4">
-                    <span className="tag">FastAPI</span>
-                    <span className="tag">LangChain</span>
-                    <span className="tag">ChromaDB</span>
-                    <span className="tag">Langfuse</span>
-                    <span className="tag">React</span>
+                  <div className="flex gap-3 flex-wrap mb-8">
+                    <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">FastAPI</span>
+                    <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">LangChain</span>
+                    <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">ChromaDB</span>
+                    <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">React</span>
                   </div>
-                  <div className="flex gap-4 items-center type-t6">
+                  <div className="flex gap-6 items-center text-[11px] uppercase tracking-[0.2em] font-mono">
                     <a
                       href="https://aipharmacyproject-blond.vercel.app"
-                      className="link link-accent"
+                      className="text-t2 hover:text-accent transition-colors underline decoration-transparent hover:decoration-accent decoration-1 underline-offset-4 underline decoration-transparent hover:decoration-accent decoration-1 underline-offset-4"
                       onClick={(e) => e.stopPropagation()}
                     >
                       medaura.vercel.app →
                     </a>
-                    <span className="case-study-hint group-hover:text-accent transition-colors">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
+                    <span className="text-t2 group-hover:text-accent transition-colors underline decoration-transparent group-hover:decoration-accent decoration-1 underline-offset-4">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
                   </div>
                 </div>
-                <div className="text-t3 ml-4 text-2xl transition-transform duration-200 group-hover:translate-x-1 hidden sm:block">→</div>
+                <div className="text-t3 ml-4 text-3xl font-light transition-transform duration-300 group-hover:translate-x-2 hidden md:block">→</div>
               </div>
             </SwipeableProject>
 
@@ -1369,33 +1398,33 @@ export default function HomeClient() {
               }}
             >
               <div className="flex justify-between items-center w-full">
-                <div className="flex-1">
-                  <div className="type-t3 mb-2">
+                <div className="flex-1 max-w-3xl">
+                  <div className="text-xl md:text-2xl font-light tracking-tight text-t1 mb-3">
                     Small Language Model From Scratch — TinyStories
                   </div>
-                  <div className="project-hook">Every LLM course teaches you to call an API. I wanted to know what happens before the API.
+                  <div className="text-lg text-t1 font-light leading-snug italic mb-5">
+                    "Every LLM course teaches you to call an API. I wanted to know what happens before the API."
                   </div>
-                  <div className="type-t4 text-t2 mb-4">
+                  <div className="text-base text-t2 leading-relaxed font-light mb-8 opacity-90">
                     Pre-trained a GPT-style transformer entirely from scratch — no pretrained weights, no borrowed tokenizers. Built to understand every layer of the pipeline before trusting any abstraction above it.
                   </div>
-                  <div className="tags mb-4">
-                    <span className="tag">PyTorch</span>
-                    <span className="tag">Hugging Face</span>
-                    <span className="tag">AMP</span>
-                    <span className="tag">NLP</span>
+                  <div className="flex gap-3 flex-wrap mb-8">
+                    <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">PyTorch</span>
+                    <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">Hugging Face</span>
+                    <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">NLP</span>
                   </div>
-                  <div className="flex gap-4 items-center type-t6">
+                  <div className="flex gap-6 items-center text-[11px] uppercase tracking-[0.2em] font-mono">
                     <a
                       href="https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories-"
-                      className="link link-accent"
+                      className="text-t2 hover:text-accent transition-colors underline decoration-transparent hover:decoration-accent decoration-1 underline-offset-4"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      GitHub
+                      GitHub →
                     </a>
-                    <span className="case-study-hint group-hover:text-accent transition-colors">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
+                    <span className="text-t2 group-hover:text-accent transition-colors underline decoration-transparent group-hover:decoration-accent decoration-1 underline-offset-4">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
                   </div>
                 </div>
-                <div className="text-t3 ml-4 text-2xl transition-transform duration-200 group-hover:translate-x-1 hidden sm:block">→</div>
+                <div className="text-t3 ml-4 text-3xl font-light transition-transform duration-300 group-hover:translate-x-2 hidden md:block">→</div>
               </div>
             </SwipeableProject>
 
@@ -1409,330 +1438,119 @@ export default function HomeClient() {
               }}
             >
               <div className="flex justify-between items-center w-full">
-                <div className="flex-1">
-                  <div className="type-t3 mb-2">
+                <div className="flex-1 max-w-3xl">
+                  <div className="text-xl md:text-2xl font-light tracking-tight text-t1 mb-3">
                     GNU Radio MCP Server — LLM-to-SDR Bridge
                   </div>
-                  <div className="project-hook">LLMs can reason about RF signals. They just couldn't touch a radio. This closes that gap.
+                  <div className="text-lg text-t1 font-light leading-snug italic mb-5">
+                    "LLMs can reason about RF signals. They just couldn't touch a radio. This closes that gap."
                   </div>
-                  <div className="type-t4 text-t2 mb-4">
-                    MCP server bridging language models to live GNU Radio SDR flowgraphs — 13 tools, Pydantic v2 validation, ZMQ + XML-RPC split-protocol architecture, async IQ capture with Welch PSD and peak detection. Ask Claude to sweep frequencies. It does.
+                  <div className="text-base text-t2 leading-relaxed font-light mb-8 opacity-90">
+                    MCP server bridging language models to live GNU Radio SDR flowgraphs — 13 tools, Pydantic v2 validation, ZMQ + XML-RPC split-protocol architecture, async IQ capture with peak detection. Ask Claude to sweep frequencies. It does.
                   </div>
-                  <div className="tags mb-4">
-                    <span className="tag">Python</span>
-                    <span className="tag">FastMCP</span>
-                    <span className="tag">ZMQ</span>
-                    <span className="tag">XML-RPC</span>
-                    <span className="tag">GNU Radio</span>
+                  <div className="flex gap-3 flex-wrap mb-8">
+                    <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">FastMCP</span>
+                    <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">Python</span>
+                    <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border-dim text-[11px] font-medium text-t2 tracking-widest uppercase bg-surface/30 backdrop-blur-sm">GNU Radio</span>
                   </div>
-                  <div className="flex gap-4 items-center type-t6">
+                  <div className="flex gap-6 items-center text-[11px] uppercase tracking-[0.2em] font-mono">
                     <a
                       href="https://github.com/Pranav-d33/gnuradio-mcp-server"
-                      className="link link-accent"
+                      className="text-t2 hover:text-accent transition-colors underline decoration-transparent hover:decoration-accent decoration-1 underline-offset-4"
                       onClick={(e) => e.stopPropagation()}
                     >
-                      GitHub
+                      GitHub →
                     </a>
-                    <span className="case-study-hint group-hover:text-accent transition-colors">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
+                    <span className="text-t2 group-hover:text-accent transition-colors underline decoration-transparent group-hover:decoration-accent decoration-1 underline-offset-4">view case study <span className="inline-block transition-transform duration-200 group-hover:translate-x-1">→</span></span>
                   </div>
                 </div>
-                <div className="text-t3 ml-4 text-2xl transition-transform duration-200 group-hover:translate-x-1 hidden sm:block">→</div>
+                <div className="text-t3 ml-4 text-3xl font-light transition-transform duration-300 group-hover:translate-x-2 hidden md:block">→</div>
               </div>
             </SwipeableProject>
 
             {/* Project 4: RF Watch */}
-            <motion.div
+            <div
               id="project-rfwatch"
-              variants={cardVariants}
-              className="project-card flex flex-col sm:flex-row justify-between items-start sm:items-center"
+              className="flex flex-col sm:flex-row justify-between items-start sm:items-center py-6 border-b border-border-dim/30"
             >
-              <div className="type-t4 text-t1 font-medium">RF Watch — Open-source RF spectrum monitor · HackRF One + GNU Radio</div>
+              <div className="text-lg font-light text-t1 tracking-tight">RF Watch — Open-source RF spectrum monitor · <span className="text-t3">HackRF One + GNU Radio</span></div>
               <a
                 href="https://github.com/Pranav-d33/RFwatch"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link link-accent mt-2 sm:mt-0 type-t6"
+                className="text-[11px] uppercase tracking-[0.2em] font-mono text-t2 hover:text-accent transition-colors underline decoration-transparent hover:decoration-accent decoration-1 underline-offset-4 mt-4 sm:mt-0"
               >
-                [GitHub]
+                GitHub →
               </a>
-            </motion.div>
+            </div>
 </motion.div>
         </MotionSection>
 
-        {/* ═══════════ HOW I WORK ═══════════ */}
-        <MotionSection id="thinking" className="section section-divider section-alt">
-          <h2 className="type-t2 section-header border-b border-border-dim py-2">How I Work</h2>
-          <motion.div className="flex flex-col gap-6 type-t4 text-t2 leading-relaxed" variants={itemVariants}>
-            <motion.p variants={itemVariants}>I don&apos;t start with frameworks. I start with the paper, or the problem, and build until I understand it — then I reach for abstractions.</motion.p>
-            <motion.p variants={itemVariants}>When I built the SLM from scratch, it wasn&apos;t because HuggingFace doesn&apos;t exist. It was because I needed to know what was actually happening inside the attention block before I could trust anything built on top of it.</motion.p>
-            <motion.p variants={itemVariants}>With Medaura, I didn&apos;t architect upfront — I got one agent working, traced it with Langfuse, saw where it broke, and iterated. Every agent call is logged. If something fails in production, I know exactly where and why.</motion.p>
-            <motion.p variants={itemVariants} className="text-t1 font-medium">That&apos;s the pattern: build fast, instrument everything, understand before abstracting.</motion.p>
-          </motion.div>
-        </MotionSection>
 
-        {/* ═══════════ READING ROOM ═══════════ */}
-        <MotionSection id="reading" className="section section-divider">
-          <div className="section-header border-b border-border-dim pb-2 w-full">
-            <h2 className="type-t2">Reading Room</h2>
-            <p className="type-t4 text-t2 mt-2 italic">Research that shapes how I build.</p>
-          </div>
 
-          {/* Research Interests — Inline Chips */}
-          <div className="mb-8">
-            <div className="type-t5 text-t3 uppercase tracking-wider mb-4">Research Interests</div>
-            <div className="reading-chips">
-              {[
-                'LLM & SLM Systems',
-                'Agent-Native Infrastructure',
-                'RL for LLMs',
-                'Post-Training & Alignment',
-                'Modular Architectures',
-              ].map((topic) => (
-                <span key={topic} className="reading-chip">{topic}</span>
-              ))}
-            </div>
-          </div>
 
-          {/* Selected Papers */}
-          <div>
-            <div className="type-t5 text-t3 uppercase tracking-wider mb-2">Selected Papers</div>
-            <p className="type-t4 text-t2 text-[12px] italic mb-4">Research that influences my work</p>
-            <motion.div className="paper-grid sm:grid-cols-2 horizontal-scroll-strip" variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.08 } } }}>
-              {/* ReAct */}
-              <motion.div id="paper-react" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }} whileTap={{ scale: 0.97, transition: { duration: 0.08 } }}>
-                <div className="paper-title">ReAct: Synergizing Reasoning and Acting</div>
-                <div className="paper-desc">Directly shaped Medaura&apos;s reasoning loop — agents observe before they act.</div>
-                <a
-                  href="https://arxiv.org/abs/2210.03629"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="paper-link"
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                    <polyline points="15,3 21,3 21,9"/>
-                    <line x1="10" y1="14" x2="21" y2="3"/>
-                  </svg>
-                  Paper
-                </a>
-              </motion.div>
 
-              {/* Toolformer */}
-              <motion.div id="paper-toolformer" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }} whileTap={{ scale: 0.97, transition: { duration: 0.08 } }}>
-                <div className="paper-title">Toolformer: Models Teach Themselves to Use Tools</div>
-                <div className="paper-desc">Built the GNU Radio MCP server with this mental model.</div>
-                <a
-                  href="https://arxiv.org/abs/2302.04761"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="paper-link"
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                    <polyline points="15,3 21,3 21,9"/>
-                    <line x1="10" y1="14" x2="21" y2="3"/>
-                  </svg>
-                  Paper
-                </a>
-              </motion.div>
-
-              {/* MoE */}
-              <motion.div id="paper-switch-transformers" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }} whileTap={{ scale: 0.97, transition: { duration: 0.08 } }}>
-                <div className="paper-title">Switch Transformers: Mixture of Experts</div>
-                <div className="paper-desc">Why MoE changes the scaling math — and why modular beats monolithic at scale.</div>
-                <a
-                  href="https://arxiv.org/abs/2101.03961"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="paper-link"
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                    <polyline points="15,3 21,3 21,9"/>
-                    <line x1="10" y1="14" x2="21" y2="3"/>
-                  </svg>
-                  Paper
-                </a>
-              </motion.div>
-
-              {/* GRPO */}
-              <motion.div id="paper-grpo" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }} whileTap={{ scale: 0.97, transition: { duration: 0.08 } }}>
-                <div className="paper-title">Group Relative Policy Optimization</div>
-                <div className="paper-desc">The technique behind R1. If you're serious about post-training, this is where to start.</div>
-                <a
-                  href="https://arxiv.org/abs/2402.03300"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="paper-link"
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                    <polyline points="15,3 21,3 21,9"/>
-                    <line x1="10" y1="14" x2="21" y2="3"/>
-                  </svg>
-                  Paper
-                </a>
-              </motion.div>
-
-              {/* DPO */}
-              <motion.div id="paper-dpo" className="paper-card horizontal-scroll-card" variants={scaleInVariants} whileHover={{ y: -3, transition: { duration: 0.2 } }} whileTap={{ scale: 0.97, transition: { duration: 0.08 } }}>
-                <div className="paper-title">Direct Preference Optimization</div>
-                <div className="paper-desc">RLHF without the RL. Understand the math and post-training stops feeling like magic.</div>
-                <a
-                  href="https://arxiv.org/abs/2305.18290"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="paper-link"
-                >
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                    <polyline points="15,3 21,3 21,9"/>
-                    <line x1="10" y1="14" x2="21" y2="3"/>
-                  </svg>
-                  Paper
-                </a>
-              </motion.div>
-            </motion.div>
-          </div>
-        </MotionSection>
-
-        {/* ═══════════ EDUCATION ═══════════ */}
-        <MotionSection id="education" className="section section-divider section-alt">
-          <h2 className="type-t2 section-header border-b border-border-dim py-2">Education</h2>
-          <div className="flex flex-col gap-12">
-            <div className="experience-rule pl-4">
-              <div className="flex justify-between items-start mb-2">
-                <div>
-                  <div className="type-t6 font-mono text-t3 mb-2">2023 — 2027</div>
-                  <div className="type-t4 font-medium">
-                    SGGS Institute of Engineering &amp; Technology, Nanded
-                  </div>
-                </div>
-              </div>
-              <div className="type-t4 text-t2">B.Tech — Electronics &amp; Telecommunication Engineering</div>
-              <div className="type-t5 text-t3 mt-2">Minor in Information Technology</div>
-              <div className="mt-6">
-                <div className="type-t6 text-t3 uppercase tracking-wider mb-2">Relevant Coursework</div>
-                <div className="type-t5 text-t2 leading-relaxed">
-                  Digital Signal Processing · MATLAB · Microprocessors &amp; Embedded Systems ·
-                  Data Structures &amp; Algorithms · Probability &amp; Random Processes · Linear Algebra
-                </div>
-              </div>
-            </div>
-          </div>
-        </MotionSection>
-
-        {/* ═══════════ RESEARCH & ACHIEVEMENTS ═══════════ */}
-        <MotionSection id="research" className="section section-divider">
-          <div className="section-header border-b border-border-dim pb-2 w-full flex justify-between items-end">
-            <h2 className="type-t2">Research &amp; Achievements</h2>
-          </div>
-
-          <div className="mb-10">
-            <div className="type-t5 text-t3 uppercase tracking-wider mb-6">Certifications</div>
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col">
-                <div className="type-t4 text-t1 font-medium">Fine-tuning &amp; RL for LLMs: Intro to Post-training</div>
-                <div className="type-t5 text-t3">DeepLearning.AI</div>
-              </div>
-              <div className="flex flex-col">
-                <div className="type-t4 text-t1 font-medium">AI Agents in LangGraph</div>
-                <div className="type-t5 text-t3">DeepLearning.AI</div>
-              </div>
-              <div className="flex flex-col">
-                <div className="type-t4 text-t1 font-medium">Quantization Fundamentals</div>
-                <div className="type-t5 text-t3">Hugging Face</div>
-              </div>
-              <div className="flex flex-col">
-                <div className="type-t4 text-t1 font-medium">MCP: Build Rich Context AI Apps</div>
-                <div className="type-t5 text-t3">Anthropic</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="mb-10">
-            <div className="type-t5 text-t3 uppercase tracking-wider mb-6">Awards &amp; Recognition</div>
-            <div className="flex flex-col gap-6">
-              <div className="flex flex-col pl-4 border-l-[3px] border-primary-green">
-                <div className="type-t4 text-t1 font-medium">Global Finalist (Top 6 Internationally)</div>
-                <div className="type-t5 text-t3">UWA Hack For Impact 2026</div>
-              </div>
-              <div className="flex flex-col pl-4 border-l-[3px] border-primary-green">
-                <div className="type-t4 text-t1 font-medium">National Finalist</div>
-                <div className="type-t5 text-t3">Smart India Hackathon (SIH) 2024 &amp; 2025</div>
-              </div>
-              <div className="flex flex-col pl-4 border-l-[3px] border-transparent">
-                <div className="type-t4 text-t1 font-medium">Regional Qualifier</div>
-                <div className="type-t5 text-t3">Nxt Wave x OpenAI Buildathon</div>
-              </div>
-            </div>
-          </div>
-        </MotionSection>
 
         {/* ═══════════ CONTACT ═══════════ */}
         <MotionSection id="contact" className="section section-divider section-major contact-section">
           <h2 className="type-t2 section-header border-b border-border-dim py-2">Contact</h2>
 
-          <div className="mb-10">
-            <p className="type-t4 text-t1 mb-2">
-              Open to AI/ML internships and research collaborations —
+          <div className="mt-12 mb-16 max-w-2xl">
+            <p className="text-xl sm:text-2xl lg:text-3xl font-light text-t1 leading-snug tracking-tight mb-4">
+              Open to AI/ML internships and research collaborations.
             </p>
-            <p className="type-t4 text-t1">
-              particularly in LLM post-training, agentic systems, and inference.
+            <p className="text-lg sm:text-xl font-light text-t2 leading-snug tracking-tight">
+              Particularly interested in LLM post-training, agentic systems, and inference optimization.
             </p>
           </div>
 
           {/* Let's Chat CTA */}
-          <div className="contact-cta-wrapper mb-12">
-            <a href="mailto:dhiranpranav72@gmail.com" className="link link-accent font-display text-[clamp(36px,5vw,56px)] leading-tight">
-              dhiranpranav72@gmail.com
+          <div className="mb-16">
+            <a href="mailto:dhiranpranav72@gmail.com" className="contact-cta-text text-t1 hover:text-accent transition-colors duration-300">
+              Get in touch
             </a>
           </div>
 
-          {/* Resume Download */}
-          <div className="mb-8">
+          {/* Social links & Resume */}
+          {/* Social links & Resume */}
+          <div className="contact-link-grid">
             <a
               href="/resume_v4.pdf"
               download
-              className="button inline-flex items-center gap-2 text-sm"
+              className="contact-social-tile"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="7,10 12,15 17,10"/>
-                <line x1="12" y1="15" x2="12" y2="3"/>
-              </svg>
-              <span>Download Resume</span>
+              <span className="contact-social-name">Resume</span>
+              <span className="contact-social-desc">Download PDF</span>
             </a>
-          </div>
-
-          {/* Social links */}
-          <div className="flex gap-4 mt-10 pt-6 border-t border-border-dim/30">
+            
             <a
               href="https://github.com/Pranav-d33"
               target="_blank"
               rel="noopener noreferrer"
-              className="contact-social-link"
+              className="contact-social-tile"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-              <span>GitHub</span>
+              <span className="contact-social-name">GitHub</span>
+              <span className="contact-social-desc">Code and projects</span>
             </a>
+
             <a
               href="https://linkedin.com/in/pranav-dhiran"
               target="_blank"
               rel="noopener noreferrer"
-              className="contact-social-link"
+              className="contact-social-tile"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-              <span>LinkedIn</span>
+              <span className="contact-social-name">LinkedIn</span>
+              <span className="contact-social-desc">Work and research</span>
             </a>
+            
             <a
               href="https://x.com/Prannav_ai"
               target="_blank"
               rel="noopener noreferrer"
-              className="contact-social-link"
+              className="contact-social-tile"
             >
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-              <span>X</span>
+              <span className="contact-social-name">X / Twitter</span>
+              <span className="contact-social-desc">Notes and builds</span>
             </a>
           </div>
         </MotionSection>
@@ -1941,8 +1759,9 @@ export default function HomeClient() {
       {/* BACK TO TOP */}
       <motion.button
         onClick={scrollToTop}
+        whileHover={{ scale: 1.1, transition: { type: 'spring', stiffness: 400, damping: 10 } }}
         whileTap={{ scale: 0.9 }}
-        className={`fixed bottom-24 right-6 z-50 w-10 h-10 rounded-full border border-border-dim bg-surface/80 backdrop-blur-sm flex items-center justify-center text-t3 hover:text-accent hover:border-accent transition-all duration-300 ${
+        className={`fixed bottom-24 right-6 z-50 w-10 h-10 rounded-full border border-border-dim bg-surface/80 backdrop-blur-sm flex items-center justify-center text-t3 hover:text-accent hover:border-accent transition-colors duration-200 ${
           showTopBtn ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
         aria-label="Scroll to top"
@@ -1960,6 +1779,8 @@ export default function HomeClient() {
           <polyline points="18 15 12 9 6 15" />
         </svg>
       </motion.button>
+
+      <ChatWidget />
     </>
   );
 }
