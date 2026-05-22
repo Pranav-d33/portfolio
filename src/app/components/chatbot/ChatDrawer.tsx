@@ -59,7 +59,7 @@ export function ChatDrawer({
           <div className="flex items-center justify-between border-b border-border-dim px-4 py-4">
             <div className="flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-accent" />
-              <span className="text-sm font-medium text-t1">Pranav</span>
+              <span className="text-base font-medium text-t1">Pranav</span>
             </div>
             <button
               onClick={onClose}
@@ -78,7 +78,7 @@ export function ChatDrawer({
                 className="rounded-r-lg border-l-2 border-accent bg-foreground/5 px-4 py-4"
               >
                 <div className="mb-2 flex items-center justify-between gap-4">
-                  <p className="text-xs uppercase tracking-[0.16em] text-t3">
+                  <p className="text-sm uppercase tracking-[0.16em] text-t3">
                     Selected text
                   </p>
                   <button
@@ -92,7 +92,7 @@ export function ChatDrawer({
                     <X size={13} />
                   </button>
                 </div>
-                <p className="line-clamp-4 text-sm italic leading-relaxed text-t2">
+                <p className="line-clamp-4 text-base italic leading-relaxed text-t2">
                   &ldquo;{context}&rdquo;
                 </p>
               </motion.div>
@@ -118,7 +118,7 @@ export function ChatDrawer({
                       onClick={() => {
                         sendMessage(prompt);
                       }}
-                      className="rounded-full border border-border-dim px-4 py-2 text-sm text-t2 transition-colors hover:bg-foreground/5 hover:text-t1"
+                      className="rounded-full border border-border-dim px-4 py-2 text-[15px] text-t2 transition-colors hover:bg-foreground/5 hover:text-t1"
                     >
                       {prompt}
                     </motion.button>

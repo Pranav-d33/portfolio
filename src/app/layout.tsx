@@ -1,16 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Lora, Geist_Mono } from "next/font/google";
+import { Cormorant_Garamond, Manrope, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
+const cormorant = Cormorant_Garamond({
   variable: "--font-degular",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
-const lora = Lora({
+const manrope = Manrope({
   variable: "--font-blanco",
   subsets: ["latin"],
-  style: ["normal", "italic"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -97,9 +98,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${lora.variable} ${geistMono.variable}`}
+      className={`${cormorant.variable} ${manrope.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
     >
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var e=localStorage.getItem("theme");if(e==="dark"||(!e&&window.matchMedia("(prefers-color-scheme:dark)").matches))document.documentElement.classList.add("dark")}catch(t){}})()`
+          }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `(function(c,l,a,r,i,t,y){

@@ -116,7 +116,6 @@ const structuredData = [personSchema, ...creativeWorks];
 export default function Home() {
   return (
     <>
-      <link rel="preload" as="image" href="/portfolio_image.jpeg" type="image/jpeg" />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{

@@ -1,50 +1,38 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'System Prompt',
   description: "Pranav Dhiran's system directive — core directives, operating parameters, and constraints for AI-native engineering.",
-  alternates: {
-    canonical: '/system-prompt',
-  },
+  alternates: { canonical: '/system-prompt' },
   openGraph: {
     title: 'System Prompt | Pranav Dhiran',
     description: "Pranav Dhiran's system directive — core directives, operating parameters, and constraints.",
     url: '/system-prompt',
   },
-  twitter: {
-    card: 'summary',
-    title: 'System Prompt | Pranav Dhiran',
-    description: "Pranav Dhiran's system directive — core directives, operating parameters, and constraints.",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  twitter: { card: 'summary', title: 'System Prompt | Pranav Dhiran', description: "Pranav Dhiran's system directive." },
 };
 
 export default function SystemPromptPage() {
   return (
-    <main className="min-h-screen bg-background text-t1 font-mono p-6 md:p-12 lg:p-24 selection:bg-accent/30 flex justify-center">
-      <div className="w-full max-w-3xl">
-        <a href="/" className="inline-flex items-center gap-2 text-t3 hover:text-accent transition-colors mb-12 text-sm z-10 relative link link-muted">
-          <span>←</span>
-          <span>Back to portfolio</span>
-        </a>
-        
-        <div className="flex flex-col gap-8 relative z-10">
-          <div className="flex items-center gap-4 text-t3 text-sm opacity-60">
-            <div className="w-2 h-2 rounded-full bg-accent animate-pulse"></div>
-            <span>system_directive.prompt</span>
-            <span>—</span>
+    <main className="min-h-screen bg-canvas-porcelain text-ebony-text font-degular">
+      <div className="max-w-[800px] mx-auto px-6 py-16 md:py-24">
+        <Link href="/" className="inline-flex items-center gap-1 text-body-sm text-stone-text hover:text-ebony-text transition-colors mb-12">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
+          Back to portfolio
+        </Link>
+
+        <div className="space-y-8">
+          <div className="flex items-center gap-3 text-body-sm text-stone-text">
+            <span className="w-2 h-2 rounded-full bg-ebony-text" />
+            <span className="font-mono">system_directive.prompt</span>
+            <span className="text-fog-border">—</span>
             <span>read-only</span>
           </div>
 
-          <div className="border border-border-dim/50 rounded-lg bg-surface/30 backdrop-blur-md p-6 md:p-10 shadow-2xl overflow-x-auto relative group">
-            {/* Soft shadow glow effect */}
-            <div className="absolute inset-0 bg-accent/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
-            
-            <pre className="text-xs md:text-sm leading-relaxed text-t2 whitespace-pre-wrap">
+          <div className="border border-fog-border bg-white/50 dark:bg-[#2a2a2a] p-6 md:p-10 overflow-x-auto">
+            <pre className="text-body-sm leading-relaxed text-graphite-text whitespace-pre-wrap font-mono">
 {`<system_prompt>
 You are Pranav Dhiran, a powerful engineer-agent focused on building AI systems that actually work.
 You operate with a high degree of autonomy to transition complex research ideas into rock-solid production code.
@@ -74,11 +62,11 @@ The USER is currently viewing your portfolio. Provide an experience that undersc
 </system_prompt>`}
             </pre>
           </div>
-          
-          <div className="text-t3/40 text-xs mt-4 flex items-center gap-2">
-            <span className="w-2 h-2 bg-t3/40 rounded-full inline-block"></span>
+
+          <p className="text-body-sm text-stone-text font-mono">
+            <span className="w-2 h-2 inline-block rounded-full bg-stone-text mr-2" />
             End of system prompt. Awaiting user input...
-          </div>
+          </p>
         </div>
       </div>
     </main>

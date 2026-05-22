@@ -30,13 +30,6 @@ export function ChatMessage({ message, isStreaming = false }: ChatMessageProps) 
     return () => clearInterval(interval);
   }, [isStreaming, isEmpty]);
 
-  // Reset thinking step when message changes
-  useEffect(() => {
-    if (!isStreaming) {
-      setThinkingStep(0);
-    }
-  }, [message.content, isStreaming]);
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 8 }}
@@ -45,7 +38,7 @@ export function ChatMessage({ message, isStreaming = false }: ChatMessageProps) 
       className={`flex w-full ${isUser ? "justify-end" : "justify-start"}`}
     >
       <div
-        className={`max-w-[85%] px-4 py-2 text-sm leading-relaxed tracking-wide font-mono ${
+        className={`max-w-[85%] px-4 py-3 text-base leading-relaxed tracking-wide font-mono ${
           isUser
             ? "bg-accent text-background rounded-2xl rounded-br-sm"
             : "bg-foreground/5 text-t2 rounded-2xl rounded-bl-sm border border-border-dim/50"
@@ -67,7 +60,7 @@ export function ChatMessage({ message, isStreaming = false }: ChatMessageProps) 
             {isEmpty && (
               <div className="flex flex-col gap-1 py-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-accent/80 text-xs font-medium">
+                  <span className="text-accent/80 text-sm font-medium">
                     {THINKING_STEPS[thinkingStep]}
                   </span>
                   <span className="flex gap-0.5">
@@ -76,7 +69,7 @@ export function ChatMessage({ message, isStreaming = false }: ChatMessageProps) 
                     <span className="w-1 h-1 bg-accent/60 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
                   </span>
                 </div>
-                <div className="text-t3/50 text-[10px]">
+                <div className="text-t3/50 text-xs">
                   reasoning trace active
                 </div>
               </div>
@@ -84,7 +77,7 @@ export function ChatMessage({ message, isStreaming = false }: ChatMessageProps) 
             
             {/* End-of-response marker */}
             {!isStreaming && !isEmpty && (
-              <span className="text-t3/40 text-[10px] ml-1">&lt;|end|&gt;</span>
+              <span className="text-t3/40 text-xs ml-1">&lt;|end|&gt;</span>
             )}
           </div>
         )}

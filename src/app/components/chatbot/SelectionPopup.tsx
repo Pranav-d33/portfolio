@@ -9,8 +9,8 @@ type SelectionPopupProps = {
   onAsk: (selection: NonNullable<SelectionState>) => void;
 };
 
-const POPUP_WIDTH = 160;
-const POPUP_HEIGHT = 32;
+const POPUP_WIDTH = 172;
+const POPUP_HEIGHT = 36;
 const EDGE_GUTTER = 12;
 const TOP_SAFE_AREA = 60;
 
@@ -44,18 +44,18 @@ export function SelectionPopup({ selection, onAsk }: SelectionPopupProps) {
           transition={{ duration: 0.15, ease: "easeOut" }}
           style={{ top, left }}
           onClick={() => onAsk(selection)}
-          className="fixed z-[70] flex h-8 w-40 items-center justify-center gap-2 rounded-lg border border-border-dim bg-background text-xs tracking-[0.04em] text-t2 shadow-[0_10px_30px_rgba(0,0,0,0.35)] backdrop-blur-sm transition-colors hover:border-accent hover:text-t1"
+          className="fixed z-[70] flex h-9 w-[172px] items-center justify-center gap-2 rounded-md border border-ebony-text/15 bg-white font-blanco text-xs font-semibold tracking-[0.04em] text-ebony-text shadow-[0_10px_28px_rgba(0,0,0,0.18)] backdrop-blur-sm transition-colors hover:border-ebony-text/35 dark:border-white/15 dark:bg-[#2b2b2b] dark:text-white dark:shadow-[0_10px_28px_rgba(0,0,0,0.4)] dark:hover:border-white/35"
           aria-label="Ask about selected text"
         >
           <span
             className={`absolute left-1/2 h-0 w-0 -translate-x-1/2 border-l-[6px] border-r-[6px] border-l-transparent border-r-transparent ${
               shouldFlipBelow
-                ? "-top-[6px] border-b-[6px] border-b-background"
-                : "-bottom-[6px] border-t-[6px] border-t-background"
+                ? "-top-[6px] border-b-[6px] border-b-white dark:border-b-[#2b2b2b]"
+                : "-bottom-[6px] border-t-[6px] border-t-white dark:border-t-[#2b2b2b]"
             }`}
             aria-hidden="true"
           />
-          <Sparkles className="h-3 w-3 text-accent" />
+          <Sparkles className="h-3.5 w-3.5" />
           <span>Ask about this</span>
         </motion.button>
       )}

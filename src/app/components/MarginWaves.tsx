@@ -57,7 +57,6 @@ export function MarginWaves() {
     resize();
     window.addEventListener('resize', resize);
 
-    let prevScroll = 0;
     const draw = () => {
       ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
       ctx!.scale(dpr, dpr);

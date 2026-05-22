@@ -47,7 +47,7 @@ export function ChatInput({
             placeholder={placeholder}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
-            className="w-full rounded-full border border-border-dim bg-foreground/5 py-4 pl-4 pr-12 text-sm text-t1 placeholder-t3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent disabled:opacity-50 font-mono"
+            className="w-full rounded-full border border-border-dim bg-foreground/5 py-4 pl-4 pr-12 text-base text-t1 placeholder-t3 focus:border-accent focus:outline-none focus:ring-1 focus:ring-accent disabled:opacity-50 font-mono"
           />
           {/* Terminal-style cursor indicator */}
           {isFocused && !disabled && (
