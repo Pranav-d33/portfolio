@@ -64,7 +64,7 @@ export function Sidebar({ activeSection }: { activeSection: string }) {
       <header className="fixed top-0 left-0 z-50 p-6 flex justify-between items-center w-full">
         <motion.button
           onClick={scrollHome}
-          className="font-degular text-lg font-medium text-ebony-text/70 hover:text-ebony-text transition-colors origin-left transform-gpu"
+          className="font-blanco text-xl font-medium text-ebony-text/70 hover:text-ebony-text transition-colors origin-left transform-gpu"
           style={prefersReducedMotion ? undefined : { y: nameY, rotate: nameRotate, scale: nameScale }}
           type="button"
         >

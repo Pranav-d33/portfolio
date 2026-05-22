@@ -276,7 +276,7 @@ p + p {
   letter-spacing: 0;
   color: rgba(17, 24, 39, 0.82);
   display: block;
-  margin-bottom: 2.2rem;
+  margin-bottom: 3rem;
 }
 
 .dark .callout {
@@ -372,52 +372,59 @@ p + p {
 
 /* ====== Intro recent work ====== */
 .intro-recent {
-  margin-top: 2.15rem;
-  display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
-  column-gap: 0.9rem;
-  font-family: var(--font-blanco);
-  max-width: 34rem;
-  opacity: 0.78;
-}
-
-.intro-recent-label {
-  font-size: 0.9rem;
-  line-height: 1.8;
-  font-weight: 700;
-  letter-spacing: 0.11em;
-  text-transform: uppercase;
-  color: rgba(17, 24, 39, 0.42);
-  margin: 0;
-}
-
-.dark .intro-recent-label {
-  color: rgba(229, 231, 235, 0.42);
-}
-
-.intro-recent-list {
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 0.65rem;
   margin: 0;
   padding: 0;
   list-style: none;
+  max-width: 34rem;
 }
 
-.intro-recent-list li {
-  font-size: 1.16rem;
-  line-height: 1.62;
+.intro-recent li:first-child {
+  font-size: 1.15rem;
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(17, 24, 39, 0.85);
+  padding: 0;
+  position: static;
+}
+
+.intro-recent li:first-child::before {
+  display: none;
+}
+
+.dark .intro-recent li:first-child {
+  color: rgba(229, 231, 235, 0.85);
+}
+
+.intro-recent li:not(:first-child) {
+  font-size: 1.25rem;
+  line-height: 1.5;
   color: rgba(17, 24, 39, 0.68);
+  padding-left: 1rem;
+  position: relative;
 }
 
-.dark .intro-recent-list li {
+.intro-recent li:not(:first-child)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(17, 24, 39, 0.25);
+}
+
+.dark .intro-recent li:not(:first-child) {
   color: rgba(229, 231, 235, 0.62);
 }
 
-@media (max-width: 640px) {
-  .intro-recent {
-    grid-template-columns: 1fr;
-    row-gap: 0.45rem;
-  }
+.dark .intro-recent li:not(:first-child)::before {
+  background: rgba(229, 231, 235, 0.25);
 }
 
 @media (max-width: 640px) {
@@ -1142,12 +1149,16 @@ p + p {
     z-index: auto;
     pointer-events: auto;
     display: flex;
-    flex-direction: row;
     justify-content: center;
-    align-items: center;
     margin-top: 4rem;
     margin-bottom: 4rem;
     transform: translateZ(0);
+  }
+
+  .hero-image-pair {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
   }
 
   .hero-image {

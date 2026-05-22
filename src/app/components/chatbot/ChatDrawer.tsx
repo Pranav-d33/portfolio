@@ -49,11 +49,11 @@ export function ChatDrawer({
         <motion.div
           layoutId="contextual-chat-surface"
           data-chat-surface
-          initial={{ opacity: 0, y: 20, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 20, scale: 0.95 }}
-          transition={{ duration: 0.2, ease: "easeOut" }}
-          className="fixed bottom-0 left-0 right-0 z-[60] flex h-[68vh] w-full flex-col overflow-hidden rounded-t-[20px] border border-border-dim bg-background/95 shadow-2xl shadow-black/40 backdrop-blur-xl sm:bottom-6 sm:left-auto sm:right-6 sm:h-[520px] sm:w-[390px] sm:rounded-b-2xl sm:rounded-t-2xl"
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 30 }}
+          transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          className="fixed bottom-0 left-0 right-0 z-[60] flex h-[80vh] w-full flex-col overflow-hidden rounded-t-[20px] border border-border-dim bg-background/95 shadow-2xl shadow-black/40 backdrop-blur-xl sm:bottom-6 sm:left-auto sm:right-6 sm:h-[520px] sm:w-[390px] sm:rounded-b-2xl sm:rounded-t-2xl"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-border-dim px-4 py-4">

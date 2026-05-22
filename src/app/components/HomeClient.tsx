@@ -55,8 +55,10 @@ export default function HomeClient() {
 {/* ═══ HERO / INTRO ═══ */}
           <section className="hero-section">
             <div className="hero-images">
-              <figure className="hero-image studio" />
-              <figure className="hero-image daniel" />
+              <div className="hero-image-pair">
+                <figure className="hero-image studio" />
+                <figure className="hero-image daniel" />
+              </div>
             </div>
             <div className="hero-content prose prose-lg font-degular w-full max-w-lg ml-auto lg:pt-[25vh] pt-[6vh] dark:prose-invert">
               <h2 className="home-subtitle mt-0 text-black dark:text-white">AI Engineer & Researcher</h2>
@@ -64,14 +66,12 @@ export default function HomeClient() {
                 <span className="callout">
                   I dig into <span className="intro-underline">rabbit holes</span>, some become <span className="intro-strong">systems</span>.
                 </span>
-                <div className="intro-recent" aria-label="Recent work">
-                  <p className="intro-recent-label">Recently</p>
-                  <ul className="intro-recent-list">
-                    <li>Active contributor to Meshery (CNCF)</li>
-                    <li>Researching and prototyping domain-specific small language models</li>
-                    <li>Picking up Go for systems-level tooling</li>
-                  </ul>
-                </div>
+                <ul className="intro-recent" aria-label="Recent work">
+                  <li className="intro-recent-label">Recently</li>
+                  <li>Active contributor to Meshery (CNCF)</li>
+                  <li>Researching and prototyping domain-specific small language models</li>
+                  <li>Picking up Go for systems-level tooling</li>
+                </ul>
                 <a href="/resume_v4.pdf" download className="cta-button dark:bg-white dark:text-black mt-6">
                   Download resume
                 </a>

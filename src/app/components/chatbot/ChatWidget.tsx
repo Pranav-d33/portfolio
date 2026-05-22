@@ -142,12 +142,12 @@ export function ChatWidget() {
                 type="button"
                 onClick={openBlankChat}
                 whileTap={{ scale: 0.96 }}
-                className="relative flex h-[72px] lg:h-[76px] items-center justify-center gap-4 lg:gap-5 rounded-full border-2 border-border-dim bg-background/90 px-8 lg:px-10 text-accent shadow-[0_18px_50px_rgba(0,0,0,0.32)] backdrop-blur transition-colors duration-200 hover:border-accent hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent/60"
+                className="relative flex h-14 lg:h-[76px] items-center justify-center gap-3 lg:gap-5 rounded-full border-2 border-border-dim bg-background/90 px-6 lg:px-10 text-accent shadow-[0_18px_50px_rgba(0,0,0,0.32)] backdrop-blur transition-colors duration-200 hover:border-accent hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent/60"
                 aria-label="Open chat"
               >
-                <span className="absolute inset-[5px] rounded-full border border-white/[0.05]" />
-                <Sparkles className="relative h-7 w-7 lg:h-7 lg:w-7 animate-[spin_8s_linear_infinite]" />
-                <span className="text-lg lg:text-xl font-medium text-t1 whitespace-nowrap">ask anything</span>
+                <span className="absolute inset-[3px] lg:inset-[5px] rounded-full border border-white/[0.05]" />
+                <Sparkles className="relative h-5 w-5 lg:h-7 lg:w-7 animate-[spin_8s_linear_infinite]" />
+                <span className="text-sm lg:text-xl font-medium text-t1 whitespace-nowrap">ask anything</span>
               </motion.button>
             </motion.div>
           </motion.div>
