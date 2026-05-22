@@ -19,14 +19,14 @@ export function MobileNav() {
 
   return (
     <nav className="fixed z-50 bottom-4 left-4 right-4 lg:hidden" aria-label="Mobile navigation">
-      <div className="px-4 py-3 bg-white border border-gray-200 rounded-lg dark:bg-black dark:border-gray-700 overflow-hidden">
-        <div className="absolute inset-y-0 right-0 w-12 pointer-events-none bg-gradient-to-l from-white dark:from-black to-transparent" />
+      <div className="px-4 py-3 bg-background/85 border border-border-dim rounded-2xl shadow-[0_18px_50px_rgba(0,0,0,0.32)] backdrop-blur-xl overflow-hidden">
+        <div className="absolute inset-y-0 right-0 w-12 pointer-events-none bg-gradient-to-l from-background/85 to-transparent" />
         <ul className="flex flex-row flex-nowrap overflow-x-auto whitespace-nowrap justify-start space-x-6 text-base font-blanco hide-scrollbar">
           {navItems.map((item) => (
             <li key={item.id}>
               <button
                 onClick={() => scrollTo(item.id)}
-                className="block text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 transition-colors whitespace-nowrap"
+                className="block text-t2 hover:text-t1 transition-colors whitespace-nowrap"
                 type="button"
               >
                 {item.label}

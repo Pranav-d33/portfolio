@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useSyncExternalStore } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform, useVelocity } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 
@@ -13,14 +13,18 @@ const navItems = [
 ];
 
 function useDarkMode() {
-  const subscribe = (cb: () => void) => {
-    const observer = new MutationObserver(cb);
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    setDark(document.documentElement.classList.contains("dark"));
+    const observer = new MutationObserver(() => {
+      setDark(document.documentElement.classList.contains("dark"));
+    });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
     return () => observer.disconnect();
-  };
-  const getSnapshot = () => document.documentElement.classList.contains("dark");
-  const getServerSnapshot = () => false;
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
+  }, []);
+
+  return dark;
 }
 
 export function Sidebar({ activeSection }: { activeSection: string }) {
