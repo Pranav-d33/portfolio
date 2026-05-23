@@ -722,9 +722,29 @@ p + p {
 
 /* ====== Resume Entry ====== */
 .resume-entry {
-  padding-bottom: 36px;
+  padding-bottom: var(--spacing-32);
   border-bottom: 1px solid rgba(17, 24, 39, 0.08);
-  margin-bottom: 36px;
+  margin-bottom: var(--spacing-32);
+  border-radius: 4px;
+  padding-left: var(--spacing-16);
+  padding-right: var(--spacing-16);
+  margin-left: calc(-1 * var(--spacing-16));
+  margin-right: calc(-1 * var(--spacing-16));
+  transition: box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.resume-entry:hover {
+  background: color-mix(in srgb, var(--color-ebony-text) 3%, transparent);
+}
+
+.dark .resume-entry:hover {
+  background: color-mix(in srgb, #e5e7eb 4%, transparent);
+}
+
+.resume-entry:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
 }
 
 .dark .resume-entry {

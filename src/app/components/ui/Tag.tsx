@@ -1,4 +1,8 @@
+"use client";
+
 import React from "react";
+import { motion } from "framer-motion";
+import { SPRING_EDITORIAL } from "@/hooks/useSpringAnimation";
 
 interface TagProps {
   children: React.ReactNode;
@@ -6,7 +10,16 @@ interface TagProps {
 }
 
 export function Tag({ children, className = "" }: TagProps) {
-  return <span className={`tag ${className}`}>{children}</span>;
+  return (
+    <motion.span
+      className={`tag font-mono ${className}`}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.98 }}
+      transition={SPRING_EDITORIAL}
+    >
+      {children}
+    </motion.span>
+  );
 }
 
 export function Tags({ children, className = "" }: { children: React.ReactNode; className?: string }) {

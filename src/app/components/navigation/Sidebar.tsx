@@ -1,8 +1,9 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform, useVelocity } from "framer-motion";
 import { Moon, Sun } from "lucide-react";
+import { SPRING_EDITORIAL } from "@/hooks/useSpringAnimation";
 
 const navItems = [
   { id: "about", label: "About" },
@@ -12,23 +13,24 @@ const navItems = [
   { id: "contact", label: "Contact" },
 ];
 
+function getDarkSnapshot() {
+  return document.documentElement.classList.contains("dark");
+}
+
+function subscribeToDark(callback: () => void) {
+  const observer = new MutationObserver(() => {
+    callback();
+  });
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+  return () => observer.disconnect();
+}
+
 function useDarkMode() {
-  const [dark, setDark] = useState(false);
-
-  useEffect(() => {
-    setDark(document.documentElement.classList.contains("dark"));
-    const observer = new MutationObserver(() => {
-      setDark(document.documentElement.classList.contains("dark"));
-    });
-    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-    return () => observer.disconnect();
-  }, []);
-
-  return dark;
+  return useSyncExternalStore(subscribeToDark, getDarkSnapshot, () => false);
 }
 
 export function Sidebar({ activeSection }: { activeSection: string }) {
-  const dark = useDarkMode();
+  const isDark = useDarkMode();
   const prefersReducedMotion = useReducedMotion();
   const { scrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
@@ -66,18 +68,24 @@ export function Sidebar({ activeSection }: { activeSection: string }) {
           onClick={scrollHome}
           className="font-blanco text-xl font-medium text-ebony-text/70 hover:text-ebony-text transition-colors origin-left transform-gpu"
           style={prefersReducedMotion ? undefined : { y: nameY, rotate: nameRotate, scale: nameScale }}
+          whileHover={{ scale: 1.015 }}
+          whileTap={{ scale: 0.99 }}
+          transition={SPRING_EDITORIAL}
           type="button"
         >
           Pranav Dhiran
         </motion.button>
-        <button
+        <motion.button
           onClick={toggleDark}
           className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.97 }}
+          transition={SPRING_EDITORIAL}
           type="button"
-          aria-label={dark ? "Dark mode" : "Light mode"}
+          aria-label={isDark ? "Dark mode" : "Light mode"}
         >
-          {dark ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
-        </button>
+          {isDark ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
+        </motion.button>
       </header>
 
       {/* Desktop left nav */}
@@ -85,17 +93,20 @@ export function Sidebar({ activeSection }: { activeSection: string }) {
         <ul className="flex flex-col space-y-3 text-lg font-blanco">
           {navItems.map((item) => (
             <li key={item.id}>
-              <button
+              <motion.button
                 onClick={() => scrollTo(item.id)}
                 className={`block transition-colors ${
                   activeSection === item.id
                     ? "text-ebony-text underline"
                     : "text-graphite-text hover:text-ebony-text"
                 }`}
+                whileHover={{ x: 3 }}
+                whileTap={{ scale: 0.98 }}
+                transition={SPRING_EDITORIAL}
                 type="button"
               >
                 {item.label}
-              </button>
+              </motion.button>
             </li>
           ))}
         </ul>
