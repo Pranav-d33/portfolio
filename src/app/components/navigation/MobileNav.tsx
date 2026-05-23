@@ -19,8 +19,8 @@ export function MobileNav() {
 
   return (
     <nav className="fixed z-50 bottom-4 left-4 right-4 lg:hidden" aria-label="Mobile navigation">
-      <div className="px-4 py-3 bg-background/85 border border-border-dim rounded-2xl shadow-[0_18px_50px_rgba(0,0,0,0.32)] backdrop-blur-xl overflow-hidden">
-        <div className="absolute inset-y-0 right-0 w-12 pointer-events-none bg-gradient-to-l from-background/85 to-transparent" />
+      <div className="px-4 py-3 bg-background/70 border border-border-dim rounded-2xl shadow-[0_18px_50px_rgba(0,0,0,0.32)] backdrop-blur-xl overflow-hidden">
+        <div className="absolute inset-y-0 right-0 w-12 pointer-events-none bg-gradient-to-l from-background/70 to-transparent" />
         <ul className="flex flex-row flex-nowrap overflow-x-auto whitespace-nowrap justify-start space-x-6 text-base font-blanco hide-scrollbar">
           {navItems.map((item) => (
             <li key={item.id}>

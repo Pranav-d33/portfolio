@@ -163,29 +163,30 @@ export default function HomeClient() {
                         <Tag key={tag}>{tag}</Tag>
                       ))}
                     </Tags>
-                    {(githubLink || fallbackLink) && (
-                      <div className="project-links">
-                        {githubLink ? (
-                          <a
-                            href={githubLink.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="project-link"
-                          >
-                            GitHub →
-                          </a>
-                        ) : fallbackLink ? (
-                          <a
-                            href={fallbackLink.href}
-                            target={fallbackLink.external ? "_blank" : undefined}
-                            rel={fallbackLink.external ? "noopener noreferrer" : undefined}
-                            className="project-link"
-                          >
-                            {fallbackLink.label} →
-                          </a>
-                        ) : null}
-                      </div>
-                    )}
+                    <div className="project-links">
+                      <Link href={caseStudyPath(project.slug)} className="project-link project-link-case">
+                        View case study →
+                      </Link>
+                      {githubLink ? (
+                        <a
+                          href={githubLink.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="project-link"
+                        >
+                          GitHub →
+                        </a>
+                      ) : fallbackLink ? (
+                        <a
+                          href={fallbackLink.href}
+                          target={fallbackLink.external ? "_blank" : undefined}
+                          rel={fallbackLink.external ? "noopener noreferrer" : undefined}
+                          className="project-link"
+                        >
+                          {fallbackLink.label} →
+                        </a>
+                      ) : null}
+                    </div>
                   </article>
                 );
               })}
