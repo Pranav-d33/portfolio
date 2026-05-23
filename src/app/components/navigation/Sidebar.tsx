@@ -74,9 +74,9 @@ export function Sidebar({ activeSection }: { activeSection: string }) {
           onClick={toggleDark}
           className="p-2 rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
           type="button"
-          aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+          aria-label={dark ? "Dark mode" : "Light mode"}
         >
-          {dark ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
+          {dark ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
         </button>
       </header>
 
