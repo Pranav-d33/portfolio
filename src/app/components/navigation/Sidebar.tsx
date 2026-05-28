@@ -90,7 +90,7 @@ export function Sidebar({ activeSection }: { activeSection: string }) {
 
       {/* Desktop left nav */}
       <nav className="hidden lg:block fixed z-50 bottom-6 left-6" aria-label="Main navigation">
-        <ul className="flex flex-col space-y-3 text-lg font-blanco">
+        <ul className="flex flex-col space-y-4 text-xl font-blanco">
           {navItems.map((item) => (
             <li key={item.id}>
               <motion.button

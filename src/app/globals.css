@@ -720,6 +720,126 @@ p + p {
   color: #e5e7eb;
 }
 
+/* ====== Section with side gallery (desktop two-column) ====== */
+.section-with-gallery {
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .section-with-gallery {
+    display: grid;
+    grid-template-columns: 340px 1fr;
+    gap: 48px;
+    align-items: start;
+  }
+}
+
+.section-gallery {
+  /* display controlled by parent Tailwind classes (hidden lg:block) */
+}
+
+@media (min-width: 1024px) {
+  .section-gallery {
+    position: sticky;
+    top: 100px;
+  }
+}
+
+.section-gallery img {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: opacity 0.4s ease, filter 0.5s ease, transform 0.4s ease;
+  opacity: 0.82;
+  filter: grayscale(20%);
+}
+
+.dark .section-gallery img {
+  border-color: rgba(255, 255, 255, 0.08);
+  opacity: 0.75;
+}
+
+.section-gallery img:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.02);
+}
+
+/* ====== Flip Card ====== */
+.flip-card {
+  perspective: 1200px;
+  cursor: pointer;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.7s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.dark .flip-card-front,
+.dark .flip-card-back {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front img,
+.flip-card-back img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Flip hint indicator */
+.flip-card::after {
+  content: "hover to flip";
+  position: absolute;
+  bottom: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-blanco);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(17, 24, 39, 0.35);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.flip-card:hover::after {
+  opacity: 0;
+}
+
+.section-gallery:hover .flip-card::after {
+  opacity: 1;
+}
+
+
 /* ====== Resume Entry ====== */
 .resume-entry {
   padding-bottom: var(--spacing-32);
