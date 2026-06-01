@@ -6,6 +6,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 interface ScrollRevealProps {
   children: React.ReactNode;
   className?: string;
+  style?: React.CSSProperties;
   y?: number;
   x?: number;
 }
@@ -13,6 +14,7 @@ interface ScrollRevealProps {
 export function ScrollReveal({
   children,
   className = "",
+  style,
   y = 40,
   x = 0,
 }: ScrollRevealProps) {
@@ -32,6 +34,8 @@ export function ScrollReveal({
       ref={ref}
       className={className}
       style={{
+        ...style,
+        position: 'relative' as const,
         y: yTransform,
         x: xTransform,
         opacity: opacityTransform,

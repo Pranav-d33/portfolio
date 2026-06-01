@@ -6,12 +6,12 @@ import { fadeSlideLeft } from "@/hooks/useSpringAnimation";
 
 interface SectionHeadingProps {
   title: string;
-  subtitle?: string;
+  label?: string;
   className?: string;
   id?: string;
 }
 
-export function SectionHeading({ title, subtitle, className = "", id }: SectionHeadingProps) {
+export function SectionHeading({ title, label, className = "", id }: SectionHeadingProps) {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px 0px" });
 
@@ -24,8 +24,8 @@ export function SectionHeading({ title, subtitle, className = "", id }: SectionH
       animate={isInView ? "visible" : "hidden"}
       variants={fadeSlideLeft}
     >
+      {label && <span className="section-label block mb-3">{label}</span>}
       <h2 className="section-title">{title}</h2>
-      {subtitle && <p className="section-subtitle">{subtitle}</p>}
     </motion.div>
   );
 }

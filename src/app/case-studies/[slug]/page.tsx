@@ -45,22 +45,22 @@ export default async function CaseStudyPage({ params }: Props) {
   ] as const;
 
   return (
-    <article className="case-study-page min-h-screen text-ebony-text font-degular">
+    <article className="case-study-page min-h-screen text-ebony-text font-blanco">
       <div className="max-w-6xl mx-auto px-6 py-16 md:py-24">
-        <Link href="/#projects" className="inline-flex items-center gap-1 text-lg text-stone-text hover:text-ebony-text transition-colors mb-12">
+        <Link href="/#projects" className="link-inline inline-flex items-center gap-1 mb-12">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><polyline points="12 19 5 12 12 5"/></svg>
           Back to selected work
         </Link>
 
-        <header className="pb-10 border-b border-fog-border mb-10">
-          <p className="text-lg text-stone-text uppercase tracking-widest mb-3 font-degular">Case Study</p>
-          <h1 className="text-5xl font-degular font-medium text-ebony-text leading-tight mb-6 max-w-4xl">
+        <header className="pb-16 border-b border-fog-border mb-16">
+          <span className="font-meta block mb-4">Case Study</span>
+          <h1 className="text-5xl font-degular font-medium text-ebony-text leading-tight mb-8 max-w-4xl">
             {project.title}
           </h1>
           <p className="text-2xl text-graphite-text leading-relaxed max-w-4xl">
             {project.thesis}
           </p>
-          <div className="mt-8 p-6 border border-fog-border rounded-lg max-w-4xl">
+          <div className="mt-12 p-6 border border-fog-border rounded-lg max-w-4xl">
             <span className="text-base text-stone-text block mb-2">{project.proofTitle}</span>
             <strong className="block text-xl text-ebony-text font-medium">{project.proofDesc}</strong>
           </div>
@@ -88,7 +88,7 @@ export default async function CaseStudyPage({ params }: Props) {
 
         <div className="md:grid md:grid-cols-[240px_1fr] gap-16 items-start max-w-6xl">
           <nav className="sticky top-8 flex md:flex-col gap-4 overflow-x-auto md:overflow-visible pb-4 md:pb-0 -mx-2 px-2 md:mx-0 md:px-0" aria-label="Sections">
-            <span className="text-lg text-stone-text uppercase tracking-widest hidden md:block mb-2">Read</span>
+            <span className="font-meta hidden md:block mb-2">Read</span>
             {sections.map(([id, label]) => (
               <a key={id} href={`#${id}`} className="text-xl text-stone-text hover:text-ebony-text transition-colors whitespace-nowrap">
                 {label}
@@ -112,13 +112,13 @@ export default async function CaseStudyPage({ params }: Props) {
               </div>
             </div>
 
-            <section id="problem" className="py-12 border-t border-fog-border/80">
-              <h2 className="text-3xl font-degular font-medium text-ebony-text mb-6">Problem</h2>
+            <section id="problem" className="py-20 border-t border-fog-border/80">
+              <h2 className="text-3xl font-degular font-medium text-ebony-text mb-8">Problem</h2>
               <p className="text-xl text-graphite-text leading-relaxed">{project.problem}</p>
             </section>
 
-            <section id="architecture" className="py-12 border-t border-fog-border/80">
-              <h2 className="text-3xl font-degular font-medium text-ebony-text mb-6">Architecture</h2>
+            <section id="architecture" className="py-20 border-t border-fog-border/80">
+              <h2 className="text-3xl font-degular font-medium text-ebony-text mb-8">Architecture</h2>
               <div className="flex flex-col gap-4">
                 {project.architecture.map((row, i) => (
                   <div key={i} className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
@@ -133,7 +133,7 @@ export default async function CaseStudyPage({ params }: Props) {
               </div>
             </section>
 
-            <section id="decisions" className="py-12 border-t border-fog-border/80">
+            <section id="decisions" className="py-20 border-t border-fog-border/80">
               <h2 className="text-3xl font-degular font-medium text-ebony-text mb-8">Key Decisions</h2>
               <div className="flex flex-col gap-10">
                 {project.decisions.map((d) => (
@@ -145,8 +145,8 @@ export default async function CaseStudyPage({ params }: Props) {
               </div>
             </section>
 
-            <section id="lessons" className="py-12 border-t border-fog-border/80">
-              <h2 className="text-3xl font-degular font-medium text-ebony-text mb-6">Lessons / Results</h2>
+            <section id="lessons" className="py-20 border-t border-fog-border/80">
+              <h2 className="text-3xl font-degular font-medium text-ebony-text mb-8">Lessons / Results</h2>
               <ul className="space-y-4">
                 {project.lessons.map((lesson) => (
                   <li key={lesson} className="text-xl text-graphite-text leading-relaxed pl-8 relative before:content-['→'] before:absolute before:left-0 before:text-stone-text before:font-mono">
@@ -156,8 +156,8 @@ export default async function CaseStudyPage({ params }: Props) {
               </ul>
             </section>
 
-            <section id="papers" className="py-12 border-t border-fog-border/80">
-              <h2 className="text-3xl font-degular font-medium text-ebony-text mb-6">Theoretical Foundation</h2>
+            <section id="papers" className="py-20 border-t border-fog-border/80">
+              <h2 className="text-3xl font-degular font-medium text-ebony-text mb-8">Theoretical Foundation</h2>
               <div className="flex flex-wrap gap-4">
                 {project.relatedPapers.map((paper) => (
                   <a key={paper.id} href={paper.href} target="_blank" rel="noopener noreferrer" className="block p-5 border border-fog-border hover:border-ebony-text transition-colors rounded-lg w-full max-w-sm">
@@ -168,8 +168,8 @@ export default async function CaseStudyPage({ params }: Props) {
               </div>
             </section>
 
-            <section id="links" className="py-12 border-t border-fog-border/80">
-              <h2 className="text-3xl font-degular font-medium text-ebony-text mb-6">Proof Links</h2>
+            <section id="links" className="py-20 border-t border-fog-border/80">
+              <h2 className="text-3xl font-degular font-medium text-ebony-text mb-8">Proof Links</h2>
               <div className="flex flex-wrap gap-4">
                 {project.links.map((link) => (
                   <a key={link.href} href={link.href} target={link.external ? "_blank" : undefined} rel={link.external ? "noopener noreferrer" : undefined} className="btn btn-primary text-lg py-3 px-6">

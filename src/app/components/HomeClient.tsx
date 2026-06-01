@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { caseStudyPath, projectCaseStudies, paperLibrary } from "@/lib/portfolioData";
@@ -61,6 +62,7 @@ const editorialSpring = { type: "spring" as const, stiffness: 180, damping: 35 }
 export default function HomeClient() {
   const activeSection = useActiveSection();
   const [isSystemPromptOpen, setIsSystemPromptOpen] = useState(false);
+  const router = useRouter();
 
   const projects = projectCaseStudies;
 
@@ -123,32 +125,34 @@ export default function HomeClient() {
 
           {/* ═══ ABOUT ═══ */}
           <section id="about" className="section about-section" style={{ position: 'relative', overflow: 'visible' }}>
-            <SectionHeading title="About" subtitle="Background & focus" className="max-w-4xl ml-auto" />
+            <SectionHeading title="About" label="Background & focus" className="max-w-4xl ml-auto" />
             <div className="relative max-w-4xl ml-auto">
               <div className="grid md:grid-cols-2 gap-12">
                 <ScrollReveal x={-24} y={0} className="relative">
-                  {/* Flip card sitting in the empty left space, perfectly matching this text block's height */}
-                  <div className="hidden lg:block absolute right-[100%] mr-12 top-0 bottom-0 flip-card" style={{ width: '340px' }}>
+                  <div className="relative lg:absolute lg:right-[100%] lg:mr-12 lg:top-0 flip-card w-[340px] h-[340px] mx-auto lg:mx-0 mb-6 lg:mb-0">
                     <div className="flip-card-inner h-full">
                       <div className="flip-card-front rounded-lg overflow-hidden border border-black/5 dark:border-white/10 bg-fog-bg dark:bg-graphite-bg">
-                        <img src="/football.jpeg" alt="Playing football" className="w-full h-full object-contain grayscale" style={{ objectPosition: 'right center' }} />
+                        <img src="/football.jpeg" alt="Playing football" className="w-full h-full object-contain" style={{ objectPosition: 'right center', filter: 'grayscale(85%)' }} />
                       </div>
                       <div className="flip-card-back rounded-lg overflow-hidden border border-black/5 dark:border-white/10 bg-fog-bg dark:bg-graphite-bg">
-                        <img src="/anime_.jpeg" alt="Anime" className="w-full h-full object-contain grayscale" style={{ objectPosition: 'right center' }} />
+                        <img src="/anime_.jpeg" alt="Anime" className="w-full h-full object-contain" style={{ objectPosition: 'right center', filter: 'grayscale(85%)' }} />
                       </div>
                     </div>
                   </div>
 
-                  <p className="text-body text-ebony-text/70 dark:text-white/50 leading-body mb-4 measure">
-                    I started in RF and signals. Turns out the most interesting signal to decode is language.
-                    Now I build the systems that do both — from transformers to multi-agent pipelines to LLM-controlled hardware.
-                  </p>
-                  <p className="text-body text-ebony-text/70 dark:text-white/50 leading-body measure">
-                    B.Tech — Electronics & Telecom Engineering at SGGSIE&T, Nanded (2023–Present).
-                  </p>
+                  <div className="lg:flex lg:flex-col lg:min-h-[340px]">
+                    <p className="text-body text-ebony-text/70 dark:text-white/50 leading-body measure mb-4 lg:mb-0">
+                      I started in RF and signals. Turns out the most interesting signal to decode is language.
+                      Now I build the systems that do both — from transformers to multi-agent pipelines to LLM-controlled hardware.
+                    </p>
+                    <div className="hidden lg:block flex-1" />
+                    <p className="text-body text-ebony-text/70 dark:text-white/50 leading-body measure">
+                      B.Tech — Electronics & Telecom Engineering at SGGSIE&T, Nanded (2023–Present).
+                    </p>
+                  </div>
                 </ScrollReveal>
               <ScrollReveal x={24} y={0}>
-                <h3 className="text-subheading text-ebony-text leading-subheading font-medium mb-10">Achievements</h3>
+                <h3 className="text-subheading text-ebony-text leading-subheading font-medium mb-16">Achievements</h3>
                 <ul className="space-y-5 about-achievements">
                   {[
                     "National Finalist — Smart India Hackathon 2024",
@@ -175,7 +179,7 @@ export default function HomeClient() {
 
           {/* ═══ EXPERIENCE ═══ */}
           <section id="experience" className="section">
-            <SectionHeading title="Experience" subtitle="Research & engineering" className="max-w-3xl ml-auto" />
+            <SectionHeading title="Experience" label="Research & engineering" className="max-w-3xl ml-auto" />
             <div className="max-w-3xl ml-auto space-y-10">
               <ResumeEntry
                 title="AI Research Intern"
@@ -204,7 +208,7 @@ export default function HomeClient() {
 
           {/* ═══ PROJECTS ═══ */}
           <section id="projects" className="section">
-            <SectionHeading title="Projects" subtitle="Selected work" className="max-w-3xl ml-auto" />
+            <SectionHeading title="Projects" label="Selected work" className="max-w-3xl ml-auto" />
             <div className="max-w-3xl ml-auto flex flex-col gap-y-16">
               {projects.map((project, index) => {
                 const githubLink = project.links.find((link) => link.href.includes("github.com"));
@@ -222,12 +226,11 @@ export default function HomeClient() {
                   <React.Fragment key={project.slug}>
                     <div className="w-full">
                     <motion.article
-                      className="resume-entry relative group/card"
+                      className="resume-entry relative group/card cursor-pointer"
                       whileHover={{ y: -3, scale: 1.01 }}
-                      whileTap={{ scale: 0.99 }}
                       transition={editorialSpring}
+                      onClick={() => router.push(caseStudyPath(project.slug))}
                     >
-                      <Link href={caseStudyPath(project.slug)} className="absolute inset-0 z-0" aria-label={`View case study for ${project.title}`} />
                       
                       {coverImage && (
                         <div className="mb-6 overflow-hidden rounded-lg border border-black/5 dark:border-white/10 bg-fog-bg dark:bg-graphite-bg relative z-10 pointer-events-none">
@@ -245,36 +248,38 @@ export default function HomeClient() {
                         </h3>
                         <ArrowUpRight className="w-4 h-4 text-t3 shrink-0 opacity-0 group-hover/card:opacity-100 transition-opacity" />
                       </div>
-                      <p className="resume-entry-desc mb-3 relative z-10">{project.hook}</p>
-                      <Tags className="relative z-10">
+                      <p className="resume-entry-desc mb-3 relative z-10 pointer-events-none">{project.hook}</p>
+                      <Tags className="relative z-10 pointer-events-none">
                         {project.tags.map((tag) => (
                           <Tag key={tag}>{tag}</Tag>
                         ))}
                       </Tags>
-                      <div className="project-links relative z-10">
-                        <Link href={caseStudyPath(project.slug)} className="project-link project-link-case">
-                          View case study →
-                        </Link>
-                        {githubLink ? (
-                          <a
-                            href={githubLink.href}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="project-link"
-                          >
-                            GitHub →
-                          </a>
-                        ) : fallbackLink ? (
-                          <a
-                            href={fallbackLink.href}
-                            target={fallbackLink.external ? "_blank" : undefined}
-                            rel={fallbackLink.external ? "noopener noreferrer" : undefined}
-                            className="project-link"
-                          >
-                            {fallbackLink.label} →
-                          </a>
-                        ) : null}
-                      </div>
+                       <div className="project-links relative z-10">
+                         <Link href={caseStudyPath(project.slug)} className="project-link project-link-case" onClick={(e) => e.stopPropagation()}>
+                           View case study →
+                         </Link>
+                         {githubLink ? (
+                           <a
+                             href={githubLink.href}
+                             target="_blank"
+                             rel="noopener noreferrer"
+                             className="project-link"
+                             onClick={(e) => e.stopPropagation()}
+                           >
+                             GitHub →
+                           </a>
+                         ) : fallbackLink ? (
+                           <a
+                             href={fallbackLink.href}
+                             target={fallbackLink.external ? "_blank" : undefined}
+                             rel={fallbackLink.external ? "noopener noreferrer" : undefined}
+                             className="project-link"
+                             onClick={(e) => e.stopPropagation()}
+                           >
+                             {fallbackLink.label} →
+                           </a>
+                         ) : null}
+                       </div>
                     </motion.article>
                   </div>
                   {index !== projects.length - 1 && (
@@ -288,7 +293,7 @@ export default function HomeClient() {
 
           {/* ═══ RESEARCH ═══ */}
           <section id="research" className="section">
-            <SectionHeading title="Research" subtitle="Papers & interests" className="max-w-3xl ml-auto" />
+            <SectionHeading title="Research" label="Papers & interests" className="max-w-3xl ml-auto" />
             <div className="research-content max-w-3xl ml-auto">
               <ScrollReveal y={24}>
                 <p className="research-intro">
@@ -317,7 +322,7 @@ export default function HomeClient() {
 
           {/* ═══ CONTACT ═══ */}
           <section id="contact" className="section contact-section">
-            <SectionHeading title="Contact" subtitle="Get in touch" className="max-w-4xl ml-auto" />
+            <SectionHeading title="Contact" label="Get in touch" className="max-w-4xl ml-auto" />
             <ScrollReveal y={32}>
               <div className="contact-content max-w-4xl ml-auto">
                 <p className="contact-intro">
