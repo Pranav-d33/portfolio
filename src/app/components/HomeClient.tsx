@@ -104,9 +104,9 @@ export default function HomeClient() {
               </motion.div>
               <motion.ul className="intro-recent" variants={fadeUp} aria-label="Recent work">
                 <li className="intro-recent-label">Recently</li>
+                <li>LFX'26 @ Hyperledger Cello</li>
                 <li>Active contributor to Meshery (CNCF)</li>
                 <li>Researching and prototyping domain-specific small language models</li>
-                <li>Picking up Go for systems-level tooling</li>
               </motion.ul>
               <motion.a
                 href="/resume_v4.pdf"

@@ -16,6 +16,7 @@ Role: LLM & Agentic Systems Engineer
 College: SGGS Institute of Engineering & Technology, Nanded
 Degree: B.Tech Electronics & Telecommunication (Minor: IT), 2022-2026
 Credentials: SIH National Finalist x2, UWA Hack For Impact Global Finalist (Top 6)
+Current: LFX'26 @ Hyperledger Cello
 
 --- PROJECTS ---
 
