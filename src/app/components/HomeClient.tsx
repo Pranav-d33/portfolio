@@ -182,25 +182,33 @@ export default function HomeClient() {
             <SectionHeading title="Experience" label="Research & engineering" className="max-w-3xl ml-auto" />
             <div className="max-w-3xl ml-auto space-y-10">
               <ResumeEntry
-                title="AI Research Intern"
-                org={<span className="org-underline">AIISC, University of South Carolina</span>}
-                date="Apr 2026 – Present"
-                description="Working on slm architecture research and rl based finetuning techniques at the AI Institute."
+                title="LFX Mentee"
+                org={<span className="org-underline">Hyperledger Cello · Linux Foundation</span>}
+                date="Jun 2026 – Present"
+                description="Building an AI agent that turns Hyperledger Fabric network operations and Chaincode debugging into a conversation."
                 details={[
-                  "Building agentic pipelines for complex task decomposition",
-                  "Researching coordination strategies between specialized LLM agents",
-                  "Contributing to open-source agent frameworks",
+                  "Designing an AI agent that takes natural language, reasons over Cello API call sequences, and executes operations — eliminating manual dashboard interaction",
+                  "Hyperledger Cello manages the full lifecycle of Hyperledger Fabric networks",
+                ]}
+              />
+              <ResumeEntry
+                title="Research Intern"
+                org={<span className="org-underline">IRT, University of South Carolina</span>}
+                date="Apr 2026 – Present"
+                description="Researching neurosymbolic SLM architectures with RL-based alignment."
+                details={[
+                  "Researching neurosymbolic SLM architecture and pre-training pipelines — integrating symbolic reasoning constraints into small language model training for structured knowledge tasks",
+                  "Working on RL-based fine-tuning (GRPO/RLHF) for SLM alignment — reward modeling, policy optimization, and evaluation on neurosymbolic reasoning benchmarks",
                 ]}
               />
               <ResumeEntry
                 title="Open Source Contributor"
-                org={<span className="org-underline">Meshery (CNCF) / Hyperledger Cello</span>}
-                date="Feb 2026 – Present"
-                description="Contributing to cloud-native and blockchain infrastructure projects."
+                org={<span className="org-underline">Meshery — CNCF Sandbox Project</span>}
+                date="Mar 2026 – Present"
+                description="5+ merged PRs across service mesh management, UI, and API integrations."
                 details={[
-                  "Developed service mesh management features for Meshery",
-                  "Contributed to Hyperledger Cello's blockchain deployment tooling",
-                  "Focused on infrastructure-as-code and observability patterns",
+                  "5+ merged PRs — service mesh management features, UI components, and API integrations across Go backend and React frontend",
+                  "Active in code reviews, issue triage, and community discussions per CNCF contributor guidelines",
                 ]}
               />
             </div>

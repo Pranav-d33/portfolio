@@ -16,9 +16,18 @@ Role: LLM & Agentic Systems Engineer
 College: SGGS Institute of Engineering & Technology, Nanded
 Degree: B.Tech Electronics & Telecommunication (Minor: IT), 2022-2026
 Credentials: SIH National Finalist x2, UWA Hack For Impact Global Finalist (Top 6)
-Current: LFX'26 @ Hyperledger Cello
+Current: LFX'26 @ Hyperledger Cello — AI agent for Fabric network operations
+Research Intern @ IRT, University of South Carolina — neurosymbolic SLMs + RL alignment
+Open Source Contributor @ Meshery (CNCF) — 5+ merged PRs
 
 --- PROJECTS ---
+
+LFX'26 @ Hyperledger Cello (Current)
+Building an AI agent that turns Hyperledger Fabric network operations and 
+Chaincode debugging into a conversation. Natural language → Cello API call 
+sequencing → execution. Eliminates the steep learning curve of manual 
+dashboard interaction.
+Stack: Python, LLMs, Hyperledger Cello API
 
 Medaura (Lead Project)
 Medication errors are an information problem. Built a multi-agent pharmacy 
