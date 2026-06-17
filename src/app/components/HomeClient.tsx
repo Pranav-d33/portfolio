@@ -192,7 +192,7 @@ export default function HomeClient() {
                 ]}
               />
               <ResumeEntry
-                title="Research Intern"
+                title="AI Research Intern"
                 org={<span className="org-underline">IRT, University of South Carolina</span>}
                 date="Apr 2026 – Present"
                 description="Researching neurosymbolic SLM architectures with RL-based alignment."
