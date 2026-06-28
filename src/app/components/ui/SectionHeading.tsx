@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { fadeSlideLeft } from "@/hooks/useSpringAnimation";
+import { fadeSlideLeft } from "@/lib/motion";
 
 interface SectionHeadingProps {
   title: string;

@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { SPRING_EDITORIAL } from "@/hooks/useSpringAnimation";
+import { SPRING_EDITORIAL } from "@/lib/motion";
 
 interface TagProps {
   children: React.ReactNode;

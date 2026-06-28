@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Minus, Sparkles, X } from "lucide-react";
 import { useChat } from "@/lib/useChat";
@@ -31,17 +31,33 @@ export function ChatDrawer({
 }: ChatDrawerProps) {
   const { messages, input, setInput, sendMessage, isStreaming } = chatState;
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const hasContext = Boolean(context?.trim());
+
+  const isNearBottom = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return true;
+    const { scrollTop, scrollHeight, clientHeight } = container;
+    return scrollHeight - scrollTop - clientHeight < 100;
+  }, []);
+
+  const scrollToBottom = useCallback((behavior: ScrollBehavior = "smooth") => {
+    if (messagesEndRef.current && isNearBottom()) {
+      messagesEndRef.current.scrollIntoView({ behavior });
+    }
+  }, [isNearBottom]);
 
   const handleSend = (text: string) => {
     sendMessage(text, hasContext ? { context: messageContext ?? context } : undefined);
   };
 
   useEffect(() => {
-    if (messagesEndRef.current) {
-      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    if (isStreaming) {
+      scrollToBottom("auto");
+    } else {
+      scrollToBottom("smooth");
     }
-  }, [messages]);
+  }, [messages, isStreaming, scrollToBottom]);
 
   return (
     <AnimatePresence>
@@ -70,7 +86,7 @@ export function ChatDrawer({
           </div>
 
           {/* Messages Area */}
-          <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-border-dim">
+          <div ref={containerRef} className="flex-1 overflow-y-auto p-4 flex flex-col gap-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-border-dim">
             {hasContext && (
               <motion.div
                 initial={{ opacity: 0, y: 6 }}

@@ -26,7 +26,7 @@ export const portfolioTools = [
         properties: {
           project: {
             type: "string",
-            enum: ["medaura", "slm", "gnuradio", "rfwatch", "hindi-bpe"],
+            enum: ["medaura", "slm", "gnuradio", "rfwatch"],
           },
         },
         required: ["project"],
@@ -43,7 +43,7 @@ export const portfolioTools = [
         properties: {
           project: {
             type: "string",
-            enum: ["medaura", "slm", "gnuradio", "rfwatch", "hindi-bpe"],
+            enum: ["medaura", "slm", "gnuradio", "rfwatch"],
           },
         },
         required: ["project"],

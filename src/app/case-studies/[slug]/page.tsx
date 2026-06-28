@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { caseStudyPath, projectBySlug, projectCaseStudies } from "@/lib/portfolioData";
+import { ZoomableArchDiagram } from "@/app/components/ui/ZoomableArchDiagram";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -119,18 +120,7 @@ export default async function CaseStudyPage({ params }: Props) {
 
             <section id="architecture" className="py-20 border-t border-fog-border/80">
               <h2 className="text-3xl font-degular font-medium text-ebony-text mb-8">Architecture</h2>
-              <div className="flex flex-col gap-4">
-                {project.architecture.map((row, i) => (
-                  <div key={i} className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-4">
-                    {row.map((node) => (
-                      <div key={node.label} className="p-5 border border-fog-border rounded-lg">
-                        <strong className="text-lg text-ebony-text font-medium">{node.label}</strong>
-                        {node.sub && <span className="block text-base text-stone-text mt-2">{node.sub}</span>}
-                      </div>
-                    ))}
-                  </div>
-                ))}
-              </div>
+              <ZoomableArchDiagram architecture={project.architecture} />
             </section>
 
             <section id="decisions" className="py-20 border-t border-fog-border/80">

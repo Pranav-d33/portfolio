@@ -18,13 +18,10 @@ export type RelatedPaper = {
 
 export type ProjectCaseStudy = {
   slug: string;
-  toolSlug: string;
-  cardId: string;
   title: string;
-  shortTitle: string;
+  coverImage: string;
   thesis: string;
   hook: string;
-  summary: string;
   proofTitle: string;
   proofDesc: string;
   role: string;
@@ -77,14 +74,10 @@ export const paperLibrary: Record<string, RelatedPaper> = {
 export const projectCaseStudies: ProjectCaseStudy[] = [
   {
     slug: "medaura",
-    toolSlug: "medaura",
-    cardId: "project-medaura",
     title: "Medaura - Agentic Pharmacy System",
-    shortTitle: "Medaura",
+    coverImage: "/medaura_ui.png",
     thesis: "Medication errors are an information problem: the data exists, but it is not connected at the moment it matters.",
     hook: "Medication errors are an information problem. The information exists - it is just not connected at the moment it matters.",
-    summary:
-      "Five specialized agents orchestrated with LangGraph handle ordering, safety checks, forecasting, procurement, and UI flow across a multilingual pharmacy workflow.",
     proofTitle: "Langfuse Trace",
     proofDesc: "Routing latency under 120ms",
     role: "Lead engineer",
@@ -133,14 +126,10 @@ export const projectCaseStudies: ProjectCaseStudy[] = [
   },
   {
     slug: "tinystories",
-    toolSlug: "slm",
-    cardId: "project-slm",
     title: "Small Language Model From Scratch - TinyStories",
-    shortTitle: "TinyStories SLM",
+    coverImage: "/training_progress.png",
     thesis: "A small transformer built from scratch to understand every layer before trusting higher-level abstractions.",
     hook: "Every LLM course teaches you to call an API. I wanted to know what happens before the API.",
-    summary:
-      "A GPT-style autoregressive transformer trained on TinyStories with a custom tokenizer, memory-mapped pipeline, mixed precision, and scheduler experiments.",
     proofTitle: "Loss Curve",
     proofDesc: "Converged at 2.1 validation loss",
     role: "Research engineer",
@@ -189,14 +178,10 @@ export const projectCaseStudies: ProjectCaseStudy[] = [
   },
   {
     slug: "gnuradio-mcp",
-    toolSlug: "gnuradio",
-    cardId: "project-gnuradio",
     title: "GNU Radio MCP Server - LLM-to-SDR Bridge",
-    shortTitle: "GNU Radio MCP",
+    coverImage: "/gnu-radio-mcp.png",
     thesis: "An MCP server that lets language models control live GNU Radio software-defined radio flowgraphs through validated tools.",
     hook: "LLMs can reason about RF signals. They just could not touch a radio. This closes that gap.",
-    summary:
-      "A Model Context Protocol server exposes SDR controls, IQ capture, spectrum analysis, and flowgraph parameters through 13 validated tools.",
     proofTitle: "Architecture",
     proofDesc: "13 tools over ZMQ + XML-RPC",
     role: "Systems engineer",
@@ -244,14 +229,10 @@ export const projectCaseStudies: ProjectCaseStudy[] = [
   },
   {
     slug: "rf-watch",
-    toolSlug: "rfwatch",
-    cardId: "project-rfwatch",
     title: "RF Watch - Open-Source Real-Time RF Spectrum Monitor",
-    shortTitle: "RF Watch",
+    coverImage: "/rfwatch_signaldetails.png",
     thesis: "A passive RF spectrum monitor that favors deterministic physical-layer evidence over black-box classification.",
     hook: "Physical-layer first: no protocol decoding, no black-box certainty, just traceable RF evidence.",
-    summary:
-      "A HackRF One and GNU Radio based monitor extracts spectral features with FFT/Welch PSD pipelines for passive detection of unusual transmitters.",
     proofTitle: "RF Monitor",
     proofDesc: "Passive spectrum analysis",
     role: "Signal-processing engineer",
@@ -298,10 +279,6 @@ export const projectCaseStudies: ProjectCaseStudy[] = [
 
 export const projectBySlug = Object.fromEntries(
   projectCaseStudies.map((project) => [project.slug, project])
-) as Record<string, ProjectCaseStudy>;
-
-export const projectByToolSlug = Object.fromEntries(
-  projectCaseStudies.map((project) => [project.toolSlug, project])
 ) as Record<string, ProjectCaseStudy>;
 
 export function caseStudyPath(slug: string) {

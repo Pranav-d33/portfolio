@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import HomeClient from "./components/HomeClient";
+import AppShell from "./components/AppShell";
 import { baseUrl, caseStudyPath, projectCaseStudies } from "@/lib/portfolioData";
 
 const BASE_URL = baseUrl;
@@ -122,7 +122,7 @@ export default function Home() {
           __html: JSON.stringify(structuredData),
         }}
       />
-      <HomeClient />
+      <AppShell />
     </>
   );
 }
