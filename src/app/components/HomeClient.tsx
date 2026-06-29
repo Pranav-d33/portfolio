@@ -334,7 +334,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
 
           {/* ═══ FOOTER ═══ */}
           <motion.footer
-            className="footer"
+            className="footer pb-12 pt-8"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true, margin: "-20px 0px" }}

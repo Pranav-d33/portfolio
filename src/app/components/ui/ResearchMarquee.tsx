@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { paperLibrary } from "@/lib/portfolioData";
 
@@ -12,22 +11,12 @@ function extractArxivId(href: string) {
 }
 
 export function ResearchMarquee() {
-  const [paused, setPaused] = useState(false);
   const loop = [...papers, ...papers];
 
   return (
     <div className="research-marquee-wrap">
-      <div
-        className="research-marquee"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onFocus={() => setPaused(true)}
-        onBlur={() => setPaused(false)}
-      >
-        <div
-          className="research-marquee-track"
-          style={{ animationPlayState: paused ? "paused" : "running" }}
-        >
+      <div className="research-marquee">
+        <div className="research-marquee-track">
           {loop.map((paper, i) => {
             const index = (i % papers.length) + 1;
             const arxivId = extractArxivId(paper.href);

@@ -1965,6 +1965,13 @@ p + p {
   animation: marquee-scroll 50s linear infinite;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .research-marquee:hover .research-marquee-track,
+  .research-marquee:focus-within .research-marquee-track {
+    animation-play-state: paused;
+  }
+}
+
 .research-marquee-item {
   flex-shrink: 0;
   width: 340px;
@@ -2087,6 +2094,21 @@ p + p {
 
   .research-marquee-track {
     animation: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .research-marquee-item {
+    width: 260px;
+    padding: 1.5rem 1.25rem;
+  }
+  .research-marquee-title {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+  .research-marquee-note {
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 }
 
