@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useLayoutEffect, useCallback } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, useSpring } from "framer-motion";
 import { ResumeEntry } from "./ResumeEntry";
 import { MOTION } from "@/lib/motion";
 
@@ -52,6 +52,20 @@ function ExperienceRow({
     };
   }, [measure, entry.title]);
 
+  const { scrollYProgress } = useScroll({
+    target: rowRef,
+    offset: ["start 65%", "end 65%"]
+  });
+
+  const branchScaleXRaw = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
+  const branchScaleX = useSpring(branchScaleXRaw, { stiffness: 100, damping: 25 });
+  
+  const dotScaleRaw = useTransform(scrollYProgress, [0.35, 0.5], [0, 1]);
+  const dotScale = useSpring(dotScaleRaw, { stiffness: 150, damping: 20 });
+  
+  const nodeScaleRaw = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
+  const nodeScale = useSpring(nodeScaleRaw, { stiffness: 150, damping: 20 });
+
   return (
     <div ref={rowRef} className="experience-track-row">
       <motion.div
@@ -62,25 +76,25 @@ function ExperienceRow({
             ? ({ "--branch-top": `${branchTop}px` } as React.CSSProperties)
             : undefined
         }
-        initial={{ opacity: 0, x: -10 }}
-        animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
-        transition={{ duration: MOTION.fast, ease: MOTION.easeOutQuart }}
       >
         <motion.span
           className="experience-track-branch"
-          style={{ transformOrigin: "left", y: "-50%" }}
-          initial={{ scaleX: 0 }}
-          animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-          transition={{ duration: 0.6, ease: MOTION.easeOutQuart, delay: 0.2 }}
+          style={{ transformOrigin: "left", y: "-50%", scaleX: branchScaleX }}
         />
-        <span className="experience-track-node" />
-        <span className="experience-track-dot" />
+        <motion.span 
+          className="experience-track-node" 
+          style={{ scale: nodeScale }}
+        />
+        <motion.span 
+          className="experience-track-dot" 
+          style={{ scale: dotScale }}
+        />
       </motion.div>
       <div className="experience-track-content">
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: MOTION.standard, delay: index * MOTION.staggerSlow, ease: MOTION.easeOutQuart }}
+          transition={{ duration: MOTION.standard, delay: index * MOTION.staggerStandard, ease: MOTION.easeOutQuart }}
         >
           <ResumeEntry {...entry} />
         </motion.div>
@@ -91,17 +105,25 @@ function ExperienceRow({
 
 export function ExperienceTrack({ entries }: ExperienceTrackProps) {
   const trackRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(trackRef, { once: true, margin: "-5% 0px" });
+  
+  const { scrollYProgress } = useScroll({
+    target: trackRef,
+    offset: ["start 65%", "end 65%"]
+  });
+
+  const spineScaleYRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
+  const spineScaleY = useSpring(spineScaleYRaw, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
 
   return (
     <div ref={trackRef} className="experience-track">
       <motion.div
         className="experience-spine-rail"
         aria-hidden="true"
-        style={{ transformOrigin: "top" }}
-        initial={{ scaleY: 0, opacity: 0 }}
-        animate={isInView ? { scaleY: 1, opacity: 1 } : { scaleY: 0, opacity: 0 }}
-        transition={{ duration: 1.2, ease: MOTION.easeOutExpo }}
+        style={{ transformOrigin: "top", scaleY: spineScaleY }}
       />
       {entries.map((entry, i) => (
         <ExperienceRow

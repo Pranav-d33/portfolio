@@ -68,10 +68,6 @@ export function SiteIntro({ onComplete }: SiteIntroProps) {
           visible: { transition: { staggerChildren: 0.15, delayChildren: 0.2 } },
         }}
       >
-        <motion.span className="section-label site-intro-label" variants={fadeLine}>
-          Entering
-        </motion.span>
-
         <blockquote id="site-intro-quote" className="site-intro-quote">
           <motion.span className="site-intro-quote-line" variants={fadeLine}>
             {OPENING_QUOTE.line1}

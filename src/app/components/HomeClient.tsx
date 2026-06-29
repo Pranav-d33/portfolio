@@ -151,10 +151,11 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
           {/* ═══ ABOUT ═══ */}
           <section id="about" className="section about-section relative py-[180px]">
             <SectionHeading title="About" label="Background & focus" className="max-w-4xl mx-auto" />
-            <div className="relative max-w-4xl mx-auto">
-              <div className="grid md:grid-cols-2 gap-12">
-                <RevealOnScroll direction="left" className="relative">
-                  <div className="relative lg:absolute lg:right-[100%] lg:mr-12 lg:top-0 flip-card w-[340px] h-[340px] mx-auto lg:mx-0 mb-6 lg:mb-0">
+            <div className="relative w-full mt-12 max-w-[1284px] mx-auto">
+              <div className="flex flex-col lg:flex-row gap-12 items-start justify-center w-full">
+                {/* Image explicitly aligned with Hero image */}
+                <RevealOnScroll direction="left" className="shrink-0 mx-auto lg:mx-0">
+                  <div className="flip-card w-[340px] h-[340px] mb-6 lg:mb-0">
                     <div className="flip-card-inner h-full">
                       <div className="flip-card-front rounded-lg overflow-hidden border border-black/5 dark:border-white/10 bg-fog-bg dark:bg-graphite-bg">
                         <img
@@ -174,45 +175,52 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                       </div>
                     </div>
                   </div>
+                </RevealOnScroll>
 
-                  <div className="lg:flex lg:flex-col lg:min-h-[340px]">
-                    <p className="text-body text-ebony-text/70 dark:text-white/50 leading-body measure mb-4 lg:mb-0">
-                      I started in RF and signals. Turns out the most interesting signal to decode is language.
-                      Now I build the systems that do both — from transformers to multi-agent pipelines to LLM-controlled hardware.
-                    </p>
-                    <div className="hidden lg:block flex-1" />
-                    <p className="text-body text-ebony-text/70 dark:text-white/50 leading-body measure">
-                      B.Tech — Electronics & Telecom Engineering at SGGSIE&T, Nanded (2023–Present).
-                    </p>
+                {/* Text and Achievements Grid */}
+                <div className="flex-1 w-full max-w-4xl mx-auto lg:mx-0">
+                  <div className="grid md:grid-cols-2 gap-12">
+                    <RevealOnScroll direction="bottom">
+                      <div className="lg:flex lg:flex-col lg:min-h-[340px]">
+                        <p className="text-body text-ebony-text/70 dark:text-white/50 leading-body measure mb-4 lg:mb-0">
+                          I started in RF and signals. Turns out the most interesting signal to decode is language.
+                          Now I build the systems that do both — from transformers to multi-agent pipelines to LLM-controlled hardware.
+                        </p>
+                        <div className="hidden lg:block flex-1" />
+                        <p className="text-body text-ebony-text/70 dark:text-white/50 leading-body measure">
+                          B.Tech — Electronics & Telecom Engineering at SGGSIE&T, Nanded (2023–Present).
+                        </p>
+                      </div>
+                    </RevealOnScroll>
+
+                    <RevealOnScroll direction="right">
+                      <h3 className="text-subheading text-ebony-text leading-subheading font-medium mb-16">
+                        Achievements
+                      </h3>
+                      <ul className="space-y-5 about-achievements">
+                        {[
+                          "National Finalist — Smart India Hackathon 2024",
+                          "National Finalist — Smart India Hackathon 2025",
+                          "Global Finalist Top 6 — UWA Hack For Impact 2026",
+                        ].map((a, i) => (
+                          <motion.li
+                            key={a}
+                            className="text-body text-ebony-text/70 dark:text-white/50 leading-body pl-4 border-l-2 border-ebony-text"
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true }}
+                            transition={{
+                              ...MOTION.springEditorial,
+                              delay: i * MOTION.staggerStandard,
+                            }}
+                          >
+                            {a}
+                          </motion.li>
+                        ))}
+                      </ul>
+                    </RevealOnScroll>
                   </div>
-                </RevealOnScroll>
-
-                <RevealOnScroll direction="right">
-                  <h3 className="text-subheading text-ebony-text leading-subheading font-medium mb-16">
-                    Achievements
-                  </h3>
-                  <ul className="space-y-5 about-achievements">
-                    {[
-                      "National Finalist — Smart India Hackathon 2024",
-                      "National Finalist — Smart India Hackathon 2025",
-                      "Global Finalist Top 6 — UWA Hack For Impact 2026",
-                    ].map((a, i) => (
-                      <motion.li
-                        key={a}
-                        className="text-body text-ebony-text/70 dark:text-white/50 leading-body pl-4 border-l-2 border-ebony-text"
-                        initial={{ opacity: 0, x: -20 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{
-                          ...MOTION.springEditorial,
-                          delay: i * MOTION.staggerStandard,
-                        }}
-                      >
-                        {a}
-                      </motion.li>
-                    ))}
-                  </ul>
-                </RevealOnScroll>
+                </div>
               </div>
             </div>
           </section>
@@ -223,7 +231,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
             ref={experienceRef}
             className="section experience-section relative"
           >
-            <div className="experience-inner max-w-4xl mx-auto">
+            <div className="experience-inner max-w-[1200px] mx-auto">
               <SectionHeading title="Experience" label="Research & engineering" />
               <ExperienceTrack entries={experienceEntries} />
             </div>
@@ -252,9 +260,9 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
 
           {/* ═══ CONTACT ═══ */}
           <section id="contact" className="section contact-section">
-            <SectionHeading title="Contact" label="Get in touch" className="max-w-4xl mx-auto" />
+            <SectionHeading title="Contact" label="Get in touch" className="max-w-[1200px] mx-auto" />
             <RevealOnScroll direction="bottom">
-              <div className="contact-content max-w-4xl mx-auto">
+              <div className="contact-content max-w-[1200px] mx-auto">
                 <p className="contact-intro">
                   I&apos;m always open to research discussions, collaboration, and building things that matter.
                 </p>

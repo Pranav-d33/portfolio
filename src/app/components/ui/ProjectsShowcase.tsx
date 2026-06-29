@@ -135,9 +135,9 @@ export function ProjectsShowcase() {
       <SectionHeading
         title="Projects"
         label="Selected work"
-        className="max-w-5xl mx-auto lg:translate-x-[-3%]"
+        className="max-w-[1200px] mx-auto"
       />
-      <div className="projects-showcase max-w-5xl mx-auto lg:translate-x-[-3%]">
+      <div className="projects-showcase max-w-[1200px] mx-auto">
         {projectCaseStudies.map((project, index) => (
           <ProjectBlock key={project.slug} project={project} index={index} />
         ))}
