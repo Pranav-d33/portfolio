@@ -98,7 +98,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${manrope.variable} ${geistMono.variable} dark`}
+      className={`${cormorant.variable} ${manrope.variable} ${geistMono.variable}`}
       suppressHydrationWarning
     >
       <head>
