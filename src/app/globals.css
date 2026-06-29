@@ -506,14 +506,17 @@ p + p {
 .cta-button {
   background: var(--color-jet-button);
   color: #fff;
-  padding: 8px 12px;
+  padding: 12px 16px;
   border-radius: 4px;
   font-size: 1.2rem;
   font-weight: 500;
   font-family: var(--font-degular);
   text-decoration: none;
-  display: inline-flex;
+  display: flex;
+  width: 100%;
+  max-width: 34rem;
   align-items: center;
+  justify-content: flex-start;
 }
 
 .cta-button:hover {
@@ -1508,13 +1511,17 @@ p + p {
 /* ====== Email / Link Container (Daniel Pizza style) ====== */
 .cta-button {
   background: var(--color-jet-button);
-  padding: 0.5rem 0.75rem;
+  padding: 12px 16px;
   border-radius: 4px;
   font-size: 1.125rem;
   font-weight: 500;
   text-decoration: none;
   color: #fff;
-  display: inline-block;
+  display: flex;
+  width: 100%;
+  max-width: 34rem;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .cta-button:hover {
