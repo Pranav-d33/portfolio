@@ -264,7 +264,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
             <RevealOnScroll direction="bottom">
               <div className="contact-content max-w-[1200px] mx-auto">
                 <p className="contact-intro">
-                  I&apos;m always open to research discussions, collaboration, and building things that matter.
+                  Currently interested in AI research internships, open-source collaborations, and systems engineering opportunities.
                 </p>
                 <div className="contact-actions flex flex-wrap gap-6">
                   <motion.a
