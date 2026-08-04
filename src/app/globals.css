@@ -102,6 +102,23 @@ html {
   text-size-adjust: 100%;
 }
 
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -314,6 +331,13 @@ p + p {
   font-kerning: normal;
   font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
   text-wrap: pretty;
+  position: relative;
+  z-index: 3;
+  background: rgba(244, 241, 234, 0.88) !important;
+}
+
+.dark .hero-content {
+  background: rgba(26, 23, 20, 0.88) !important;
 }
 
 @media (min-width: 1024px) {
@@ -1284,12 +1308,25 @@ p + p {
 
 /* ====== Hero Images (desktop absolute, mobile stacked) ====== */
 
+/* ====== Hero Scrim — subtle contrast wash above animation, below content ====== */
+.hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse 80% 70% at 65% 50%, rgba(244,241,234,0.40) 0%, rgba(244,241,234,0.10) 50%, transparent 80%);
+}
+
+.dark .hero-scrim {
+  background: radial-gradient(ellipse 80% 70% at 65% 50%, rgba(26,23,20,0.35) 0%, rgba(26,23,20,0.05) 50%, transparent 80%);
+}
+
 .hero-images {
   position: absolute;
   top: 25vh;
   left: clamp(2rem, 9vw, 8rem);
   right: 0;
-  z-index: 1;
+  z-index: 2;
   pointer-events: none;
   will-change: transform;
   --hero-image-size: clamp(280px, 20vw, 320px);
@@ -1714,15 +1751,21 @@ p + p {
   padding-left: 1rem;
 }
 
-.experience-spine-rail {
+.experience-spine-svg {
   position: absolute;
-  left: calc(1rem - 0.75px);
-  bottom: 0;
-  top: 0;
-  width: 1.5px;
-  background: var(--color-rule);
+  inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
   z-index: 0;
+  overflow: visible;
+}
+
+.experience-spine-path {
+  fill: none;
+  stroke: var(--color-rule);
+  stroke-width: 1.5;
+  stroke-linecap: round;
 }
 
 .experience-track-row {
@@ -1738,15 +1781,6 @@ p + p {
   position: relative;
   width: 100%;
   min-height: 1px;
-}
-
-.experience-track-branch {
-  position: absolute;
-  left: -1px;
-  width: calc(100% + 0.75rem);
-  top: var(--branch-top, 2.25rem);
-  height: 1.5px;
-  background: var(--color-rule);
 }
 
 .experience-track-node {
@@ -1796,12 +1830,8 @@ p + p {
   background: var(--color-canvas);
 }
 
-.dark .experience-track-branch {
-  background: rgba(229, 231, 235, 0.45);
-}
-
-.dark .experience-spine-rail {
-  background: rgba(255, 255, 255, 0.18);
+.dark .experience-spine-path {
+  stroke: rgba(255, 255, 255, 0.18);
 }
 
 @media (max-width: 1024px) {
@@ -1809,7 +1839,7 @@ p + p {
     padding-left: 0;
   }
 
-  .experience-spine-rail,
+  .experience-spine-svg,
   .experience-track-marker {
     display: none;
   }
@@ -2162,5 +2192,4 @@ p + p {
 .dark .closing-quote-text p {
   color: #dc7a7a;
 }
-
 

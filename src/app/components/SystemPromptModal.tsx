@@ -127,7 +127,7 @@ export function SystemPromptModal({ isOpen, onClose }: SystemPromptModalProps) {
               </div>
             </div>
 
-            <div className="flex-1 overflow-auto bg-transparent p-4 sm:p-8">
+            <div data-lenis-prevent className="flex-1 overflow-auto bg-transparent p-4 sm:p-8">
               <pre className="text-ebony-text/90 dark:text-white/90 leading-relaxed whitespace-pre-wrap font-mono text-xs sm:text-sm md:text-base">
                 {SYSTEM_PROMPT_CONTENT}
               </pre>

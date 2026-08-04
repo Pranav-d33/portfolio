@@ -1,9 +1,14 @@
 "use client";
 
-import { useState, useRef, useLayoutEffect, useCallback } from "react";
+import { useState, useRef, useLayoutEffect, useEffect, useCallback } from "react";
 import { motion, useInView, useScroll, useTransform, useSpring } from "framer-motion";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ResumeEntry } from "./ResumeEntry";
 import { MOTION } from "@/lib/motion";
+import { isTouch, prefersReducedMotion } from "@/lib/scroll";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type ExperienceEntry = {
   title: string;
@@ -54,15 +59,12 @@ function ExperienceRow({
 
   const { scrollYProgress } = useScroll({
     target: rowRef,
-    offset: ["start 65%", "end 65%"]
+    offset: ["start 65%", "end 65%"],
   });
 
-  const branchScaleXRaw = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
-  const branchScaleX = useSpring(branchScaleXRaw, { stiffness: 100, damping: 25 });
-  
   const dotScaleRaw = useTransform(scrollYProgress, [0.35, 0.5], [0, 1]);
   const dotScale = useSpring(dotScaleRaw, { stiffness: 150, damping: 20 });
-  
+
   const nodeScaleRaw = useTransform(scrollYProgress, [0, 0.15], [0, 1]);
   const nodeScale = useSpring(nodeScaleRaw, { stiffness: 150, damping: 20 });
 
@@ -78,15 +80,11 @@ function ExperienceRow({
         }
       >
         <motion.span
-          className="experience-track-branch"
-          style={{ transformOrigin: "left", y: "-50%", scaleX: branchScaleX }}
-        />
-        <motion.span 
-          className="experience-track-node" 
+          className="experience-track-node"
           style={{ scale: nodeScale }}
         />
-        <motion.span 
-          className="experience-track-dot" 
+        <motion.span
+          className="experience-track-dot"
           style={{ scale: dotScale }}
         />
       </motion.div>
@@ -105,26 +103,105 @@ function ExperienceRow({
 
 export function ExperienceTrack({ entries }: ExperienceTrackProps) {
   const trackRef = useRef<HTMLDivElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: trackRef,
-    offset: ["start 65%", "end 65%"]
-  });
+  const svgRef = useRef<SVGSVGElement>(null);
+  const pathRef = useRef<SVGPathElement>(null);
+  const [pathD, setPathD] = useState<string | null>(null);
 
-  const spineScaleYRaw = useTransform(scrollYProgress, [0, 1], [0, 1]);
-  const spineScaleY = useSpring(spineScaleYRaw, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
+  const measure = useCallback(() => {
+    const track = trackRef.current;
+    const svg = svgRef.current;
+    if (!track || !svg) return;
+    const svgRect = svg.getBoundingClientRect();
+
+    const points = Array.from(
+      track.querySelectorAll<HTMLElement>(".experience-track-row"),
+    )
+      .map((row) => {
+        const title = row.querySelector<HTMLElement>(".resume-entry-title");
+        const node = row.querySelector<HTMLElement>(".experience-track-node");
+        const dot = row.querySelector<HTMLElement>(".experience-track-dot");
+        if (!title || !node || !dot) return null;
+        const titleRect = title.getBoundingClientRect();
+        const nodeRect = node.getBoundingClientRect();
+        const dotRect = dot.getBoundingClientRect();
+        return {
+          y: titleRect.top - svgRect.top + titleRect.height / 2,
+          spineX: nodeRect.left + nodeRect.width / 2 - svgRect.left,
+          dotX: dotRect.left + dotRect.width / 2 - svgRect.left,
+        };
+      })
+      .filter((p): p is NonNullable<typeof p> => p !== null);
+
+    if (points.length === 0) return;
+
+    const spineX = points[0].spineX;
+    let d = `M ${spineX} 0 V ${svgRect.height} `;
+    for (const p of points) {
+      d += `M ${spineX} ${p.y} H ${p.dotX} `;
+    }
+    setPathD(d);
+  }, []);
+
+  useLayoutEffect(() => {
+    measure();
+    const track = trackRef.current;
+    if (!track) return;
+    const observer = new ResizeObserver(measure);
+    observer.observe(track);
+    window.addEventListener("resize", measure);
+    if (document.fonts?.ready) document.fonts.ready.then(measure);
+    const raf = requestAnimationFrame(measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+      cancelAnimationFrame(raf);
+    };
+  }, [measure, entries]);
+
+  useEffect(() => {
+    if (!pathD) return;
+    const path = pathRef.current;
+    if (!path) return;
+    if (isTouch() || prefersReducedMotion()) return;
+
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = `${length}`;
+    path.style.strokeDashoffset = `${length}`;
+
+    const ctx = gsap.context(() => {
+      gsap.to(path, {
+        strokeDashoffset: 0,
+        ease: "none",
+        scrollTrigger: {
+          trigger: trackRef.current,
+          start: "top 75%",
+          end: "bottom 45%",
+          scrub: 0.5,
+        },
+      });
+    }, trackRef);
+
+    return () => ctx.revert();
+  }, [pathD]);
 
   return (
     <div ref={trackRef} className="experience-track">
-      <motion.div
-        className="experience-spine-rail"
+      <svg
+        ref={svgRef}
+        className="experience-spine-svg"
         aria-hidden="true"
-        style={{ transformOrigin: "top", scaleY: spineScaleY }}
-      />
+        width="100%"
+        height="100%"
+        preserveAspectRatio="none"
+      >
+        {pathD && (
+          <path
+            ref={pathRef}
+            className="experience-spine-path"
+            d={pathD}
+          />
+        )}
+      </svg>
       {entries.map((entry, i) => (
         <ExperienceRow
           key={entry.title}

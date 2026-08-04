@@ -86,7 +86,7 @@ export function ChatDrawer({
           </div>
 
           {/* Messages Area */}
-          <div ref={containerRef} className="flex-1 overflow-y-auto p-4 flex flex-col gap-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-border-dim">
+          <div ref={containerRef} data-lenis-prevent className="flex-1 overflow-y-auto p-4 flex flex-col gap-4 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-border-dim">
             {hasContext && (
               <motion.div
                 initial={{ opacity: 0, y: 6 }}

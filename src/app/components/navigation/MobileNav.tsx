@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback } from "react";
+import { scrollToSection } from "@/lib/scroll";
 
 const navItems = [
   { id: "about", label: "About" },
@@ -12,10 +13,7 @@ const navItems = [
 
 export function MobileNav({ activeSection }: { activeSection: string }) {
   const scrollTo = useCallback((id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    scrollToSection(id);
   }, []);
 
   return (

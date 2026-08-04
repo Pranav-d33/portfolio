@@ -1,7 +1,16 @@
 "use client";
 
-import { useCallback, useSyncExternalStore } from "react";
-import { motion, useReducedMotion, useScroll, useSpring, useTransform, useVelocity } from "framer-motion";
+import { useCallback, useSyncExternalStore, useRef } from "react";
+import { scrollToSection, scrollToTop } from "@/lib/scroll";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+  useVelocity,
+  useMotionValue,
+} from "framer-motion";
 import { Moon, Sun } from "lucide-react";
 import { MOTION } from "@/lib/motion";
 
@@ -39,6 +48,35 @@ export function Sidebar({ activeSection }: { activeSection: string }) {
   const nameRotate = useTransform(easedVelocity, [-1400, 0, 1400], [-2, 0, 2]);
   const nameScale = useTransform(easedVelocity, [-1400, 0, 1400], [0.985, 1, 1.015]);
 
+  // Cursor-reactive 3D tilt for the name
+  const headerRef = useRef<HTMLDivElement>(null);
+  const cursorX = useMotionValue(0);
+  const cursorY = useMotionValue(0);
+  const springX = useSpring(cursorX, MOTION.springEditorial);
+  const springY = useSpring(cursorY, MOTION.springEditorial);
+  const cursorRotateX = useTransform(springY, [-1, 1], [4, -4]);
+  const cursorRotateY = useTransform(springX, [-1, 1], [-4, 4]);
+  const cursorTranslateY = useTransform(springY, [-1, 1], [-2, 2]);
+
+  const onPointerMove = useCallback(
+    (e: React.PointerEvent) => {
+      const el = headerRef.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      cursorX.set(((e.clientX - r.left) / r.width) * 2 - 1);
+      cursorY.set(((e.clientY - r.top) / r.height) * 2 - 1);
+    },
+    [cursorX, cursorY],
+  );
+
+  const onPointerLeave = useCallback(() => {
+    cursorX.set(0);
+    cursorY.set(0);
+  }, [cursorX, cursorY]);
+
+  const displayY = useTransform(() => nameY.get() + cursorTranslateY.get());
+  const displayScale = useTransform(() => nameScale.get());
+
   const toggleDark = useCallback(() => {
     const next = !document.documentElement.classList.contains("dark");
     document.documentElement.classList.toggle("dark", next);
@@ -46,24 +84,38 @@ export function Sidebar({ activeSection }: { activeSection: string }) {
   }, []);
 
   const scrollTo = useCallback((id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+    scrollToSection(id);
   }, []);
 
   const scrollHome = useCallback(() => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    scrollToTop();
   }, []);
 
   return (
     <>
       {/* Fixed top header */}
-      <header className="fixed top-0 left-0 z-50 p-6 flex justify-between items-center w-full">
+      <header
+        ref={headerRef}
+        className="fixed top-0 left-0 z-50 p-6 flex justify-between items-center w-full"
+        onPointerMove={onPointerMove}
+        onPointerLeave={onPointerLeave}
+        style={{ perspective: "600px" }}
+      >
         <motion.button
           onClick={scrollHome}
-          className="font-blanco text-xl font-medium text-ebony-text/70 hover:text-ebony-text origin-left transform-gpu motion-safe"
-          style={prefersReducedMotion ? undefined : { y: nameY, rotate: nameRotate, scale: nameScale }}
+          className="font-blanco text-xl font-medium text-ebony-text/70 hover:text-ebony-text origin-left"
+          style={
+            prefersReducedMotion
+              ? undefined
+              : {
+                  y: displayY,
+                  rotate: nameRotate,
+                  scale: displayScale,
+                  rotateX: cursorRotateX,
+                  rotateY: cursorRotateY,
+                  transformStyle: "preserve-3d",
+                }
+          }
           whileHover={{ scale: 1.015 }}
           whileTap={{ scale: 0.99 }}
           transition={MOTION.springEditorial}

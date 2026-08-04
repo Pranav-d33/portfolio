@@ -231,7 +231,7 @@ export function ZoomableArchDiagram({ architecture, title }: ZoomableArchDiagram
                 </h3>
               </div>
 
-              <div className="relative w-full h-[calc(100%-80px)] overflow-auto">
+              <div data-lenis-prevent className="relative w-full h-[calc(100%-80px)] overflow-auto">
                 <svg
                   className="absolute inset-0 w-full h-full pointer-events-none"
                   style={{ minWidth: "800px", minHeight: positions.length > 0 ? Math.max(...positions.map(p => p.y + p.height)) + PADDING_Y : "400px" }}

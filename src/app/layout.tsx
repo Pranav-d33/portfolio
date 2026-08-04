@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Manrope, Geist_Mono } from "next/font/google";
+import { SmoothScroll } from "@/lib/scroll";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -118,6 +119,7 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
+        <SmoothScroll />
         {children}
       </body>
     </html>
