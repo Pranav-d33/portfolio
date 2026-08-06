@@ -37,8 +37,7 @@ const PADDING_Y = 40;
 export function ZoomableArchDiagram({ architecture, title }: ZoomableArchDiagramProps) {
   const [isZoomed, setIsZoomed] = useState(false);
   const [hoveredNode, setHoveredNode] = useState<number | null>(null);
-  const [hoveredConnection, setHoveredConnection] = useState<number | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [hoveredConnection] = useState<number | null>(null);
   const zoomedContainerRef = useRef<HTMLDivElement>(null);
   const [positions, setPositions] = useState<NodePosition[]>([]);
 
@@ -319,9 +318,6 @@ export function ZoomableArchDiagram({ architecture, title }: ZoomableArchDiagram
                       }}
                     >
                       {row.map((node, nodeIdx) => {
-                        const pos = flatPositions.find(
-                          (p) => p.rowIdx === rowIdx && p.nodeIdx === nodeIdx
-                        );
                         return (
                           <motion.div
                             key={nodeIdx}

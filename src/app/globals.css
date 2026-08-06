@@ -263,18 +263,6 @@ p + p {
   color: #e5e7eb;
 }
 
-.section-subtitle {
-  font-family: var(--font-blanco);
-  font-size: 1.2rem;
-  line-height: 1.6;
-  color: var(--color-graphite-text);
-  margin: 0;
-}
-
-.dark .section-subtitle {
-  color: rgba(229, 231, 235, 0.6);
-}
-
 /* ====== About section readability ====== */
 .about-section h3 {
   font-size: 1.5rem;
@@ -333,11 +321,6 @@ p + p {
   text-wrap: pretty;
   position: relative;
   z-index: 3;
-  background: rgba(244, 241, 234, 0.88) !important;
-}
-
-.dark .hero-content {
-  background: rgba(26, 23, 20, 0.88) !important;
 }
 
 @media (min-width: 1024px) {
@@ -558,59 +541,6 @@ p + p {
   background: #9ca3af;
 }
 
-.cta-link {
-  font-family: var(--font-degular);
-  font-size: 15px;
-  color: var(--color-graphite-text);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-}
-
-.cta-link svg {
-  vertical-align: middle;
-}
-
-.cta-link:hover {
-  color: var(--color-ebony-text);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.dark .cta-link {
-  color: #e5e7eb;
-}
-
-.dark .cta-link:hover {
-  color: #9ca3af;
-}
-
-/* ====== Work titles ====== */
-.work-title {
-  font-family: var(--font-degular);
-  font-size: 1.65rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: var(--color-ebony-text);
-}
-
-.dark .work-title {
-  color: #e5e7eb;
-}
-
-.work-desc {
-  font-family: var(--font-blanco);
-  font-size: 1.1rem;
-  font-weight: 400;
-  margin-bottom: 1rem;
-  color: var(--color-ink-soft);
-  opacity: 1;
-}
-
-.dark .work-desc {
-  color: #9ca3af;
-}
-
 /* ====== Resume section ====== */
 .resume {
   margin-top: 6rem;
@@ -797,52 +727,6 @@ p + p {
 .dark .tag:hover {
   border-color: #e5e7eb;
   color: #e5e7eb;
-}
-
-/* ====== Section with side gallery (desktop two-column) ====== */
-.section-with-gallery {
-  display: block;
-}
-
-@media (min-width: 1024px) {
-  .section-with-gallery {
-    display: grid;
-    grid-template-columns: 340px 1fr;
-    gap: 48px;
-    align-items: start;
-  }
-}
-
-.section-gallery {
-  /* display controlled by parent Tailwind classes (hidden lg:block) */
-}
-
-@media (min-width: 1024px) {
-  .section-gallery {
-    position: sticky;
-    top: 100px;
-  }
-}
-
-.section-gallery img {
-  width: 100%;
-  border-radius: 8px;
-  object-fit: cover;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  transition: opacity 0.4s ease, filter 0.5s ease, transform 0.4s ease;
-  opacity: 0.82;
-  filter: grayscale(20%);
-}
-
-.dark .section-gallery img {
-  border-color: rgba(255, 255, 255, 0.08);
-  opacity: 0.75;
-}
-
-.section-gallery img:hover {
-  opacity: 1;
-  filter: grayscale(0%);
-  transform: scale(1.02);
 }
 
 /* ====== Flip Card ====== */
@@ -1050,11 +934,6 @@ p + p {
 }
 
 /* ====== Research list ====== */
-.research-content {
-  display: grid;
-  gap: 2rem;
-}
-
 .research-intro {
   max-width: 36rem;
   font-family: var(--font-blanco);
@@ -1069,63 +948,6 @@ p + p {
 .dark .research-intro {
   color: rgba(229, 231, 235, 0.68);
   border-bottom-color: rgba(229, 231, 235, 0.12);
-}
-
-.research-list {
-  display: grid;
-  gap: 1rem;
-}
-
-.research-paper {
-  display: block;
-  padding: 1.1rem 0 1.25rem;
-  border-bottom: 1px solid var(--color-rule);
-  text-decoration: none;
-}
-
-.research-paper:first-child {
-  border-top: 1px solid var(--color-rule);
-}
-
-.research-paper:hover {
-  text-decoration: none;
-}
-
-.dark .research-paper,
-.dark .research-paper:first-child {
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-.research-paper-title {
-  font-family: var(--font-blanco);
-  font-size: 1.15rem;
-  line-height: 1.55;
-  font-weight: 600;
-  color: var(--color-ebony-text);
-  margin-bottom: 0.3rem;
-}
-
-.dark .research-paper-title {
-  color: rgba(229, 231, 235, 0.82);
-}
-
-.research-paper-note {
-  font-family: var(--font-blanco);
-  font-size: 1.06rem;
-  line-height: 1.65;
-  color: var(--color-ink-soft);
-}
-
-.dark .research-paper-note {
-  color: rgba(229, 231, 235, 0.58);
-}
-
-.research-paper:hover .research-paper-title {
-  color: var(--color-ebony-text);
-}
-
-.dark .research-paper:hover .research-paper-title {
-  color: #e5e7eb;
 }
 
 /* ====== Project links ====== */
@@ -1307,19 +1129,6 @@ p + p {
 }
 
 /* ====== Hero Images (desktop absolute, mobile stacked) ====== */
-
-/* ====== Hero Scrim — subtle contrast wash above animation, below content ====== */
-.hero-scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: radial-gradient(ellipse 80% 70% at 65% 50%, rgba(244,241,234,0.40) 0%, rgba(244,241,234,0.10) 50%, transparent 80%);
-}
-
-.dark .hero-scrim {
-  background: radial-gradient(ellipse 80% 70% at 65% 50%, rgba(26,23,20,0.35) 0%, rgba(26,23,20,0.05) 50%, transparent 80%);
-}
 
 .hero-images {
   position: absolute;
@@ -1592,19 +1401,6 @@ p + p {
   font-family: var(--font-degular);
   display: inline-flex;
   align-items: center;
-}
-
-.dark .cta-link {
-  color: #fff;
-}
-
-.cta-link:hover {
-  color: var(--color-accent);
-  transition: color 0.2s;
-}
-
-.dark .cta-link:hover {
-  color: var(--color-accent);
 }
 
 /* ====== Hero Image Cluster Frame ====== */
