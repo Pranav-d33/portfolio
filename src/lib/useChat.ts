@@ -74,36 +74,40 @@ export function useChat() {
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
-      let assistantMsg = "";
-      let hasTriggeredTool = false;
+      let raw = "";
+      let markerIndex = -1;
 
       while (true) {
         const { done, value } = await reader.read();
         if (done) break;
-        const chunk = decoder.decode(value, { stream: true });
-        
-        if (chunk.includes("__TOOL_CALL__")) {
-           const parts = chunk.split("__TOOL_CALL__");
-           assistantMsg += parts[0];
-           if (!hasTriggeredTool) {
-               try {
-                   const toolPayload = JSON.parse(parts[1]) as ToolCall;
-                   executeTool(toolPayload, setToastMsg);
-                   hasTriggeredTool = true;
-               } catch(e) {
-                   console.error("Failed to parse tool payload", e);
-               }
-           }
-        } else {
-           assistantMsg += chunk;
-        }
+        raw += decoder.decode(value, { stream: true });
 
+        markerIndex = raw.indexOf("__TOOL_CALL__");
+        const visible =
+          markerIndex === -1 ? raw : raw.slice(0, markerIndex);
         setMessages(prev => {
           const updated = [...prev];
-          updated[updated.length - 1].content = assistantMsg;
+          updated[updated.length - 1].content = visible;
           return updated;
         });
       }
+
+      markerIndex = raw.indexOf("__TOOL_CALL__");
+      const content = markerIndex === -1 ? raw : raw.slice(0, markerIndex);
+      if (markerIndex !== -1) {
+        const payload = raw.slice(markerIndex + "__TOOL_CALL__".length);
+        try {
+          executeTool(JSON.parse(payload) as ToolCall, setToastMsg);
+        } catch (e) {
+          console.error("Failed to parse tool payload", e);
+        }
+      }
+
+      setMessages(prev => {
+        const updated = [...prev];
+        updated[updated.length - 1].content = content;
+        return updated;
+      });
     } catch (err) {
       console.error(err);
       setMessages(prev => {

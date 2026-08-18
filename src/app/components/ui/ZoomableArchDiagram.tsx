@@ -37,8 +37,6 @@ const PADDING_Y = 40;
 export function ZoomableArchDiagram({ architecture, title }: ZoomableArchDiagramProps) {
   const [isZoomed, setIsZoomed] = useState(false);
   const [hoveredNode, setHoveredNode] = useState<number | null>(null);
-  const [hoveredConnection, setHoveredConnection] = useState<number | null>(null);
-  const containerRef = useRef<HTMLDivElement>(null);
   const zoomedContainerRef = useRef<HTMLDivElement>(null);
   const [positions, setPositions] = useState<NodePosition[]>([]);
 
@@ -242,11 +240,6 @@ export function ZoomableArchDiagram({ architecture, title }: ZoomableArchDiagram
                       <stop offset="50%" stopColor="var(--color-accent)" stopOpacity="0.2" />
                       <stop offset="100%" stopColor="var(--color-accent)" stopOpacity="0.4" />
                     </linearGradient>
-                    <linearGradient id="connectionGradientHover" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stopColor="var(--color-accent)" stopOpacity="0.8" />
-                      <stop offset="50%" stopColor="var(--color-accent)" stopOpacity="0.5" />
-                      <stop offset="100%" stopColor="var(--color-accent)" stopOpacity="0.8" />
-                    </linearGradient>
                     <marker
                       id="arrowhead"
                       markerWidth="8"
@@ -257,16 +250,6 @@ export function ZoomableArchDiagram({ architecture, title }: ZoomableArchDiagram
                     >
                       <path d="M0,0 L8,4 L0,8 Z" fill="var(--color-accent)" opacity="0.6" />
                     </marker>
-                    <marker
-                      id="arrowheadHover"
-                      markerWidth="10"
-                      markerHeight="10"
-                      refX="7"
-                      refY="5"
-                      orient="auto"
-                    >
-                      <path d="M0,0 L10,5 L0,10 Z" fill="var(--color-accent)" opacity="0.9" />
-                    </marker>
                   </defs>
 
                   {positions.length > 0 &&
@@ -275,17 +258,9 @@ export function ZoomableArchDiagram({ architecture, title }: ZoomableArchDiagram
                         <path
                           d={conn.path}
                           fill="none"
-                          stroke={
-                            hoveredConnection === conn.id
-                              ? "url(#connectionGradientHover)"
-                              : "url(#connectionGradient)"
-                          }
-                          strokeWidth={hoveredConnection === conn.id ? 2.5 : 1.5}
-                          markerEnd={
-                            hoveredConnection === conn.id
-                              ? "url(#arrowheadHover)"
-                              : "url(#arrowhead)"
-                          }
+                          stroke="url(#connectionGradient)"
+                          strokeWidth={1.5}
+                          markerEnd="url(#arrowhead)"
                           className="transition-all duration-200"
                         />
                         <motion.circle
@@ -319,9 +294,6 @@ export function ZoomableArchDiagram({ architecture, title }: ZoomableArchDiagram
                       }}
                     >
                       {row.map((node, nodeIdx) => {
-                        const pos = flatPositions.find(
-                          (p) => p.rowIdx === rowIdx && p.nodeIdx === nodeIdx
-                        );
                         return (
                           <motion.div
                             key={nodeIdx}
