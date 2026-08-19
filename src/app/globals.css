@@ -1668,6 +1668,7 @@ p + p {
 }
 
 .project-block__media {
+  position: relative;
   overflow: hidden;
   border-radius: var(--radius-lg);
   border: 1px solid rgba(26, 23, 20, 0.06);
@@ -2170,7 +2171,19 @@ p + p {
     font-size: var(--text-heading);
   }
   .wt-card-body {
-    padding: 1.25rem 1.25rem 1.25rem;
+    padding: 1.25rem;
+  }
+  .wt-block-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .wt-block-label {
+    font-size: 1.15rem;
+  }
+  .wt-section {
+    gap: 3rem;
   }
 }
 
