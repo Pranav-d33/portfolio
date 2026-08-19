@@ -263,18 +263,6 @@ p + p {
   color: #e5e7eb;
 }
 
-.section-subtitle {
-  font-family: var(--font-blanco);
-  font-size: 1.2rem;
-  line-height: 1.6;
-  color: var(--color-graphite-text);
-  margin: 0;
-}
-
-.dark .section-subtitle {
-  color: rgba(229, 231, 235, 0.6);
-}
-
 /* ====== About section readability ====== */
 .about-section h3 {
   font-size: 1.5rem;
@@ -333,11 +321,6 @@ p + p {
   text-wrap: pretty;
   position: relative;
   z-index: 3;
-  background: rgba(244, 241, 234, 0.88) !important;
-}
-
-.dark .hero-content {
-  background: rgba(26, 26, 26, 0.88) !important;
 }
 
 @media (min-width: 1024px) {
@@ -508,6 +491,11 @@ p + p {
   background: rgba(229, 231, 235, 0.25);
 }
 
+/* Lift the photos off the moving fabric. */
+.hero-image {
+  box-shadow: 0 24px 60px -18px rgba(0, 0, 0, 0.55);
+}
+
 @media (max-width: 640px) {
   .home-subtitle {
     font-size: 2.75rem;
@@ -526,90 +514,6 @@ p + p {
 }
 
 /* ====== CTA Button & Links ====== */
-
-.cta-button {
-  background: var(--color-jet-button);
-  color: #fff;
-  padding: 12px 16px;
-  border-radius: 4px;
-  font-size: 1.2rem;
-  font-weight: 500;
-  font-family: var(--font-degular);
-  text-decoration: none;
-  display: flex;
-  width: 100%;
-  max-width: 34rem;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.cta-button:hover {
-  background: var(--color-accent);
-  text-decoration: none;
-  transition: background 0.2s;
-}
-
-.dark .cta-button {
-  background: #e5e7eb;
-  color: #222;
-}
-
-.dark .cta-button:hover {
-  background: #9ca3af;
-}
-
-.cta-link {
-  font-family: var(--font-degular);
-  font-size: 15px;
-  color: var(--color-graphite-text);
-  text-decoration: none;
-  display: inline-flex;
-  align-items: center;
-}
-
-.cta-link svg {
-  vertical-align: middle;
-}
-
-.cta-link:hover {
-  color: var(--color-ebony-text);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.dark .cta-link {
-  color: #e5e7eb;
-}
-
-.dark .cta-link:hover {
-  color: #9ca3af;
-}
-
-/* ====== Work titles ====== */
-.work-title {
-  font-family: var(--font-degular);
-  font-size: 1.65rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
-  color: var(--color-ebony-text);
-}
-
-.dark .work-title {
-  color: #e5e7eb;
-}
-
-.work-desc {
-  font-family: var(--font-blanco);
-  font-size: 1.1rem;
-  font-weight: 400;
-  margin-bottom: 1rem;
-  color: var(--color-ink-soft);
-  opacity: 1;
-}
-
-.dark .work-desc {
-  color: #9ca3af;
-}
 
 /* ====== Resume section ====== */
 .resume {
@@ -797,52 +701,6 @@ p + p {
 .dark .tag:hover {
   border-color: #e5e7eb;
   color: #e5e7eb;
-}
-
-/* ====== Section with side gallery (desktop two-column) ====== */
-.section-with-gallery {
-  display: block;
-}
-
-@media (min-width: 1024px) {
-  .section-with-gallery {
-    display: grid;
-    grid-template-columns: 340px 1fr;
-    gap: 48px;
-    align-items: start;
-  }
-}
-
-.section-gallery {
-  /* display controlled by parent Tailwind classes (hidden lg:block) */
-}
-
-@media (min-width: 1024px) {
-  .section-gallery {
-    position: sticky;
-    top: 100px;
-  }
-}
-
-.section-gallery img {
-  width: 100%;
-  border-radius: 8px;
-  object-fit: cover;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  transition: opacity 0.4s ease, filter 0.5s ease, transform 0.4s ease;
-  opacity: 0.82;
-  filter: grayscale(20%);
-}
-
-.dark .section-gallery img {
-  border-color: rgba(255, 255, 255, 0.08);
-  opacity: 0.75;
-}
-
-.section-gallery img:hover {
-  opacity: 1;
-  filter: grayscale(0%);
-  transform: scale(1.02);
 }
 
 /* ====== Flip Card ====== */
@@ -1050,11 +908,6 @@ p + p {
 }
 
 /* ====== Research list ====== */
-.research-content {
-  display: grid;
-  gap: 2rem;
-}
-
 .research-intro {
   max-width: 36rem;
   font-family: var(--font-blanco);
@@ -1069,63 +922,6 @@ p + p {
 .dark .research-intro {
   color: rgba(229, 231, 235, 0.68);
   border-bottom-color: rgba(229, 231, 235, 0.12);
-}
-
-.research-list {
-  display: grid;
-  gap: 1rem;
-}
-
-.research-paper {
-  display: block;
-  padding: 1.1rem 0 1.25rem;
-  border-bottom: 1px solid var(--color-rule);
-  text-decoration: none;
-}
-
-.research-paper:first-child {
-  border-top: 1px solid var(--color-rule);
-}
-
-.research-paper:hover {
-  text-decoration: none;
-}
-
-.dark .research-paper,
-.dark .research-paper:first-child {
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-.research-paper-title {
-  font-family: var(--font-blanco);
-  font-size: 1.15rem;
-  line-height: 1.55;
-  font-weight: 600;
-  color: var(--color-ebony-text);
-  margin-bottom: 0.3rem;
-}
-
-.dark .research-paper-title {
-  color: rgba(229, 231, 235, 0.82);
-}
-
-.research-paper-note {
-  font-family: var(--font-blanco);
-  font-size: 1.06rem;
-  line-height: 1.65;
-  color: var(--color-ink-soft);
-}
-
-.dark .research-paper-note {
-  color: rgba(229, 231, 235, 0.58);
-}
-
-.research-paper:hover .research-paper-title {
-  color: var(--color-ebony-text);
-}
-
-.dark .research-paper:hover .research-paper-title {
-  color: #e5e7eb;
 }
 
 /* ====== Project links ====== */
@@ -1307,19 +1103,6 @@ p + p {
 }
 
 /* ====== Hero Images (desktop absolute, mobile stacked) ====== */
-
-/* ====== Hero Scrim — subtle contrast wash above animation, below content ====== */
-.hero-scrim {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  background: radial-gradient(ellipse 80% 70% at 65% 50%, rgba(244,241,234,0.40) 0%, rgba(244,241,234,0.10) 50%, transparent 80%);
-}
-
-.dark .hero-scrim {
-  background: radial-gradient(ellipse 80% 70% at 65% 50%, rgba(26,23,20,0.35) 0%, rgba(26,23,20,0.05) 50%, transparent 80%);
-}
 
 .hero-images {
   position: absolute;
@@ -1548,42 +1331,40 @@ p + p {
 /* ====== Email / Link Container (Daniel Pizza style) ====== */
 .cta-button {
   background: var(--color-jet-button);
-  padding: 12px 16px;
+  padding: 14px 22px;
   border-radius: 4px;
-  font-size: 1.125rem;
+  font-family: var(--font-blanco);
+  font-size: 0.95rem;
   font-weight: 500;
+  letter-spacing: 0.01em;
   text-decoration: none;
   color: #fff;
-  display: flex;
-  width: 100%;
-  max-width: 34rem;
+  display: inline-flex;
+  width: auto;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background 200ms ease, color 200ms ease, transform 200ms ease;
 }
 
 .cta-button:hover {
   background: var(--color-accent);
-  transition: background 0.2s, color 0.2s;
   color: #fff;
 }
 
-.dark .cta-button {
-  background: #fff;
-  color: #000;
+.dark a.cta-button,
+.dark a.cta-button:visited {
+  background: #ffffff !important;
+  color: #111111 !important;
 }
 
 .hero-content .cta-button {
-  color: #fff;
   text-decoration: none;
 }
 
-.dark .hero-content .cta-button {
-  color: #000;
-}
-
-.dark .cta-button:hover {
-  background: #f3f4f6;
-  color: #4b5563;
+.dark a.cta-button:hover {
+  background: var(--color-accent) !important;
+  color: #ffffff !important;
 }
 
 .cta-link {
@@ -1592,19 +1373,6 @@ p + p {
   font-family: var(--font-degular);
   display: inline-flex;
   align-items: center;
-}
-
-.dark .cta-link {
-  color: #fff;
-}
-
-.cta-link:hover {
-  color: var(--color-accent);
-  transition: color 0.2s;
-}
-
-.dark .cta-link:hover {
-  color: var(--color-accent);
 }
 
 /* ====== Hero Image Cluster Frame ====== */
@@ -2142,6 +1910,396 @@ p + p {
   }
 }
 
+/* ══════════════════════════════════════════
+   WRITING & SPEAKING
+   References: Anthropic engineering blog,
+   Every.to author cards, Emil Kowalski.
+   ══════════════════════════════════════════ */
+
+.wt-section {
+  padding-top: 3rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-border-dim) 50%, transparent);
+  display: flex;
+  flex-direction: column;
+  gap: 4.5rem;
+}
+
+.dark .wt-section {
+  border-top-color: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Block header ── */
+.wt-block-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border-dim) 40%, transparent);
+}
+
+.dark .wt-block-header {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.wt-block-label {
+  font-family: var(--font-degular);
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--color-ebony-text);
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.dark .wt-block-label {
+  color: #e5e7eb;
+}
+
+.wt-block-desc {
+  font-family: var(--font-blanco);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-ink-faint);
+  margin: 0;
+}
+
+.dark .wt-block-desc {
+  color: rgba(229, 231, 235, 0.4);
+}
+
+/* ── Grid: essays + talks share this ── */
+.wt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr));
+  gap: 1.5rem;
+}
+
+/* ── Card: vertical editorial (Anthropic engineering / Every.to) ── */
+.wt-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-cards);
+  overflow: hidden;
+  text-decoration: none;
+  background: var(--color-canvas);
+  transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+}
+
+.dark .wt-card {
+  background: rgba(255, 255, 255, 0.025);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.wt-card:hover {
+  border-color: var(--color-ink-soft);
+  box-shadow: 0 10px 32px -14px rgba(0, 0, 0, 0.18);
+  text-decoration: none;
+  transform: translateY(-2px);
+}
+
+.dark .wt-card:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 10px 32px -12px rgba(0, 0, 0, 0.55);
+}
+
+.wt-card:hover .wt-card-title {
+  color: var(--color-accent);
+}
+
+.dark .wt-card:hover .wt-card-title {
+  color: #dc7a7a;
+}
+
+.wt-card:hover .wt-card-thumb-img {
+  transform: scale(1.04);
+}
+
+.wt-card:hover .wt-card-play-btn {
+  transform: scale(1.08);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.4);
+}
+
+.wt-card:hover .wt-card-arrow {
+  transform: translate(3px, -3px);
+  opacity: 1;
+}
+
+/* ── Thumbnail ── */
+.wt-card-thumb {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: var(--color-paper-deep);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border-dim) 50%, transparent);
+}
+
+.dark .wt-card-thumb {
+  background: rgba(255, 255, 255, 0.06);
+  border-bottom-color: rgba(255, 255, 255, 0.07);
+}
+
+.wt-card-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 500ms ease;
+}
+
+.wt-card-play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.22);
+  transition: background 200ms ease;
+}
+
+.wt-card:hover .wt-card-play {
+  background: rgba(0, 0, 0, 0.38);
+}
+
+.wt-card-play-btn {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--color-ebony-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 3px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+/* Type badge over the thumbnail (top-left) */
+.wt-card-type {
+  position: absolute;
+  top: 0.85rem;
+  left: 0.85rem;
+  font-family: var(--font-geist-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #ffffff;
+  padding: 0.25rem 0.55rem;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 2px;
+  line-height: 1.4;
+}
+
+/* ── Body ── */
+.wt-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 1.5rem 1.6rem 1.4rem;
+  flex: 1;
+}
+
+.wt-card-meta {
+  font-family: var(--font-geist-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+  line-height: 1.5;
+}
+
+.wt-card-title {
+  font-family: var(--font-degular);
+  font-size: var(--text-heading-lg);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  color: var(--color-ebony-text);
+  margin: 0.15rem 0 0.2rem;
+  transition: color 150ms ease;
+}
+
+.dark .wt-card-title {
+  color: #e5e7eb;
+}
+
+.wt-card-dek {
+  font-family: var(--font-blanco);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--color-ink-soft);
+  margin: 0;
+  flex: 1;
+}
+
+.dark .wt-card-dek {
+  color: rgba(229, 231, 235, 0.55);
+}
+
+.wt-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+  font-family: var(--font-geist-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--color-ebony-text);
+}
+
+.dark .wt-card-cta {
+  color: rgba(229, 231, 235, 0.75);
+}
+
+.wt-card-arrow {
+  width: 13px;
+  height: 13px;
+  opacity: 0.55;
+  transition: opacity 150ms ease, transform 200ms ease;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .wt-card-title {
+    font-size: var(--text-heading);
+  }
+  .wt-card-body {
+    padding: 1.25rem 1.25rem 1.25rem;
+  }
+}
+
+/* ══════════════════════════════════════════
+   Essay prose list — used when ≥ 4 essays
+   Pattern: emilkowal.ski + paco.me
+   ══════════════════════════════════════════ */
+
+.wt-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.wt-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1rem 0.75rem;
+  margin: 0 -0.75rem;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 150ms ease;
+}
+
+.wt-row:not(:last-child) {
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border-dim) 40%, transparent);
+}
+
+.dark .wt-row:not(:last-child) {
+  border-bottom-color: rgba(255, 255, 255, 0.06);
+}
+
+.wt-row:hover {
+  background: color-mix(in srgb, var(--color-border-dim) 30%, transparent);
+  text-decoration: none;
+}
+
+.dark .wt-row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.wt-row:hover .wt-row-title {
+  color: var(--color-accent);
+}
+
+.dark .wt-row:hover .wt-row-title {
+  color: #dc7a7a;
+}
+
+.wt-row:hover .wt-row-arrow {
+  opacity: 1;
+  transform: translate(2px, -2px);
+}
+
+.wt-row-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.wt-row-title {
+  font-family: var(--font-blanco);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  color: var(--color-ebony-text);
+  transition: color 150ms ease;
+}
+
+.dark .wt-row-title {
+  color: #e5e7eb;
+}
+
+.wt-row-dek {
+  font-family: var(--font-blanco);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--color-ink-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 55ch;
+}
+
+.dark .wt-row-dek {
+  color: rgba(229, 231, 235, 0.5);
+}
+
+.wt-row-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.wt-row-meta,
+.wt-row-date {
+  font-family: var(--font-geist-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-faint);
+  white-space: nowrap;
+}
+
+.wt-row-arrow {
+  width: 13px;
+  height: 13px;
+  color: var(--color-ink-soft);
+  opacity: 0.35;
+  flex-shrink: 0;
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+@media (max-width: 640px) {
+  .wt-row {
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .wt-row-meta {
+    display: none;
+  }
+  .wt-row-dek {
+    white-space: normal;
+    max-width: none;
+  }
+}
+
 /* ====== Closing Quote ====== */
 .closing-quote-section {
   padding: 3.5rem 0 4.5rem;
@@ -2193,64 +2351,31 @@ p + p {
   color: #dc7a7a;
 }
 
-
-/* ── Loading skeleton ── */
-.skeleton-container {
-  animation: skeleton-fade 1.6s ease-in-out infinite;
+/* ====== Force Dynamic Transitions ====== */
+/* 
+  These overrides ensure that redundant hardcoded colors 
+  do not block the global GSAP text color transitions.
+*/
+.dark .section-title,
+.dark a,
+.dark .home-subtitle,
+.dark .intro-strong,
+.dark .resume-entry-title,
+.dark .btn-ghost,
+.dark .tag,
+.dark .nav-link.active,
+.dark .cta-link,
+.dark .project-link,
+.dark .research-marquee-title {
+  color: var(--color-ebony-text) !important;
 }
 
-.skeleton-block {
-  position: relative;
-  overflow: hidden;
-  background: var(--color-rule);
-}
-
-.skeleton-block::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  transform: translateX(-100%);
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.45),
-    transparent
-  );
-  animation: skeleton-sheen 1.5s ease-in-out infinite;
-}
-
-.dark .skeleton-block {
-  background: rgba(255, 255, 255, 0.08);
-}
-
-.dark .skeleton-block::after {
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.08),
-    transparent
-  );
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .skeleton-container,
-  .skeleton-block::after {
-    animation: none;
-  }
-}
-
-@keyframes skeleton-sheen {
-  to {
-    transform: translateX(100%);
-  }
-}
-
-@keyframes skeleton-fade {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.75;
-  }
+.dark .introduction p,
+.dark .resume-entry-org,
+.dark .resume-entry-desc,
+.dark .contact-intro,
+.dark .research-intro,
+.dark .research-marquee-note,
+.dark .intro-recent li:not(:first-child) {
+  color: var(--color-ink-soft) !important;
 }

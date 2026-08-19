@@ -71,6 +71,54 @@ export const paperLibrary: Record<string, RelatedPaper> = {
   },
 };
 
+export type Essay = {
+  id: string;
+  title: string;
+  dek: string;
+  venue: string;
+  date: string; // "Month YYYY" e.g. "Jan 2025"
+  href: string;
+  thumbnail: string;
+  readTime?: string;
+};
+
+export type Talk = {
+  id: string;
+  title: string;
+  dek: string;
+  event: string;
+  date: string; // "Month YYYY"
+  href: string;
+  thumbnail: string; // remote URL or "/public-path.jpg" for local
+  duration?: string;
+};
+
+export const essays: Essay[] = [
+  {
+    id: "why-pre-train",
+    title: "Why pre-train, not fine-tune?",
+    dek: "Fine-tuning patches behaviour. Pre-training shapes belief. One is a fix; the other is a foundation.",
+    venue: "Substack · Ashborn",
+    date: "2025",
+    href: "https://ashborn2.substack.com/p/why-pre-train-not-fine-tune?r=5s307l",
+    thumbnail: "https://substackcdn.com/image/fetch/w_1200,c_limit,f_auto,q_auto:good/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fea2f0281-6ff1-4cf2-b829-1e55c30e943f_1672x941.png",
+    readTime: "8 min",
+  },
+];
+
+export const talks: Talk[] = [
+  {
+    id: "gpt2-session",
+    title: "Vanilla GPT-2 Architecture",
+    dek: "A lecture session on the GPT-2 architecture from first principles — how attention, positional encoding, and the decoder stack fit together before any fine-tuning enters the picture.",
+    event: "IAIRO Pramana Bootcamp · Cohort 1",
+    date: "2025",
+    href: "https://youtu.be/O-nWMsdMICI?t=3332",
+    thumbnail: "/vanilla%20gpt%20-%202.png",
+    duration: "Watch",
+  },
+];
+
 export const projectCaseStudies: ProjectCaseStudy[] = [
   {
     slug: "medaura",

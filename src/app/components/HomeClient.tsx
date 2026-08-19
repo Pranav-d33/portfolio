@@ -15,6 +15,7 @@ import { ExperienceTrack } from "./ui/ExperienceTrack";
 import { ProjectsShowcase } from "./ui/ProjectsShowcase";
 import { ResearchMarquee } from "./ui/ResearchMarquee";
 import { ClosingQuote } from "./ui/ClosingQuote";
+import { WritingAndTalks } from "./ui/WritingAndTalks";
 
 function useActiveSection() {
   const [active, setActive] = useState("about");
@@ -47,7 +48,7 @@ const experienceEntries = [
     org: <span className="org-underline">Hyperledger Cello · Linux Foundation</span>,
     date: "Jun 2026 – Present",
     description:
-      "Building an AI agent that turns Hyperledger Fabric network operations and Chaincode debugging into a conversation.",
+      "Fabric has an operations problem: steep learning curve, verbose tooling, too much that shouldn't require an expert. I'm building an agent that collapses that — natural language in, Cello API call sequence out, operation executed. The hard part isn't the LLM; it's knowing which API calls compose into what the user actually meant.",
     details: [
       "Designing an AI agent that takes natural language, reasons over Cello API call sequences, and executes operations — eliminating manual dashboard interaction",
       "Hyperledger Cello manages the full lifecycle of Hyperledger Fabric networks",
@@ -57,7 +58,8 @@ const experienceEntries = [
     title: "AI Research Intern",
     org: <span className="org-underline">IRT, University of South Carolina</span>,
     date: "Apr 2026 – Present",
-    description: "Researching neurosymbolic SLM architectures with RL-based alignment.",
+    description:
+      "The bet here is that small models with symbolic constraints can do things large models can't — not in spite of their size, but because of it. Working on pre-training pipelines that bake reasoning structure in from the start, and RL-based alignment (GRPO/RLHF) that shapes behaviour without erasing the model's edge.",
     details: [
       "Researching neurosymbolic SLM architecture and pre-training pipelines — integrating symbolic reasoning constraints into small language model training for structured knowledge tasks",
       "Working on RL-based fine-tuning (GRPO/RLHF) for SLM alignment — reward modeling, policy optimization, and evaluation on neurosymbolic reasoning benchmarks",
@@ -67,7 +69,8 @@ const experienceEntries = [
     title: "Open Source Contributor",
     org: <span className="org-underline">Meshery — CNCF Sandbox Project</span>,
     date: "Mar 2026 – Present",
-    description: "5+ merged PRs across service mesh management, UI, and API integrations.",
+    description:
+      "Five-plus merged PRs into a CNCF sandbox project — service mesh management, UI components, API work across a Go backend and React frontend. The PRs matter less than what you absorb reading other people's production code at scale.",
     details: [
       "5+ merged PRs — service mesh management features, UI components, and API integrations across Go backend and React frontend",
       "Active in code reviews, issue triage, and community discussions per CNCF contributor guidelines",
@@ -114,10 +117,10 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                 <div className="hero-content prose prose-lg font-degular w-full max-w-lg ml-auto pt-[6vh] lg:pt-0 dark:prose-invert">
                   <motion.div variants={staggerContainer} initial="hidden" animate="visible">
                     <motion.h2
-                      className="home-subtitle mt-0 text-black dark:text-white"
+                      className="home-subtitle mt-0"
                       variants={fadeUp}
                     >
-                      AI Engineer & Researcher
+                      AI Engineer &amp; Researcher
                     </motion.h2>
                     <motion.div className="introduction" variants={fadeUp}>
                       <span className="callout">
@@ -153,7 +156,6 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
             <SectionHeading title="About" label="Background & focus" className="max-w-4xl mx-auto" />
             <div className="relative w-full mt-12 max-w-[1284px] mx-auto">
               <div className="flex flex-col lg:flex-row gap-12 items-start justify-center w-full">
-                {/* Image explicitly aligned with Hero image */}
                 <RevealOnScroll direction="left" className="shrink-0 mx-auto lg:mx-0">
                   <div className="flip-card w-[340px] h-[340px] mb-6 lg:mb-0">
                     <div className="flip-card-inner h-full">
@@ -177,31 +179,28 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                   </div>
                 </RevealOnScroll>
 
-                {/* Text and Achievements Grid */}
                 <div className="flex-1 w-full max-w-4xl mx-auto lg:mx-0">
                   <div className="grid md:grid-cols-2 gap-12">
                     <RevealOnScroll direction="bottom">
                       <div className="lg:flex lg:flex-col lg:min-h-[340px]">
                         <p className="text-body text-ebony-text/70 dark:text-white/50 leading-body measure mb-4 lg:mb-0">
-                          I started in RF and signals. Turns out the most interesting signal to decode is language.
-                          Now I build the systems that do both — from transformers to multi-agent pipelines to LLM-controlled hardware.
+                          Everything started with a question about what lives inside a signal — not the carrier wave, but the structure underneath. RF taught me that meaning is always encoded, never obvious. Language turned out to be the same problem at a higher layer. Now I build at both ends: systems that can parse a noisy channel and systems that can reason about what they find.
                         </p>
                         <div className="hidden lg:block flex-1" />
                         <p className="text-body text-ebony-text/70 dark:text-white/50 leading-body measure">
-                          B.Tech — Electronics & Telecom Engineering at SGGSIE&T, Nanded (2023–Present).
+                          Final-year B.Tech, Electronics & Telecom at SGGSIE&T Nanded. Tier-3 college, self-taught in most of what matters.
                         </p>
                       </div>
                     </RevealOnScroll>
 
                     <RevealOnScroll direction="right">
                       <h3 className="text-subheading text-ebony-text leading-subheading font-medium mb-16">
-                        Achievements
+                        Recognition
                       </h3>
                       <ul className="space-y-5 about-achievements">
                         {[
-                          "National Finalist — Smart India Hackathon 2024",
-                          "National Finalist — Smart India Hackathon 2025",
-                          "Global Finalist Top 6 — UWA Hack For Impact 2026",
+                          "Twice took a team to the Smart India Hackathon national finals — 2024 and 2025.",
+                          "Top 6 globally at UWA Hack For Impact 2026.",
                         ].map((a, i) => (
                           <motion.li
                             key={a}
@@ -245,16 +244,19 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
             <div className="research-inner">
               <SectionHeading
                 title="Research"
-                label="Papers & interests"
+                label="Papers, writing & talks"
               />
               <RevealOnScroll direction="bottom">
                 <p className="research-intro">
-                  Reading and building on foundational ML research. Here are papers that shaped my thinking.
+                  The papers that gave me the vocabulary. Not a reading list — each one changed what I thought was possible.
                 </p>
               </RevealOnScroll>
             </div>
             <div className="research-marquee-outer">
               <ResearchMarquee />
+            </div>
+            <div className="research-inner" style={{ marginTop: "5rem" }}>
+              <WritingAndTalks />
             </div>
           </section>
 
