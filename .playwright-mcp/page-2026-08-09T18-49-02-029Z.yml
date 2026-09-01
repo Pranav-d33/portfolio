@@ -1,0 +1,273 @@
+- generic [active] [ref=f15e1]:
+  - banner:
+    - button "Pranav Dhiran" [ref=f15e2]
+    - generic "Language options":
+      - generic: EN
+      - generic: HI
+  - navigation "Main navigation" [ref=f15e3]:
+    - list [ref=f15e4]:
+      - listitem [ref=f15e5]:
+        - button "About" [ref=f15e6]
+      - listitem [ref=f15e8]:
+        - button "Experience" [ref=f15e9]
+      - listitem [ref=f15e10]:
+        - button "Projects" [ref=f15e11]
+      - listitem [ref=f15e12]:
+        - button "Research" [ref=f15e13]
+      - listitem [ref=f15e14]:
+        - button "Contact" [ref=f15e15]
+  - main [ref=f15e16]:
+    - generic [ref=f15e17]:
+      - generic [ref=f15e24]:
+        - heading "AI Engineer & Researcher" [level=2] [ref=f15e25]
+        - generic [ref=f15e26]: I keep digging into rabbit holes, some become systems.
+        - list "Recent work" [ref=f15e28]:
+          - listitem [ref=f15e29]: Recently
+          - listitem [ref=f15e30]: LFX'26 @ Hyperledger Cello
+          - listitem [ref=f15e31]: Active contributor to Meshery (CNCF)
+          - listitem [ref=f15e32]: Researching and prototyping domain-specific small language models
+        - link "Download resume" [ref=f15e33] [cursor=pointer]:
+          - /url: /resume_v4.pdf
+      - generic [ref=f15e34]:
+        - generic [ref=f15e35]:
+          - generic [ref=f15e36]: →Background & focus
+          - heading "About" [level=2] [ref=f15e37]
+        - generic [ref=f15e39]:
+          - generic [ref=f15e41] [cursor=pointer]:
+            - generic [ref=f15e42]:
+              - img "Playing football" [ref=f15e44]
+              - img "Anime" [ref=f15e46]
+            - text: hover to flip
+          - generic [ref=f15e48]:
+            - generic [ref=f15e50]:
+              - paragraph [ref=f15e51]: I started in RF and signals. Turns out the most interesting signal to decode is language. Now I build the systems that do both — from transformers to multi-agent pipelines to LLM-controlled hardware.
+              - paragraph [ref=f15e53]: B.Tech — Electronics & Telecom Engineering at SGGSIE&T, Nanded (2023–Present).
+            - generic [ref=f15e54]:
+              - heading "Achievements" [level=3] [ref=f15e55]
+              - list [ref=f15e56]:
+                - listitem [ref=f15e57]: National Finalist — Smart India Hackathon 2024
+                - listitem [ref=f15e58]: National Finalist — Smart India Hackathon 2025
+                - listitem [ref=f15e59]: Global Finalist Top 6 — UWA Hack For Impact 2026
+      - generic [ref=f15e61]:
+        - generic [ref=f15e62]:
+          - generic [ref=f15e63]: →Research & engineering
+          - heading "Experience" [level=2] [ref=f15e64]
+        - generic [ref=f15e65]:
+          - generic [ref=f15e70]:
+            - paragraph [ref=f15e71]: Jun 2026 – Present
+            - heading "LFX Mentee" [level=3] [ref=f15e72]
+            - paragraph [ref=f15e73]: Hyperledger Cello · Linux Foundation
+            - paragraph [ref=f15e74]: Building an AI agent that turns Hyperledger Fabric network operations and Chaincode debugging into a conversation.
+            - list [ref=f15e75]:
+              - listitem [ref=f15e76]: Designing an AI agent that takes natural language, reasons over Cello API call sequences, and executes operations — eliminating manual dashboard interaction
+              - listitem [ref=f15e77]: Hyperledger Cello manages the full lifecycle of Hyperledger Fabric networks
+          - generic [ref=f15e82]:
+            - paragraph [ref=f15e83]: Apr 2026 – Present
+            - heading "AI Research Intern" [level=3] [ref=f15e84]
+            - paragraph [ref=f15e85]: IRT, University of South Carolina
+            - paragraph [ref=f15e86]: Researching neurosymbolic SLM architectures with RL-based alignment.
+            - list [ref=f15e87]:
+              - listitem [ref=f15e88]: Researching neurosymbolic SLM architecture and pre-training pipelines — integrating symbolic reasoning constraints into small language model training for structured knowledge tasks
+              - listitem [ref=f15e89]: Working on RL-based fine-tuning (GRPO/RLHF) for SLM alignment — reward modeling, policy optimization, and evaluation on neurosymbolic reasoning benchmarks
+          - generic [ref=f15e94]:
+            - paragraph [ref=f15e95]: Mar 2026 – Present
+            - heading "Open Source Contributor" [level=3] [ref=f15e96]
+            - paragraph [ref=f15e97]: Meshery — CNCF Sandbox Project
+            - paragraph [ref=f15e98]: 5+ merged PRs across service mesh management, UI, and API integrations.
+            - list [ref=f15e99]:
+              - listitem [ref=f15e100]: 5+ merged PRs — service mesh management features, UI components, and API integrations across Go backend and React frontend
+              - listitem [ref=f15e101]: Active in code reviews, issue triage, and community discussions per CNCF contributor guidelines
+      - generic [ref=f15e102]:
+        - generic [ref=f15e103]:
+          - generic [ref=f15e104]: →Selected work
+          - heading "Projects" [level=2] [ref=f15e105]
+        - generic [ref=f15e106]:
+          - article [ref=f15e108] [cursor=pointer]:
+            - generic [ref=f15e109]: →01
+            - img "Medaura - Agentic Pharmacy System" [ref=f15e112]
+            - generic [ref=f15e113]:
+              - heading "Medaura - Agentic Pharmacy System" [level=3] [ref=f15e115]
+              - paragraph [ref=f15e119]: Medication errors are an information problem. The information exists - it is just not connected at the moment it matters.
+              - generic [ref=f15e120]:
+                - generic [ref=f15e121]: FastAPI
+                - generic [ref=f15e122]: LangGraph
+                - generic [ref=f15e123]: ChromaDB
+                - generic [ref=f15e124]: Langfuse
+                - generic [ref=f15e125]: React
+              - generic [ref=f15e126]:
+                - link "View case study →" [ref=f15e127]:
+                  - /url: /case-studies/medaura
+                - link "Live system →" [ref=f15e128]:
+                  - /url: https://aipharmacyproject-blond.vercel.app
+          - article [ref=f15e130] [cursor=pointer]:
+            - generic [ref=f15e131]: →02
+            - img "Small Language Model From Scratch - TinyStories" [ref=f15e134]
+            - generic [ref=f15e135]:
+              - heading "Small Language Model From Scratch - TinyStories" [level=3] [ref=f15e137]
+              - paragraph [ref=f15e141]: Every LLM course teaches you to call an API. I wanted to know what happens before the API.
+              - generic [ref=f15e142]:
+                - generic [ref=f15e143]: PyTorch
+                - generic [ref=f15e144]: Custom BPE
+                - generic [ref=f15e145]: AMP
+                - generic [ref=f15e146]: NLP
+              - generic [ref=f15e147]:
+                - link "View case study →" [ref=f15e148]:
+                  - /url: /case-studies/tinystories
+                - link "GitHub →" [ref=f15e149]:
+                  - /url: https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories-
+          - article [ref=f15e151] [cursor=pointer]:
+            - img "GNU Radio MCP Server - LLM-to-SDR Bridge" [ref=f15e154]
+            - generic [ref=f15e155]:
+              - generic [ref=f15e156]: →03
+              - heading "GNU Radio MCP Server - LLM-to-SDR Bridge" [level=3] [ref=f15e158]
+              - paragraph [ref=f15e162]: LLMs can reason about RF signals. They just could not touch a radio. This closes that gap.
+              - generic [ref=f15e163]:
+                - generic [ref=f15e164]: Python
+                - generic [ref=f15e165]: FastMCP
+                - generic [ref=f15e166]: ZMQ
+                - generic [ref=f15e167]: XML-RPC
+                - generic [ref=f15e168]: GNU Radio
+              - generic [ref=f15e169]:
+                - link "View case study →" [ref=f15e170]:
+                  - /url: /case-studies/gnuradio-mcp
+                - link "GitHub →" [ref=f15e171]:
+                  - /url: https://github.com/Pranav-d33/gnuradio-mcp-server
+          - article [ref=f15e173] [cursor=pointer]:
+            - generic [ref=f15e174]: →04
+            - img "RF Watch - Open-Source Real-Time RF Spectrum Monitor" [ref=f15e177]
+            - generic [ref=f15e178]:
+              - heading "RF Watch - Open-Source Real-Time RF Spectrum Monitor" [level=3] [ref=f15e180]
+              - paragraph [ref=f15e184]: "Physical-layer first: no protocol decoding, no black-box certainty, just traceable RF evidence."
+              - generic [ref=f15e185]:
+                - generic [ref=f15e186]: Python
+                - generic [ref=f15e187]: GNU Radio
+                - generic [ref=f15e188]: HackRF One
+                - generic [ref=f15e189]: Signal Processing
+              - generic [ref=f15e190]:
+                - link "View case study →" [ref=f15e191]:
+                  - /url: /case-studies/rf-watch
+                - link "GitHub →" [ref=f15e192]:
+                  - /url: https://github.com/Pranav-d33/RFwatch
+      - generic [ref=f15e193]:
+        - generic [ref=f15e194]:
+          - generic [ref=f15e195]:
+            - generic [ref=f15e196]: →Papers & interests
+            - heading "Research" [level=2] [ref=f15e197]
+          - paragraph [ref=f15e199]: Reading and building on foundational ML research. Here are papers that shaped my thinking.
+        - generic [ref=f15e203]:
+          - 'link "01 arXiv ReAct: Synergizing Reasoning and Acting Agents observe before they act. 2210.03629" [ref=f15e204] [cursor=pointer]':
+            - /url: https://arxiv.org/abs/2210.03629
+            - generic [ref=f15e205]:
+              - generic [ref=f15e206]: "01"
+              - generic [ref=f15e207]: arXiv
+            - 'heading "ReAct: Synergizing Reasoning and Acting" [level=3] [ref=f15e211]'
+            - paragraph [ref=f15e212]: Agents observe before they act.
+            - generic [ref=f15e213]: "2210.03629"
+          - 'link "02 arXiv Toolformer: Models Teach Themselves to Use Tools The mental model for LLMs using external tools. 2302.04761" [ref=f15e214] [cursor=pointer]':
+            - /url: https://arxiv.org/abs/2302.04761
+            - generic [ref=f15e215]:
+              - generic [ref=f15e216]: "02"
+              - generic [ref=f15e217]: arXiv
+            - 'heading "Toolformer: Models Teach Themselves to Use Tools" [level=3] [ref=f15e221]'
+            - paragraph [ref=f15e222]: The mental model for LLMs using external tools.
+            - generic [ref=f15e223]: "2302.04761"
+          - 'link "03 arXiv Switch Transformers: Mixture of Experts Modular capacity beats monolithic scaling. 2101.03961" [ref=f15e224] [cursor=pointer]':
+            - /url: https://arxiv.org/abs/2101.03961
+            - generic [ref=f15e225]:
+              - generic [ref=f15e226]: "03"
+              - generic [ref=f15e227]: arXiv
+            - 'heading "Switch Transformers: Mixture of Experts" [level=3] [ref=f15e231]'
+            - paragraph [ref=f15e232]: Modular capacity beats monolithic scaling.
+            - generic [ref=f15e233]: "2101.03961"
+          - link "04 arXiv Group Relative Policy Optimization A foundation for post-training interest. 2402.03300" [ref=f15e234] [cursor=pointer]:
+            - /url: https://arxiv.org/abs/2402.03300
+            - generic [ref=f15e235]:
+              - generic [ref=f15e236]: "04"
+              - generic [ref=f15e237]: arXiv
+            - heading "Group Relative Policy Optimization" [level=3] [ref=f15e241]
+            - paragraph [ref=f15e242]: A foundation for post-training interest.
+            - generic [ref=f15e243]: "2402.03300"
+          - link "05 arXiv Direct Preference Optimization Preference optimization without treating RL as magic. 2305.18290" [ref=f15e244] [cursor=pointer]:
+            - /url: https://arxiv.org/abs/2305.18290
+            - generic [ref=f15e245]:
+              - generic [ref=f15e246]: "05"
+              - generic [ref=f15e247]: arXiv
+            - heading "Direct Preference Optimization" [level=3] [ref=f15e251]
+            - paragraph [ref=f15e252]: Preference optimization without treating RL as magic.
+            - generic [ref=f15e253]: "2305.18290"
+          - 'link "01 arXiv ReAct: Synergizing Reasoning and Acting Agents observe before they act. 2210.03629" [ref=f15e254] [cursor=pointer]':
+            - /url: https://arxiv.org/abs/2210.03629
+            - generic [ref=f15e255]:
+              - generic [ref=f15e256]: "01"
+              - generic [ref=f15e257]: arXiv
+            - 'heading "ReAct: Synergizing Reasoning and Acting" [level=3] [ref=f15e261]'
+            - paragraph [ref=f15e262]: Agents observe before they act.
+            - generic [ref=f15e263]: "2210.03629"
+          - 'link "02 arXiv Toolformer: Models Teach Themselves to Use Tools The mental model for LLMs using external tools. 2302.04761" [ref=f15e264] [cursor=pointer]':
+            - /url: https://arxiv.org/abs/2302.04761
+            - generic [ref=f15e265]:
+              - generic [ref=f15e266]: "02"
+              - generic [ref=f15e267]: arXiv
+            - 'heading "Toolformer: Models Teach Themselves to Use Tools" [level=3] [ref=f15e271]'
+            - paragraph [ref=f15e272]: The mental model for LLMs using external tools.
+            - generic [ref=f15e273]: "2302.04761"
+          - 'link "03 arXiv Switch Transformers: Mixture of Experts Modular capacity beats monolithic scaling. 2101.03961" [ref=f15e274] [cursor=pointer]':
+            - /url: https://arxiv.org/abs/2101.03961
+            - generic [ref=f15e275]:
+              - generic [ref=f15e276]: "03"
+              - generic [ref=f15e277]: arXiv
+            - 'heading "Switch Transformers: Mixture of Experts" [level=3] [ref=f15e281]'
+            - paragraph [ref=f15e282]: Modular capacity beats monolithic scaling.
+            - generic [ref=f15e283]: "2101.03961"
+          - link "04 arXiv Group Relative Policy Optimization A foundation for post-training interest. 2402.03300" [ref=f15e284] [cursor=pointer]:
+            - /url: https://arxiv.org/abs/2402.03300
+            - generic [ref=f15e285]:
+              - generic [ref=f15e286]: "04"
+              - generic [ref=f15e287]: arXiv
+            - heading "Group Relative Policy Optimization" [level=3] [ref=f15e291]
+            - paragraph [ref=f15e292]: A foundation for post-training interest.
+            - generic [ref=f15e293]: "2402.03300"
+          - link "05 arXiv Direct Preference Optimization Preference optimization without treating RL as magic. 2305.18290" [ref=f15e294] [cursor=pointer]:
+            - /url: https://arxiv.org/abs/2305.18290
+            - generic [ref=f15e295]:
+              - generic [ref=f15e296]: "05"
+              - generic [ref=f15e297]: arXiv
+            - heading "Direct Preference Optimization" [level=3] [ref=f15e301]
+            - paragraph [ref=f15e302]: Preference optimization without treating RL as magic.
+            - generic [ref=f15e303]: "2305.18290"
+      - generic [ref=f15e304]:
+        - generic [ref=f15e305]:
+          - generic [ref=f15e306]: →Get in touch
+          - heading "Contact" [level=2] [ref=f15e307]
+        - generic [ref=f15e309]:
+          - paragraph [ref=f15e310]: Currently interested in AI research internships, open-source collaborations, and systems engineering opportunities.
+          - generic [ref=f15e311]:
+            - link "dhiranpranav72@gmail.com" [ref=f15e312] [cursor=pointer]:
+              - /url: mailto:dhiranpranav72@gmail.com
+            - link "GitHub" [ref=f15e313] [cursor=pointer]:
+              - /url: https://github.com/Pranav-d33
+            - link "LinkedIn" [ref=f15e317] [cursor=pointer]:
+              - /url: https://linkedin.com/in/prannav-dhiran
+            - link "X" [ref=f15e322] [cursor=pointer]:
+              - /url: https://x.com/Prannav_ai
+          - button "View system prompt" [ref=f15e326]
+      - region "Closing reflection" [ref=f15e327]:
+        - blockquote [ref=f15e330]:
+          - paragraph [ref=f15e331]: Not everything is meant to be but everything is worth trying
+      - generic [ref=f15e334]:
+        - paragraph [ref=f15e335]: © 2026 Pranav Dhiran
+        - paragraph [ref=f15e336]: Built with intent
+  - generic [ref=f15e338]:
+    - generic:
+      - generic:
+        - generic: wonder anything
+        - generic: "?"
+      - generic: ask in context
+    - button "Open chat" [ref=f15e342]:
+      - generic [ref=f15e349]: ask anything
+  - dialog "The beauty of being lost is ,that every direction is a new possibility" [ref=f15e350]:
+    - blockquote [ref=f15e352]:
+      - generic [ref=f15e353]: The beauty of being lost is
+      - generic [ref=f15e354]: ",that every direction is a new possibility"
+  - button "Open Next.js Dev Tools" [ref=f15e361] [cursor=pointer]
+  - alert [ref=f15e365]

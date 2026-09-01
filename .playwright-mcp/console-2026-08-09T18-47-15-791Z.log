@@ -1,0 +1,2 @@
+[    1634ms] [ERROR] Failed to load resource: net::ERR_CERT_COMMON_NAME_INVALID @ https://polyfill.io/v3/polyfill.min.js?features=fetch%2CObject.entries%2CObject.assign%2CCustomEvent%2CElement.prototype.append%2CNodeList.prototype.forEach%2CIntersectionObserver%2Csmoothscroll:0
+[    2177ms] [LOG] props {cover_video: undefined, video_mp4: undefined, video_thumbnail_mp4: undefined, video_webm: undefined, __ob__: Lt} @ https://monopo.vn/_nuxt/aa1acf2.js:0

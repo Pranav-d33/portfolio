@@ -1,23 +1,25 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Manrope, Geist_Mono } from "next/font/google";
+import { Newsreader, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import { SmoothScroll } from "@/lib/scroll";
 import "./globals.css";
 
-const cormorant = Cormorant_Garamond({
+const newsreader = Newsreader({
   variable: "--font-degular",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
-const manrope = Manrope({
+const interTight = Inter_Tight({
   variable: "--font-blanco",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
+const jetbrainsMono = JetBrains_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -99,7 +101,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${manrope.variable} ${geistMono.variable}`}
+      className={`${newsreader.variable} ${interTight.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <head>

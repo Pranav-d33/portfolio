@@ -2,13 +2,9 @@
 
 import { useState, useRef, useLayoutEffect, useEffect, useCallback } from "react";
 import { motion, useInView, useScroll, useTransform, useSpring } from "framer-motion";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ResumeEntry } from "./ResumeEntry";
 import { MOTION } from "@/lib/motion";
 import { isTouch, prefersReducedMotion } from "@/lib/scroll";
-
-gsap.registerPlugin(ScrollTrigger);
 
 type ExperienceEntry = {
   title: string;
@@ -168,20 +164,29 @@ export function ExperienceTrack({ entries }: ExperienceTrackProps) {
     path.style.strokeDasharray = `${length}`;
     path.style.strokeDashoffset = `${length}`;
 
-    const ctx = gsap.context(() => {
-      gsap.to(path, {
-        strokeDashoffset: 0,
-        ease: "none",
-        scrollTrigger: {
-          trigger: trackRef.current,
-          start: "top 75%",
-          end: "bottom 45%",
-          scrub: 0.5,
-        },
-      });
-    }, trackRef);
+    let ctx: { revert: () => void } | null = null;
+    // lazy-load GSAP only when spine is in view — no upfront bundle
+    import("gsap").then(({ default: gsap }) =>
+      import("gsap/ScrollTrigger").then(({ ScrollTrigger }) => {
+        gsap.registerPlugin(ScrollTrigger);
+        ctx = gsap.context(() => {
+          gsap.to(path, {
+            strokeDashoffset: 0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: trackRef.current,
+              start: "top 75%",
+              end: "bottom 45%",
+              scrub: 0.5,
+            },
+          });
+        }, trackRef);
+      }),
+    );
 
-    return () => ctx.revert();
+    return () => {
+      if (ctx) ctx.revert();
+    };
   }, [pathD]);
 
   return (

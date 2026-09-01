@@ -104,6 +104,16 @@ export const essays: Essay[] = [
     thumbnail: "https://substackcdn.com/image/fetch/w_1200,c_limit,f_auto,q_auto:good/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fea2f0281-6ff1-4cf2-b829-1e55c30e943f_1672x941.png",
     readTime: "8 min",
   },
+  {
+    id: "how-do-you-design-a-custom-slm",
+    title: "How Do You Design a Custom SLM?",
+    dek: "From Qwen3-0.6B to a 133M agricultural language model — not shrinking, but reallocating the parameter budget where it counts.",
+    venue: "Substack · Ashborn",
+    date: "Aug 2026",
+    href: "https://ashborn2.substack.com/p/how-do-you-design-a-custom-slm?r=5s307l",
+    thumbnail: "https://substackcdn.com/image/fetch/w_1456,c_limit,f_auto,q_auto:good/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F724f23f8-fa2f-4e6d-b705-62ae6ceead9b_1536x1024.png",
+    readTime: "10 min",
+  },
 ];
 
 export const talks: Talk[] = [
@@ -111,10 +121,20 @@ export const talks: Talk[] = [
     id: "gpt2-session",
     title: "Vanilla GPT-2 Architecture",
     dek: "A lecture session on the GPT-2 architecture from first principles — how attention, positional encoding, and the decoder stack fit together before any fine-tuning enters the picture.",
-    event: "IAIRO Pramana Bootcamp · Cohort 1",
-    date: "2025",
+    event: "IAIRO SLM++ Bootcamp · PRAMANA Cohort 1 · Session 02",
+    date: "2026",
     href: "https://youtu.be/O-nWMsdMICI?t=3332",
     thumbnail: "/vanilla%20gpt%20-%202.png",
+    duration: "Watch",
+  },
+  {
+    id: "evolution-llm",
+    title: "Evolution of LLM Design Decisions",
+    dek: "A compilation of frontier models case studies — Part 2, Session 05 of PRAMANA: SLM++ Lecture Series. Scaling laws, cost accounting, and how design decisions compound.",
+    event: "IAIRO SLM++ Bootcamp · PRAMANA Cohort 1 · Session 05",
+    date: "2026",
+    href: "https://youtu.be/IW8s4wQ8-y4?t=4095",
+    thumbnail: "/evolution-llm-part2.png",
     duration: "Watch",
   },
 ];

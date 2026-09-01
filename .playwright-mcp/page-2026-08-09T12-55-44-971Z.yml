@@ -1,0 +1,342 @@
+- generic [ref=e4]:
+  - generic:
+    - generic:
+      - generic:
+        - generic: hello
+        - generic: saigon
+  - generic [ref=e5]:
+    - banner [ref=e6]:
+      - generic [ref=e7]:
+        - generic [ref=e8]:
+          - link [ref=e11] [cursor=pointer]:
+            - /url: /
+          - generic [ref=e22] [cursor=pointer]
+        - generic [ref=e25]:
+          - list [ref=e27]:
+            - listitem:
+              - link "EN":
+                - /url: //
+            - listitem [ref=e28]:
+              - link "VN" [ref=e29] [cursor=pointer]:
+                - /url: /vn/
+            - listitem [ref=e30]:
+              - link "中文" [ref=e31] [cursor=pointer]:
+                - /url: /zh/
+          - list [ref=e32]:
+            - list [ref=e33]:
+              - listitem [ref=e34]:
+                - link "work" [ref=e35] [cursor=pointer]:
+                  - /url: /#
+              - listitem [ref=e36]:
+                - link "manifesto" [ref=e37] [cursor=pointer]:
+                  - /url: /#
+              - listitem [ref=e38]:
+                - link "saigon souls" [ref=e39] [cursor=pointer]:
+                  - /url: /#
+              - listitem [ref=e40]:
+                - link "team" [ref=e41] [cursor=pointer]:
+                  - /url: /#
+              - listitem [ref=e42]:
+                - link "contact" [ref=e43] [cursor=pointer]:
+                  - /url: /#
+          - link "contact@monopo.vn" [ref=e49] [cursor=pointer]:
+            - /url: mailto:contact@monopo.vn
+    - main [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e52]:
+          - generic [ref=e53]:
+            - link:
+              - /url: /project/canada-goose-%E2%80%94-nomad-collection
+          - generic:
+            - generic:
+              - list:
+                - listitem:
+                  - generic:
+                    - generic: United,
+                    - generic: Unbound
+                - listitem:
+                  - generic:
+                    - generic: Hội tụ,
+                    - generic: Không giới hạn
+                - listitem:
+                  - generic:
+                    - generic: Tokyo-born,
+                    - generic: Creative studio
+                - listitem:
+                  - generic:
+                    - generic: Creative studio,
+                    - generic: Đến từ Tokyo
+          - generic [ref=e56]:
+            - generic [ref=e57]: Selected project
+            - list [ref=e60]:
+              - listitem [ref=e61]:
+                - link "Canada Goose — Nomad Collection Creative Direction , Video Production , Installation" [ref=e62] [cursor=pointer]:
+                  - /url: /project/canada-goose-%E2%80%94-nomad-collection
+                  - generic [ref=e63]:
+                    - generic [ref=e66]: Canada Goose — Nomad Collection
+                    - list [ref=e67]:
+                      - listitem [ref=e68]: Creative Direction ,
+                      - listitem [ref=e69]: Video Production ,
+                      - listitem [ref=e70]: Installation
+              - listitem [ref=e71]:
+                - link "FreeFire \"SKYLER'' Creative Direction , Character Design , Video Production" [ref=e72] [cursor=pointer]:
+                  - /url: /project/digital-kol
+                  - generic [ref=e73]:
+                    - generic [ref=e76]: FreeFire "SKYLER''
+                    - list [ref=e77]:
+                      - listitem [ref=e78]: Creative Direction ,
+                      - listitem [ref=e79]: Character Design ,
+                      - listitem [ref=e80]: Video Production
+              - listitem [ref=e81]:
+                - link "NIGHT GOGGLES by Mindchatter Motion Capture , Creative Direction , 3D , Post Production" [ref=e82] [cursor=pointer]:
+                  - /url: /project/mind-goggles
+                  - generic [ref=e83]:
+                    - generic [ref=e86]: NIGHT GOGGLES by Mindchatter
+                    - list [ref=e87]:
+                      - listitem [ref=e88]: Motion Capture ,
+                      - listitem [ref=e89]: Creative Direction ,
+                      - listitem [ref=e90]: 3D ,
+                      - listitem [ref=e91]: Post Production
+              - listitem [ref=e92]:
+                - link "La Dame de Soie – Cartier x Nowness Creative Direction , Production , Post Production" [ref=e93] [cursor=pointer]:
+                  - /url: /project/la-dame-de-soie-%E2%80%93-cartier-x-nowness
+                  - generic [ref=e94]:
+                    - generic [ref=e97]: La Dame de Soie – Cartier x Nowness
+                    - list [ref=e98]:
+                      - listitem [ref=e99]: Creative Direction ,
+                      - listitem [ref=e100]: Production ,
+                      - listitem [ref=e101]: Post Production
+              - listitem [ref=e102]:
+                - link "BnA Alter Museum Art Direction , Video Production , Website" [ref=e103] [cursor=pointer]:
+                  - /url: /project/bna
+                  - generic [ref=e104]:
+                    - generic [ref=e107]: BnA Alter Museum
+                    - list [ref=e108]:
+                      - listitem [ref=e109]: Art Direction ,
+                      - listitem [ref=e110]: Video Production ,
+                      - listitem [ref=e111]: Website
+              - listitem [ref=e112]:
+                - link "Super Dan Origin Digital Graphic Novel Concept , Creative Direction , Art Direction , Design" [ref=e113] [cursor=pointer]:
+                  - /url: /project/super-dan-origin-digital-graphic-novel
+                  - generic [ref=e114]:
+                    - generic [ref=e117]: Super Dan Origin Digital Graphic Novel
+                    - list [ref=e118]:
+                      - listitem [ref=e119]: Concept ,
+                      - listitem [ref=e120]: Creative Direction ,
+                      - listitem [ref=e121]: Art Direction ,
+                      - listitem [ref=e122]: Design
+              - listitem [ref=e123]:
+                - link "Canada Goose – The Art of Film AR Tour Berlin Creative Direction , AR , Video Production" [ref=e124] [cursor=pointer]:
+                  - /url: /project/canada-goose-%E2%80%93-the-art-of-film-ar-tour-berlin
+                  - generic [ref=e125]:
+                    - generic [ref=e128]: Canada Goose – The Art of Film AR Tour Berlin
+                    - list [ref=e129]:
+                      - listitem [ref=e130]: Creative Direction ,
+                      - listitem [ref=e131]: AR ,
+                      - listitem [ref=e132]: Video Production
+              - listitem [ref=e133]:
+                - link "Takashi Murakami Creative Direction , Video Production" [ref=e134] [cursor=pointer]:
+                  - /url: /project/takashi-murakami
+                  - generic [ref=e135]:
+                    - generic [ref=e138]: Takashi Murakami
+                    - list [ref=e139]:
+                      - listitem [ref=e140]: Creative Direction ,
+                      - listitem [ref=e141]: Video Production
+          - generic [ref=e142]:
+            - text: They trust us
+            - generic [ref=e143]:
+              - generic [ref=e144]: Nike ,
+              - generic [ref=e145]: Canada Goose ,
+              - generic [ref=e146]: Mercari ,
+              - generic [ref=e147]: Louis Vuitton ,
+              - generic [ref=e148]: Shiseido ,
+              - generic [ref=e149]: Amazon Fashion ,
+              - generic [ref=e150]: adidas ,
+              - generic [ref=e151]: Hypebeast ,
+              - generic [ref=e152]: Chupa Chups ,
+              - generic [ref=e153]: JAL airlines ,
+              - generic [ref=e154]: JETRO ,
+              - generic [ref=e155]: Yonex ,
+              - generic [ref=e156]: Toyota ,
+              - generic [ref=e157]: Sony ,
+              - generic [ref=e158]: Yamaha .
+            - link "More project on monopo.tokyo" [ref=e159] [cursor=pointer]:
+              - /url: https://monopo.co.jp/works
+          - generic [ref=e161]:
+            - generic [ref=e162]: Manifesto
+            - generic [ref=e164]:
+              - generic [ref=e165]: We Integrate
+              - generic [ref=e169]: Collaborate, and
+              - generic [ref=e173]: Challenge.
+              - generic [ref=e177]: We are digital natives
+              - generic [ref=e181]: embracing the
+              - generic [ref=e185]: creative freedom to
+              - generic [ref=e189]: produce solutions
+              - generic [ref=e193]: that connect,
+              - generic [ref=e197]: communicate, and
+              - generic [ref=e201]: inspire.
+          - generic [ref=e205]:
+            - generic [ref=e206]:
+              - generic [ref=e207]: integrate
+              - generic [ref=e208]: Born in Asia, raised by the world — monopo is the global fulcrum between East and West. We blur boundaries of difference, creating design that stands the test of time.
+            - generic [ref=e213]:
+              - generic [ref=e214]: COLLABORATE
+              - generic [ref=e215]: Collaboration over competition — Creativity, for monopo saigon, is like having a nabe with friends where we combine the creativity that sets us apart. Through collaborative initiative, we bring your visions to fruition.
+            - generic [ref=e220]:
+              - generic [ref=e221]: CHALLENGE
+              - generic [ref=e222]: We create to evoke — We start where others stop, we question the norms, we refuse to be redundant, monopo saigon seeks to deliver original creative solutions.
+          - paragraph [ref=e228]: Discover Saigon Soul Discover Saigon Soul
+          - generic [ref=e229]:
+            - generic [ref=e230]: Play
+            - generic [ref=e237]:
+              - button [ref=e238]
+              - button [ref=e239]
+          - generic [ref=e243]:
+            - generic [ref=e244]: Saigon Souls
+            - generic [ref=e245]:
+              - paragraph [ref=e246]: Saigon Souls captures a state of mind. You are Saigonese if you feel like you are, whether you just arrived, just returned or have been living here your whole life. Most of all, just being in Saigon makes you part of the Saigon Souls.
+              - link "Discover Saigon Souls" [ref=e247] [cursor=pointer]:
+                - /url: /saigon-soul
+          - generic [ref=e248]:
+            - generic [ref=e250]: Team
+            - paragraph [ref=e251]: From Tokyo to Saigon, We come from all over the world
+            - list [ref=e252]:
+              - listitem [ref=e253]:
+                - generic [ref=e254]:
+                  - generic [ref=e255]: Branch Director, CREATIVE Director
+                  - generic [ref=e256]:
+                    - generic [ref=e257]: VickiDang
+                    - button [ref=e259]
+                  - paragraph:
+                    - generic: Vicki Dang a.k.a Wii-ki is a self-taught 3D motion designer/director. Originally from Saigon, She has been working as a 3D Animator and Art director ever since. Her clients are Maserati, Louis Vuitton, Nike China, IKEA, MOAG, Oppo, Musiversal, FreeFire... She aims to create unconventional visual dimensions for digital spaces while implementing diverse cultural identities for the new generations. Deconstructing the concept of "westernizing" and "localizing," Vicki seeks to implement unbounded creativity and craftsmanship into the work.
+                    - list [ref=e261]:
+                      - listitem [ref=e262]:
+                        - link "Ig" [ref=e263] [cursor=pointer]:
+                          - /url: https://www.instagram.com/wiikiiiiii/
+                        - link "Web" [ref=e264] [cursor=pointer]:
+                          - /url: https://www.wiikivicki.com/
+              - listitem [ref=e265]:
+                - generic [ref=e266]:
+                  - generic [ref=e267]: Branch Director, FiLM Director
+                  - generic [ref=e268]:
+                    - generic [ref=e269]: RobinMahieux
+                    - button [ref=e271]
+                  - paragraph:
+                    - generic: Robin is a multi-disciplinary artist focused on Film Direction and Creative direction. Although he grew up in a multicultural family, he has found his home in Asia. Fascinated by traditions and the ever-growing youth culture, Robin focuses on creating compelling storytelling and immersive experiences. Robin has been directing worldwide for international brands (Louis Vuitton, Adidas, Cartier, Onitsuka Tiger...) and renowned artists (Kiko Mizuhara, Son Tung MTP, AngelaBaby, Jessica Jung, Henry Lau…).
+                    - list [ref=e273]:
+                      - listitem [ref=e274]:
+                        - link "Ig" [ref=e275] [cursor=pointer]:
+                          - /url: https://www.instagram.com/robinmahieux/
+                        - link "Web" [ref=e276] [cursor=pointer]:
+                          - /url: http://www.robinmahieux.com/
+              - listitem [ref=e277]:
+                - generic [ref=e278]:
+                  - generic [ref=e279]: CEO & Co-Founder of monopo inc. / monopo Tokyo
+                  - generic [ref=e280]:
+                    - generic [ref=e281]: YoshiyukiSasaki
+                    - button [ref=e283]
+                  - paragraph:
+                    - generic: Yoshi started out as a professional bassist before he went on co-found monopo while attending Waseda University (Tokyo, Japan) with fellow bassist Shun. At monopo, Yoshiyuki leads the groups client and talent expansion, as well as business development including founding poweredby.tokyo (2016), monopo London (2019), monopo New York (2021) and monopo Saigon (2021).
+                    - list [ref=e285]:
+                      - listitem [ref=e286]:
+                        - link "Ig" [ref=e287] [cursor=pointer]:
+                          - /url: https://www.instagram.com/yoshi.sasaki/
+                        - link "Tw" [ref=e288] [cursor=pointer]:
+                          - /url: https://twitter.com/yossysasaki
+              - listitem [ref=e289]:
+                - generic [ref=e290]:
+                  - generic [ref=e291]: COO, CTO & Co-Founder of monopo inc. / monopo Tokyo
+                  - generic [ref=e292]:
+                    - generic [ref=e293]: ShunOkada
+                    - button [ref=e295]
+                  - paragraph:
+                    - generic: Shun co-founded monopo in 2011 alongside his friend Yoshiyuki who he met in band club whilst studying at Waseda University in Tokyo. With his profound knowledge of web marketing, system development and technology, Shun consults our clients to help them achieve their communication goals. Shun is a natural problem solver, whether it’s in sales, new technologies or branding initiatives, he seeks to find creative solutions.
+                    - list [ref=e297]:
+                      - listitem [ref=e298]:
+                        - link "Ig" [ref=e299] [cursor=pointer]:
+                          - /url: https://www.instagram.com/shun.okada/
+                        - link "Tw" [ref=e300] [cursor=pointer]:
+                          - /url: https://twitter.com/shun_okada
+              - listitem [ref=e301]:
+                - generic [ref=e302]:
+                  - generic [ref=e303]: Global Development Director of monopo inc.
+                  - generic [ref=e304]:
+                    - generic [ref=e305]: GeorgiRoberts
+                    - button [ref=e307]
+                  - paragraph:
+                    - generic: British born, South African raised, Japan nurtured. Georgi studied film and media at the University of Cape Town before diving into a career spanning across theatre/film production management and advertising from London to Tokyo. Since moving to Tokyo in 2015, she has been working as a producer in the Japanese advertising industry. At monopo Tokyo, Georgi leads global campaigns/branding for various clients, as well as directing the monopo's international expansion.
+                    - list [ref=e309]:
+                      - listitem [ref=e310]:
+                        - link "Ig" [ref=e311] [cursor=pointer]:
+                          - /url: https://www.instagram.com/georgi.roberts/
+              - listitem [ref=e312]:
+                - generic [ref=e313]:
+                  - generic [ref=e314]: ART DIRECTOR, DESIGNER OF MONOPO TOKYO
+                  - generic [ref=e315]:
+                    - generic [ref=e316]: Tran MinhVillageois
+                    - button [ref=e318]
+                  - paragraph:
+                    - generic: Tran Minh is an art director and designer at monopo, born in France and based in Tokyo. He has a master degree in digital communication where he established his skills in web development, product design and digital marketing. Tran is passionate about experimenting with motion design and always willing to explore alongside ever-changing technology. As an art director, what matters most to him is to communicate messages that speak to human experiences or even social issues that are shared in societies across the world.
+                    - list [ref=e320]:
+                      - listitem [ref=e321]:
+                        - link "Ig" [ref=e322] [cursor=pointer]:
+                          - /url: https://www.instagram.com/tranminhvlg/
+                        - link "Tw" [ref=e323] [cursor=pointer]:
+                          - /url: https://twitter.com/tmvlg
+                        - link "Web" [ref=e324] [cursor=pointer]:
+                          - /url: http://tranminhvillageois.com/
+        - generic [ref=e325]:
+          - generic [ref=e326]:
+            - generic [ref=e327]: Contact
+            - generic [ref=e328]:
+              - generic [ref=e329]:
+                - generic [ref=e330]: Keep in touch
+                - generic [ref=e332]:
+                  - generic [ref=e333]: Start a conversation
+                  - link "contact@monopo.vn" [ref=e334] [cursor=pointer]:
+                    - /url: mailto:contact@monopo.vn
+                - separator [ref=e335]
+                - list [ref=e336]:
+                  - generic [ref=e337]: Our offices
+                  - generic [ref=e338]:
+                    - listitem [ref=e339]:
+                      - generic [ref=e340]: Saigon
+                      - paragraph [ref=e345]: Vietnam Business Center, Phong 802, lầu 8, 57-59 Hồ Tùng Mậu, phường Bến Nghé, quận 1, HCM
+                      - link "View on map" [ref=e346] [cursor=pointer]:
+                        - /url: https://www.google.com/maps/place/Viet+Nam+Business+Center+building/@10.7719237,106.703873,17z/data=!4m5!3m4!1s0x31752f413943dbb9:0x8f28b2333eb90f83!8m2!3d10.7720642!4d106.704156
+                    - listitem [ref=e352]:
+                      - generic [ref=e353]: Tokyo HQ
+                      - paragraph [ref=e358]: monopo inc. Path Omotesando A3 5-6-5 Jingumae Shibuya-ku, Tokyo, 150-0001, Japan
+                      - link "Visit the site" [ref=e359] [cursor=pointer]:
+                        - /url: https://monopo.co.jp/
+                    - separator [ref=e365]
+                  - generic [ref=e366]:
+                    - listitem [ref=e367]:
+                      - generic [ref=e368]: London
+                      - paragraph [ref=e373]: monopo london Ltd Unit D104, 116 Commercial St, London E1 6NF, United Kingdom
+                      - link "Visit the site" [ref=e374] [cursor=pointer]:
+                        - /url: https://monopo.london/
+                    - listitem [ref=e380]:
+                      - generic [ref=e381]: New York
+                      - paragraph [ref=e386]: 42 West Street, Apt 217, Brooklyn New York 11201
+                      - link "Visit the site" [ref=e387] [cursor=pointer]:
+                        - /url: https://monopo.nyc/
+                    - separator [ref=e393]
+              - list [ref=e395]:
+                - generic [ref=e396]: Follow us
+                - listitem [ref=e397]:
+                  - link "Facebook" [ref=e398] [cursor=pointer]:
+                    - /url: https://www.facebook.com/monopo.tokyo/
+                - listitem [ref=e404]:
+                  - link "Instagram" [ref=e405] [cursor=pointer]:
+                    - /url: https://www.instagram.com/monopo_tokyo/
+                - listitem [ref=e411]:
+                  - link "Twitter" [ref=e412] [cursor=pointer]:
+                    - /url: https://twitter.com/monopo_en
+                - listitem [ref=e418]:
+                  - link "Linkedin" [ref=e419] [cursor=pointer]:
+                    - /url: https://www.linkedin.com/company/monopo/mycompany/
+                - listitem [ref=e425]:
+                  - link "Vimeo" [ref=e426] [cursor=pointer]:
+                    - /url: https://vimeo.com/user5677798
+          - button [ref=e432]

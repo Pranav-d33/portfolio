@@ -1,0 +1,452 @@
+- generic [ref=e4]:
+  - complementary [ref=e5]:
+    - generic [ref=e6]:
+      - link "Pranav Dhiran" [ref=e7] [cursor=pointer]:
+        - /url: "#hero"
+        - generic [ref=e8]: Pranav
+        - generic [ref=e9]: Dhiran
+      - generic [ref=e10]: Design · Engineering · Research
+    - navigation [ref=e11]:
+      - link "01 Background" [ref=e12] [cursor=pointer]:
+        - /url: "#about"
+        - generic [ref=e13]: "01"
+        - generic [ref=e15]: Background
+      - link "02 Experience" [ref=e16] [cursor=pointer]:
+        - /url: "#experience"
+        - generic [ref=e17]: "02"
+        - generic [ref=e19]: Experience
+      - link "03 Selected work" [ref=e20] [cursor=pointer]:
+        - /url: "#projects"
+        - generic [ref=e21]: "03"
+        - generic [ref=e23]: Selected work
+      - link "04 Research" [ref=e24] [cursor=pointer]:
+        - /url: "#research"
+        - generic [ref=e25]: "04"
+        - generic [ref=e27]: Research
+      - link "05 Writing & Talks" [ref=e28] [cursor=pointer]:
+        - /url: "#writing"
+        - generic [ref=e29]: "05"
+        - generic [ref=e31]: Writing & Talks
+      - link "06 Contact" [ref=e32] [cursor=pointer]:
+        - /url: "#contact"
+        - generic [ref=e33]: "06"
+        - generic [ref=e35]: Contact
+    - generic [ref=e36]:
+      - generic [ref=e37]: Nanded, IN
+      - generic [ref=e41]: 02:43:51 IST
+      - generic [ref=e42]: v2.0 — 2026
+  - main [ref=e43]:
+    - generic [ref=e44]:
+      - generic [ref=e45]:
+        - generic [ref=e46]: Available for research internships
+        - generic [ref=e51]:
+          - generic [ref=e52]: Portfolio — v2.0
+          - generic [ref=e53]: MMXXVI
+      - generic [ref=e54]:
+        - generic [ref=e55]: Chapter 00 — A note before we begin
+        - heading "I build systems signals structure stories that reason — and stories that ship." [level=1] [ref=e56]:
+          - generic [ref=e57]: I build
+          - generic [ref=e59]:
+            - generic [ref=e60]: systems
+            - generic [ref=e61]: signals
+            - generic [ref=e62]: structure
+            - generic [ref=e63]: stories
+          - generic [ref=e64]: that reason
+          - generic [ref=e66]: —
+          - generic [ref=e68]: and stories
+          - generic [ref=e70]: that ship.
+        - generic [ref=e72]:
+          - paragraph [ref=e73]: Pranav Dhiran — AI engineer & researcher. Final-year ECE, self-taught in most of what matters. I keep digging into rabbit holes; some become systems.
+          - generic [ref=e74]:
+            - generic [ref=e75]: Currently
+            - generic [ref=e76]:
+              - generic [ref=e77]: •
+              - generic [ref=e78]: LFX'26 @ Hyperledger Cello
+            - generic [ref=e79]:
+              - generic [ref=e80]: •
+              - generic [ref=e81]: Active contributor to Meshery (CNCF)
+            - generic [ref=e82]:
+              - generic [ref=e83]: •
+              - generic [ref=e84]: Prototyping domain-specific SLMs
+            - generic [ref=e85]:
+              - link "Download resume" [ref=e87] [cursor=pointer]:
+                - /url: https://pranavdhiran.me/resume_v4.pdf
+              - link "See selected work" [ref=e96] [cursor=pointer]:
+                - /url: "#projects"
+      - generic [ref=e99]:
+        - generic [ref=e100]:
+          - generic [ref=e101]:
+            - text: Transformer pre-training
+            - generic [ref=e102]: ○
+          - generic [ref=e103]:
+            - text: RL fine-tuning
+            - generic [ref=e104]: ○
+          - generic [ref=e105]:
+            - text: Multi-agent pipelines
+            - generic [ref=e106]: ○
+          - generic [ref=e107]:
+            - text: LLM-controlled hardware
+            - generic [ref=e108]: ○
+          - generic [ref=e109]:
+            - text: Neurosymbolic SLMs
+            - generic [ref=e110]: ○
+          - generic [ref=e111]:
+            - text: RF signal processing
+            - generic [ref=e112]: ○
+          - generic [ref=e113]:
+            - text: Service mesh
+            - generic [ref=e114]: ○
+          - generic [ref=e115]:
+            - text: CNCF contributions
+            - generic [ref=e116]: ○
+        - generic [ref=e117]:
+          - generic [ref=e118]:
+            - text: Transformer pre-training
+            - generic [ref=e119]: ○
+          - generic [ref=e120]:
+            - text: RL fine-tuning
+            - generic [ref=e121]: ○
+          - generic [ref=e122]:
+            - text: Multi-agent pipelines
+            - generic [ref=e123]: ○
+          - generic [ref=e124]:
+            - text: LLM-controlled hardware
+            - generic [ref=e125]: ○
+          - generic [ref=e126]:
+            - text: Neurosymbolic SLMs
+            - generic [ref=e127]: ○
+          - generic [ref=e128]:
+            - text: RF signal processing
+            - generic [ref=e129]: ○
+          - generic [ref=e130]:
+            - text: Service mesh
+            - generic [ref=e131]: ○
+          - generic [ref=e132]:
+            - text: CNCF contributions
+            - generic [ref=e133]: ○
+      - generic [ref=e134]: Scroll to begin
+    - generic [ref=e138]:
+      - generic [ref=e140]:
+        - generic [ref=e141]: Chapter 01
+        - generic [ref=e142]: Background
+      - generic [ref=e143]:
+        - generic [ref=e144]:
+          - figure "Off the pitch, patterns still." [ref=e146]:
+            - img "Playing football" [ref=e148]
+          - figure "Story is a compression algorithm." [ref=e152]:
+            - img "Anime" [ref=e154]
+        - generic [ref=e156]:
+          - paragraph [ref=e157]:
+            - text: Everything started with a question about what lives inside a signal
+            - generic [ref=e158]: — not the carrier wave, but the structure underneath.
+          - generic [ref=e159]:
+            - paragraph [ref=e160]: RF taught me that meaning is always encoded, never obvious. Language turned out to be the same problem at a higher layer.
+            - paragraph [ref=e161]: "Now I build at both ends: systems that can parse a noisy channel, and systems that can reason about what they find."
+            - paragraph [ref=e162]: Final-year B.Tech, Electronics & Telecom at SGGSIE&T Nanded. Tier-3 college, self-taught in most of what matters.
+          - generic [ref=e163]:
+            - generic [ref=e164]: Recognition
+            - list [ref=e165]:
+              - listitem [ref=e166]:
+                - generic [ref=e167]: 0 1
+                - generic [ref=e168]: Twice took a team to the Smart India Hackathon national finals — 2024 and 2025.
+              - listitem [ref=e169]:
+                - generic [ref=e170]: 0 2
+                - generic [ref=e171]: Top 6 globally at UWA Hack For Impact 2026.
+    - generic [ref=e172]:
+      - generic [ref=e174]:
+        - generic [ref=e175]: Chapter 02
+        - generic [ref=e176]: Where I've been building
+      - heading "Every role is a different vantage on the same question." [level=2] [ref=e177]
+      - generic [ref=e178]:
+        - article [ref=e179]:
+          - generic [ref=e180]: Jun 2026 — Present
+          - generic [ref=e182]:
+            - generic [ref=e183]:
+              - heading "LFX Mentee" [level=3] [ref=e184]
+              - generic [ref=e185]: Hyperledger Cello · Linux Foundation
+            - paragraph [ref=e186]: "Fabric has an operations problem: steep learning curve, verbose tooling, too much that shouldn't require an expert."
+            - list [ref=e187]:
+              - listitem [ref=e188]:
+                - generic [ref=e189]: —
+                - generic [ref=e190]: Designing an AI agent that takes natural language, reasons over Cello API call sequences, and executes operations — eliminating manual dashboard interaction.
+              - listitem [ref=e191]:
+                - generic [ref=e192]: —
+                - generic [ref=e193]: The hard part isn't the LLM; it's knowing which API calls compose into what the user actually meant.
+        - article [ref=e194]:
+          - generic [ref=e195]: Apr 2026 — Present
+          - generic [ref=e197]:
+            - generic [ref=e198]:
+              - heading "AI Research Intern" [level=3] [ref=e199]
+              - generic [ref=e200]: IRT, University of South Carolina
+            - paragraph [ref=e201]: "The bet: small models with symbolic constraints can do things large models can't — not in spite of their size, but because of it."
+            - list [ref=e202]:
+              - listitem [ref=e203]:
+                - generic [ref=e204]: —
+                - generic [ref=e205]: Researching neurosymbolic SLM architecture and pre-training pipelines — integrating symbolic reasoning constraints from the start.
+              - listitem [ref=e206]:
+                - generic [ref=e207]: —
+                - generic [ref=e208]: Working on RL-based fine-tuning (GRPO/RLHF) for SLM alignment — reward modeling, policy optimization, benchmark evaluation.
+        - article [ref=e209]:
+          - generic [ref=e210]: Mar 2026 — Present
+          - generic [ref=e212]:
+            - generic [ref=e213]:
+              - heading "Open Source Contributor" [level=3] [ref=e214]
+              - generic [ref=e215]: Meshery — CNCF Sandbox Project
+            - paragraph [ref=e216]: Five-plus merged PRs. The PRs matter less than what you absorb reading other people's production code at scale.
+            - list [ref=e217]:
+              - listitem [ref=e218]:
+                - generic [ref=e219]: —
+                - generic [ref=e220]: 5+ merged PRs — service mesh management features, UI components, API integrations across Go backend and React frontend.
+              - listitem [ref=e221]:
+                - generic [ref=e222]: —
+                - generic [ref=e223]: Active in code reviews, issue triage, and community discussions per CNCF contributor guidelines.
+    - generic [ref=e224]:
+      - generic [ref=e226]:
+        - generic [ref=e227]: Chapter 03
+        - generic [ref=e228]: Selected work
+      - heading "Four rabbit holes that became systems." [level=2] [ref=e229]
+      - generic [ref=e232]:
+        - generic [ref=e234]:
+          - link "Medaura 01 — 2026" [ref=e235] [cursor=pointer]:
+            - /url: https://pranavdhiran.me/case-studies/medaura
+            - img "Medaura" [ref=e237]
+            - generic [ref=e238]: 01 — 2026
+          - generic [ref=e243]:
+            - generic: "01"
+            - generic [ref=e244]:
+              - generic [ref=e245]: Project 01
+              - heading "Medaura" [level=3] [ref=e246]
+              - generic [ref=e247]: Agentic Pharmacy System
+              - paragraph [ref=e248]: Medication errors are an information problem. The information exists — it just isn't connected at the moment it matters.
+              - generic [ref=e249]:
+                - generic [ref=e250]: FastAPI
+                - generic [ref=e251]: LangGraph
+                - generic [ref=e252]: ChromaDB
+                - generic [ref=e253]: Langfuse
+                - generic [ref=e254]: React
+              - generic [ref=e255]:
+                - link "View case study" [ref=e257] [cursor=pointer]:
+                  - /url: https://pranavdhiran.me/case-studies/medaura
+                - link "Live system" [ref=e262] [cursor=pointer]:
+                  - /url: https://aipharmacyproject-blond.vercel.app/
+        - generic [ref=e268]:
+          - link "Small Language Model From Scratch 02 — 2025" [ref=e269] [cursor=pointer]:
+            - /url: https://pranavdhiran.me/case-studies/tinystories
+            - img "Small Language Model From Scratch" [ref=e271]
+            - generic [ref=e272]: 02 — 2025
+          - generic [ref=e277]:
+            - generic: "02"
+            - generic [ref=e278]:
+              - generic [ref=e279]: Project 02
+              - heading "Small Language Model From Scratch" [level=3] [ref=e280]
+              - generic [ref=e281]: TinyStories
+              - paragraph [ref=e282]: Every LLM course teaches you to call an API. I wanted to know what happens before the API.
+              - generic [ref=e283]:
+                - generic [ref=e284]: PyTorch
+                - generic [ref=e285]: Custom BPE
+                - generic [ref=e286]: AMP
+                - generic [ref=e287]: NLP
+              - generic [ref=e288]:
+                - link "View case study" [ref=e290] [cursor=pointer]:
+                  - /url: https://pranavdhiran.me/case-studies/tinystories
+                - link "GitHub" [ref=e295] [cursor=pointer]:
+                  - /url: https://github.com/Pranav-d33/small_language_model_from_scratch-TinyStories-
+        - generic [ref=e301]:
+          - link "GNU Radio MCP Server 03 — 2025" [ref=e302] [cursor=pointer]:
+            - /url: https://pranavdhiran.me/case-studies/gnuradio-mcp
+            - img "GNU Radio MCP Server" [ref=e304]
+            - generic [ref=e305]: 03 — 2025
+          - generic [ref=e310]:
+            - generic: "03"
+            - generic [ref=e311]:
+              - generic [ref=e312]: Project 03
+              - heading "GNU Radio MCP Server" [level=3] [ref=e313]
+              - generic [ref=e314]: LLM-to-SDR Bridge
+              - paragraph [ref=e315]: LLMs can reason about RF signals. They just couldn't touch a radio. This closes the gap.
+              - generic [ref=e316]:
+                - generic [ref=e317]: Python
+                - generic [ref=e318]: FastMCP
+                - generic [ref=e319]: ZMQ
+                - generic [ref=e320]: XML-RPC
+                - generic [ref=e321]: GNU Radio
+              - generic [ref=e322]:
+                - link "View case study" [ref=e324] [cursor=pointer]:
+                  - /url: https://pranavdhiran.me/case-studies/gnuradio-mcp
+                - link "GitHub" [ref=e329] [cursor=pointer]:
+                  - /url: https://github.com/Pranav-d33/gnuradio-mcp-server
+        - generic [ref=e335]:
+          - link "RF Watch 04 — 2024" [ref=e336] [cursor=pointer]:
+            - /url: https://pranavdhiran.me/case-studies/rf-watch
+            - img "RF Watch" [ref=e338]
+            - generic [ref=e339]: 04 — 2024
+          - generic [ref=e344]:
+            - generic: "04"
+            - generic [ref=e345]:
+              - generic [ref=e346]: Project 04
+              - heading "RF Watch" [level=3] [ref=e347]
+              - generic [ref=e348]: Open-Source Real-Time RF Spectrum Monitor
+              - paragraph [ref=e349]: "Physical-layer first: no protocol decoding, no black-box certainty, just traceable RF evidence."
+              - generic [ref=e350]:
+                - generic [ref=e351]: Python
+                - generic [ref=e352]: GNU Radio
+                - generic [ref=e353]: HackRF One
+                - generic [ref=e354]: Signal Processing
+              - generic [ref=e355]:
+                - link "View case study" [ref=e357] [cursor=pointer]:
+                  - /url: https://pranavdhiran.me/case-studies/rf-watch
+                - link "GitHub" [ref=e362] [cursor=pointer]:
+                  - /url: https://github.com/Pranav-d33/RFwatch
+    - generic [ref=e366]:
+      - generic [ref=e368]:
+        - generic [ref=e369]: Chapter 04
+        - generic [ref=e371]: The vocabulary
+      - generic [ref=e372]:
+        - generic [ref=e373]:
+          - heading "The papers that gave me the vocabulary." [level=2] [ref=e374]
+          - paragraph [ref=e375]: Not a reading list — each one changed what I thought was possible.
+        - list [ref=e376]:
+          - listitem [ref=e377]:
+            - 'link "01 arXiv ReAct: Synergizing Reasoning and Acting Agents observe before they act. 2210.03629" [ref=e378] [cursor=pointer]':
+              - /url: https://arxiv.org/abs/2210.03629
+              - generic [ref=e379]: "01"
+              - generic [ref=e380]: arXiv
+              - generic [ref=e381]:
+                - generic [ref=e382]: "ReAct: Synergizing Reasoning and Acting"
+                - generic [ref=e383]: Agents observe before they act.
+                - generic [ref=e384]: "2210.03629"
+          - listitem [ref=e388]:
+            - 'link "02 arXiv Toolformer: Models Teach Themselves to Use Tools The mental model for LLMs using external tools. 2302.04761" [ref=e389] [cursor=pointer]':
+              - /url: https://arxiv.org/abs/2302.04761
+              - generic [ref=e390]: "02"
+              - generic [ref=e391]: arXiv
+              - generic [ref=e392]:
+                - generic [ref=e393]: "Toolformer: Models Teach Themselves to Use Tools"
+                - generic [ref=e394]: The mental model for LLMs using external tools.
+                - generic [ref=e395]: "2302.04761"
+          - listitem [ref=e399]:
+            - 'link "03 arXiv Switch Transformers: Mixture of Experts Modular capacity beats monolithic scaling. 2101.03961" [ref=e400] [cursor=pointer]':
+              - /url: https://arxiv.org/abs/2101.03961
+              - generic [ref=e401]: "03"
+              - generic [ref=e402]: arXiv
+              - generic [ref=e403]:
+                - generic [ref=e404]: "Switch Transformers: Mixture of Experts"
+                - generic [ref=e405]: Modular capacity beats monolithic scaling.
+                - generic [ref=e406]: "2101.03961"
+          - listitem [ref=e410]:
+            - link "04 arXiv Group Relative Policy Optimization A foundation for post-training interest. 2402.03300" [ref=e411] [cursor=pointer]:
+              - /url: https://arxiv.org/abs/2402.03300
+              - generic [ref=e412]: "04"
+              - generic [ref=e413]: arXiv
+              - generic [ref=e414]:
+                - generic [ref=e415]: Group Relative Policy Optimization
+                - generic [ref=e416]: A foundation for post-training interest.
+                - generic [ref=e417]: "2402.03300"
+          - listitem [ref=e421]:
+            - link "05 arXiv Direct Preference Optimization Preference optimization without treating RL as magic. 2305.18290" [ref=e422] [cursor=pointer]:
+              - /url: https://arxiv.org/abs/2305.18290
+              - generic [ref=e423]: "05"
+              - generic [ref=e424]: arXiv
+              - generic [ref=e425]:
+                - generic [ref=e426]: Direct Preference Optimization
+                - generic [ref=e427]: Preference optimization without treating RL as magic.
+                - generic [ref=e428]: "2305.18290"
+    - generic [ref=e432]:
+      - generic [ref=e434]:
+        - generic [ref=e435]: Chapter 05
+        - generic [ref=e437]: Writing & Talks
+      - heading "Thinking out loud — same act as building, different medium." [level=2] [ref=e438]
+      - generic [ref=e439]:
+        - generic [ref=e440]:
+          - generic [ref=e441]: ¶ Writing
+          - paragraph [ref=e442]: Essays about training, alignment, and why I keep going back to first principles.
+        - link "Why pre-train, not fine-tune? Essay Substack · Ashborn · 2025 · 8 min read Why pre-train, not fine-tune? Fine-tuning patches behaviour. Pre-training shapes belief. One is a fix; the other is a foundation. Read essay" [ref=e444] [cursor=pointer]:
+          - /url: https://ashborn2.substack.com/p/why-pre-train-not-fine-tune?r=5s307l
+          - generic [ref=e445]:
+            - img "Why pre-train, not fine-tune?" [ref=e446]
+            - generic [ref=e447]: Essay
+          - generic [ref=e448]:
+            - generic [ref=e449]: Substack · Ashborn · 2025 · 8 min read
+            - heading "Why pre-train, not fine-tune?" [level=3] [ref=e450]
+            - paragraph [ref=e451]: Fine-tuning patches behaviour. Pre-training shapes belief. One is a fix; the other is a foundation.
+            - generic [ref=e452]: Read essay
+      - generic [ref=e456]:
+        - generic [ref=e457]:
+          - generic [ref=e458]: ▶ Speaking
+          - paragraph [ref=e459]: Sessions and lectures — building in public, out loud.
+        - generic [ref=e462]:
+          - img "Vanilla GPT-2 Architecture" [ref=e463]
+          - button "Play video" [ref=e465] [cursor=pointer]
+          - generic [ref=e477]:
+            - generic [ref=e478]: IAIRO Pramana Bootcamp · Cohort 1 · 2025
+            - heading "Vanilla GPT-2 Architecture" [level=3] [ref=e479]
+            - paragraph [ref=e480]: A lecture from first principles — attention, positional encoding, and the decoder stack before any fine-tuning enters the picture.
+    - generic [ref=e481]:
+      - generic [ref=e483]:
+        - generic [ref=e484]: Chapter 06
+        - generic [ref=e486]: Contact
+      - heading "If any of this resonated, let’s talk." [level=2] [ref=e487]
+      - paragraph [ref=e488]: Currently interested in AI research internships, open-source collaborations, and systems engineering opportunities. Cold emails work.
+      - generic [ref=e489]:
+        - generic [ref=e490]:
+          - generic [ref=e491]: Primary channel
+          - button [ref=e492] [cursor=pointer]
+          - generic [ref=e497]: click to copy
+        - generic [ref=e498]:
+          - generic [ref=e499]: Elsewhere on the internet
+          - link "GitHub Pranav-d33" [ref=e500] [cursor=pointer]:
+            - /url: https://github.com/Pranav-d33
+            - generic [ref=e501]:
+              - generic [ref=e502]: GitHub
+              - generic [ref=e503]: Pranav-d33
+          - link "LinkedIn prannav-dhiran" [ref=e507] [cursor=pointer]:
+            - /url: https://linkedin.com/in/prannav-dhiran
+            - generic [ref=e508]:
+              - generic [ref=e509]: LinkedIn
+              - generic [ref=e510]: prannav-dhiran
+          - link "X @Prannav_ai" [ref=e514] [cursor=pointer]:
+            - /url: https://x.com/Prannav_ai
+            - generic [ref=e515]:
+              - generic [ref=e516]: X
+              - generic [ref=e517]: "@Prannav_ai"
+    - generic [ref=e521]:
+      - generic [ref=e523]:
+        - generic [ref=e524]:
+          - generic [ref=e525]: Pranav Dhiran
+          - generic [ref=e526]: —
+          - generic [ref=e527]: AI Engineer
+          - generic [ref=e528]: ○
+          - generic [ref=e529]: Researcher
+          - generic [ref=e530]: —
+          - generic [ref=e531]: Storyteller
+          - generic [ref=e532]: ○
+        - generic [ref=e533]:
+          - generic [ref=e534]: Pranav Dhiran
+          - generic [ref=e535]: —
+          - generic [ref=e536]: AI Engineer
+          - generic [ref=e537]: ○
+          - generic [ref=e538]: Researcher
+          - generic [ref=e539]: —
+          - generic [ref=e540]: Storyteller
+          - generic [ref=e541]: ○
+      - generic [ref=e542]:
+        - generic [ref=e543]:
+          - generic [ref=e544]: — Epigraph
+          - blockquote [ref=e545]: “ Not everything is meant to be but everything is worth trying. ”
+          - generic [ref=e546]: — Pranav Dhiran
+          - button "View system prompt" [ref=e547] [cursor=pointer]
+        - generic [ref=e550]:
+          - generic [ref=e551]:
+            - generic [ref=e552]: Local time
+            - generic [ref=e553]: 02:43:51
+            - generic [ref=e554]: Nanded, IN · IST
+          - generic [ref=e555]:
+            - generic [ref=e556]: Signal
+            - generic [ref=e557]: Available
+          - generic [ref=e562]: Latency
+        - link [ref=e576] [cursor=pointer]:
+          - /url: "#hero"
+      - generic [ref=e580]:
+        - generic [ref=e581]: © MMXXVI — Pranav Dhiran
+        - generic [ref=e582]: Fraunces + Inter · Handcrafted
+        - generic [ref=e583]: The beauty of being lost is, that every direction is a new possibility.
+  - button "ask anything" [ref=e584] [cursor=pointer]
