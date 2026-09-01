@@ -55,7 +55,7 @@ export function MobileNav({ activeSection }: { activeSection: string }) {
         </button>
         <button
           onClick={toggleDark}
-          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-rule bg-transparent text-ink-soft hover:text-ink hover:border-ink-soft transition-colors"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-rule bg-transparent text-ink-soft hover:text-ink hover:border-ink-soft dark:border-white/20 dark:text-[#e5e7eb] dark:hover:bg-[#e5e7eb] dark:hover:text-[#1A1A1A] dark:hover:border-[#e5e7eb] transition-colors"
           type="button"
           aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
           title={isDark ? "Light mode" : "Dark mode"}

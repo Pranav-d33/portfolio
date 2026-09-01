@@ -288,7 +288,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                   </a>
                   <button
                     onClick={() => setIsSystemPromptOpen(true)}
-                    className="inline-flex items-center gap-2 font-meta !text-[11px] tracking-[0.18em] text-ink-soft hover:text-ebony-text border border-rule rounded-sm px-4 py-2.5 hover:border-ebony-text transition-colors bg-transparent"
+                    className="inline-flex items-center gap-2 font-meta !text-[11px] tracking-[0.18em] text-ink-soft hover:text-ebony-text border border-rule rounded-sm px-4 py-2.5 hover:border-ebony-text transition-colors bg-transparent dark:text-[#e5e7eb] dark:border-white/20 dark:hover:bg-[#e5e7eb] dark:hover:text-[#1A1A1A] dark:hover:border-[#e5e7eb]"
                     type="button"
                   >
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 19h8"/><path d="m4 17 6-6-6-6"/></svg>

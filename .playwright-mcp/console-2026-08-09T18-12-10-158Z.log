@@ -1,6 +1,0 @@
-[    9434ms] [ERROR] Failed to load resource: net::ERR_CERT_COMMON_NAME_INVALID @ https://polyfill.io/v3/polyfill.min.js?features=fetch%2CObject.entries%2CObject.assign%2CCustomEvent%2CElement.prototype.append%2CNodeList.prototype.forEach%2CIntersectionObserver%2Csmoothscroll:0
-[   12329ms] [LOG] props {cover_video: undefined, video_mp4: undefined, video_thumbnail_mp4: undefined, video_webm: undefined, __ob__: Lt} @ https://monopo.vn/_nuxt/aa1acf2.js:0
-[  824826ms] [ERROR] Access to fetch at 'https://www.google-analytics.com/analytics.js' from origin 'https://monopo.vn' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://monopo.vn/:0
-[  824827ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://www.google-analytics.com/analytics.js:0
-[  825161ms] [ERROR] Access to fetch at 'https://identity.netlify.com/v1/netlify-identity-widget.js' from origin 'https://monopo.vn' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ https://monopo.vn/:0
-[  825161ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://identity.netlify.com/v1/netlify-identity-widget.js:0
