@@ -985,7 +985,7 @@ p + p {
 .project-link-case {
   background: var(--color-ink);
   border-color: var(--color-ink);
-  color: var(--color-paper) !important;
+  color: #fff !important;
 }
 
 .project-link-case:hover {
@@ -1465,7 +1465,7 @@ p + p {
   .hero-stage { padding-top: 1.25rem; }
 }
 @media (max-width: 768px) {
-  .hero-scratch-inner { padding: 20px 1rem 16px; min-height: 100dvh; }
+  .hero-scratch-inner { padding: 72px 1.5rem 16px; min-height: 100dvh; }
   .hero-top { padding-bottom: 10px; gap: 0.75rem; }
   .hero-stage { grid-template-columns: 1fr; gap: 1.5rem; padding: 1rem 0 0.75rem; }
   .hero-copy { gap: 0; }
@@ -1486,7 +1486,7 @@ p + p {
   .hero-foot-d { font-size: 11px; }
 }
 @media (max-width: 640px) {
-  .hero-scratch-inner { padding: 16px 1rem 12px; }
+  .hero-scratch-inner { padding: 72px 1.5rem 12px; }
   .hero-display { font-size: clamp(1.75rem, 7.8vw, 2.15rem); }
   .hero-media-frame { max-width: 260px; }
   .hero-media-img { aspect-ratio: 4 / 4.4; }
@@ -2783,4 +2783,18 @@ p + p {
   .dark .wt-card {
     border-color: rgba(255,255,255,0.20) !important;
   }
+}
+
+/* ponytail: view case study contrast fix — .dark a / .dark .project-link wash out the primary button (light-on-light 1.07:1); restore ink-on-paper */
+.dark .project-link.project-link-case,
+.dark a.project-link.project-link-case {
+  color: #1A1714 !important;
+  background: #f4f1ea !important;
+  border-color: #f4f1ea !important;
+}
+.dark .project-link.project-link-case:hover,
+.dark a.project-link.project-link-case:hover {
+  color: #1A1A1A !important;
+  background: #dc7a7a !important;
+  border-color: #dc7a7a !important;
 }

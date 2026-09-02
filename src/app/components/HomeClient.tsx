@@ -122,9 +122,9 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
             chapter="01"
             label="Background"
             title="Everything I build started as a question I couldn't leave alone."
-            className="max-w-[1200px] mx-auto"
+            className="max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24"
           />
-          <div className="relative w-full mt-12 max-w-[1200px] mx-auto">
+          <div className="relative w-full mt-12 max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
             <div className="flex flex-col lg:flex-row gap-12 items-start justify-center w-full">
               <RevealOnScroll direction="left" className="shrink-0 mx-auto lg:mx-0">
                 <div className="flip-card w-[340px] h-[340px] mb-6 lg:mb-0">
@@ -196,7 +196,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
 
         {/* ═══ CHAPTER 02 ═══ EXPERIENCE ═══ */}
         <section id="experience" className="section experience-section relative bg-paper-deep/40 dark:bg-white/[0.02]">
-          <div className="experience-inner max-w-[1200px] mx-auto">
+          <div className="experience-inner max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
             <SectionHeading
               chapter="02"
               label="Experience"
@@ -211,7 +211,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
 
         {/* ═══ CHAPTER 04 ═══ RESEARCH ═══ */}
         <section id="research" className="section research-section bg-paper-deep/40 dark:bg-white/[0.02]">
-          <div className="research-inner">
+          <div className="research-inner px-6 md:px-16 lg:px-24">
             <SectionHeading
               chapter="04"
               label="The vocabulary"

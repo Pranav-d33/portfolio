@@ -136,9 +136,9 @@ export function ProjectsShowcase({ chapter }: { chapter?: string }) {
         title="Rabbit holes that became systems."
         label="Selected work"
         chapter={chapter}
-        className="max-w-[1200px] mx-auto"
+        className="max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24"
       />
-      <div className="projects-showcase max-w-[1200px] mx-auto">
+      <div className="projects-showcase max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
         {projectCaseStudies.map((project, index) => (
           <ProjectBlock key={project.slug} project={project} index={index} />
         ))}
