@@ -43,9 +43,9 @@ export function InkFooter() {
       </div>
 
       {/* Middle grid */}
-      <div className="px-6 md:px-16 lg:px-24 py-16 md:py-20 grid md:grid-cols-12 gap-12 md:gap-10">
+      <div className="px-6 md:px-16 lg:px-24 py-16 md:py-20 grid grid-cols-2 md:grid-cols-12 gap-10 md:gap-10">
         {/* Epigraph */}
-        <div className="md:col-span-6">
+        <div className="col-span-2 md:col-span-6">
           <div className="font-meta !text-[10px] tracking-[0.28em] text-white/40 mb-5 uppercase">
             Epigraph
           </div>
@@ -58,7 +58,7 @@ export function InkFooter() {
         </div>
 
         {/* Navigation */}
-        <div className="md:col-span-3">
+        <div className="col-span-1 md:col-span-3">
           <div className="font-meta !text-[10px] tracking-[0.28em] text-white/40 mb-5 uppercase">
             Navigate
           </div>
@@ -78,7 +78,7 @@ export function InkFooter() {
         </div>
 
         {/* Social + back to top */}
-        <div className="md:col-span-3 flex flex-col justify-between">
+        <div className="col-span-1 md:col-span-3 flex flex-col justify-between">
           <div>
             <div className="font-meta !text-[10px] tracking-[0.28em] text-white/40 mb-5 uppercase">
               Connect

@@ -119,8 +119,6 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
         {/* ═══ CHAPTER 01 ═══ BACKGROUND ═══ */}
         <section id="about" className="section about-section relative">
           <SectionHeading
-            chapter="01"
-            label="Background"
             title="Everything I build started as a question I couldn't leave alone."
             className="max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24"
           />
@@ -198,8 +196,6 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
         <section id="experience" className="section experience-section relative bg-paper-deep/40 dark:bg-white/[0.02]">
           <div className="experience-inner max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
             <SectionHeading
-              chapter="02"
-              label="Experience"
               title="Every role is a different vantage on the same question."
             />
             <ExperienceTrack entries={experienceEntries} />
@@ -207,14 +203,12 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
         </section>
 
         {/* ═══ CHAPTER 03 ═══ SELECTED WORK ═══ */}
-        <ProjectsShowcase chapter="03" />
+        <ProjectsShowcase />
 
         {/* ═══ CHAPTER 04 ═══ RESEARCH ═══ */}
         <section id="research" className="section research-section bg-paper-deep/40 dark:bg-white/[0.02]">
           <div className="research-inner px-6 md:px-16 lg:px-24">
             <SectionHeading
-              chapter="04"
-              label="The vocabulary"
               title="The papers that gave me the vocabulary."
             />
             <RevealOnScroll direction="bottom">
@@ -232,8 +226,6 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
         <section id="writing" className="section relative">
           <div className="max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
             <SectionHeading
-              chapter="05"
-              label="Writing & Talks"
               title="Thinking out loud — same act as building, different medium."
             />
             <WritingAndTalks />
@@ -244,8 +236,6 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
         <section id="contact" className="section contact-section bg-paper-deep/40 dark:bg-white/[0.02]">
           <div className="max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
             <SectionHeading
-              chapter="06"
-              label="Contact"
               title="If any of this resonated, let's talk."
             />
             <RevealOnScroll direction="bottom">

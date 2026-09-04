@@ -79,16 +79,14 @@ export function KineticHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: MOTION.easeOutQuart, delay: 0.14 }}
           >
-            <div className="hero-kicker">A note before we begin — Chapter 00</div>
-
             <h1 className="hero-display font-degular">
               I build <Cycler />
               <span className="hero-display-line hero-display-italic">that reason.</span>
             </h1>
 
             <p className="hero-dek">
-              Transformer pre-training to agentic pipelines to LLM-controlled hardware. I follow questions until they become
-              <span className="hero-hi"> systems</span> you can ship.
+              I keep digging into <span className="hero-hi">rabbit holes</span>, some become
+              <span className="hero-hi"> systems</span>.
             </p>
 
             <div className="hero-actions">
@@ -126,9 +124,6 @@ export function KineticHero() {
               />
               <span className="hero-corner hero-corner--tl" aria-hidden="true" />
               <span className="hero-corner hero-corner--br" aria-hidden="true" />
-              <span className="hero-fig-label" aria-hidden="true">
-                Fig. 01
-              </span>
             </div>
             <figcaption className="hero-media-cap">
               <span className="hero-cap-rule" aria-hidden="true" />

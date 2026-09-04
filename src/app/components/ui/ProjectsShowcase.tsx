@@ -129,13 +129,11 @@ function ProjectBlock({
   );
 }
 
-export function ProjectsShowcase({ chapter }: { chapter?: string }) {
+export function ProjectsShowcase() {
   return (
     <section id="projects" className="section projects-section">
       <SectionHeading
         title="Rabbit holes that became systems."
-        label="Selected work"
-        chapter={chapter}
         className="max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24"
       />
       <div className="projects-showcase max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
