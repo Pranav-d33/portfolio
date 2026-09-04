@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { MOTION } from "@/lib/motion";
 import { scrollToSection } from "@/lib/scroll";
+import { Grainient } from "./Grainient";
 
 const CYCLE = ["systems", "models", "tools"] as const;
 
@@ -41,8 +42,30 @@ const NOW = [
   { n: "03", t: "Agri-language model", d: "Knowledge graphs" },
 ];
 
+// Theme-aware Grainient palette — paper tones per mode so text contrast holds.
+const HERO_BG = {
+  light: { color1: "#EBE7DD", color2: "#F4F1EA", color3: "#D8D2C5" },
+  dark: { color1: "#222222", color2: "#1A1A1A", color3: "#374151" },
+} as const;
+
+function subscribeDark(callback: () => void) {
+  const observer = new MutationObserver(callback);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+  return () => observer.disconnect();
+}
+
+function getDarkSnapshot() {
+  return document.documentElement.classList.contains("dark");
+}
+
+function getServerDarkSnapshot() {
+  return false;
+}
+
 export function KineticHero() {
   const reduced = useReducedMotion();
+  const isDark = useSyncExternalStore(subscribeDark, getDarkSnapshot, getServerDarkSnapshot);
+  const palette = isDark ? HERO_BG.dark : HERO_BG.light;
   const [active, setActive] = useState(0);
   useEffect(() => {
     if (reduced) return;
@@ -52,6 +75,35 @@ export function KineticHero() {
 
   return (
     <div className="hero-scratch">
+      {!reduced && (
+        <div className="hero-bg" aria-hidden="true">
+          <Grainient
+            key={isDark ? "dark" : "light"}
+            color1={palette.color1}
+            color2={palette.color2}
+            color3={palette.color3}
+            timeSpeed={0.25}
+            colorBalance={0.0}
+            warpStrength={1.0}
+            warpFrequency={5.0}
+            warpSpeed={2.0}
+            warpAmplitude={50.0}
+            blendAngle={0.0}
+            blendSoftness={0.05}
+            rotationAmount={500.0}
+            noiseScale={2.0}
+            grainAmount={0.1}
+            grainScale={2.0}
+            grainAnimated={false}
+            contrast={1.1}
+            gamma={1.0}
+            saturation={0.7}
+            centerX={0.0}
+            centerY={0.0}
+            zoom={0.9}
+          />
+        </div>
+      )}
       <div className="hero-scratch-inner">
         {/* TOP — hairline, single line, no eyebrow spam */}
         <motion.div
