@@ -222,6 +222,16 @@ a:hover {
   color: #9ca3af;
 }
 
+/* Case-study proof pills: light pill needs dark text in dark mode.
+   Beats generic .dark a above, which otherwise forces light text on light bg. */
+.dark #links a {
+  color: #1a1a1a;
+}
+
+.dark #links a:hover {
+  color: #1a1a1a;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-degular);
   font-weight: 500;
