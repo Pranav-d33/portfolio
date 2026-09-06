@@ -147,22 +147,19 @@ export default async function CaseStudyPage({ params }: Props) {
 
           <div className="max-w-[720px]">
             <section id="problem" className="py-10 md:py-14 border-t border-rule/70 scroll-mt-8">
-              <span className="font-geist-mono text-[11px] tracking-[0.14em] uppercase text-ink-faint">01 — Problem</span>
-              <h2 className="font-degular text-[28px] leading-[1.1] tracking-[-0.02em] text-ink mt-3 mb-6">Problem</h2>
+              <h2 className="font-degular text-[28px] leading-[1.1] tracking-[-0.02em] text-ink mb-6">Problem</h2>
               <p className="font-blanco text-[17px] leading-[1.65] text-ink-soft max-w-[65ch]">{project.problem}</p>
             </section>
 
             <section id="architecture" className="py-10 md:py-14 border-t border-rule/70 scroll-mt-8">
-              <span className="font-geist-mono text-[11px] tracking-[0.14em] uppercase text-ink-faint">02 — Architecture</span>
-              <h2 className="font-degular text-[28px] leading-[1.1] tracking-[-0.02em] text-ink mt-3 mb-8">Architecture</h2>
+              <h2 className="font-degular text-[28px] leading-[1.1] tracking-[-0.02em] text-ink mb-8">Architecture</h2>
               <div className="border border-rule rounded-[3px] p-4 md:p-6 bg-paper">
                 <ZoomableArchDiagram architecture={project.architecture} />
               </div>
             </section>
 
             <section id="decisions" className="py-10 md:py-14 border-t border-rule/70 scroll-mt-8">
-              <span className="font-geist-mono text-[11px] tracking-[0.14em] uppercase text-ink-faint">03 — Decisions</span>
-              <h2 className="font-degular text-[28px] leading-[1.1] tracking-[-0.02em] text-ink mt-3 mb-8">Key Decisions</h2>
+              <h2 className="font-degular text-[28px] leading-[1.1] tracking-[-0.02em] text-ink mb-8">Key Decisions</h2>
               <div className="flex flex-col gap-8">
                 {project.decisions.map((d, i) => (
                   <div key={d.title} className="grid grid-cols-[32px_1fr] gap-4">
@@ -177,8 +174,7 @@ export default async function CaseStudyPage({ params }: Props) {
             </section>
 
             <section id="lessons" className="py-10 md:py-14 border-t border-rule/70 scroll-mt-8">
-              <span className="font-geist-mono text-[11px] tracking-[0.14em] uppercase text-ink-faint">04 — Lessons</span>
-              <h2 className="font-degular text-[28px] leading-[1.1] tracking-[-0.02em] text-ink mt-3 mb-6">Lessons / Results</h2>
+              <h2 className="font-degular text-[28px] leading-[1.1] tracking-[-0.02em] text-ink mb-6">Lessons / Results</h2>
               <ul className="flex flex-col gap-4">
                 {project.lessons.map((lesson) => (
                   <li key={lesson} className="grid grid-cols-[16px_1fr] gap-3 font-blanco text-[16px] leading-[1.6] text-ink-soft">
@@ -190,8 +186,7 @@ export default async function CaseStudyPage({ params }: Props) {
             </section>
 
             <section id="papers" className="py-10 md:py-14 border-t border-rule/70 scroll-mt-8">
-              <span className="font-geist-mono text-[11px] tracking-[0.14em] uppercase text-ink-faint">05 — Theory</span>
-              <h2 className="font-degular text-[28px] leading-[1.1] tracking-[-0.02em] text-ink mt-3 mb-6">Theoretical Foundation</h2>
+              <h2 className="font-degular text-[28px] leading-[1.1] tracking-[-0.02em] text-ink mb-6">Theoretical Foundation</h2>
               <div className="flex flex-col gap-3">
                 {project.relatedPapers.map((paper) => (
                   <a key={paper.id} href={paper.href} target="_blank" rel="noopener noreferrer" className="group flex flex-col gap-1.5 p-5 border border-rule rounded-[3px] hover:border-ink-soft hover:bg-black/[0.02] dark:hover:bg-white/[0.04] transition-colors no-underline">
@@ -204,8 +199,7 @@ export default async function CaseStudyPage({ params }: Props) {
             </section>
 
             <section id="links" className="py-10 md:py-14 border-t border-rule/70 scroll-mt-8">
-              <span className="font-geist-mono text-[11px] tracking-[0.14em] uppercase text-ink-faint">06 — Proof</span>
-              <h2 className="font-degular text-[28px] leading-[1.1] tracking-[-0.02em] text-ink mt-3 mb-6">Proof Links</h2>
+              <h2 className="font-degular text-[28px] leading-[1.1] tracking-[-0.02em] text-ink mb-6">Proof Links</h2>
               <div className="flex flex-wrap gap-3">
                 {project.links.map((link) => (
                   <a
