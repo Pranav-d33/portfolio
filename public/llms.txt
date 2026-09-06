@@ -20,6 +20,14 @@ AI Engineer and Researcher focused on LLM systems, agentic infrastructure, MCP s
 - GNU Radio MCP source: https://github.com/Pranav-d33/gnuradio-mcp-server
 - RF Watch source: https://github.com/Pranav-d33/RFwatch
 
+## Writing
+- Why pre-train, not fine-tune? (Substack · Ashborn, 2025): https://ashborn2.substack.com/p/why-pre-train-not-fine-tune?r=5s307l
+- How Do You Design a Custom SLM? (Substack · Ashborn, Aug 2026): https://ashborn2.substack.com/p/how-do-you-design-a-custom-slm?r=5s307l
+
+## Talks & Videos
+- Vanilla GPT-2 Architecture (IAIRO SLM++ Bootcamp · PRAMANA Cohort 1 · Session 02, 2026): https://youtu.be/O-nWMsdMICI?t=3332
+- Evolution of LLM Design Decisions (IAIRO SLM++ Bootcamp · PRAMANA Cohort 1 · Session 05, 2026): https://youtu.be/IW8s4wQ8-y4?t=4095
+
 ## Contact
 - Email: dhiranpranav72@gmail.com
 - LinkedIn: https://linkedin.com/in/prannav-dhiran
