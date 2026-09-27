@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { MOTION } from "@/lib/motion";
 import { SystemPromptModal } from "./SystemPromptModal";
+import { AgentView } from "./AgentView";
 import { ChatWidget } from "./chatbot/ChatWidget";
 import { Sidebar } from "./navigation/Sidebar";
 import { MobileNav } from "./navigation/MobileNav";
@@ -16,6 +17,9 @@ import { ProjectsShowcase } from "./ui/ProjectsShowcase";
 import { ResearchMarquee } from "./ui/ResearchMarquee";
 import { InkFooter } from "./ui/InkFooter";
 import { WritingAndTalks } from "./ui/WritingAndTalks";
+import { TextReveal } from "@/components/TextReveal";
+import { awards, experience, resumePath } from "@/lib/portfolioData";
+import { Parallax } from "@/components/Parallax";
 
 function useActiveSection() {
   const [active, setActive] = useState("about");
@@ -42,41 +46,10 @@ function useActiveSection() {
   return active;
 }
 
-const experienceEntries = [
-  {
-    title: "LFX Mentee",
-    org: <span className="org-underline">Hyperledger Cello · Linux Foundation</span>,
-    date: "Jun 2026 – Present",
-    description:
-      "Fabric has an operations problem: steep learning curve, verbose tooling, too much that shouldn't require an expert. I'm building an agent that collapses that — natural language in, Cello API call sequence out, operation executed.",
-    details: [
-      "Designing an AI agent that takes natural language, reasons over Cello API call sequences, and executes operations — eliminating manual dashboard interaction",
-      "The hard part isn't the LLM; it's knowing which API calls compose into what the user actually meant",
-    ],
-  },
-  {
-    title: "AI Research Intern",
-    org: <span className="org-underline">IRT, University of South Carolina</span>,
-    date: "Apr 2026 – Present",
-    description:
-      "The bet: small models with symbolic constraints can do things large models can't — not in spite of their size, but because of it.",
-    details: [
-      "Researching neurosymbolic SLM architecture and pre-training pipelines — integrating symbolic reasoning constraints into small language model training",
-      "Working on RL-based fine-tuning (GRPO/RLHF) for SLM alignment — reward modeling, policy optimization, and evaluation on neurosymbolic reasoning benchmarks",
-    ],
-  },
-  {
-    title: "Open Source Contributor",
-    org: <span className="org-underline">Meshery — CNCF Sandbox Project</span>,
-    date: "Mar 2026 – Present",
-    description:
-      "Five-plus merged PRs into a CNCF sandbox project. The PRs matter less than what you absorb reading other people's production code at scale.",
-    details: [
-      "5+ merged PRs — service mesh management features, UI components, and API integrations across Go backend and React frontend",
-      "Active in code reviews, issue triage, and community discussions per CNCF contributor guidelines",
-    ],
-  },
-];
+const experienceEntries = experience.map((role) => ({
+  ...role,
+  org: <span className="org-underline">{role.org}</span>,
+}));
 
 interface HomeClientProps {
   mainRef?: React.RefObject<HTMLElement | null>;
@@ -86,6 +59,7 @@ interface HomeClientProps {
 export default function HomeClient({ mainRef, introComplete = true }: HomeClientProps) {
   const activeSection = useActiveSection();
   const [isSystemPromptOpen, setIsSystemPromptOpen] = useState(false);
+  const [isAgentViewOpen, setIsAgentViewOpen] = useState(false);
   const [copied, setCopied] = useState(false);
   const internalMainRef = useRef<HTMLElement>(null);
   const resolvedMainRef = mainRef ?? internalMainRef;
@@ -103,8 +77,8 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
   return (
     <>
       <ScrollProgress />
-      <Sidebar activeSection={activeSection} />
-      <MobileNav activeSection={activeSection} />
+      <Sidebar activeSection={activeSection} onOpenAgentView={() => setIsAgentViewOpen(true)} />
+      <MobileNav activeSection={activeSection} onOpenAgentView={() => setIsAgentViewOpen(true)} />
 
       <main
         ref={resolvedMainRef}
@@ -125,7 +99,8 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
           <div className="relative w-full mt-12 max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
             <div className="flex flex-col lg:flex-row gap-12 items-start justify-center w-full">
               <RevealOnScroll direction="left" className="shrink-0 mx-auto lg:mx-0">
-                <div className="flip-card w-[340px] h-[340px] mb-6 lg:mb-0">
+                <Parallax className="mb-6 lg:mb-0" distance={-26}>
+                  <div className="flip-card w-[340px] h-[340px]">
                   <div className="flip-card-inner h-full">
                     <div className="flip-card-front rounded-lg overflow-hidden border border-black/5 dark:border-white/10">
                       <img
@@ -144,7 +119,8 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                       />
                     </div>
                   </div>
-                </div>
+                  </div>
+                </Parallax>
               </RevealOnScroll>
 
               <div className="flex-1 w-full">
@@ -166,10 +142,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                       Recognition
                     </h3>
                     <ul className="space-y-5 about-achievements">
-                      {[
-                        "Twice took a team to the Smart India Hackathon national finals — 2024 and 2025.",
-                        "Top 6 globally at UWA Hack For Impact 2026.",
-                      ].map((a, i) => (
+                      {awards.map((a, i) => (
                         <motion.li
                           key={a}
                           className="text-body text-ink-soft leading-body pl-4 border-l-2 border-ebony-text"
@@ -211,11 +184,12 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
             <SectionHeading
               title="The papers that gave me the vocabulary."
             />
-            <RevealOnScroll direction="bottom">
-              <p className="research-intro">
-                Not a reading list — each one changed what I thought was possible.
-              </p>
-            </RevealOnScroll>
+            <TextReveal
+              as="p"
+              className="research-intro"
+              text="Not a reading list — each one changed what I thought was possible."
+              delay={0.1}
+            />
           </div>
           <div className="research-marquee-outer">
             <ResearchMarquee />
@@ -238,11 +212,12 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
             <SectionHeading
               title="If any of this resonated, let's talk."
             />
-            <RevealOnScroll direction="bottom">
-              <p className="contact-intro">
-                Currently interested in AI research internships, open-source collaborations, and systems engineering opportunities. Cold emails work.
-              </p>
-            </RevealOnScroll>
+            <TextReveal
+              as="p"
+              className="contact-intro"
+              text="Currently interested in AI research internships, open-source collaborations, and systems engineering opportunities. Cold emails work."
+              delay={0.1}
+            />
 
             <div className="mt-14 grid md:grid-cols-12 gap-10 items-start">
               <RevealOnScroll direction="bottom" className="md:col-span-6">
@@ -268,7 +243,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                 </div>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <a
-                    href="/resume_v4.pdf"
+                    href={resumePath}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 rounded-full bg-ink !text-paper border border-ink px-5 py-2.5 font-blanco text-[13px] font-medium hover:bg-accent hover:border-accent hover:!text-paper transition-colors no-underline dark:bg-[#e5e7eb] dark:!text-[#1A1A1A] dark:border-[#e5e7eb] dark:hover:bg-accent dark:hover:!text-[#1A1A1A] dark:hover:border-accent"
@@ -284,6 +259,14 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 19h8"/><path d="m4 17 6-6-6-6"/></svg>
                     View system prompt
                   </button>
+                  <button
+                    onClick={() => setIsAgentViewOpen(true)}
+                    className="inline-flex items-center gap-2 font-meta !text-[11px] tracking-[0.18em] text-ink-soft hover:text-ebony-text border border-rule rounded-sm px-4 py-2.5 hover:border-ebony-text transition-colors bg-transparent dark:text-[#e5e7eb] dark:border-white/20 dark:hover:bg-[#e5e7eb] dark:hover:text-[#1A1A1A] dark:hover:border-[#e5e7eb]"
+                    type="button"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+                    Read as an agent
+                  </button>
                 </div>
               </RevealOnScroll>
 
@@ -297,20 +280,27 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                     { label: "LinkedIn", handle: "prannav-dhiran", href: "https://linkedin.com/in/prannav-dhiran" },
                     { label: "Substack", handle: "ashborn2", href: "https://ashborn2.substack.com" },
                     { label: "X", handle: "@Prannav_ai", href: "https://x.com/Prannav_ai" },
-                  ].map((link) => (
-                    <a
+                  ].map((link, i) => (
+                    <motion.a
                       key={link.label}
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="group flex items-center justify-between py-3 border-b border-rule hover:pl-2 hover:border-ebony-text transition-all duration-300 !no-underline"
+                      initial={{ opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, amount: 0.6 }}
+                      transition={{
+                        ...MOTION.springEditorial,
+                        delay: i * MOTION.staggerStandard,
+                      }}
                     >
                       <div className="flex items-baseline gap-4">
                         <span className="font-degular text-[20px] text-ebony-text">{link.label}</span>
                         <span className="font-meta !text-[11px] text-ink-faint">{link.handle}</span>
                       </div>
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-ink-faint group-hover:text-ebony-text group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
-                    </a>
+                    </motion.a>
                   ))}
                 </div>
               </RevealOnScroll>
@@ -323,6 +313,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
       <InkFooter />
 
       <SystemPromptModal isOpen={isSystemPromptOpen} onClose={() => setIsSystemPromptOpen(false)} />
+      <AgentView isOpen={isAgentViewOpen} onClose={() => setIsAgentViewOpen(false)} />
       <ChatWidget />
     </>
   );

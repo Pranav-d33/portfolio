@@ -17,3 +17,7 @@ User-agent: PerplexityBot
 Allow: /
 
 Sitemap: https://pranavdhiran.me/sitemap.xml
+
+# Agent-readable versions of this site
+# https://pranavdhiran.me/llms.txt   (plain text)
+# https://pranavdhiran.me/agents     (rendered brief)

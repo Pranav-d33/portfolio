@@ -26,6 +26,7 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   alternates: {
     canonical: "/",
+    types: { "text/plain": "/llms.txt" },
   },
   openGraph: {
     title: "Pranav Dhiran — AI Engineer & Researcher",

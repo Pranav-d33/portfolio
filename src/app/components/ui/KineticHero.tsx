@@ -6,6 +6,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { MOTION } from "@/lib/motion";
 import { scrollToSection } from "@/lib/scroll";
 import { Grainient } from "./Grainient";
+import { resumePath } from "@/lib/portfolioData";
 
 const CYCLE = ["systems", "models", "tools"] as const;
 
@@ -142,7 +143,7 @@ export function KineticHero() {
             </p>
 
             <div className="hero-actions">
-              <a href="/resume_v4.pdf" target="_blank" rel="noreferrer" className="hero-primary">
+              <a href={resumePath} target="_blank" rel="noreferrer" className="hero-primary">
                 Download resume
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M7 7h10v10" />

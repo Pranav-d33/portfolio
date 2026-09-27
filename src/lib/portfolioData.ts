@@ -352,3 +352,126 @@ export const projectBySlug = Object.fromEntries(
 export function caseStudyPath(slug: string) {
   return `/case-studies/${slug}`;
 }
+
+export type ExperienceRole = {
+  title: string;
+  org: string;
+  date: string;
+  /** The thesis of the role — why it exists, in first person. */
+  description: string;
+  details: string[];
+};
+
+export const resumePath = "/Pranav_Dhiran_Resume_1page.pdf";
+
+export const experience: ExperienceRole[] = [
+  {
+    title: "Research Intern",
+    org: "AIISC, University of South Carolina",
+    date: "Apr 2026 – Present",
+    description:
+      "The bet: a small model with symbolic constraints can do things a large one can't — not in spite of its size, but because of it. I own the pre-training pipeline that tests the bet.",
+    details: [
+      "Own the pre-training pipeline for a 5-person team building an India-focused agriculture SLM — data collection and cleaning through pre-training and evaluation",
+      "Built a 140M-parameter Qwen3-style transformer training/eval pipeline (GQA, RoPE, RMSNorm, SwiGLU, factorized embeddings) over a 6.5 GB / 266K-document corpus, with training-health, domain-validation, and safety evaluation frameworks",
+      "Built the neurosymbolic layer: BPE tokenizer with AGROVOC entity injection, Z3-based causal KG verification, Triple Transformer Encoder",
+      "Built India-Agri-KG — 784 districts, 26 domains, 14,478+ entities, 38,590+ relations — with a 5-stage non-LLM verification layer enforcing source traceability on every triple (unpublished)",
+      "Delivered two technical lectures for the IAIRO-affiliated SLM Bootcamp 2026: Vanilla GPT-2 Architecture, and Scaling Laws & Cost Accounting",
+    ],
+  },
+  {
+    title: "LFX Mentee",
+    org: "Hyperledger Cello · Linux Foundation",
+    date: "Jun 2026 – Present",
+    description:
+      "Fabric has an operations problem: steep learning curve, verbose tooling, too much that shouldn't require an expert. The hard part isn't the LLM — it's knowing which API calls compose into what the operator actually meant.",
+    details: [
+      "Building an AI operations copilot for Hyperledger Fabric — natural-language queries to Cello REST APIs through an LLM tool-calling workflow",
+      "Implemented the Django/DRF backend and SSE streaming pipeline powering incremental AI responses in the React dashboard",
+      "Built a Fabric node-logs API on the agent layer with bounded log retrieval and Docker error handling for AI-assisted node debugging",
+      "Developed a multi-party channel invitation workflow end to end: database models, REST APIs, Fabric configuration/signing logic, and dashboard UI",
+      "21 PRs contributed, 11 merged — features, debugging, CI/test fixes, dependency updates, and API/data-model fixes",
+    ],
+  },
+  {
+    title: "Open Source Contributor",
+    org: "Meshery — CNCF Sandbox Project",
+    date: "Mar 2026 – Jul 2026",
+    description:
+      "The PRs matter less than what you absorb reading other people's production code at scale.",
+    details: [
+      "5+ merged PRs across Meshery's Go backend and React frontend — service-mesh features, UI components, and API integrations",
+      "Active in issue triage, code reviews, and contributor discussions under CNCF's open-source workflow",
+    ],
+  },
+];
+
+export const profile = {
+  name: "Pranav Dhiran",
+  role: "AI Engineer & Researcher",
+  location: "Nagpur, Maharashtra, India",
+  email: "dhiranpranav72@gmail.com",
+  summary:
+    "Engineer who ships end-to-end AI/ML systems: training and data pipelines, Python/Go backend services, and agentic infrastructure that runs in production. Owns the pre-training pipeline for a 140M-parameter domain SLM at AIISC (University of South Carolina) — 6.5 GB corpus processing, custom tokenizer, distributed training, automated evaluation harness. LFX '26 Mentee at Hyperledger Cello building the Django/DRF backend, REST/SSE streaming APIs, and an LLM tool-calling agent. Open-source contributor to CNCF's Meshery/MeshKit (Go + React) and author of a published PyPI MCP server.",
+  seeking: "An internship building production ML/LLM systems.",
+  education: {
+    degree: "B.Tech — Electronics & Telecommunication Engineering (Minor in IT)",
+    school: "SGGS Institute of Engineering & Technology, Nanded",
+    dates: "2023 – 2027",
+  },
+} as const;
+
+export const skills: { label: string; items: string[] }[] = [
+  {
+    label: "Languages & Frameworks",
+    items: ["Python", "Go", "PyTorch", "TensorFlow", "Hugging Face Transformers", "TRL"],
+  },
+  {
+    label: "APIs & Protocols",
+    items: ["REST", "gRPC", "GraphQL", "OpenAI/Gemini/Ollama APIs", "FastMCP", "XML-RPC", "ZMQ"],
+  },
+  {
+    label: "LLM Engineering",
+    items: [
+      "Instruction fine-tuning",
+      "LoRA",
+      "PEFT",
+      "GRPO",
+      "RLHF",
+      "INT4/INT8 quantization",
+      "Unsloth",
+      "LangChain",
+      "LangGraph",
+      "ChromaDB",
+      "FAISS",
+      "RAG",
+    ],
+  },
+  {
+    label: "Agentic & Infra",
+    items: [
+      "Multi-agent systems",
+      "Tool use",
+      "Function calling",
+      "MCP servers",
+      "LangSmith",
+      "Langfuse",
+      "Docker",
+      "Kubernetes",
+    ],
+  },
+];
+
+export const awards: string[] = [
+  "Qualified — ETHGlobal 2026",
+  "International Finalist (Top 6) — UWA Hack 2026",
+  "National Finalist — Smart India Hackathon 2024 & 2025",
+  "Regional Qualifier — Nxt Wave × OpenAI Buildathon",
+];
+
+export const socialLinks: PortfolioLink[] = [
+  { label: "GitHub", href: "https://github.com/Pranav-d33", external: true },
+  { label: "LinkedIn", href: "https://linkedin.com/in/prannav-dhiran", external: true },
+  { label: "Substack", href: "https://ashborn2.substack.com", external: true },
+  { label: "X", href: "https://x.com/Prannav_ai", external: true },
+];

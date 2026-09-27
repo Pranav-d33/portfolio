@@ -3,7 +3,7 @@
 import { useCallback, useSyncExternalStore } from "react";
 import { scrollToSection, scrollToTop } from "@/lib/scroll";
 import { motion } from "framer-motion";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Terminal } from "lucide-react";
 import { MOTION } from "@/lib/motion";
 
 const navItems = [
@@ -52,7 +52,13 @@ function ThemeToggle({ isDark, onToggle }: { isDark: boolean; onToggle: () => vo
   );
 }
 
-export function Sidebar({ activeSection }: { activeSection: string }) {
+export function Sidebar({
+  activeSection,
+  onOpenAgentView,
+}: {
+  activeSection: string;
+  onOpenAgentView?: () => void;
+}) {
   const isDark = useDarkMode();
 
   const toggleDark = useCallback(() => {
@@ -122,8 +128,25 @@ export function Sidebar({ activeSection }: { activeSection: string }) {
         </ul>
       </nav>
 
-      {/* Bottom: Theme toggle only */}
-      <div className="pointer-events-auto">
+      {/* Bottom: agent view + theme toggle */}
+      <div className="pointer-events-auto flex flex-col items-start gap-4">
+        {onOpenAgentView && (
+          <motion.button
+            onClick={onOpenAgentView}
+            className="group inline-flex items-center gap-2 rounded-full border border-rule px-3 py-1.5 text-[11px] font-meta tracking-[0.14em] text-ink-soft hover:text-ebony-text hover:border-ink-soft hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-colors duration-200"
+            whileTap={{ scale: 0.96 }}
+            transition={MOTION.springEditorial}
+            type="button"
+            title="Read this site the way an agent does"
+          >
+            <Terminal className="w-[13px] h-[13px] stroke-[1.7]" />
+            <span>FOR AGENTS</span>
+            <span
+              className="h-1.5 w-1.5 rounded-full bg-accent/70 group-hover:bg-accent animate-pulse"
+              aria-hidden="true"
+            />
+          </motion.button>
+        )}
         <ThemeToggle isDark={isDark} onToggle={toggleDark} />
       </div>
     </aside>

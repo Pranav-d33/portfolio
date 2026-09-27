@@ -46,6 +46,10 @@ export const metadata: Metadata = {
   authors: [{ name: "Pranav Dhiran" }],
   creator: "Pranav Dhiran",
   generator: "Next.js",
+  // agent-readable mirror of this site
+  alternates: {
+    types: { "text/plain": "/llms.txt" },
+  },
   robots: {
     index: true,
     follow: true,

@@ -2,7 +2,7 @@
 
 import { useCallback, useSyncExternalStore } from "react";
 import { scrollToSection, scrollToTop } from "@/lib/scroll";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Terminal } from "lucide-react";
 
 const navItems = [
   { id: "about", label: "About" },
@@ -29,7 +29,13 @@ function useDarkMode() {
   return useSyncExternalStore(subscribeToDark, getDarkSnapshot, () => false);
 }
 
-export function MobileNav({ activeSection }: { activeSection: string }) {
+export function MobileNav({
+  activeSection,
+  onOpenAgentView,
+}: {
+  activeSection: string;
+  onOpenAgentView?: () => void;
+}) {
   const isDark = useDarkMode();
 
   const scrollTo = useCallback((id: string) => {
@@ -53,15 +59,28 @@ export function MobileNav({ activeSection }: { activeSection: string }) {
         >
           Pranav Dhiran
         </button>
-        <button
-          onClick={toggleDark}
-          className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-rule bg-transparent text-ink-soft hover:text-ink hover:border-ink-soft dark:border-white/20 dark:text-[#e5e7eb] dark:hover:bg-[#e5e7eb] dark:hover:text-[#1A1A1A] dark:hover:border-[#e5e7eb] transition-colors"
-          type="button"
-          aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-          title={isDark ? "Light mode" : "Dark mode"}
-        >
-          {isDark ? <Moon className="w-[18px] h-[18px] stroke-[1.7]" /> : <Sun className="w-[18px] h-[18px] stroke-[1.7]" />}
-        </button>
+        <div className="flex items-center gap-2">
+          {onOpenAgentView && (
+            <button
+              onClick={onOpenAgentView}
+              className="inline-flex h-9 items-center gap-1.5 rounded-full border border-rule px-3 text-[10px] font-meta tracking-[0.14em] text-ink-soft dark:border-white/20 dark:text-[#e5e7eb] transition-colors"
+              type="button"
+              aria-label="Open agent view"
+            >
+              <Terminal className="w-[13px] h-[13px] stroke-[1.7]" />
+              AGENTS
+            </button>
+          )}
+          <button
+            onClick={toggleDark}
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-rule bg-transparent text-ink-soft hover:text-ink hover:border-ink-soft dark:border-white/20 dark:text-[#e5e7eb] dark:hover:bg-[#e5e7eb] dark:hover:text-[#1A1A1A] dark:hover:border-[#e5e7eb] transition-colors"
+            type="button"
+            aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            title={isDark ? "Light mode" : "Dark mode"}
+          >
+            {isDark ? <Moon className="w-[18px] h-[18px] stroke-[1.7]" /> : <Sun className="w-[18px] h-[18px] stroke-[1.7]" />}
+          </button>
+        </div>
       </header>
 
       {/* Bottom bar: section nav */}
