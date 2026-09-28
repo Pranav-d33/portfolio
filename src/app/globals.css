@@ -1596,6 +1596,17 @@ p + p {
   border-radius: var(--radius-navigation);
 }
 
+/* Elements only script can focus — <main> after the intro, dialog shells —
+   are focus-managed for screen readers, not for sighted keyboard users, and
+   Tab never reaches them. Ringing them drew a 2px near-white line along the
+   whole bottom edge of <main>; the footer's 280px left margin left the part
+   crossing the navigation pane on show. Tailwind's `outline-none` lost here
+   because utilities are layered and this rule is not. */
+[tabindex="-1"]:focus,
+[tabindex="-1"]:focus-visible {
+  outline: none;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
