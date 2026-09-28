@@ -3,6 +3,7 @@ import Link from "next/link";
 import { briefSections } from "@/lib/agentBrief";
 import { baseUrl, profile, resumePath } from "@/lib/portfolioData";
 import { AgentPageActions } from "./AgentPageActions";
+import { UtilityDock } from "../components/navigation/UtilityDock";
 
 export const metadata: Metadata = {
   title: "For agents",
@@ -23,6 +24,7 @@ export const metadata: Metadata = {
 export default function AgentsPage() {
   return (
     <div className="agents-page">
+      <UtilityDock alwaysVisible />
       <a href="#brief" className="sr-only focus:not-sr-only">
         Skip to brief
       </a>

@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import {
   motion,
   useAnimationFrame,
+  useInView,
   useMotionValue,
   useReducedMotion,
   useScroll,
@@ -56,6 +57,8 @@ export function ResearchMarquee() {
   const reduce = useReducedMotion();
 
   const wrapRef = useRef<HTMLDivElement>(null);
+  const viewRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(viewRef, { margin: "200px 0px" });
   const [hovered, setHovered] = useState(false);
 
   // Scroll velocity feeds the drift: scrolling down pushes the track along,
@@ -66,8 +69,10 @@ export function ResearchMarquee() {
     damping: 50,
     stiffness: 340,
   });
-  const velocityFactor = useTransform(smoothVelocity, [-1800, 0, 1800], [-4, 1, 4], {
-    clamp: false,
+  // Clamped: desktop scroll arrives smoothed by Lenis, but touch flings deliver
+  // raw velocities many times higher — unclamped, those made the track lurch.
+  const velocityFactor = useTransform(smoothVelocity, [-2500, 0, 2500], [-5, 1, 5], {
+    clamp: true,
   });
   // Slight lean in the direction of travel — the paper "gives" a little.
   const skew = useTransform(smoothVelocity, [-1800, 0, 1800], [2.5, 0, -2.5], {
@@ -79,7 +84,7 @@ export function ResearchMarquee() {
   const percent = useMotionValue(0);
 
   useAnimationFrame((_, delta) => {
-    if (reduce) return;
+    if (reduce || !inView) return;
     const width = wrapRef.current?.scrollWidth ?? 0;
     if (!width) return;
     const half = width / 2;
@@ -90,7 +95,7 @@ export function ResearchMarquee() {
   });
 
   return (
-    <div className="research-marquee-wrap">
+    <div className="research-marquee-wrap" ref={viewRef}>
       <motion.div className="research-marquee" style={reduce ? undefined : { skewX: smoothSkew }}>
         <motion.div
           ref={wrapRef}

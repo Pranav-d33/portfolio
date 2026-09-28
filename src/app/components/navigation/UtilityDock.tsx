@@ -10,25 +10,37 @@ import { useTheme } from "@/lib/useTheme";
  * The agent view sits beside it because it is the same kind of control —
  * a way to change how the whole site is presented, not a place to navigate to.
  */
-export function UtilityDock({ onOpenAgentView }: { onOpenAgentView: () => void }) {
+export function UtilityDock({
+  onOpenAgentView,
+  /** Show at every width. The home page hides it on phones, where MobileNav
+   *  carries the same controls; pages without that bar need it everywhere. */
+  alwaysVisible = false,
+}: {
+  onOpenAgentView?: () => void;
+  alwaysVisible?: boolean;
+}) {
   const { isDark, toggle } = useTheme();
 
   return (
-    <div className="utility-dock">
-      <motion.button
-        onClick={onOpenAgentView}
-        className="utility-dock__agents group"
-        whileTap={{ scale: 0.96 }}
-        transition={MOTION.springEditorial}
-        type="button"
-        title="Read this site the way an agent does"
-      >
-        <Terminal className="w-[13px] h-[13px] stroke-[1.7]" aria-hidden="true" />
-        <span>For agents</span>
-        <span className="utility-dock__pulse" aria-hidden="true" />
-      </motion.button>
+    <div className={`utility-dock${alwaysVisible ? " utility-dock--always" : ""}`}>
+      {onOpenAgentView && (
+        <>
+          <motion.button
+            onClick={onOpenAgentView}
+            className="utility-dock__agents group"
+            whileTap={{ scale: 0.96 }}
+            transition={MOTION.springEditorial}
+            type="button"
+            title="Read this site the way an agent does"
+          >
+            <Terminal className="w-[13px] h-[13px] stroke-[1.7]" aria-hidden="true" />
+            <span>For agents</span>
+            <span className="utility-dock__pulse" aria-hidden="true" />
+          </motion.button>
 
-      <span className="utility-dock__divider" aria-hidden="true" />
+          <span className="utility-dock__divider" aria-hidden="true" />
+        </>
+      )}
 
       <motion.button
         onClick={toggle}
