@@ -91,6 +91,17 @@ export type Talk = {
   href: string;
   thumbnail: string; // remote URL or "/public-path.jpg" for local
   duration?: string;
+  /** Session label within the series, e.g. "Session 02". */
+  session?: string;
+};
+
+/** The teaching credential the talks belong to — framed once, above them. */
+export const speakingSeries = {
+  name: "IAIRO SLM++ Bootcamp",
+  cohort: "PRAMANA Cohort 1",
+  year: "2026",
+  blurb:
+    "Two lecture sessions taught to the PRAMANA cohort — building GPT-2 from first principles, then what changed and what it cost.",
 };
 
 export const essays: Essay[] = [
@@ -122,6 +133,7 @@ export const talks: Talk[] = [
     title: "Vanilla GPT-2 Architecture",
     dek: "A lecture session on the GPT-2 architecture from first principles — how attention, positional encoding, and the decoder stack fit together before any fine-tuning enters the picture.",
     event: "IAIRO SLM++ Bootcamp · PRAMANA Cohort 1 · Session 02",
+    session: "Session 02",
     date: "2026",
     href: "https://youtu.be/O-nWMsdMICI?t=3332",
     thumbnail: "/vanilla%20gpt%20-%202.png",
@@ -132,6 +144,7 @@ export const talks: Talk[] = [
     title: "Evolution of LLM Design Decisions",
     dek: "A compilation of frontier models case studies — Part 2, Session 05 of PRAMANA: SLM++ Lecture Series. Scaling laws, cost accounting, and how design decisions compound.",
     event: "IAIRO SLM++ Bootcamp · PRAMANA Cohort 1 · Session 05",
+    session: "Session 05",
     date: "2026",
     href: "https://youtu.be/IW8s4wQ8-y4?t=4095",
     thumbnail: "/evolution-llm-part2.png",

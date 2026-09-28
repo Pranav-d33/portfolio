@@ -11,72 +11,15 @@ import {
   useVelocity,
 } from "framer-motion";
 import { ArrowUpRight, Play } from "lucide-react";
-import { essays, talks, type Essay, type Talk } from "@/lib/portfolioData";
+import { essays, speakingSeries, talks, type Essay } from "@/lib/portfolioData";
 import { MOTION } from "@/lib/motion";
 
-type FeedItem = {
-  id: string;
-  kind: "essay" | "talk";
-  title: string;
-  dek: string;
-  source: string;
-  date: string;
-  tail?: string;
-  href: string;
-  thumbnail: string;
-};
+/* ══════════════════════════════════════════════
+   Speaking — two sessions, so give them the room.
+   The credential is the series, not the video count.
+   ══════════════════════════════════════════════ */
 
-const fromEssay = (essay: Essay): FeedItem => ({
-  id: essay.id,
-  kind: "essay",
-  title: essay.title,
-  dek: essay.dek,
-  source: essay.venue,
-  date: essay.date,
-  tail: essay.readTime,
-  href: essay.href,
-  thumbnail: essay.thumbnail,
-});
-
-const fromTalk = (talk: Talk): FeedItem => ({
-  id: talk.id,
-  kind: "talk",
-  title: talk.title,
-  dek: talk.dek,
-  source: talk.event,
-  date: talk.date,
-  tail: talk.duration,
-  href: talk.href,
-  thumbnail: talk.thumbnail,
-});
-
-/** Trailing 4-digit year, so "Aug 2026" and "2026" sort together. */
-function year(date: string) {
-  const match = date.match(/(\d{4})/);
-  return match ? Number(match[1]) : 0;
-}
-
-/** One feed, newest year first, authored order preserved inside a year. */
-const feed: FeedItem[] = [...essays.map(fromEssay), ...talks.map(fromTalk)].sort(
-  (a, b) => year(b.date) - year(a.date),
-);
-
-const essayCount = feed.filter((item) => item.kind === "essay").length;
-const talkCount = feed.length - essayCount;
-
-function FeedRow({
-  item,
-  index,
-  onEnter,
-  onLeave,
-}: {
-  item: FeedItem;
-  index: number;
-  onEnter: () => void;
-  onLeave: () => void;
-}) {
-  const isTalk = item.kind === "talk";
-
+function TalkFeature({ talk, index }: { talk: (typeof talks)[number]; index: number }) {
   function handleImgError(e: React.SyntheticEvent<HTMLImageElement>) {
     const img = e.currentTarget;
     if (img.src.includes("maxresdefault")) img.src = img.src.replace("maxresdefault", "hqdefault");
@@ -85,66 +28,92 @@ function FeedRow({
 
   return (
     <motion.a
-      href={item.href}
+      href={talk.href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`wt-item wt-item--${item.kind}`}
-      // a talk already shows its still; only an essay's media needs the cursor
-      onMouseEnter={isTalk ? undefined : onEnter}
-      onMouseLeave={isTalk ? undefined : onLeave}
-      onFocus={isTalk ? undefined : onEnter}
-      onBlur={isTalk ? undefined : onLeave}
-      initial={{ opacity: 0, y: 14 }}
+      className="talk-feature"
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.35 }}
-      transition={{ ...MOTION.springEditorial, delay: index * 0.06 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ ...MOTION.springEditorial, delay: index * 0.1 }}
     >
-      <span className="wt-item-index">{String(index + 1).padStart(2, "0")}</span>
-
-      <span className={`wt-item-kind wt-item-kind--${item.kind}`}>
-        {isTalk && <Play className="w-[9px] h-[9px]" fill="currentColor" strokeWidth={0} />}
-        {item.kind}
-      </span>
-
-      {/* The slot that separates the two: a talk shows footage, an essay
-          shows the one thing footage can't — how long it asks for. */}
-      {isTalk ? (
-        <span className="wt-item-still" aria-hidden="true">
-          <img src={item.thumbnail} alt="" loading="lazy" onError={handleImgError} />
-          <span className="wt-item-still-play">
-            <Play className="w-3 h-3" fill="currentColor" strokeWidth={0} />
-          </span>
+      <div className="talk-feature__frame">
+        <img
+          src={talk.thumbnail}
+          alt={talk.title}
+          className="talk-feature__still"
+          loading="lazy"
+          onError={handleImgError}
+        />
+        <span className="talk-feature__scrim" aria-hidden="true" />
+        <span className="talk-feature__play" aria-hidden="true">
+          <Play className="w-5 h-5" fill="currentColor" strokeWidth={0} />
         </span>
-      ) : (
-        <span className="wt-item-length" aria-hidden="true">
-          {item.tail ? (
-            <>
-              <span className="wt-item-length-num">{item.tail.replace(/\s*min$/i, "")}</span>
-              <span className="wt-item-length-unit">min read</span>
-            </>
-          ) : (
-            <span className="wt-item-length-unit">essay</span>
-          )}
+        {talk.session && <span className="talk-feature__session">{talk.session}</span>}
+      </div>
+
+      <div className="talk-feature__body">
+        <h3 className="talk-feature__title">{talk.title}</h3>
+        <p className="talk-feature__dek">{talk.dek}</p>
+        <span className="talk-feature__cta">
+          Watch the session
+          <ArrowUpRight className="w-3.5 h-3.5" aria-hidden="true" />
         </span>
-      )}
-
-      <span className="wt-item-main">
-        <span className="wt-item-title">{item.title}</span>
-        <span className="wt-item-dek">{item.dek}</span>
-      </span>
-
-      <span className="wt-item-meta">
-        <span className="wt-item-source">{item.source}</span>
-        <span className="wt-item-stamp">{item.date}</span>
-      </span>
-
-      <ArrowUpRight className="wt-item-arrow" aria-hidden="true" />
+      </div>
     </motion.a>
   );
 }
 
-/** Floats the hovered row's media next to the cursor, leaning into the motion. */
-function CursorPreview({ item }: { item: FeedItem | null }) {
+/* ══════════════════════════════════════════════
+   Writing — an index built to grow. No thumbnails
+   in the row; the cursor carries them instead.
+   ══════════════════════════════════════════════ */
+
+function EssayRow({
+  essay,
+  index,
+  onEnter,
+  onLeave,
+}: {
+  essay: Essay;
+  index: number;
+  onEnter: () => void;
+  onLeave: () => void;
+}) {
+  return (
+    <motion.a
+      href={essay.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="essay-row"
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      onFocus={onEnter}
+      onBlur={onLeave}
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.5 }}
+      transition={{ ...MOTION.springEditorial, delay: Math.min(index * 0.05, 0.3) }}
+    >
+      <span className="essay-row__index">{String(index + 1).padStart(2, "0")}</span>
+      <span className="essay-row__body">
+        <span className="essay-row__title">{essay.title}</span>
+        <span className="essay-row__dek">{essay.dek}</span>
+      </span>
+      <span className="essay-row__meta">
+        <span className="essay-row__venue">{essay.venue}</span>
+        <span className="essay-row__stamp">
+          {essay.date}
+          {essay.readTime ? ` · ${essay.readTime}` : ""}
+        </span>
+      </span>
+      <ArrowUpRight className="essay-row__arrow" aria-hidden="true" />
+    </motion.a>
+  );
+}
+
+/** Floats the hovered essay's cover beside the cursor. */
+function CursorPreview({ essay }: { essay: Essay | null }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 320, damping: 32, mass: 0.6 });
@@ -164,21 +133,21 @@ function CursorPreview({ item }: { item: FeedItem | null }) {
 
   return (
     <motion.div
-      className="wt-preview"
+      className="essay-preview"
       aria-hidden="true"
       style={{ x: springX, y: springY, rotate: smoothRotate }}
     >
       <AnimatePresence>
-        {item && (
+        {essay && (
           <motion.div
-            key={item.id}
-            className="wt-preview-inner"
+            key={essay.id}
+            className="essay-preview__inner"
             initial={{ opacity: 0, scale: 0.86 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.26, ease: MOTION.easeOutExpo }}
           >
-            <img src={item.thumbnail} alt="" />
+            <img src={essay.thumbnail} alt="" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -187,35 +156,59 @@ function CursorPreview({ item }: { item: FeedItem | null }) {
 }
 
 export function WritingAndTalks() {
-  const [active, setActive] = useState<FeedItem | null>(null);
+  const [active, setActive] = useState<Essay | null>(null);
   const reduce = useReducedMotion();
 
   return (
     <div className="wt-section">
-      <div className="wt-ledger">
-        <span className="wt-ledger-count">{String(feed.length).padStart(2, "0")}</span>
-        <span className="wt-ledger-split">
-          {essayCount} essays · {talkCount} talks
-        </span>
-        <span className="wt-ledger-hint">
-          Essays about training, alignment, and going back to first principles — and the lectures
-          where I had to say it out loud.
-        </span>
-      </div>
+      {talks.length > 0 && (
+        <section className="wt-speaking">
+          <header className="wt-lede">
+            <span className="wt-lede__label">Speaking</span>
+            <h3 className="wt-lede__headline">
+              {talks.length === 2 ? "Two sessions" : `${talks.length} sessions`} taught at the{" "}
+              <em>{speakingSeries.name}</em>
+            </h3>
+            <p className="wt-lede__sub">
+              {speakingSeries.cohort} · {speakingSeries.year} — {speakingSeries.blurb}
+            </p>
+          </header>
 
-      <div className="wt-list">
-        {feed.map((item, i) => (
-          <FeedRow
-            key={item.id}
-            item={item}
-            index={i}
-            onEnter={() => setActive(item)}
-            onLeave={() => setActive((current) => (current?.id === item.id ? null : current))}
-          />
-        ))}
-      </div>
+          <div className="talk-grid">
+            {talks.map((talk, i) => (
+              <TalkFeature key={talk.id} talk={talk} index={i} />
+            ))}
+          </div>
+        </section>
+      )}
 
-      {!reduce && <CursorPreview item={active} />}
+      {essays.length > 0 && (
+        <section className="wt-writing">
+          <header className="wt-lede wt-lede--tight">
+            <span className="wt-lede__label">Writing</span>
+            <h3 className="wt-lede__headline">
+              Essays on training, alignment, and going back to first principles
+            </h3>
+            <span className="wt-lede__count">
+              {String(essays.length).padStart(2, "0")} published
+            </span>
+          </header>
+
+          <div className="essay-index">
+            {essays.map((essay, i) => (
+              <EssayRow
+                key={essay.id}
+                essay={essay}
+                index={i}
+                onEnter={() => setActive(essay)}
+                onLeave={() => setActive((cur) => (cur?.id === essay.id ? null : cur))}
+              />
+            ))}
+          </div>
+        </section>
+      )}
+
+      {!reduce && <CursorPreview essay={active} />}
     </div>
   );
 }
