@@ -3181,3 +3181,31 @@ header .site-mark {
     display: none;
   }
 }
+
+/* ═══════════════════════════════════════════
+   Scroll progress — sits above the content
+   column, never across the navigation pane
+   ═══════════════════════════════════════════ */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 60;
+  pointer-events: none;
+  transform-origin: left center;
+  background: var(--color-ebony-text);
+}
+
+/* dark mode resolved ebony-text to #e5e7eb — a hard white bar. */
+.dark .scroll-progress {
+  background: var(--color-accent);
+}
+
+/* the sidebar owns the first 280px; the rule starts where the content does */
+@media (min-width: 1024px) {
+  .scroll-progress {
+    left: 280px;
+  }
+}
