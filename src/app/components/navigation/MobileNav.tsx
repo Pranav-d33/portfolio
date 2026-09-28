@@ -33,9 +33,11 @@ export function MobileNav({
       <header className="fixed z-50 top-0 left-0 right-0 lg:hidden flex items-center justify-between px-5 py-4 bg-background/80 backdrop-blur-md border-b border-border-dim/60">
         <button
           onClick={scrollToTop}
-          className="font-degular text-lg text-ebony-text tracking-tight"
+          className="flex items-center gap-2 font-degular text-lg text-ebony-text tracking-tight"
           type="button"
+          aria-label="Back to top"
         >
+          <img src="/logo-mark.png" alt="" className="site-mark" width={24} height={24} />
           Pranav Dhiran
         </button>
         <div className="flex items-center gap-2">
@@ -47,7 +49,7 @@ export function MobileNav({
               aria-label="Open agent view"
             >
               <Terminal className="w-[13px] h-[13px] stroke-[1.7]" />
-              AGENTS
+              <span className="mobile-agents-label">AGENTS</span>
             </button>
           )}
           <button

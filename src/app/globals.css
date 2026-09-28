@@ -3149,3 +3149,35 @@ p + p {
   color: #e5e7eb;
   background: rgba(255, 255, 255, 0.07);
 }
+
+/* ═══════════════════════════════════════════
+   Site mark — ink-on-transparent, so dark mode
+   inverts it rather than shipping a second file
+   ═══════════════════════════════════════════ */
+.site-mark {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+  flex-shrink: 0;
+  transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms ease;
+}
+
+.dark .site-mark {
+  filter: invert(1);
+}
+
+.group:hover .site-mark {
+  transform: translateY(-2px);
+}
+
+header .site-mark {
+  width: 24px;
+  height: 24px;
+}
+
+/* the narrowest phones need the header row back */
+@media (max-width: 400px) {
+  .mobile-agents-label {
+    display: none;
+  }
+}

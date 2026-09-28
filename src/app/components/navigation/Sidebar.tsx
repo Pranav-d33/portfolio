@@ -25,16 +25,19 @@ export function Sidebar({ activeSection }: { activeSection: string }) {
       <div className="pointer-events-auto">
         <button
           onClick={scrollToTop}
-          className="block text-left group"
+          className="flex items-center gap-3 text-left group"
           aria-label="Back to top"
           type="button"
         >
-          <div className="font-degular text-[22px] leading-[1.05] tracking-[-0.02em] text-ebony-text">
-            Pranav
-          </div>
-          <div className="font-degular italic text-[22px] leading-[1.05] tracking-[-0.02em] text-ink-soft group-hover:text-ebony-text transition-colors duration-200">
-            Dhiran
-          </div>
+          <img src="/logo-mark.png" alt="" className="site-mark" width={38} height={38} />
+          <span className="block">
+            <span className="block font-degular text-[22px] leading-[1.05] tracking-[-0.02em] text-ebony-text">
+              Pranav
+            </span>
+            <span className="block font-degular italic text-[22px] leading-[1.05] tracking-[-0.02em] text-ink-soft group-hover:text-ebony-text transition-colors duration-200">
+              Dhiran
+            </span>
+          </span>
         </button>
       </div>
 
