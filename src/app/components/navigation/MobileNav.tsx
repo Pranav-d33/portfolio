@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useSyncExternalStore } from "react";
+import { useCallback } from "react";
 import { scrollToSection, scrollToTop } from "@/lib/scroll";
+import { useTheme } from "@/lib/useTheme";
 import { Moon, Sun, Terminal } from "lucide-react";
 
 const navItems = [
@@ -13,22 +14,6 @@ const navItems = [
   { id: "contact", label: "Contact" },
 ];
 
-function getDarkSnapshot() {
-  return document.documentElement.classList.contains("dark");
-}
-
-function subscribeToDark(callback: () => void) {
-  const observer = new MutationObserver(() => {
-    callback();
-  });
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-  return () => observer.disconnect();
-}
-
-function useDarkMode() {
-  return useSyncExternalStore(subscribeToDark, getDarkSnapshot, () => false);
-}
-
 export function MobileNav({
   activeSection,
   onOpenAgentView,
@@ -36,16 +21,10 @@ export function MobileNav({
   activeSection: string;
   onOpenAgentView?: () => void;
 }) {
-  const isDark = useDarkMode();
+  const { isDark, toggle: toggleDark } = useTheme();
 
   const scrollTo = useCallback((id: string) => {
     scrollToSection(id);
-  }, []);
-
-  const toggleDark = useCallback(() => {
-    const next = !document.documentElement.classList.contains("dark");
-    document.documentElement.classList.toggle("dark", next);
-    localStorage.setItem("theme", next ? "dark" : "light");
   }, []);
 
   return (

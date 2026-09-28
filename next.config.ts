@@ -1,6 +1,13 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // A stray package-lock.json in $HOME makes Turbopack infer the wrong root.
+  // Pin it to this project so module resolution and file watching stay scoped.
+  turbopack: {
+    root: path.dirname(fileURLToPath(import.meta.url)),
+  },
   async headers() {
     return [
       {

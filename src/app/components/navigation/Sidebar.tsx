@@ -1,9 +1,8 @@
 "use client";
 
-import { useCallback, useSyncExternalStore } from "react";
+import { useCallback } from "react";
 import { scrollToSection, scrollToTop } from "@/lib/scroll";
 import { motion } from "framer-motion";
-import { Moon, Sun, Terminal } from "lucide-react";
 import { MOTION } from "@/lib/motion";
 
 const navItems = [
@@ -15,58 +14,7 @@ const navItems = [
   { id: "contact", label: "Contact" },
 ];
 
-function getDarkSnapshot() {
-  return document.documentElement.classList.contains("dark");
-}
-
-function subscribeToDark(callback: () => void) {
-  const observer = new MutationObserver(() => callback());
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
-  return () => observer.disconnect();
-}
-
-function useDarkMode() {
-  return useSyncExternalStore(subscribeToDark, getDarkSnapshot, () => false);
-}
-
-function ThemeToggle({ isDark, onToggle }: { isDark: boolean; onToggle: () => void }) {
-  return (
-    <motion.button
-      onClick={onToggle}
-      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-rule bg-transparent text-ink-soft hover:text-ink hover:border-ink-soft hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-colors duration-200"
-      whileTap={{ scale: 0.94 }}
-      transition={MOTION.springEditorial}
-      type="button"
-      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
-      title={isDark ? "Light mode" : "Dark mode"}
-    >
-      <motion.span
-        key={isDark ? "moon" : "sun"}
-        initial={{ opacity: 0, rotate: -20, scale: 0.85 }}
-        animate={{ opacity: 1, rotate: 0, scale: 1 }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
-      >
-        {isDark ? <Moon className="w-[18px] h-[18px] stroke-[1.7]" /> : <Sun className="w-[18px] h-[18px] stroke-[1.7]" />}
-      </motion.span>
-    </motion.button>
-  );
-}
-
-export function Sidebar({
-  activeSection,
-  onOpenAgentView,
-}: {
-  activeSection: string;
-  onOpenAgentView?: () => void;
-}) {
-  const isDark = useDarkMode();
-
-  const toggleDark = useCallback(() => {
-    const next = !document.documentElement.classList.contains("dark");
-    document.documentElement.classList.toggle("dark", next);
-    localStorage.setItem("theme", next ? "dark" : "light");
-  }, []);
-
+export function Sidebar({ activeSection }: { activeSection: string }) {
   const scrollTo = useCallback((id: string) => {
     scrollToSection(id);
   }, []);
@@ -128,27 +76,6 @@ export function Sidebar({
         </ul>
       </nav>
 
-      {/* Bottom: agent view + theme toggle */}
-      <div className="pointer-events-auto flex flex-col items-start gap-4">
-        {onOpenAgentView && (
-          <motion.button
-            onClick={onOpenAgentView}
-            className="group inline-flex items-center gap-2 rounded-full border border-rule px-3 py-1.5 text-[11px] font-meta tracking-[0.14em] text-ink-soft hover:text-ebony-text hover:border-ink-soft hover:bg-black/[0.04] dark:hover:bg-white/[0.06] transition-colors duration-200"
-            whileTap={{ scale: 0.96 }}
-            transition={MOTION.springEditorial}
-            type="button"
-            title="Read this site the way an agent does"
-          >
-            <Terminal className="w-[13px] h-[13px] stroke-[1.7]" />
-            <span>FOR AGENTS</span>
-            <span
-              className="h-1.5 w-1.5 rounded-full bg-accent/70 group-hover:bg-accent animate-pulse"
-              aria-hidden="true"
-            />
-          </motion.button>
-        )}
-        <ThemeToggle isDark={isDark} onToggle={toggleDark} />
-      </div>
     </aside>
   );
 }

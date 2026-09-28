@@ -10,6 +10,7 @@ import { ChatWidget } from "./chatbot/ChatWidget";
 import { Sidebar } from "./navigation/Sidebar";
 import { MobileNav } from "./navigation/MobileNav";
 import { ScrollProgress } from "./navigation/ScrollProgress";
+import { UtilityDock } from "./navigation/UtilityDock";
 import { SectionHeading } from "./ui/SectionHeading";
 import { KineticHero } from "./ui/KineticHero";
 import { ExperienceTrack } from "./ui/ExperienceTrack";
@@ -77,8 +78,9 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
   return (
     <>
       <ScrollProgress />
-      <Sidebar activeSection={activeSection} onOpenAgentView={() => setIsAgentViewOpen(true)} />
+      <Sidebar activeSection={activeSection} />
       <MobileNav activeSection={activeSection} onOpenAgentView={() => setIsAgentViewOpen(true)} />
+      <UtilityDock onOpenAgentView={() => setIsAgentViewOpen(true)} />
 
       <main
         ref={resolvedMainRef}

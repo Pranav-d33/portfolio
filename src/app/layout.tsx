@@ -95,6 +95,12 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   viewportFit: "cover",
+  // dark is the default; light is opt-in via the toggle
+  colorScheme: "dark light",
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#1a1a1a" },
+    { media: "(prefers-color-scheme: light)", color: "#1a1a1a" },
+  ],
 };
 
 export default function RootLayout({
@@ -111,7 +117,7 @@ export default function RootLayout({
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var e=localStorage.getItem("theme");if(e==="dark")document.documentElement.classList.add("dark")}catch(t){}})()`
+            __html: `(function(){try{var e=localStorage.getItem("theme");if(e!=="light")document.documentElement.classList.add("dark")}catch(t){document.documentElement.classList.add("dark")}})()`
           }}
         />
         <script
