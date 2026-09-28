@@ -390,7 +390,6 @@ export const experience: ExperienceRole[] = [
       "Implemented the Django/DRF backend and SSE streaming pipeline powering incremental AI responses in the React dashboard",
       "Built a Fabric node-logs API on the agent layer with bounded log retrieval and Docker error handling for AI-assisted node debugging",
       "Developed a multi-party channel invitation workflow end to end: database models, REST APIs, Fabric configuration/signing logic, and dashboard UI",
-      "21 PRs contributed, 11 merged — features, debugging, CI/test fixes, dependency updates, and API/data-model fixes",
     ],
   },
   {

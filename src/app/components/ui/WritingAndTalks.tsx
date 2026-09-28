@@ -75,6 +75,8 @@ function FeedRow({
   onEnter: () => void;
   onLeave: () => void;
 }) {
+  const isTalk = item.kind === "talk";
+
   function handleImgError(e: React.SyntheticEvent<HTMLImageElement>) {
     const img = e.currentTarget;
     if (img.src.includes("maxresdefault")) img.src = img.src.replace("maxresdefault", "hqdefault");
@@ -86,11 +88,12 @@ function FeedRow({
       href={item.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="wt-item"
-      onMouseEnter={onEnter}
-      onMouseLeave={onLeave}
-      onFocus={onEnter}
-      onBlur={onLeave}
+      className={`wt-item wt-item--${item.kind}`}
+      // a talk already shows its still; only an essay's media needs the cursor
+      onMouseEnter={isTalk ? undefined : onEnter}
+      onMouseLeave={isTalk ? undefined : onLeave}
+      onFocus={isTalk ? undefined : onEnter}
+      onBlur={isTalk ? undefined : onLeave}
       initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.35 }}
@@ -99,14 +102,31 @@ function FeedRow({
       <span className="wt-item-index">{String(index + 1).padStart(2, "0")}</span>
 
       <span className={`wt-item-kind wt-item-kind--${item.kind}`}>
-        {item.kind === "talk" && <Play className="w-[9px] h-[9px]" fill="currentColor" strokeWidth={0} />}
+        {isTalk && <Play className="w-[9px] h-[9px]" fill="currentColor" strokeWidth={0} />}
         {item.kind}
       </span>
 
-      {/* mobile only — the cursor preview does this job on desktop */}
-      <span className="wt-item-thumb" aria-hidden="true">
-        <img src={item.thumbnail} alt="" loading="lazy" onError={handleImgError} />
-      </span>
+      {/* The slot that separates the two: a talk shows footage, an essay
+          shows the one thing footage can't — how long it asks for. */}
+      {isTalk ? (
+        <span className="wt-item-still" aria-hidden="true">
+          <img src={item.thumbnail} alt="" loading="lazy" onError={handleImgError} />
+          <span className="wt-item-still-play">
+            <Play className="w-3 h-3" fill="currentColor" strokeWidth={0} />
+          </span>
+        </span>
+      ) : (
+        <span className="wt-item-length" aria-hidden="true">
+          {item.tail ? (
+            <>
+              <span className="wt-item-length-num">{item.tail.replace(/\s*min$/i, "")}</span>
+              <span className="wt-item-length-unit">min read</span>
+            </>
+          ) : (
+            <span className="wt-item-length-unit">essay</span>
+          )}
+        </span>
+      )}
 
       <span className="wt-item-main">
         <span className="wt-item-title">{item.title}</span>
@@ -115,10 +135,7 @@ function FeedRow({
 
       <span className="wt-item-meta">
         <span className="wt-item-source">{item.source}</span>
-        <span className="wt-item-stamp">
-          {item.date}
-          {item.tail ? ` · ${item.tail}` : ""}
-        </span>
+        <span className="wt-item-stamp">{item.date}</span>
       </span>
 
       <ArrowUpRight className="wt-item-arrow" aria-hidden="true" />
@@ -162,11 +179,6 @@ function CursorPreview({ item }: { item: FeedItem | null }) {
             transition={{ duration: 0.26, ease: MOTION.easeOutExpo }}
           >
             <img src={item.thumbnail} alt="" />
-            {item.kind === "talk" && (
-              <span className="wt-preview-play">
-                <Play className="w-3.5 h-3.5" fill="currentColor" strokeWidth={0} />
-              </span>
-            )}
           </motion.div>
         )}
       </AnimatePresence>

@@ -28,7 +28,7 @@ College: SGGS Institute of Engineering & Technology, Nanded
 Degree: B.Tech Electronics & Telecommunication (Minor: IT), 2023-2027
 Credentials: SIH National Finalist x2 (2024, 2025), UWA Hack International Finalist (Top 6, 2026), ETHGlobal 2026 qualifier, Nxt Wave x OpenAI Buildathon regional qualifier
 Research Intern @ AIISC, University of South Carolina (Apr 2026 – Present) — owns the pre-training pipeline for a 140M-param Qwen3-style agriculture SLM: 6.5GB/266K-doc corpus, AGROVOC-injected BPE tokenizer, Z3-verified causal KG, eval harness
-LFX'26 Mentee @ Hyperledger Cello (Jun 2026 – Present) — AI operations copilot for Fabric: Django/DRF backend, SSE streaming, LLM tool-calling agent, node-logs API, channel-invitation workflow; 21 PRs, 11 merged
+LFX'26 Mentee @ Hyperledger Cello (Jun 2026 – Present) — AI operations copilot for Fabric: Django/DRF backend, SSE streaming, LLM tool-calling agent, node-logs API, channel-invitation workflow
 Open Source Contributor @ Meshery (CNCF, Mar–Jul 2026) — 5+ merged PRs across Go backend and React frontend
 Also: published a provider-agnostic GNU Radio MCP server to PyPI
 
