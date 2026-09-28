@@ -1,38 +1,80 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+  useTransform,
+  useVelocity,
+} from "framer-motion";
+import { ArrowUpRight, Play } from "lucide-react";
 import { essays, talks, type Essay, type Talk } from "@/lib/portfolioData";
 import { MOTION } from "@/lib/motion";
-import { RevealOnScroll } from "@/components/RevealOnScroll";
 
-function EssayRow({ essay, index }: { essay: Essay; index: number }) {
-  return (
-    <motion.a
-      href={essay.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="wt-row"
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.4 }}
-      transition={{ ...MOTION.springEditorial, delay: index * 0.05 }}
-    >
-      <div className="wt-row-index">{String(index + 1).padStart(2, "0")}</div>
-      <div className="wt-row-main">
-        <span className="wt-row-title">{essay.title}</span>
-        <span className="wt-row-dek">{essay.dek}</span>
-      </div>
-      <div className="wt-row-right">
-        <span className="wt-row-meta">{essay.venue}</span>
-        <span className="wt-row-date">{essay.date}</span>
-        <ArrowUpRight className="wt-row-arrow" aria-hidden="true" />
-      </div>
-    </motion.a>
-  );
+type FeedItem = {
+  id: string;
+  kind: "essay" | "talk";
+  title: string;
+  dek: string;
+  source: string;
+  date: string;
+  tail?: string;
+  href: string;
+  thumbnail: string;
+};
+
+const fromEssay = (essay: Essay): FeedItem => ({
+  id: essay.id,
+  kind: "essay",
+  title: essay.title,
+  dek: essay.dek,
+  source: essay.venue,
+  date: essay.date,
+  tail: essay.readTime,
+  href: essay.href,
+  thumbnail: essay.thumbnail,
+});
+
+const fromTalk = (talk: Talk): FeedItem => ({
+  id: talk.id,
+  kind: "talk",
+  title: talk.title,
+  dek: talk.dek,
+  source: talk.event,
+  date: talk.date,
+  tail: talk.duration,
+  href: talk.href,
+  thumbnail: talk.thumbnail,
+});
+
+/** Trailing 4-digit year, so "Aug 2026" and "2026" sort together. */
+function year(date: string) {
+  const match = date.match(/(\d{4})/);
+  return match ? Number(match[1]) : 0;
 }
 
-function TalkCard({ talk, index }: { talk: Talk; index: number }) {
+/** One feed, newest year first, authored order preserved inside a year. */
+const feed: FeedItem[] = [...essays.map(fromEssay), ...talks.map(fromTalk)].sort(
+  (a, b) => year(b.date) - year(a.date),
+);
+
+const essayCount = feed.filter((item) => item.kind === "essay").length;
+const talkCount = feed.length - essayCount;
+
+function FeedRow({
+  item,
+  index,
+  onEnter,
+  onLeave,
+}: {
+  item: FeedItem;
+  index: number;
+  onEnter: () => void;
+  onLeave: () => void;
+}) {
   function handleImgError(e: React.SyntheticEvent<HTMLImageElement>) {
     const img = e.currentTarget;
     if (img.src.includes("maxresdefault")) img.src = img.src.replace("maxresdefault", "hqdefault");
@@ -41,85 +83,127 @@ function TalkCard({ talk, index }: { talk: Talk; index: number }) {
 
   return (
     <motion.a
-      href={talk.href}
+      href={item.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="wt-talk"
-      initial={{ opacity: 0, y: 16 }}
+      className="wt-item"
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+      onFocus={onEnter}
+      onBlur={onLeave}
+      initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ ...MOTION.springEditorial, delay: index * 0.08 }}
+      viewport={{ once: true, amount: 0.35 }}
+      transition={{ ...MOTION.springEditorial, delay: index * 0.06 }}
     >
-      <div className="wt-talk-thumb">
-        <img
-          src={talk.thumbnail}
-          alt={talk.title}
-          className="wt-talk-thumb-img"
-          loading="lazy"
-          onError={handleImgError}
-        />
-        <div className="wt-talk-play" aria-hidden="true">
-          <div className="wt-talk-play-btn">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <polygon points="5 3 19 12 5 21 5 3" />
-            </svg>
-          </div>
-        </div>
-      </div>
-      <div className="wt-talk-body">
-        <span className="wt-talk-meta">{[talk.event, talk.date].filter(Boolean).join(" · ")}</span>
-        <h3 className="wt-talk-title">{talk.title}</h3>
-      </div>
+      <span className="wt-item-index">{String(index + 1).padStart(2, "0")}</span>
+
+      <span className={`wt-item-kind wt-item-kind--${item.kind}`}>
+        {item.kind === "talk" && <Play className="w-[9px] h-[9px]" fill="currentColor" strokeWidth={0} />}
+        {item.kind}
+      </span>
+
+      {/* mobile only — the cursor preview does this job on desktop */}
+      <span className="wt-item-thumb" aria-hidden="true">
+        <img src={item.thumbnail} alt="" loading="lazy" onError={handleImgError} />
+      </span>
+
+      <span className="wt-item-main">
+        <span className="wt-item-title">{item.title}</span>
+        <span className="wt-item-dek">{item.dek}</span>
+      </span>
+
+      <span className="wt-item-meta">
+        <span className="wt-item-source">{item.source}</span>
+        <span className="wt-item-stamp">
+          {item.date}
+          {item.tail ? ` · ${item.tail}` : ""}
+        </span>
+      </span>
+
+      <ArrowUpRight className="wt-item-arrow" aria-hidden="true" />
     </motion.a>
   );
 }
 
-function BlockHeader({ label, count, desc }: { label: string; count: number; desc: string }) {
+/** Floats the hovered row's media next to the cursor, leaning into the motion. */
+function CursorPreview({ item }: { item: FeedItem | null }) {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springX = useSpring(x, { stiffness: 320, damping: 32, mass: 0.6 });
+  const springY = useSpring(y, { stiffness: 320, damping: 32, mass: 0.6 });
+  const velocityX = useVelocity(springX);
+  const rotate = useTransform(velocityX, [-1200, 0, 1200], [-9, 0, 9], { clamp: true });
+  const smoothRotate = useSpring(rotate, { stiffness: 220, damping: 26 });
+
+  useEffect(() => {
+    const move = (e: MouseEvent) => {
+      x.set(e.clientX + 24);
+      y.set(e.clientY - 90);
+    };
+    window.addEventListener("mousemove", move, { passive: true });
+    return () => window.removeEventListener("mousemove", move);
+  }, [x, y]);
+
   return (
-    <RevealOnScroll direction="bottom">
-      <div className="wt-block-header">
-        <div className="flex items-baseline gap-3">
-          <span className="wt-block-label">{label}</span>
-          <span className="wt-block-count">{String(count).padStart(2, "0")}</span>
-        </div>
-        <p className="wt-block-desc">{desc}</p>
-      </div>
-    </RevealOnScroll>
+    <motion.div
+      className="wt-preview"
+      aria-hidden="true"
+      style={{ x: springX, y: springY, rotate: smoothRotate }}
+    >
+      <AnimatePresence>
+        {item && (
+          <motion.div
+            key={item.id}
+            className="wt-preview-inner"
+            initial={{ opacity: 0, scale: 0.86 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.26, ease: MOTION.easeOutExpo }}
+          >
+            <img src={item.thumbnail} alt="" />
+            {item.kind === "talk" && (
+              <span className="wt-preview-play">
+                <Play className="w-3.5 h-3.5" fill="currentColor" strokeWidth={0} />
+              </span>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
 
 export function WritingAndTalks() {
+  const [active, setActive] = useState<FeedItem | null>(null);
+  const reduce = useReducedMotion();
+
   return (
     <div className="wt-section">
-      {essays.length > 0 && (
-        <div className="wt-block">
-          <BlockHeader
-            label="Writing"
-            count={essays.length}
-            desc="Essays about training, alignment, and why I keep going back to first principles."
-          />
-          <div className="wt-list">
-            {essays.map((e, i) => (
-              <EssayRow key={e.id} essay={e} index={i} />
-            ))}
-          </div>
-        </div>
-      )}
+      <div className="wt-ledger">
+        <span className="wt-ledger-count">{String(feed.length).padStart(2, "0")}</span>
+        <span className="wt-ledger-split">
+          {essayCount} essays · {talkCount} talks
+        </span>
+        <span className="wt-ledger-hint">
+          Essays about training, alignment, and going back to first principles — and the lectures
+          where I had to say it out loud.
+        </span>
+      </div>
 
-      {talks.length > 0 && (
-        <div className="wt-block">
-          <BlockHeader
-            label="Speaking"
-            count={talks.length}
-            desc="Gave lectures at IAIRO SLM++ Bootcamp (2026) — Vanilla GPT-2 Architecture & Evolution of LLM Design Decisions — Scaling Laws, Cost Accounting & Case Studies."
+      <div className="wt-list">
+        {feed.map((item, i) => (
+          <FeedRow
+            key={item.id}
+            item={item}
+            index={i}
+            onEnter={() => setActive(item)}
+            onLeave={() => setActive((current) => (current?.id === item.id ? null : current))}
           />
-          <div className="wt-talks">
-            {talks.map((t, i) => (
-              <TalkCard key={t.id} talk={t} index={i} />
-            ))}
-          </div>
-        </div>
-      )}
+        ))}
+      </div>
+
+      {!reduce && <CursorPreview item={active} />}
     </div>
   );
 }
