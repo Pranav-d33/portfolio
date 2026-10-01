@@ -201,7 +201,10 @@ export function KineticHero() {
         <div className="hero-foot">
           <div className="hero-foot-left">
             <span className="hero-foot-label">Currently</span>
-            <ol className="hero-foot-grid">
+            {/* When the cycle runs, phones show only the active item — all three
+                still come round. With reduced motion nothing rotates, so they
+                all stay on screen instead. */}
+            <ol className={`hero-foot-grid ${reduced ? "" : "is-rotating"}`}>
               {NOW.map((item, idx) => {
                 const on = idx === active;
                 return (
