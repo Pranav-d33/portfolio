@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { scrollToSection, scrollToTop } from "@/lib/scroll";
 import { useTheme } from "@/lib/useTheme";
 import { Moon, Sun, Terminal } from "lucide-react";
@@ -25,6 +25,32 @@ export function MobileNav({
 
   const scrollTo = useCallback((id: string) => {
     scrollToSection(id);
+  }, []);
+
+  /* Mobile browsers lay `position: fixed` out against the LAYOUT viewport,
+     which is sized as though the URL bar were already retracted. On first
+     paint the bar is still showing, so a bottom-anchored element starts off
+     underneath it and only appears to "snap into place" once scrolling hides
+     the bar. Track the visual viewport and lift the pane by whatever the
+     browser chrome is currently covering. */
+  const dockRef = useRef<HTMLElement>(null);
+  useEffect(() => {
+    const vv = window.visualViewport;
+    if (!vv) return;
+    const sync = () => {
+      const covered = document.documentElement.clientHeight - (vv.offsetTop + vv.height);
+      // The soft keyboard also shrinks the visual viewport; clamp so the pane
+      // rides the URL bar without launching itself up the screen on focus.
+      const lift = Math.min(Math.max(covered, 0), 120);
+      dockRef.current?.style.setProperty("--dock-lift", `${lift}px`);
+    };
+    sync();
+    vv.addEventListener("resize", sync);
+    vv.addEventListener("scroll", sync);
+    return () => {
+      vv.removeEventListener("resize", sync);
+      vv.removeEventListener("scroll", sync);
+    };
   }, []);
 
   return (
@@ -65,7 +91,11 @@ export function MobileNav({
       </header>
 
       {/* Bottom bar: section nav */}
-      <nav className="fixed z-50 bottom-4 left-4 right-4 lg:hidden" aria-label="Mobile navigation">
+      <nav
+        ref={dockRef}
+        className="mobile-dock fixed z-50 bottom-4 left-4 right-4 lg:hidden"
+        aria-label="Mobile navigation"
+      >
         <div className="px-3 py-2 bg-background/70 border border-border-dim rounded-2xl shadow-[0_18px_50px_rgba(0,0,0,0.32)] backdrop-blur-xl overflow-hidden">
           <div className="absolute inset-y-0 right-0 w-12 pointer-events-none bg-gradient-to-l from-background/70 to-transparent" />
           <ul className="flex flex-row flex-nowrap overflow-x-auto whitespace-nowrap justify-start gap-1 text-base font-blanco hide-scrollbar">

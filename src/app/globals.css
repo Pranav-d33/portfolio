@@ -3318,3 +3318,14 @@ header .site-mark {
     left: 280px;
   }
 }
+
+/* The mobile section dock rides the visual viewport — see MobileNav.tsx. The
+   variable is set from JS; the fallback keeps it put where there is no
+   visualViewport to follow. */
+.mobile-dock {
+  transform: translateY(calc(var(--dock-lift, 0px) * -1));
+  will-change: transform;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .mobile-dock { transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1); }
+}
