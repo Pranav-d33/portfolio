@@ -142,6 +142,16 @@ export function KineticHero() {
               <span className="hero-hi"> systems</span>.
             </p>
 
+            <div className="hero-accolade">
+              <span className="hero-accolade-tag">Accepted</span>
+              <p className="hero-accolade-body">
+                <span className="hero-accolade-title">Navigate, Don’t Generate</span>
+                <span className="hero-accolade-meta">
+                  First author · NeurIPS 2026, AI4Good Workshop
+                </span>
+              </p>
+            </div>
+
             <div className="hero-actions">
               <a href={resumePath} target="_blank" rel="noreferrer" className="hero-primary">
                 Download resume
