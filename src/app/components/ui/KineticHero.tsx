@@ -188,12 +188,6 @@ export function KineticHero() {
               <span className="hero-corner hero-corner--tl" aria-hidden="true" />
               <span className="hero-corner hero-corner--br" aria-hidden="true" />
             </div>
-            <figcaption className="hero-media-cap">
-              <span className="hero-cap-rule" aria-hidden="true" />
-              Pranav Dhiran
-              <span className="hero-cap-dot" aria-hidden="true" />
-              <span className="hero-cap-sub">ECE + AI · 2026</span>
-            </figcaption>
           </motion.figure>
         </div>
 
