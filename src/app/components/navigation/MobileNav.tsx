@@ -27,29 +27,43 @@ export function MobileNav({
     scrollToSection(id);
   }, []);
 
-  /* Mobile browsers lay `position: fixed` out against the LAYOUT viewport,
+  /* Chrome on Android lays `position: fixed` out against the LAYOUT viewport,
      which is sized as though the URL bar were already retracted. On first
-     paint the bar is still showing, so a bottom-anchored element starts off
-     underneath it and only appears to "snap into place" once scrolling hides
-     the bar. Track the visual viewport and lift the pane by whatever the
-     browser chrome is currently covering. */
+     paint the bar is still showing, so `bottom: 1rem` resolves to a point
+     roughly 60px below what you can actually see — the dock is off screen
+     until scrolling collapses the bar. (The chat pill escapes this only
+     because its 80px offset happens to clear the bar.) Lift the dock by
+     whatever the browser chrome is currently covering. */
   const dockRef = useRef<HTMLElement>(null);
   useEffect(() => {
     const vv = window.visualViewport;
     if (!vv) return;
     const sync = () => {
       const covered = document.documentElement.clientHeight - (vv.offsetTop + vv.height);
-      // The soft keyboard also shrinks the visual viewport; clamp so the pane
-      // rides the URL bar without launching itself up the screen on focus.
+      // The soft keyboard shrinks the same viewport; clamp so the dock rides
+      // the URL bar without launching itself up the screen on input focus.
       const lift = Math.min(Math.max(covered, 0), 120);
       dockRef.current?.style.setProperty("--dock-lift", `${lift}px`);
     };
     sync();
+
+    /* The layout viewport changes without emitting a visualViewport resize —
+       notably when SiteIntro releases `body { overflow: hidden }` and the page
+       becomes scrollable, which is precisely when this first goes wrong. Watch
+       the document element itself so that resize is not missed. */
+    const ro = new ResizeObserver(sync);
+    ro.observe(document.documentElement);
+
     vv.addEventListener("resize", sync);
     vv.addEventListener("scroll", sync);
+    window.addEventListener("resize", sync);
+    window.addEventListener("orientationchange", sync);
     return () => {
+      ro.disconnect();
       vv.removeEventListener("resize", sync);
       vv.removeEventListener("scroll", sync);
+      window.removeEventListener("resize", sync);
+      window.removeEventListener("orientationchange", sync);
     };
   }, []);
 
