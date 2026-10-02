@@ -1819,6 +1819,19 @@ p + p {
   display: block;
 }
 
+.site-intro-cite {
+  margin: -1rem 0 0;
+  font-family: var(--font-blanco);
+  font-size: var(--text-meta);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ash-text);
+}
+
+.site-intro-cite cite {
+  font-style: normal;
+}
+
 .site-intro-progress {
   width: 120px;
   height: 1px;
@@ -1835,6 +1848,10 @@ p + p {
 
 .dark .site-intro-quote {
   color: #e5e7eb;
+}
+
+.dark .site-intro-cite {
+  color: #9ca3af;
 }
 
 /* ====== Page Atmosphere ====== */

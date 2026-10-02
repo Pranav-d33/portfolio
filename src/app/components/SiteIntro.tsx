@@ -5,8 +5,9 @@ import { motion, useReducedMotion } from "framer-motion";
 import { MOTION } from "@/lib/motion";
 
 const OPENING_QUOTE = {
-  line1: "The beauty of being lost is",
-  line2: ",that every direction is a new possibility",
+  line1: "He who does more",
+  line2: "is worth more.",
+  author: "Geoffroi de Charny",
 };
 
 interface SiteIntroProps {
@@ -76,6 +77,10 @@ export function SiteIntro({ onComplete }: SiteIntroProps) {
             {OPENING_QUOTE.line2}
           </motion.span>
         </blockquote>
+
+        <motion.p className="site-intro-cite" variants={fadeLine}>
+          <cite>{OPENING_QUOTE.author}</cite>
+        </motion.p>
 
         <motion.div className="site-intro-progress" aria-hidden="true" variants={fadeLine}>
           <motion.div
