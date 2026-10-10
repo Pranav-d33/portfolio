@@ -16,6 +16,7 @@ import { KineticHero } from "./ui/KineticHero";
 import { ExperienceTrack } from "./ui/ExperienceTrack";
 import { ProjectsShowcase } from "./ui/ProjectsShowcase";
 import { ResearchProfile } from "./ui/ResearchProfile";
+import { InterestBand } from "./ui/InterestBand";
 import { InkFooter } from "./ui/InkFooter";
 import { WritingAndTalks } from "./ui/WritingAndTalks";
 import { TextReveal } from "@/components/TextReveal";
@@ -92,10 +93,12 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
           <KineticHero ready={introComplete} />
         </section>
 
+        <InterestBand />
+
         {/* ═══ CHAPTER 01 ═══ BACKGROUND ═══ */}
         <section id="about" className="section about-section relative">
           <SectionHeading
-            title="Everything I build started as a question I couldn't leave alone."
+            title="Everything I build started as a *question* I couldn't leave alone."
             className="max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24"
           />
           <div className="relative w-full mt-12 max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
@@ -171,7 +174,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
         <section id="experience" className="section experience-section relative bg-paper-deep/40 dark:bg-white/[0.02]">
           <div className="experience-inner max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
             <SectionHeading
-              title="Every role is a different vantage on the same question."
+              title="Every role is a different *vantage* on the same question."
             />
             <ExperienceTrack entries={experienceEntries} />
           </div>
@@ -180,7 +183,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
         {/* ═══ CHAPTER 03 ═══ RESEARCH ═══ */}
         <section id="research" className="section research-section">
           <div className="max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
-            <SectionHeading title="Where the rabbit holes go deepest." />
+            <SectionHeading title="Where the rabbit holes go *deepest.*" />
             <ResearchProfile />
           </div>
         </section>
@@ -189,7 +192,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
         <section id="writing" className="section relative bg-paper-deep/40 dark:bg-white/[0.02]">
           <div className="max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
             <SectionHeading
-              title="Thinking out loud — same act as building, different medium."
+              title="Thinking *out loud* — same act as building, different medium."
             />
             <WritingAndTalks />
           </div>
@@ -202,7 +205,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
         <section id="contact" className="section contact-section bg-paper-deep/40 dark:bg-white/[0.02]">
           <div className="max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
             <SectionHeading
-              title="If any of this resonated, let's talk."
+              title="If any of this resonated, *let's talk.*"
             />
             <TextReveal
               as="p"

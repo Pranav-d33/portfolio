@@ -6,9 +6,9 @@ import { scrollToTop, scrollToSection } from "@/lib/scroll";
 const navLinks = [
   { id: "about", label: "Background" },
   { id: "experience", label: "Experience" },
-  { id: "projects", label: "Selected work" },
   { id: "research", label: "Research" },
   { id: "writing", label: "Writing" },
+  { id: "projects", label: "Selected work" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -50,7 +50,7 @@ export function InkFooter() {
             Epigraph
           </div>
           <blockquote className="font-degular italic text-[clamp(18px,2.4vw,24px)] leading-[1.4] text-white/85 max-w-md m-0">
-            "Not everything is meant to be, but everything is worth trying."
+            “Not everything is meant to be, but everything is worth trying.”
           </blockquote>
           <div className="font-meta !text-[10px] tracking-[0.22em] text-white/35 mt-4 uppercase">
             Pranav Dhiran

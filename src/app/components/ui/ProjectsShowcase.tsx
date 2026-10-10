@@ -150,7 +150,7 @@ export function ProjectsShowcase() {
   return (
     <section id="projects" className="section projects-section">
       <SectionHeading
-        title="Rabbit holes that became systems."
+        title="Rabbit holes that became *systems.*"
         className="max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24"
       />
       <div className="projects-showcase max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
