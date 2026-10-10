@@ -8,9 +8,9 @@ import { MOTION } from "@/lib/motion";
 const navItems = [
   { id: "about", label: "Background" },
   { id: "experience", label: "Experience" },
-  { id: "projects", label: "Selected work" },
   { id: "research", label: "Research" },
   { id: "writing", label: "Writing & Talks" },
+  { id: "projects", label: "Selected work" },
   { id: "contact", label: "Contact" },
 ];
 

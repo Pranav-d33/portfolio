@@ -1,8 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState, useSyncExternalStore } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useInView,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { MOTION } from "@/lib/motion";
 import { scrollToSection } from "@/lib/scroll";
 import { Grainient } from "./Grainient";
@@ -63,8 +70,83 @@ function getServerDarkSnapshot() {
   return false;
 }
 
-export function KineticHero() {
-  const reduced = useReducedMotion();
+const EASE = MOTION.easeOutExpo;
+
+const choreo = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.11, delayChildren: 0.05 } },
+};
+
+const lineUp = {
+  hidden: { y: "108%" },
+  visible: { y: "0%", transition: { duration: 1, ease: EASE } },
+};
+
+const rise = {
+  hidden: { opacity: 0, y: 22, filter: "blur(6px)" },
+  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.9, ease: EASE } },
+};
+
+function HeroPortrait({ ready, reduced }: { ready: boolean; reduced: boolean }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.25 });
+  const show = reduced || (ready && inView);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const drift = useTransform(scrollYProgress, [0, 1], ["-4%", "4%"]);
+
+  return (
+    <motion.figure
+      className="hero-media"
+      initial={reduced ? false : { opacity: 0 }}
+      animate={show ? { opacity: 1 } : undefined}
+      transition={{ duration: 0.4 }}
+    >
+      <div ref={ref} className="hero-media-frame">
+        <motion.div
+          className="hero-media-clip"
+          initial={reduced ? false : { clipPath: "inset(100% 0% 0% 0%)" }}
+          animate={show ? { clipPath: "inset(0% 0% 0% 0%)" } : undefined}
+          transition={{ duration: 1.25, ease: [0.77, 0, 0.18, 1], delay: 0.15 }}
+        >
+          <motion.div
+            className="hero-media-drift"
+            style={reduced ? undefined : { y: drift }}
+            initial={reduced ? false : { scale: 1.22 }}
+            animate={show ? { scale: 1.1 } : undefined}
+            transition={{ duration: 1.8, ease: EASE, delay: 0.15 }}
+          >
+            <Image
+              src="/portfolio_image.jpeg"
+              alt="Portrait of Pranav Dhiran"
+              width={760}
+              height={932}
+              priority
+              sizes="(max-width: 1024px) 100vw, 380px"
+              className="hero-media-img"
+            />
+          </motion.div>
+        </motion.div>
+        <motion.span
+          className="hero-corner hero-corner--tl"
+          aria-hidden="true"
+          initial={reduced ? false : { opacity: 0, x: 10, y: 10 }}
+          animate={show ? { opacity: 1, x: 0, y: 0 } : undefined}
+          transition={{ duration: 0.7, ease: EASE, delay: 1.05 }}
+        />
+        <motion.span
+          className="hero-corner hero-corner--br"
+          aria-hidden="true"
+          initial={reduced ? false : { opacity: 0, x: -10, y: -10 }}
+          animate={show ? { opacity: 1, x: 0, y: 0 } : undefined}
+          transition={{ duration: 0.7, ease: EASE, delay: 1.05 }}
+        />
+      </div>
+    </motion.figure>
+  );
+}
+
+export function KineticHero({ ready = true }: { ready?: boolean }) {
+  const reduced = !!useReducedMotion();
   const isDark = useSyncExternalStore(subscribeDark, getDarkSnapshot, getServerDarkSnapshot);
   const palette = isDark ? HERO_BG.dark : HERO_BG.light;
   const [active, setActive] = useState(0);
@@ -74,8 +156,18 @@ export function KineticHero() {
     return () => clearInterval(id);
   }, [reduced]);
 
+  // Scroll-out: the copy lifts and dims as the hero leaves, so the page
+  // reads as one continuous surface instead of a hard cut.
+  const heroRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: heroRef, offset: ["start start", "end start"] });
+  const copyY = useTransform(scrollYProgress, [0, 1], [0, -90]);
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+
+  const play = reduced ? false : "hidden";
+  const state = reduced || ready ? "visible" : "hidden";
+
   return (
-    <div className="hero-scratch">
+    <div ref={heroRef} className="hero-scratch">
       {!reduced && (
         <div className="hero-bg" aria-hidden="true">
           <Grainient
@@ -109,8 +201,8 @@ export function KineticHero() {
         {/* TOP — hairline, single line, no eyebrow spam */}
         <motion.div
           className="hero-top"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          initial={reduced ? false : { opacity: 0 }}
+          animate={state === "visible" ? { opacity: 1 } : undefined}
           transition={{ duration: 0.6, delay: 0.05 }}
         >
           <span className="hero-top-sig">
@@ -121,28 +213,48 @@ export function KineticHero() {
             </span>
             <span className="hero-top-role">AI Engineer · Researcher</span>
           </span>
-          <span className="hero-top-rule" aria-hidden="true" />
+          <motion.span
+            className="hero-top-rule"
+            aria-hidden="true"
+            style={{ originX: 0 }}
+            initial={reduced ? false : { scaleX: 0 }}
+            animate={state === "visible" ? { scaleX: 1 } : undefined}
+            transition={{ duration: 1.4, ease: EASE, delay: 0.2 }}
+          />
         </motion.div>
 
         {/* CENTER — editorial split, owns viewport */}
         <div className="hero-stage">
           <motion.div
             className="hero-copy"
-            initial={reduced ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, ease: MOTION.easeOutQuart, delay: 0.14 }}
+            style={reduced ? undefined : { y: copyY, opacity: copyOpacity }}
+            variants={choreo}
+            initial={play}
+            animate={state}
           >
+            <motion.div className="hero-avatar-row" variants={rise}>
+              <img src="/avatar.jpg" alt="" className="hero-avatar" width={72} height={72} />
+            </motion.div>
+
             <h1 className="hero-display font-degular">
-              I build <Cycler />
-              <span className="hero-display-line hero-display-italic">that reason.</span>
+              <span className="hero-line">
+                <motion.span className="hero-line-inner" variants={lineUp}>
+                  I build <Cycler />
+                </motion.span>
+              </span>
+              <span className="hero-line">
+                <motion.span className="hero-line-inner hero-display-italic" variants={lineUp}>
+                  that reason.
+                </motion.span>
+              </span>
             </h1>
 
-            <p className="hero-dek">
+            <motion.p className="hero-dek" variants={rise}>
               I keep digging into <span className="hero-hi">rabbit holes</span>, some become
               <span className="hero-hi"> systems</span>.
-            </p>
+            </motion.p>
 
-            <div className="hero-accolade">
+            <motion.div className="hero-accolade" variants={rise}>
               <span className="hero-accolade-tag">Accepted</span>
               <p className="hero-accolade-body">
                 <span className="hero-accolade-title">Navigate, Don’t Generate</span>
@@ -150,9 +262,9 @@ export function KineticHero() {
                   First author · NeurIPS 2026, AI4Good Workshop
                 </span>
               </p>
-            </div>
+            </motion.div>
 
-            <div className="hero-actions">
+            <motion.div className="hero-actions" variants={rise}>
               <a href={resumePath} target="_blank" rel="noreferrer" className="hero-primary">
                 Download resume
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -166,33 +278,19 @@ export function KineticHero() {
                   <path d="m9 18 6-6-6-6" />
                 </svg>
               </button>
-            </div>
+            </motion.div>
           </motion.div>
 
-          <motion.figure
-            className="hero-media"
-            initial={reduced ? false : { opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, ease: MOTION.easeOutQuart, delay: 0.22 }}
-          >
-            <div className="hero-media-frame">
-              <Image
-                src="/portfolio_image.jpeg"
-                alt="Portrait of Pranav Dhiran"
-                width={760}
-                height={932}
-                priority
-                sizes="(max-width: 1024px) 100vw, 380px"
-                className="hero-media-img"
-              />
-              <span className="hero-corner hero-corner--tl" aria-hidden="true" />
-              <span className="hero-corner hero-corner--br" aria-hidden="true" />
-            </div>
-          </motion.figure>
+          <HeroPortrait ready={ready} reduced={reduced} />
         </div>
 
         {/* BOTTOM — anchored to viewport bottom, not floating mid-page */}
-        <div className="hero-foot">
+        <motion.div
+          className="hero-foot"
+          initial={reduced ? false : { opacity: 0, y: 12 }}
+          animate={state === "visible" ? { opacity: 1, y: 0 } : undefined}
+          transition={{ duration: 0.9, ease: EASE, delay: 0.75 }}
+        >
           <div className="hero-foot-left">
             <span className="hero-foot-label">Currently</span>
             {/* When the cycle runs, phones show only the active item — all three
@@ -236,7 +334,7 @@ export function KineticHero() {
               <span className="hero-scroll-txt">Scroll</span>
             </motion.div>
           )}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

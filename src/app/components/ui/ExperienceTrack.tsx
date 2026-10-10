@@ -4,7 +4,7 @@ import { useState, useRef, useLayoutEffect, useEffect, useCallback } from "react
 import { motion, useInView, useScroll, useTransform, useSpring } from "framer-motion";
 import { ResumeEntry } from "./ResumeEntry";
 import { MOTION } from "@/lib/motion";
-import { isTouch, prefersReducedMotion } from "@/lib/scroll";
+import { prefersReducedMotion } from "@/lib/scroll";
 
 type ExperienceEntry = {
   title: string;
@@ -86,9 +86,9 @@ function ExperienceRow({
       </motion.div>
       <div className="experience-track-content">
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: MOTION.standard, delay: index * MOTION.staggerStandard, ease: MOTION.easeOutQuart }}
+          initial={{ opacity: 0, y: 28 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
+          transition={{ duration: MOTION.slow, delay: index * MOTION.staggerStandard, ease: MOTION.easeOutExpo }}
         >
           <ResumeEntry {...entry} />
         </motion.div>
@@ -158,7 +158,7 @@ export function ExperienceTrack({ entries }: ExperienceTrackProps) {
     if (!pathD) return;
     const path = pathRef.current;
     if (!path) return;
-    if (isTouch() || prefersReducedMotion()) return;
+    if (prefersReducedMotion()) return;
 
     const length = path.getTotalLength();
     path.style.strokeDasharray = `${length}`;

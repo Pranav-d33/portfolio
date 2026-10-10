@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { MOTION } from "@/lib/motion";
 
 type Direction = "left" | "right" | "bottom";
@@ -26,23 +26,26 @@ export function RevealOnScroll({
   className = "",
   direction = "bottom",
   delay = 0,
-  duration = MOTION.standard,
+  duration = MOTION.slow,
   distance,
 }: RevealOnScrollProps) {
+  const reduce = useReducedMotion();
   const base = directionOffset[direction];
   const x = direction === "bottom" ? 0 : (distance ?? base.x);
   const y = direction === "bottom" ? (distance ?? base.y) : 0;
 
+  if (reduce) return <div className={className}>{children}</div>;
+
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, x, y }}
-      whileInView={{ opacity: 1, x: 0, y: 0 }}
+      initial={{ opacity: 0, x, y, filter: "blur(8px)" }}
+      whileInView={{ opacity: 1, x: 0, y: 0, filter: "blur(0px)" }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{
         duration,
         delay,
-        ease: MOTION.easeOutQuart,
+        ease: MOTION.easeOutExpo,
       }}
     >
       {children}

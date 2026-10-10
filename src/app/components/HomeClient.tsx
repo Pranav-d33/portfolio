@@ -85,11 +85,11 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
       <main
         ref={resolvedMainRef}
         tabIndex={introComplete ? -1 : undefined}
-        className="min-h-screen w-full relative outline-none lg:pl-[280px]"
+        className="min-h-screen w-full relative outline-none overflow-x-clip lg:pl-[280px]"
       >
         {/* ═══ CHAPTER 00 ═══ HERO ═══ */}
         <section className="hero-section">
-          <KineticHero />
+          <KineticHero ready={introComplete} />
         </section>
 
         {/* ═══ CHAPTER 01 ═══ BACKGROUND ═══ */}
@@ -177,11 +177,8 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
           </div>
         </section>
 
-        {/* ═══ CHAPTER 03 ═══ SELECTED WORK ═══ */}
-        <ProjectsShowcase />
-
-        {/* ═══ CHAPTER 04 ═══ RESEARCH ═══ */}
-        <section id="research" className="section research-section bg-paper-deep/40 dark:bg-white/[0.02]">
+        {/* ═══ CHAPTER 03 ═══ RESEARCH ═══ */}
+        <section id="research" className="section research-section">
           <div className="research-inner px-6 md:px-16 lg:px-24">
             <SectionHeading
               title="The papers that gave me the vocabulary."
@@ -198,8 +195,8 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
           </div>
         </section>
 
-        {/* ═══ CHAPTER 05 ═══ WRITING & TALKS ═══ */}
-        <section id="writing" className="section relative">
+        {/* ═══ CHAPTER 04 ═══ WRITING & TALKS ═══ */}
+        <section id="writing" className="section relative bg-paper-deep/40 dark:bg-white/[0.02]">
           <div className="max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
             <SectionHeading
               title="Thinking out loud — same act as building, different medium."
@@ -207,6 +204,9 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
             <WritingAndTalks />
           </div>
         </section>
+
+        {/* ═══ CHAPTER 05 ═══ SELECTED WORK ═══ */}
+        <ProjectsShowcase />
 
         {/* ═══ CHAPTER 06 ═══ CONTACT ═══ */}
         <section id="contact" className="section contact-section bg-paper-deep/40 dark:bg-white/[0.02]">

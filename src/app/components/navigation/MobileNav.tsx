@@ -8,9 +8,9 @@ import { Moon, Sun, Terminal } from "lucide-react";
 const navItems = [
   { id: "about", label: "About" },
   { id: "experience", label: "Experience" },
-  { id: "projects", label: "Projects" },
   { id: "research", label: "Research" },
   { id: "writing", label: "Writing" },
+  { id: "projects", label: "Projects" },
   { id: "contact", label: "Contact" },
 ];
 

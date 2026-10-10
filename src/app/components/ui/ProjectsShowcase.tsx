@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { caseStudyPath, projectCaseStudies } from "@/lib/portfolioData";
 import { MOTION } from "@/lib/motion";
@@ -27,17 +27,34 @@ function ProjectMedia({
     offset: ["start end", "end start"],
   });
   const y = useTransform(scrollYProgress, [0, 1], ["8%", "-8%"]);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  const reveal = prefersReducedMotion || inView;
 
   return (
     <div
       ref={ref}
       className={`project-block__media ${featured ? "project-block__media--featured" : ""}`}
     >
+      {/* clip lives on a child: IntersectionObserver treats a fully clipped target as never visible */}
       <motion.div
-        className="project-block__media-inner"
-        style={prefersReducedMotion ? undefined : { y }}
+        className="project-block__media-wipe"
+        initial={prefersReducedMotion ? false : { clipPath: "inset(0% 100% 0% 0%)" }}
+        animate={reveal ? { clipPath: "inset(0% 0% 0% 0%)" } : undefined}
+        transition={{ duration: 1.1, ease: [0.77, 0, 0.18, 1] }}
       >
-        <img src={src} alt={alt} className="project-block__image" />
+        <motion.div
+          className="project-block__media-inner"
+          style={prefersReducedMotion ? undefined : { y }}
+        >
+          <motion.img
+            src={src}
+            alt={alt}
+            className="project-block__image"
+            initial={prefersReducedMotion ? false : { scale: 1.15 }}
+            animate={reveal ? { scale: 1 } : undefined}
+            transition={{ duration: 1.6, ease: MOTION.easeOutExpo }}
+          />
+        </motion.div>
       </motion.div>
     </div>
   );
