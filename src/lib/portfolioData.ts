@@ -474,6 +474,68 @@ export const skills: { label: string; items: string[] }[] = [
   },
 ];
 
+export const researchInterests: string[] = [
+  "Small Language Models",
+  "Efficient AI",
+  "Natural Language Processing",
+  "Machine Learning",
+  "Model Architectures",
+  "Neurosymbolic AI",
+  "Knowledge Representation",
+  "Reasoning",
+  "Reinforcement Learning",
+  "Trustworthy AI",
+];
+
+export type Publication = {
+  title: string;
+  subtitle: string;
+  authors: string[];
+  status: string;
+  authorship: string;
+  venue: string;
+  href: string;
+};
+
+export const publications: Publication[] = [
+  {
+    title: "Navigate, Don’t Generate",
+    subtitle: "Making AI Mediated Access to Public Agricultural Data Citizen-Auditable",
+    authors: [
+      "Pranav Dhiran",
+      "Venkatesan Nadimuthu",
+      "Vedant Maheshwari",
+      "Raviteja Bommireddy",
+      "Mitanshu Khandal",
+      "Archy Das",
+      "Anmol Nimmala",
+      "Amit Sheth",
+    ],
+    status: "Preprint",
+    authorship: "First author",
+    venue: "NeurIPS 2026 · AI4Good Workshop",
+    href: "https://openreview.net/forum?id=mSc2Zx13f6",
+  },
+];
+
+export type ServiceRole = {
+  role: string;
+  venue: string;
+  date: string;
+  href: string;
+  linkLabel: string;
+};
+
+export const academicService: ServiceRole[] = [
+  {
+    role: "Reviewer",
+    venue: "Trustworthy AI for Good (AI4GOOD) Workshop · NeurIPS 2026",
+    date: "Oct 2026",
+    href: "https://docs.google.com/document/d/10k0ynNGrOd4Yvy_yNrWOi8pGvJUaKdI3tZx2x4fBYzM/edit?tab=t.0",
+    linkLabel: "Recognition letter",
+  },
+];
+
 export const awards: string[] = [
   "Qualified — ETHGlobal 2026",
   "International Finalist (Top 6) — UWA Hack 2026",

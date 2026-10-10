@@ -1,12 +1,14 @@
 import {
+  academicService,
   awards,
   baseUrl,
   caseStudyPath,
   essays,
   experience,
-  paperLibrary,
   profile,
   projectCaseStudies,
+  publications,
+  researchInterests,
   resumePath,
   skills,
   socialLinks,
@@ -122,14 +124,22 @@ export const briefSections: BriefSection[] = [
     entries: [{ label: "Awards", bullets: [...awards] }],
   },
   {
-    id: "reading",
-    heading: "Papers that shaped the work",
-    note: "Not a reading list — each one changed what I thought was possible.",
-    entries: Object.values(paperLibrary).map((paper) => ({
-      label: paper.title,
-      body: paper.note,
-      links: [{ label: "arXiv", href: paper.href }],
-    })),
+    id: "research",
+    heading: "Research",
+    entries: [
+      { label: "Research interests", bullets: [...researchInterests] },
+      ...publications.map((paper) => ({
+        label: `${paper.title}: ${paper.subtitle}`,
+        meta: `${paper.status} · ${paper.authorship} · ${paper.venue}`,
+        body: paper.authors.join(", "),
+        links: [{ label: "OpenReview", href: paper.href }],
+      })),
+      ...academicService.map((service) => ({
+        label: `${service.role} — ${service.venue}`,
+        meta: service.date,
+        links: [{ label: service.linkLabel, href: service.href }],
+      })),
+    ],
   },
   {
     id: "contact",

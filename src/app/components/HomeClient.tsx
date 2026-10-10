@@ -15,7 +15,7 @@ import { SectionHeading } from "./ui/SectionHeading";
 import { KineticHero } from "./ui/KineticHero";
 import { ExperienceTrack } from "./ui/ExperienceTrack";
 import { ProjectsShowcase } from "./ui/ProjectsShowcase";
-import { ResearchMarquee } from "./ui/ResearchMarquee";
+import { ResearchProfile } from "./ui/ResearchProfile";
 import { InkFooter } from "./ui/InkFooter";
 import { WritingAndTalks } from "./ui/WritingAndTalks";
 import { TextReveal } from "@/components/TextReveal";
@@ -134,7 +134,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                       </p>
                       <div className="hidden lg:block flex-1" />
                       <p className="text-body text-ink-soft leading-body measure">
-                        Final-year B.Tech, Electronics &amp; Telecom at SGGSIE&amp;T Nanded. Tier-3 college, self-taught in most of what matters.
+                        Final-year B.Tech, Electronics &amp; Telecom at SGGSIE&amp;T Nanded.
                       </p>
                     </div>
                   </RevealOnScroll>
@@ -179,19 +179,9 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
 
         {/* ═══ CHAPTER 03 ═══ RESEARCH ═══ */}
         <section id="research" className="section research-section">
-          <div className="research-inner px-6 md:px-16 lg:px-24">
-            <SectionHeading
-              title="The papers that gave me the vocabulary."
-            />
-            <TextReveal
-              as="p"
-              className="research-intro"
-              text="Not a reading list — each one changed what I thought was possible."
-              delay={0.1}
-            />
-          </div>
-          <div className="research-marquee-outer">
-            <ResearchMarquee />
+          <div className="max-w-[1200px] mx-auto px-6 md:px-16 lg:px-24">
+            <SectionHeading title="Where the rabbit holes go deepest." />
+            <ResearchProfile />
           </div>
         </section>
 
