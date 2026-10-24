@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useSyncExternalStore } from "react";
 import { motion } from "framer-motion";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 import { MOTION } from "@/lib/motion";
@@ -22,6 +22,19 @@ import { WritingAndTalks } from "./ui/WritingAndTalks";
 import { TextReveal } from "@/components/TextReveal";
 import { awards, experience, resumePath } from "@/lib/portfolioData";
 import { Parallax } from "@/components/Parallax";
+
+/** True where a real pointer exists — hover flips the card there, taps flip it. */
+function useCanHover() {
+  return useSyncExternalStore(
+    (callback) => {
+      const mq = window.matchMedia("(hover: hover)");
+      mq.addEventListener("change", callback);
+      return () => mq.removeEventListener("change", callback);
+    },
+    () => window.matchMedia("(hover: hover)").matches,
+    () => true
+  );
+}
 
 function useActiveSection() {
   const [active, setActive] = useState("about");
@@ -63,6 +76,8 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
   const [isSystemPromptOpen, setIsSystemPromptOpen] = useState(false);
   const [isAgentViewOpen, setIsAgentViewOpen] = useState(false);
   const [copied, setCopied] = useState(false);
+  const canHover = useCanHover();
+  const [flipped, setFlipped] = useState(false);
   const internalMainRef = useRef<HTMLElement>(null);
   const resolvedMainRef = mainRef ?? internalMainRef;
 
@@ -105,7 +120,12 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
             <div className="flex flex-col lg:flex-row gap-12 items-start justify-center w-full">
               <RevealOnScroll direction="left" className="shrink-0 mx-auto lg:mx-0">
                 <Parallax className="mb-6 lg:mb-0" distance={-26}>
-                  <div className="flip-card w-[340px] h-[340px]">
+                  <div
+                    className={`flip-card w-[340px] h-[340px] ${flipped ? "is-flipped" : ""}`}
+                    onClick={() => {
+                      if (!canHover) setFlipped((v) => !v);
+                    }}
+                  >
                   <div className="flip-card-inner h-full">
                     <div className="flip-card-front rounded-lg overflow-hidden border border-black/5 dark:border-white/10">
                       <img

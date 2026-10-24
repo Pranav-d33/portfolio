@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Newsreader, Inter_Tight, JetBrains_Mono } from "next/font/google";
 import { SmoothScroll } from "@/lib/scroll";
+import { MusicPlayer } from "./components/MusicPlayer";
 import "./globals.css";
 
 const newsreader = Newsreader({
@@ -133,6 +134,7 @@ export default function RootLayout({
       <body className="antialiased">
         <SmoothScroll />
         {children}
+        <MusicPlayer />
       </body>
     </html>
   );

@@ -160,7 +160,7 @@ export function ChatDrawer({
             onSend={handleSend}
             disabled={isStreaming}
             placeholder={
-              hasContext ? "What do you want to know about this?" : "Ask anything..."
+              hasContext ? "What do you want to know about this?" : "Ask about Pranav..."
             }
             autoFocus={isOpen}
           />

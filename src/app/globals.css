@@ -832,8 +832,16 @@ p + p {
   transform-style: preserve-3d;
 }
 
-.flip-card:hover .flip-card-inner {
+/* tap-to-flip on touch (toggled from React); hover-flip only where a real
+   pointer exists — a sticky touch :hover would leave the card flipped */
+.flip-card.is-flipped .flip-card-inner {
   transform: rotateY(180deg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+  }
 }
 
 .flip-card-front,
@@ -889,6 +897,15 @@ p + p {
 
 .section-gallery:hover .flip-card::after {
   opacity: 1;
+}
+
+/* no pointer on a phone — the hint should say tap, and the card is tapped
+   instead of hovered */
+@media (hover: none) {
+  .flip-card::after {
+    content: "tap to flip";
+    opacity: 0.4;
+  }
 }
 
 
@@ -3334,4 +3351,240 @@ header .site-mark {
 }
 @media (prefers-reduced-motion: no-preference) {
   .mobile-dock { transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1); }
+}
+
+/* ═══════════════════════════════════════════
+   CD tray — bottom-left record player
+   ═══════════════════════════════════════════ */
+.cd-tray {
+  position: fixed;
+  left: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 45;
+}
+
+/* the mobile section dock owns the bottom strip on small screens */
+@media (max-width: 1023px) {
+  .cd-tray {
+    left: 0.9rem;
+    bottom: 5.5rem;
+  }
+
+  .cd-tray__button {
+    width: 58px;
+    height: 58px;
+  }
+
+  .cd-tray__disc {
+    inset: 3px;
+  }
+
+  /* no hover on a phone — the tooltip would stick around */
+  .cd-tray__tip {
+    display: none;
+  }
+}
+
+.cd-tray__button {
+  position: relative;
+  display: block;
+  width: 76px;
+  height: 76px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+/* the disc */
+.cd-tray__disc {
+  position: absolute;
+  inset: 4px;
+  z-index: 1;
+  border-radius: 50%;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cd-tray__button:hover .cd-tray__disc {
+  transform: scale(1.04);
+}
+
+.cd-tray__reel {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.22) 0 1px, rgba(0, 0, 0, 0.1) 1px 3px),
+    radial-gradient(circle at 34% 26%, #f4f2ec 0%, #d6d2c7 54%, #a8a496 100%);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3), 0 12px 22px -14px rgba(0, 0, 0, 0.85);
+}
+
+.cd-tray__reel::before {
+  content: "";
+  position: absolute;
+  inset: 30%;
+  border-radius: 50%;
+  background: var(--color-accent);
+  opacity: 0.9;
+}
+
+.cd-tray__reel::after {
+  content: "";
+  position: absolute;
+  inset: 45%;
+  border-radius: 50%;
+  background: #101014;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.22);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cd-tray__button.is-playing .cd-tray__reel {
+    animation: cd-tray-spin 6s linear infinite;
+  }
+}
+
+@keyframes cd-tray-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* progress ring around the disc */
+.cd-tray__ring {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.cd-tray__tip {
+  position: absolute;
+  left: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 5px 10px;
+  border: 1px solid var(--color-rule);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-canvas) 82%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: var(--font-geist-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-graphite-text);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+
+.cd-tray__button:hover .cd-tray__tip,
+.cd-tray__button:focus-visible .cd-tray__tip {
+  opacity: 1;
+}
+
+/* first-visit prompt */
+.cd-tray__card {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 14px);
+  width: 268px;
+  max-width: calc(100vw - 1.8rem);
+  padding: 14px;
+  background: var(--color-canvas);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-cards);
+  box-shadow: 0 26px 60px -32px rgba(0, 0, 0, 0.7);
+  animation: cd-tray-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cd-tray-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cd-tray__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cd-tray__mini {
+  position: relative;
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background:
+    repeating-radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.22) 0 1px, rgba(0, 0, 0, 0.1) 1px 3px),
+    radial-gradient(circle at 34% 26%, #f4f2ec 0%, #d6d2c7 54%, #a8a496 100%);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+}
+
+.cd-tray__mini::before {
+  content: "";
+  position: absolute;
+  inset: 32%;
+  border-radius: 50%;
+  background: var(--color-accent);
+  opacity: 0.9;
+}
+
+.cd-tray__mini::after {
+  content: "";
+  position: absolute;
+  inset: 45%;
+  border-radius: 50%;
+  background: #101014;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .cd-tray__mini {
+    animation: cd-tray-spin 6s linear infinite;
+  }
+}
+
+.cd-tray__title {
+  font-family: var(--font-degular);
+  font-size: 18px;
+  line-height: 1.2;
+  color: var(--color-ebony-text);
+}
+
+.cd-tray__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.cd-tray__btn {
+  padding: 7px 14px;
+  border: 1px solid var(--color-rule);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-ebony-text);
+  font-family: var(--font-blanco);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.cd-tray__btn:hover {
+  border-color: var(--color-ink-soft);
+}
+
+.cd-tray__btn--yes {
+  background: var(--color-ebony-text);
+  border-color: var(--color-ebony-text);
+  color: var(--color-canvas);
+}
+
+.cd-tray__btn--yes:hover {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-canvas);
 }

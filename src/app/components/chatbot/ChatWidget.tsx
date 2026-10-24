@@ -94,26 +94,6 @@ export function ChatWidget() {
               initial="rest"
               animate="rest"
             >
-              {/* Hover tooltip */}
-              <motion.div
-                variants={{
-                  rest: { opacity: 0, x: 8 },
-                  hover: { opacity: 1, x: 0 },
-                }}
-                transition={{ duration: 0.2, ease: "easeOut" }}
-                className="pointer-events-none absolute right-full mr-3 top-1/2 -translate-y-1/2 hidden origin-right overflow-hidden rounded-lg border border-border-dim bg-background/85 px-4 py-2 text-right shadow-[0_14px_40px_rgba(0,0,0,0.28)] backdrop-blur-xl lg:block"
-              >
-                <span className="absolute inset-y-2 right-0 w-px bg-gradient-to-b from-transparent via-accent/70 to-transparent" />
-                <div className="text-xs font-medium tracking-[0.14em] text-t2 flex items-center justify-end gap-1">
-                  <span>wonder anything</span>
-                  <span className="w-[3px] h-[1em] bg-accent animate-pulse ml-0.5" />
-                  <span>?</span>
-                </div>
-                <div className="mt-1 text-xs tracking-[0.08em] text-t3">
-                  ask in context
-                </div>
-              </motion.div>
-
               <motion.span
                 aria-hidden="true"
                 variants={{
@@ -147,7 +127,7 @@ export function ChatWidget() {
               >
                 <span className="absolute inset-[3px] lg:inset-[5px] rounded-full border border-white/[0.05]" />
                 <Sparkles className="relative h-5 w-5 lg:h-7 lg:w-7 animate-[spin_8s_linear_infinite]" />
-                <span className="text-sm lg:text-xl font-medium text-t1 whitespace-nowrap">ask anything</span>
+                <span className="text-sm lg:text-xl font-medium text-t1 whitespace-nowrap">ask about my work</span>
               </motion.button>
             </motion.div>
           </motion.div>
