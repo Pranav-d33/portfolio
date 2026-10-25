@@ -121,6 +121,7 @@ export function MusicPlayer() {
         ref={audioRef}
         src={TRACK}
         preload="none"
+        loop
         onTimeUpdate={(e) => {
           const { currentTime, duration } = e.currentTarget;
           setProgress(duration ? currentTime / duration : 0);
