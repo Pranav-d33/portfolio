@@ -537,11 +537,10 @@ export const academicService: ServiceRole[] = [
 ];
 
 export const awards: string[] = [
-  "Reviewer — Trustworthy AI for Good (AI4GOOD) Workshop, NeurIPS 2026",
-  "Model Reviewer",
-  "Speaker — IAIRO Pramana Bootcamp",
-  "International Finalist (Top 6) — UWA Hack 2026",
   "National Finalist — Smart India Hackathon 2024 & 2025",
+  "International Finalist (Top 6) — UWA Hack 2026",
+  "Speaker & Model Evaluator — IAIRO Pramana Bootcamp",
+  "Reviewer — Trustworthy AI for Good (AI4GOOD) Workshop, NeurIPS 2026",
 ];
 
 export const socialLinks: PortfolioLink[] = [

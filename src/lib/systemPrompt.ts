@@ -117,7 +117,7 @@ Only state what is listed here about the paper; don't invent its methods or resu
 --- PEER REVIEW ---
 Reviewer for the Trustworthy AI for Good (AI4GOOD) Workshop at NeurIPS 2026
 (recognition letter from the program chairs, Oct 2026).
-Also a model reviewer, and a speaker at the IAIRO Pramana Bootcamp.
+Also a speaker and model evaluator at the IAIRO Pramana Bootcamp.
 
 --- PAPERS THAT INFLUENCED WORK ---
 ReAct → directly shaped Medaura's reasoning loop
