@@ -77,6 +77,7 @@ function ProjectBlock({
   return (
     <RevealOnScroll delay={index * MOTION.staggerSlow} duration={MOTION.slow}>
       <motion.article
+        id={`project-${project.slug}`}
         className={`project-block ${reverse ? "project-block--reverse" : ""} ${featured ? "project-block--featured" : ""}`}
         whileHover={{ y: -4 }}
         transition={MOTION.springEditorial}

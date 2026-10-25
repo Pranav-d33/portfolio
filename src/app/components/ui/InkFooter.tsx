@@ -14,6 +14,7 @@ const navLinks = [
 
 const socialLinks = [
   { label: "GitHub", href: "https://github.com/Pranav-d33" },
+  { label: "HuggingFace", href: "https://huggingface.co/luffy19" },
   { label: "LinkedIn", href: "https://linkedin.com/in/prannav-dhiran" },
   { label: "Substack", href: "https://ashborn2.substack.com" },
   { label: "X", href: "https://x.com/Prannav_ai" },

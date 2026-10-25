@@ -30,34 +30,42 @@ export function ChatDrawer({
   onClearContext,
 }: ChatDrawerProps) {
   const { messages, input, setInput, sendMessage, isStreaming } = chatState;
-  const messagesEndRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const hasContext = Boolean(context?.trim());
 
-  const isNearBottom = useCallback(() => {
+  // While tokens arrive the content grows under the cursor, so "am I near the
+  // bottom" has to be measured before the chunk landed. This flag tracks the
+  // reader's intent instead: true unless they scrolled up to read something.
+  const atBottomRef = useRef(true);
+
+  useEffect(() => {
     const container = containerRef.current;
-    if (!container) return true;
-    const { scrollTop, scrollHeight, clientHeight } = container;
-    return scrollHeight - scrollTop - clientHeight < 100;
-  }, []);
+    if (!container) return;
+    const onScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } = container;
+      atBottomRef.current = scrollHeight - scrollTop - clientHeight < 48;
+    };
+    container.addEventListener("scroll", onScroll, { passive: true });
+    return () => container.removeEventListener("scroll", onScroll);
+  }, [isOpen]);
 
   const scrollToBottom = useCallback((behavior: ScrollBehavior = "smooth") => {
-    if (messagesEndRef.current && isNearBottom()) {
-      messagesEndRef.current.scrollIntoView({ behavior });
-    }
-  }, [isNearBottom]);
+    const container = containerRef.current;
+    if (!container) return;
+    // "auto" follows the stream only if the reader is still at the bottom;
+    // "smooth" always lands on the last line once the answer is done.
+    if (behavior === "auto" && !atBottomRef.current) return;
+    container.scrollTo({ top: container.scrollHeight, behavior });
+  }, []);
 
   const handleSend = (text: string) => {
     sendMessage(text, hasContext ? { context: messageContext ?? context } : undefined);
   };
 
   useEffect(() => {
-    if (isStreaming) {
-      scrollToBottom("auto");
-    } else {
-      scrollToBottom("smooth");
-    }
+    scrollToBottom(isStreaming ? "auto" : "smooth");
   }, [messages, isStreaming, scrollToBottom]);
+
 
   return (
     <AnimatePresence>
@@ -150,7 +158,6 @@ export function ChatDrawer({
                 />
               ))
             )}
-            <div ref={messagesEndRef} />
           </div>
 
           {/* Input */}

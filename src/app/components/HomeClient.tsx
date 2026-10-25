@@ -243,6 +243,8 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                   onClick={copyEmail}
                   className="group inline-flex items-center gap-3 text-[clamp(20px,3vw,30px)] font-degular italic text-ebony-text hover:text-accent transition-colors text-left"
                   type="button"
+                  title={copied ? "Copied" : "Copy email address"}
+                  aria-label={copied ? "Email copied" : "Copy email address"}
                 >
                   dhiranpranav72@gmail.com
                   <span className="w-9 h-9 shrink-0 rounded-full border border-rule flex items-center justify-center group-hover:bg-ebony-text group-hover:text-paper group-hover:border-ebony-text transition-colors">
@@ -253,9 +255,6 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                     )}
                   </span>
                 </button>
-                <div className="mt-2 font-meta !text-[11px] text-ink-faint h-4">
-                  {copied ? "copied to clipboard" : "click to copy"}
-                </div>
                 <div className="mt-6 flex flex-wrap gap-3">
                   <a
                     href={resumePath}
@@ -274,14 +273,6 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M12 19h8"/><path d="m4 17 6-6-6-6"/></svg>
                     View system prompt
                   </button>
-                  <button
-                    onClick={() => setIsAgentViewOpen(true)}
-                    className="inline-flex items-center gap-2 font-meta !text-[11px] tracking-[0.18em] text-ink-soft hover:text-ebony-text border border-rule rounded-sm px-4 py-2.5 hover:border-ebony-text transition-colors bg-transparent dark:text-[#e5e7eb] dark:border-white/20 dark:hover:bg-[#e5e7eb] dark:hover:text-[#1A1A1A] dark:hover:border-[#e5e7eb]"
-                    type="button"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
-                    Read as an agent
-                  </button>
                 </div>
               </RevealOnScroll>
 
@@ -292,6 +283,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                 <div className="space-y-0">
                   {[
                     { label: "GitHub", handle: "Pranav-d33", href: "https://github.com/Pranav-d33" },
+                    { label: "HuggingFace", handle: "luffy19", href: "https://huggingface.co/luffy19" },
                     { label: "LinkedIn", handle: "prannav-dhiran", href: "https://linkedin.com/in/prannav-dhiran" },
                     { label: "Substack", handle: "ashborn2", href: "https://ashborn2.substack.com" },
                     { label: "X", handle: "@Prannav_ai", href: "https://x.com/Prannav_ai" },
@@ -301,7 +293,7 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                       href={link.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center justify-between py-3 border-b border-rule hover:pl-2 hover:border-ebony-text transition-all duration-300 !no-underline"
+                      className="group -mx-3 flex items-center justify-between px-3 py-3 border-b border-rule transition-colors duration-300 !no-underline hover:bg-ink/[0.04] dark:hover:bg-white/[0.05]"
                       initial={{ opacity: 0, y: 12 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.6 }}
@@ -311,10 +303,10 @@ export default function HomeClient({ mainRef, introComplete = true }: HomeClient
                       }}
                     >
                       <div className="flex items-baseline gap-4">
-                        <span className="font-degular text-[20px] text-ebony-text">{link.label}</span>
-                        <span className="font-meta !text-[11px] text-ink-faint">{link.handle}</span>
+                        <span className="font-degular text-[20px] text-ebony-text transition-transform duration-300 group-hover:translate-x-1 group-hover:text-accent">{link.label}</span>
+                        <span className="font-meta !text-[11px] text-ink-faint transition-colors duration-300 group-hover:text-ink-soft">{link.handle}</span>
                       </div>
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-ink-faint group-hover:text-ebony-text group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-ink-faint opacity-50 transition-all duration-300 group-hover:opacity-100 group-hover:text-accent group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true"><path d="M7 7h10v10"/><path d="M7 17 17 7"/></svg>
                     </motion.a>
                   ))}
                 </div>

@@ -154,55 +154,54 @@ export const talks: Talk[] = [
 
 export const projectCaseStudies: ProjectCaseStudy[] = [
   {
-    slug: "medaura",
-    title: "Medaura - Agentic Pharmacy System",
-    coverImage: "/medaura_ui.png",
-    thesis: "Medication errors are an information problem: the data exists, but it is not connected at the moment it matters.",
-    hook: "Medication errors are an information problem. The information exists - it is just not connected at the moment it matters.",
-    proofTitle: "Langfuse Trace",
-    proofDesc: "Routing latency under 120ms",
-    role: "Lead engineer",
-    status: "Live system",
-    stack: ["FastAPI", "LangChain", "LangGraph", "ChromaDB", "Langfuse", "Groq", "React"],
-    tags: ["FastAPI", "LangGraph", "ChromaDB", "Langfuse", "React"],
+    slug: "gnuradio-mcp",
+    title: "GNU Radio MCP Server - LLM-to-SDR Bridge",
+    coverImage: "/gnu-radio-mcp.png",
+    thesis: "An MCP server that lets language models control live GNU Radio software-defined radio flowgraphs through validated tools.",
+    hook: "LLMs can reason about RF signals. They just could not touch a radio. This closes that gap.",
+    proofTitle: "Architecture",
+    proofDesc: "13 tools over ZMQ + XML-RPC",
+    role: "Systems engineer",
+    status: "Open source",
+    stack: ["Python", "FastMCP", "ZMQ", "XML-RPC", "GNU Radio", "Pydantic v2"],
+    tags: ["Python", "FastMCP", "ZMQ", "XML-RPC", "GNU Radio"],
     problem:
-      "Pharmacy workflows fail when prescription, inventory, safety, and procurement data are separated. The goal was to make a system that can reason across those boundaries while keeping every agent decision auditable.",
+      "LLMs can choose tool calls, but RF hardware needs strict validation, lifecycle management, and streaming data paths. The project bridges those worlds without letting hallucinated parameters reach hardware unchecked.",
     architecture: [
-      [{ label: "User Interface", sub: "React, multilingual UI" }],
-      [{ label: "Router Agent", sub: "Intent classification and dispatch" }],
+      [{ label: "LLM Client", sub: "Claude Desktop or compatible client" }],
+      [{ label: "MCP Server", sub: "FastMCP, 13 validated tools" }],
       [
-        { label: "Ordering Agent", sub: "Prescription and order flow" },
-        { label: "Safety Agent", sub: "Drug interaction checks" },
-        { label: "Forecast Agent", sub: "Demand prediction" },
-        { label: "Procurement Agent", sub: "Supplier matching" },
+        { label: "XML-RPC", sub: "Parameter control" },
+        { label: "ZMQ", sub: "IQ streaming" },
       ],
-      [{ label: "ChromaDB + Langfuse", sub: "RAG, traces, observability" }],
+      [{ label: "GNU Radio Flowgraph", sub: "SDR pipeline and DSP blocks" }],
+      [{ label: "Spectrum Analysis", sub: "Welch PSD and peak detection" }],
     ],
     decisions: [
       {
-        title: "Agent boundaries map to pharmacy responsibilities",
+        title: "Split command and data transport",
         detail:
-          "Each agent owns a domain responsibility instead of a generic helper function. That made routing easier to reason about and made failure traces more useful.",
+          "XML-RPC is used for control while ZMQ handles streaming IQ data, keeping slow control changes separate from continuous signal samples.",
       },
       {
-        title: "Safety checks use retrieval, not only prompts",
+        title: "Pydantic validates every hardware-facing tool",
         detail:
-          "The Safety Agent queries a drug-interaction knowledge base before order confirmation so important contraindications are represented as retrievable evidence.",
+          "Tool arguments are checked before they touch GNU Radio so invalid model outputs cannot directly crash or misconfigure the flowgraph.",
       },
       {
-        title: "Observability is treated as product infrastructure",
+        title: "Server lifecycle owns radio resources",
         detail:
-          "Every agent call is traced with Langfuse because multi-agent failures are impossible to debug from the final answer alone.",
+          "The ZMQ context and hardware-facing resources are managed with the MCP server lifecycle to avoid socket leaks and locked SDR devices.",
       },
     ],
     lessons: [
-      "Agent decomposition is an architecture problem before it is a prompting problem.",
-      "Without traces, multi-agent systems become impossible to trust in production.",
-      "The most important UX is often the operational visibility behind the interface.",
+      "Hardware control requires defensive programming at every boundary.",
+      "Real-time signal streams need different architecture than ordinary request/response web APIs.",
+      "MCP is a useful abstraction when the tool boundary is treated as a safety boundary too.",
     ],
-    relatedPapers: [paperLibrary.react, paperLibrary.toolformer],
+    relatedPapers: [paperLibrary.toolformer],
     links: [
-      { label: "Live system", href: "https://aipharmacyproject-blond.vercel.app", external: true },
+      { label: "Source code", href: "https://github.com/Pranav-d33/gnuradio-mcp-server", external: true },
     ],
   },
   {
@@ -258,54 +257,55 @@ export const projectCaseStudies: ProjectCaseStudy[] = [
     ],
   },
   {
-    slug: "gnuradio-mcp",
-    title: "GNU Radio MCP Server - LLM-to-SDR Bridge",
-    coverImage: "/gnu-radio-mcp.png",
-    thesis: "An MCP server that lets language models control live GNU Radio software-defined radio flowgraphs through validated tools.",
-    hook: "LLMs can reason about RF signals. They just could not touch a radio. This closes that gap.",
-    proofTitle: "Architecture",
-    proofDesc: "13 tools over ZMQ + XML-RPC",
-    role: "Systems engineer",
-    status: "Open source",
-    stack: ["Python", "FastMCP", "ZMQ", "XML-RPC", "GNU Radio", "Pydantic v2"],
-    tags: ["Python", "FastMCP", "ZMQ", "XML-RPC", "GNU Radio"],
+    slug: "medaura",
+    title: "Medaura - Agentic Pharmacy System",
+    coverImage: "/medaura_ui.png",
+    thesis: "Medication errors are an information problem: the data exists, but it is not connected at the moment it matters.",
+    hook: "Medication errors are an information problem. The information exists - it is just not connected at the moment it matters.",
+    proofTitle: "Langfuse Trace",
+    proofDesc: "Routing latency under 120ms",
+    role: "Lead engineer",
+    status: "Live system",
+    stack: ["FastAPI", "LangChain", "LangGraph", "ChromaDB", "Langfuse", "Groq", "React"],
+    tags: ["FastAPI", "LangGraph", "ChromaDB", "Langfuse", "React"],
     problem:
-      "LLMs can choose tool calls, but RF hardware needs strict validation, lifecycle management, and streaming data paths. The project bridges those worlds without letting hallucinated parameters reach hardware unchecked.",
+      "Pharmacy workflows fail when prescription, inventory, safety, and procurement data are separated. The goal was to make a system that can reason across those boundaries while keeping every agent decision auditable.",
     architecture: [
-      [{ label: "LLM Client", sub: "Claude Desktop or compatible client" }],
-      [{ label: "MCP Server", sub: "FastMCP, 13 validated tools" }],
+      [{ label: "User Interface", sub: "React, multilingual UI" }],
+      [{ label: "Router Agent", sub: "Intent classification and dispatch" }],
       [
-        { label: "XML-RPC", sub: "Parameter control" },
-        { label: "ZMQ", sub: "IQ streaming" },
+        { label: "Ordering Agent", sub: "Prescription and order flow" },
+        { label: "Safety Agent", sub: "Drug interaction checks" },
+        { label: "Forecast Agent", sub: "Demand prediction" },
+        { label: "Procurement Agent", sub: "Supplier matching" },
       ],
-      [{ label: "GNU Radio Flowgraph", sub: "SDR pipeline and DSP blocks" }],
-      [{ label: "Spectrum Analysis", sub: "Welch PSD and peak detection" }],
+      [{ label: "ChromaDB + Langfuse", sub: "RAG, traces, observability" }],
     ],
     decisions: [
       {
-        title: "Split command and data transport",
+        title: "Agent boundaries map to pharmacy responsibilities",
         detail:
-          "XML-RPC is used for control while ZMQ handles streaming IQ data, keeping slow control changes separate from continuous signal samples.",
+          "Each agent owns a domain responsibility instead of a generic helper function. That made routing easier to reason about and made failure traces more useful.",
       },
       {
-        title: "Pydantic validates every hardware-facing tool",
+        title: "Safety checks use retrieval, not only prompts",
         detail:
-          "Tool arguments are checked before they touch GNU Radio so invalid model outputs cannot directly crash or misconfigure the flowgraph.",
+          "The Safety Agent queries a drug-interaction knowledge base before order confirmation so important contraindications are represented as retrievable evidence.",
       },
       {
-        title: "Server lifecycle owns radio resources",
+        title: "Observability is treated as product infrastructure",
         detail:
-          "The ZMQ context and hardware-facing resources are managed with the MCP server lifecycle to avoid socket leaks and locked SDR devices.",
+          "Every agent call is traced with Langfuse because multi-agent failures are impossible to debug from the final answer alone.",
       },
     ],
     lessons: [
-      "Hardware control requires defensive programming at every boundary.",
-      "Real-time signal streams need different architecture than ordinary request/response web APIs.",
-      "MCP is a useful abstraction when the tool boundary is treated as a safety boundary too.",
+      "Agent decomposition is an architecture problem before it is a prompting problem.",
+      "Without traces, multi-agent systems become impossible to trust in production.",
+      "The most important UX is often the operational visibility behind the interface.",
     ],
-    relatedPapers: [paperLibrary.toolformer],
+    relatedPapers: [paperLibrary.react, paperLibrary.toolformer],
     links: [
-      { label: "Source code", href: "https://github.com/Pranav-d33/gnuradio-mcp-server", external: true },
+      { label: "Live system", href: "https://aipharmacyproject-blond.vercel.app", external: true },
     ],
   },
   {
@@ -537,14 +537,16 @@ export const academicService: ServiceRole[] = [
 ];
 
 export const awards: string[] = [
-  "Qualified — ETHGlobal 2026",
+  "Reviewer — Trustworthy AI for Good (AI4GOOD) Workshop, NeurIPS 2026",
+  "Model Reviewer",
+  "Speaker — IAIRO Pramana Bootcamp",
   "International Finalist (Top 6) — UWA Hack 2026",
   "National Finalist — Smart India Hackathon 2024 & 2025",
-  "Regional Qualifier — Nxt Wave × OpenAI Buildathon",
 ];
 
 export const socialLinks: PortfolioLink[] = [
   { label: "GitHub", href: "https://github.com/Pranav-d33", external: true },
+  { label: "HuggingFace", href: "https://huggingface.co/luffy19", external: true },
   { label: "LinkedIn", href: "https://linkedin.com/in/prannav-dhiran", external: true },
   { label: "Substack", href: "https://ashborn2.substack.com", external: true },
   { label: "X", href: "https://x.com/Prannav_ai", external: true },
