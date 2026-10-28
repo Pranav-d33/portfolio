@@ -205,14 +205,6 @@ export function KineticHero({ ready = true }: { ready?: boolean }) {
           animate={state === "visible" ? { opacity: 1 } : undefined}
           transition={{ duration: 0.6, delay: 0.05 }}
         >
-          <span className="hero-top-sig">
-            <span className="hero-top-mark" aria-hidden="true" />
-            Pranav Dhiran
-            <span className="hero-top-sep" aria-hidden="true">
-              —
-            </span>
-            <span className="hero-top-role">AI Engineer · Researcher</span>
-          </span>
           <motion.span
             className="hero-top-rule"
             aria-hidden="true"
@@ -255,7 +247,6 @@ export function KineticHero({ ready = true }: { ready?: boolean }) {
             </motion.p>
 
             <motion.div className="hero-accolade" variants={rise}>
-              <span className="hero-accolade-tag">Accepted</span>
               <p className="hero-accolade-body">
                 <span className="hero-accolade-title">Navigate, Don’t Generate</span>
                 <span className="hero-accolade-meta">
@@ -292,7 +283,6 @@ export function KineticHero({ ready = true }: { ready?: boolean }) {
           transition={{ duration: 0.9, ease: EASE, delay: 0.75 }}
         >
           <div className="hero-foot-left">
-            <span className="hero-foot-label">Currently</span>
             {/* When the cycle runs, phones show only the active item — all three
                 still come round. With reduced motion nothing rotates, so they
                 all stay on screen instead. */}
@@ -310,7 +300,6 @@ export function KineticHero({ ready = true }: { ready?: boolean }) {
                     />
                     <span className="hero-foot-n">{item.n}</span>
                     <span className="hero-foot-t">{item.t}</span>
-                    <span className="hero-foot-d">{item.d}</span>
                   </li>
                 );
               })}
